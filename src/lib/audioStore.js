@@ -122,3 +122,16 @@ export function listChildAttempts(cardKey) {
     request.onerror = () => reject(request.error || new Error('Failed to list attempts'));
   });
 }
+
+export function listAllChildAttempts() {
+  return runTransaction(childStore, 'readonly', (store, resolve, reject) => {
+    const request = store.getAll();
+    request.onsuccess = () => {
+      const sorted = (request.result || []).sort((a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      );
+      resolve(sorted);
+    };
+    request.onerror = () => reject(request.error || new Error('Failed to list all attempts'));
+  });
+}

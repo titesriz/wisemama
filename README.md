@@ -24,9 +24,13 @@ Puis ouvrir l'URL affichee par Vite.
 - Brouillon + bouton sauvegarde pour les lecons (anti-erreur)
 - Mini dictionnaire local (recherche + auto-remplissage de carte)
 - Filtre HSK dans la recherche dictionnaire
+- Import rapide: coller un texte chinois et generer automatiquement une lecon
 - Atelier d'ecriture avec Hanzi Writer (ordre des traits + quiz)
 - Etoiles par carte et progression de lecon
 - Atelier audio Parent/Enfant par carte
+- Audio: timer + visualisation niveau (waveform bars) pendant l enregistrement
+- Audio parent: confirmation avant remplacement du modele existant
+- Historique audio: filtres par date et par carte
 - Sauvegarde locale:
   - progression: `localStorage`
   - enregistrements audio: `IndexedDB`
@@ -65,6 +69,7 @@ Architecture lecons:
 - `src/components/LessonEditor.jsx`: UI parent de creation/edition
 - `src/components/DictionaryLookup.jsx`: recherche dictionnaire et remplissage rapide
 - `src/lib/dictionarySearch.js`: moteur de recherche local
+- `src/lib/chineseImport.js`: parsing de texte chinois vers cartes auto-generees
 - `src/data/cedict-mini.json`: base initiale de vocabulaire avec niveaux HSK
 - export/import JSON pour faciliter la saisie de contenu
 

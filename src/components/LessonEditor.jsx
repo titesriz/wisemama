@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import DictionaryLookup from './DictionaryLookup.jsx';
+import { buildLessonFromChineseText } from '../lib/chineseImport.js';
 import { useLessons } from '../context/LessonsContext.jsx';
 
 function CardField({ label, value, onChange, placeholder = '' }) {
@@ -13,10 +14,6 @@ function CardField({ label, value, onChange, placeholder = '' }) {
 
 function cloneLessons(input) {
   return JSON.parse(JSON.stringify(input));
-}
-
-function makeLessonId() {
-  return `lesson-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
 }
 
 function makeCardId() {
@@ -43,6 +40,8 @@ export default function LessonEditor({ activeLessonId, onSelectLesson }) {
   const [status, setStatus] = useState('');
   const [isDirty, setIsDirty] = useState(false);
   const [lookupCardId, setLookupCardId] = useState('');
+  const [importTitle, setImportTitle] = useState('');
+  const [importText, setImportText] = useState('');
   const fileRef = useRef(null);
 
   useEffect(() => {
@@ -66,7 +65,7 @@ export default function LessonEditor({ activeLessonId, onSelectLesson }) {
 
   const handleAddLesson = () => {
     const newLesson = {
-      id: makeLessonId(),
+      id: `lesson-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
       title: 'Nouvelle lecon',
       cards: [defaultCard()],
     };
@@ -104,6 +103,20 @@ export default function LessonEditor({ activeLessonId, onSelectLesson }) {
     } finally {
       event.target.value = '';
     }
+  };
+
+  const handleCreateFromText = () => {
+    const lesson = buildLessonFromChineseText(importText, importTitle);
+    if (!lesson) {
+      setStatus('Aucun texte chinois detecte. Colle du hanzi puis reessaie.');
+      return;
+    }
+
+    setDraft((prev) => [...prev, lesson]);
+    setSelectedLessonId(lesson.id);
+    setImportText('');
+    setImportTitle('');
+    setStatus(`Lecon creee: ${lesson.cards.length} cartes ajoutees (brouillon).`);
   };
 
   const saveDraft = () => {
@@ -165,6 +178,31 @@ export default function LessonEditor({ activeLessonId, onSelectLesson }) {
       </div>
 
       {status ? <p className="ok-line">{status}</p> : null}
+
+      <div className="paste-import">
+        <strong>Import rapide depuis texte chinois</strong>
+        <label className="lesson-field">
+          <span>Titre de la lecon (optionnel)</span>
+          <input
+            value={importTitle}
+            placeholder="Ex: Lecon manuel chap. 2"
+            onChange={(e) => setImportTitle(e.target.value)}
+          />
+        </label>
+        <label className="lesson-field">
+          <span>Colle ici le texte chinois</span>
+          <textarea
+            value={importText}
+            placeholder="Colle un paragraphe en chinois, ex: 你好！我是..."
+            onChange={(e) => setImportText(e.target.value)}
+          />
+        </label>
+        <div className="lesson-actions">
+          <button type="button" className="button" onClick={handleCreateFromText}>
+            Creer lecon depuis texte
+          </button>
+        </div>
+      </div>
 
       <div className="lesson-list">
         {draftLessons.map((lesson) => (

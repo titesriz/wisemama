@@ -70,3 +70,12 @@ export function getDictionaryHskLevels() {
   });
   return Array.from(levels).sort((a, b) => a - b);
 }
+
+export function getDictionaryEntries() {
+  return entries;
+}
+
+export function findDictionaryEntryByHanzi(hanzi) {
+  if (!hanzi) return null;
+  return entries.find((entry) => entry.hanzi === hanzi) || null;
+}

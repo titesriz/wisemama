@@ -345,6 +345,26 @@ body {
   color: var(--text-main);
 }
 
+.lesson-field textarea {
+  width: 100%;
+  min-height: 110px;
+  border-radius: 10px;
+  border: 2px solid var(--pill-border);
+  background: #fff;
+  padding: 8px;
+  color: var(--text-main);
+  resize: vertical;
+}
+
+.paste-import {
+  border: 1px dashed var(--pill-border);
+  border-radius: 10px;
+  background: #fff;
+  padding: 10px;
+  display: grid;
+  gap: 8px;
+}
+
 .dictionary-lookup {
   border: 1px dashed var(--pill-border);
   border-radius: 10px;
@@ -590,6 +610,75 @@ body {
 :root[data-mode='parent'] .audio-note {
   background: #e8f0fa;
   color: #2f4d70;
+}
+
+.recording-meter {
+  display: grid;
+  gap: 6px;
+}
+
+.recording-meter > span {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-soft);
+}
+
+.waveform {
+  height: 42px;
+  border: 1px solid var(--pill-border);
+  background: #fff;
+  border-radius: 10px;
+  padding: 6px;
+  display: grid;
+  grid-template-columns: repeat(40, 1fr);
+  gap: 2px;
+  align-items: end;
+}
+
+.waveform.active {
+  border-color: var(--accent-orange);
+}
+
+.wave-bar {
+  display: block;
+  width: 100%;
+  background: linear-gradient(180deg, var(--accent-blue) 0%, var(--accent-orange) 100%);
+  border-radius: 6px;
+  min-height: 6px;
+}
+
+.confirm-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  border: 1px dashed var(--pill-border);
+  border-radius: 10px;
+  background: var(--pill-bg);
+  padding: 8px;
+}
+
+.history-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.history-filters label {
+  display: grid;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-soft);
+}
+
+.history-filters select {
+  border-radius: 8px;
+  border: 1px solid var(--pill-border);
+  background: #fff;
+  color: var(--text-main);
+  padding: 6px 8px;
 }
 
 .history ul {
