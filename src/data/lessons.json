@@ -409,5 +409,101 @@
         "audioUrl": null
       }
     ]
+  },
+  {
+    "id": "lesson-ask-name",
+    "title": "Leçon - Asking surname and name",
+    "cards": [
+      {
+        "id": "ni",
+        "hanzi": "你",
+        "pinyin": "ni3",
+        "french": "tu; toi",
+        "english": "you",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "xing",
+        "hanzi": "姓",
+        "pinyin": "xing4",
+        "french": "nom de famille",
+        "english": "surname; family name",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "shenme",
+        "hanzi": "什么",
+        "pinyin": "shen2 me5",
+        "french": "quoi; quel",
+        "english": "what",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "wang",
+        "hanzi": "王",
+        "pinyin": "wang2",
+        "french": "Wang (nom de famille)",
+        "english": "Wang (surname)",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "wo",
+        "hanzi": "我",
+        "pinyin": "wo3",
+        "french": "je; moi",
+        "english": "I; me",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "jiao",
+        "hanzi": "叫",
+        "pinyin": "jiao4",
+        "french": "s'appeler",
+        "english": "to be called; to be named",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "tianyi",
+        "hanzi": "天一",
+        "pinyin": "tian1 yi1",
+        "french": "Tianyi (prénom)",
+        "english": "Tianyi (given name)",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "sentence-ni-xing-shenme",
+        "hanzi": "你姓什么",
+        "pinyin": "ni3 xing4 shen2 me5",
+        "french": "tu t'appelles comment (nom de famille)",
+        "english": "what is your surname",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "sentence-wo-xing-wang",
+        "hanzi": "我姓王",
+        "pinyin": "wo3 xing4 wang2",
+        "french": "je m'appelle Wang (nom de famille)",
+        "english": "my surname is Wang",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "sentence-wo-jiao-tianyi",
+        "hanzi": "我叫天一",
+        "pinyin": "wo3 jiao4 tian1 yi1",
+        "french": "je m'appelle Tianyi",
+        "english": "my name is Tianyi",
+        "imageUrl": null,
+        "audioUrl": null
+      }
+    ]
   }
 ]
