@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="180" viewBox="0 0 240 180" role="img" aria-label="Chat">
+  <rect width="240" height="180" rx="24" fill="#FFF4D6" />
+  <circle cx="120" cy="98" r="46" fill="#FFB347" />
+  <circle cx="96" cy="88" r="6" fill="#2E2E2E" />
+  <circle cx="144" cy="88" r="6" fill="#2E2E2E" />
+  <path d="M110 108 Q120 118 130 108" stroke="#2E2E2E" stroke-width="4" fill="none" />
+  <path d="M76 70 L95 52 L102 78" fill="#FFB347" />
+  <path d="M164 70 L145 52 L138 78" fill="#FFB347" />
+  <text x="120" y="160" font-size="20" text-anchor="middle" fill="#6B4E2E" font-family="Verdana">chat</text>
+</svg>

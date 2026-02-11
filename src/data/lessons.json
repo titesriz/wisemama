@@ -1,0 +1,86 @@
+[
+  {
+    "id": "lesson-1",
+    "title": "Leçon 1 - Animaux de base",
+    "cards": [
+      {
+        "id": "mao",
+        "hanzi": "猫",
+        "pinyin": "māo",
+        "french": "chat",
+        "english": "cat",
+        "imageUrl": "/images/chat.svg",
+        "audioUrl": null
+      },
+      {
+        "id": "gou",
+        "hanzi": "狗",
+        "pinyin": "gǒu",
+        "french": "chien",
+        "english": "dog",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "niao",
+        "hanzi": "鸟",
+        "pinyin": "niǎo",
+        "french": "oiseau",
+        "english": "bird",
+        "imageUrl": null,
+        "audioUrl": null
+      }
+    ]
+  },
+  {
+    "id": "lesson-2",
+    "title": "Leçon 2 - Nombres 1 à 5",
+    "cards": [
+      {
+        "id": "yi",
+        "hanzi": "一",
+        "pinyin": "yī",
+        "french": "un",
+        "english": "one",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "er",
+        "hanzi": "二",
+        "pinyin": "èr",
+        "french": "deux",
+        "english": "two",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "san",
+        "hanzi": "三",
+        "pinyin": "sān",
+        "french": "trois",
+        "english": "three",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "si",
+        "hanzi": "四",
+        "pinyin": "sì",
+        "french": "quatre",
+        "english": "four",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "wu",
+        "hanzi": "五",
+        "pinyin": "wǔ",
+        "french": "cinq",
+        "english": "five",
+        "imageUrl": null,
+        "audioUrl": null
+      }
+    ]
+  }
+]
