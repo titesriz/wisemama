@@ -20,6 +20,10 @@ Puis ouvrir l'URL affichee par Vite.
 - Theme dynamique selon le mode (enfant playful, parent neutre)
 - Flashcards avec caractere chinois, pinyin, francais (principal) et anglais (secondaire)
 - Lecons en JSON (`src/data/lessons.json`)
+- Editeur parent de lecons (ajout/suppression cartes, reordonnancement, import/export JSON)
+- Brouillon + bouton sauvegarde pour les lecons (anti-erreur)
+- Mini dictionnaire local (recherche + auto-remplissage de carte)
+- Filtre HSK dans la recherche dictionnaire
 - Atelier d'ecriture avec Hanzi Writer (ordre des traits + quiz)
 - Etoiles par carte et progression de lecon
 - Atelier audio Parent/Enfant par carte
@@ -55,6 +59,14 @@ Architecture avatar:
 - `src/components/AvatarRenderer.jsx`: rendu SVG DiceBear a partir de config
 - `src/components/AvatarEditor.jsx`: interface d'edition tactile
 - `src/lib/avatarConfig.js`: defaults, sanitation, randomisation, generation URL
+
+Architecture lecons:
+- `src/context/LessonsContext.jsx`: etat global des lecons + persistence `localStorage`
+- `src/components/LessonEditor.jsx`: UI parent de creation/edition
+- `src/components/DictionaryLookup.jsx`: recherche dictionnaire et remplissage rapide
+- `src/lib/dictionarySearch.js`: moteur de recherche local
+- `src/data/cedict-mini.json`: base initiale de vocabulaire avec niveaux HSK
+- export/import JSON pour faciliter la saisie de contenu
 
 ## Structure des donnees
 
