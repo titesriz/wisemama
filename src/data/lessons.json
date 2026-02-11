@@ -82,5 +82,332 @@
         "audioUrl": null
       }
     ]
+  },
+  {
+    "id": "lesson-1770786071099-zy4z",
+    "title": "Leçon 3 - Love language",
+    "cards": [
+      {
+        "id": "card-1770786071099-8f5y",
+        "hanzi": "爱",
+        "pinyin": "ai1",
+        "french": "amour",
+        "english": "love",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770786554949-dzrj",
+        "hanzi": "我",
+        "pinyin": "wo3",
+        "french": "je; moi",
+        "english": "I; me",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770786610243-ixe5",
+        "hanzi": "你",
+        "pinyin": "ni3",
+        "french": "tu; toi",
+        "english": "you",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770786651713-7sj5",
+        "hanzi": "她",
+        "pinyin": "ta1",
+        "french": "elle",
+        "english": "she; her",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770786628762-mivv",
+        "hanzi": "他",
+        "pinyin": "ta1",
+        "french": "il",
+        "english": "he; him",
+        "imageUrl": null,
+        "audioUrl": null
+      }
+    ]
+  },
+  {
+    "id": "lesson-1770787479361-j9dk",
+    "title": "Leçon 4 - daily routine",
+    "cards": [
+      {
+        "id": "card-1770787479360-0-gct",
+        "hanzi": "起",
+        "pinyin": "",
+        "french": "",
+        "english": "",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479360-1-irv",
+        "hanzi": "床",
+        "pinyin": "",
+        "french": "",
+        "english": "",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479360-2-b67",
+        "hanzi": "了",
+        "pinyin": "",
+        "french": "",
+        "english": "",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479360-3-jcn",
+        "hanzi": "我",
+        "pinyin": "wo3",
+        "french": "je; moi",
+        "english": "I; me",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479360-4-u1y",
+        "hanzi": "来",
+        "pinyin": "lai2",
+        "french": "venir",
+        "english": "to come",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479360-5-gk2",
+        "hanzi": "吃",
+        "pinyin": "chi1",
+        "french": "manger",
+        "english": "to eat",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479360-6-avo",
+        "hanzi": "饭",
+        "pinyin": "",
+        "french": "",
+        "english": "",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479360-7-law",
+        "hanzi": "好",
+        "pinyin": "",
+        "french": "",
+        "english": "",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479360-8-ujp",
+        "hanzi": "的",
+        "pinyin": "de5",
+        "french": "particule possessive",
+        "english": "possessive particle",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479360-9-otg",
+        "hanzi": "做",
+        "pinyin": "",
+        "french": "",
+        "english": "",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479361-10-ep0",
+        "hanzi": "得",
+        "pinyin": "",
+        "french": "",
+        "english": "",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479361-11-jh4",
+        "hanzi": "谢谢",
+        "pinyin": "xie4 xie",
+        "french": "merci",
+        "english": "thanks; thank you",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479361-12-8eq",
+        "hanzi": "洗",
+        "pinyin": "",
+        "french": "",
+        "english": "",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479361-13-54s",
+        "hanzi": "手",
+        "pinyin": "",
+        "french": "",
+        "english": "",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479361-14-tfn",
+        "hanzi": "去",
+        "pinyin": "qu4",
+        "french": "aller",
+        "english": "to go",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479361-15-uyh",
+        "hanzi": "刷",
+        "pinyin": "",
+        "french": "",
+        "english": "",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479361-16-9ie",
+        "hanzi": "牙",
+        "pinyin": "",
+        "french": "",
+        "english": "",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479361-17-8hk",
+        "hanzi": "在",
+        "pinyin": "zai4",
+        "french": "a; dans",
+        "english": "at; in",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479361-18-8oq",
+        "hanzi": "睡",
+        "pinyin": "",
+        "french": "",
+        "english": "",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479361-19-wem",
+        "hanzi": "觉",
+        "pinyin": "",
+        "french": "",
+        "english": "",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479361-20-pew",
+        "hanzi": "晚",
+        "pinyin": "",
+        "french": "",
+        "english": "",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479361-21-v8c",
+        "hanzi": "安",
+        "pinyin": "",
+        "french": "",
+        "english": "",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479361-22-uv0",
+        "hanzi": "快",
+        "pinyin": "",
+        "french": "",
+        "english": "",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479361-23-egr",
+        "hanzi": "点",
+        "pinyin": "",
+        "french": "",
+        "english": "",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479361-24-1bq",
+        "hanzi": "儿",
+        "pinyin": "",
+        "french": "",
+        "english": "",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479361-25-jlz",
+        "hanzi": "马",
+        "pinyin": "",
+        "french": "",
+        "english": "",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479361-26-di8",
+        "hanzi": "上",
+        "pinyin": "",
+        "french": "",
+        "english": "",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479361-27-goj",
+        "hanzi": "别",
+        "pinyin": "",
+        "french": "",
+        "english": "",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479361-28-3z7",
+        "hanzi": "忘",
+        "pinyin": "",
+        "french": "",
+        "english": "",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "card-1770787479361-29-fpe",
+        "hanzi": "记",
+        "pinyin": "",
+        "french": "",
+        "english": "",
+        "imageUrl": null,
+        "audioUrl": null
+      }
+    ]
   }
 ]
