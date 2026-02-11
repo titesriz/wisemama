@@ -7,14 +7,15 @@ const holdDurationMs = 900;
 
 export default function ModeAvatar() {
   const { mode, isChildMode, switchToChild, switchToParent } = useMode();
-  const { getAvatarByMode } = useAvatar();
+  const { avatarsByMode } = useAvatar();
   const [isHolding, setIsHolding] = useState(false);
   const [holdProgress, setHoldProgress] = useState(0);
   const holdTimerRef = useRef(null);
   const progressTimerRef = useRef(null);
   const startedAtRef = useRef(0);
+  const switchedByHoldRef = useRef(false);
 
-  const avatarConfig = getAvatarByMode(mode);
+  const avatarConfig = avatarsByMode?.[mode] || null;
 
   const clearTimers = () => {
     if (holdTimerRef.current) {
@@ -49,6 +50,7 @@ export default function ModeAvatar() {
       clearTimers();
       setIsHolding(false);
       setHoldProgress(1);
+      switchedByHoldRef.current = true;
       switchToParent();
     }, holdDurationMs);
   };
@@ -61,6 +63,10 @@ export default function ModeAvatar() {
   };
 
   const handleClick = () => {
+    if (switchedByHoldRef.current) {
+      switchedByHoldRef.current = false;
+      return;
+    }
     if (!isChildMode) {
       switchToChild();
     }
@@ -79,7 +85,13 @@ export default function ModeAvatar() {
       onPointerCancel={stopHold}
       onClick={handleClick}
     >
-      <AvatarRenderer config={avatarConfig} size={38} alt="Avatar profil" className="mode-avatar-img" />
+      <AvatarRenderer
+        config={avatarConfig}
+        size={38}
+        alt="Avatar profil"
+        className="mode-avatar-img"
+        loading="eager"
+      />
       <span className="avatar-text">{isChildMode ? 'Enfant' : 'Parent'}</span>
       {isChildMode ? (
         <span className="avatar-hint">Maintenir pour Parent</span>

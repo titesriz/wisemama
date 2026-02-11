@@ -73,6 +73,10 @@ Architecture lecons:
 - `src/data/cedict-mini.json`: base initiale de vocabulaire avec niveaux HSK
 - export/import JSON pour faciliter la saisie de contenu
 
+Packages de lecons:
+- `packages/lesson-packs/wisemama-lessons-desktop-export.json`: export desktop reutilisable
+- Import dans l'app: Mode Parent -> Editeur de lecons -> Import JSON
+
 ## Structure des donnees
 
 Les lecons sont stockees dans `src/data/lessons.json`.
