@@ -6,6 +6,10 @@ import {
 } from '../lib/avatarConfig.js';
 
 const avatarStorageKey = 'wisemama-avatar-config-v1';
+const defaultNamesByMode = {
+  child: '',
+  parent: '',
+};
 
 const AvatarContext = createContext(null);
 
@@ -23,11 +27,23 @@ function normalizePayload(raw) {
   };
 }
 
+function normalizeNames(raw) {
+  if (!raw || typeof raw !== 'object') {
+    return { ...defaultNamesByMode };
+  }
+
+  return {
+    child: typeof raw.child === 'string' ? raw.child : '',
+    parent: typeof raw.parent === 'string' ? raw.parent : '',
+  };
+}
+
 export function AvatarProvider({ children }) {
   const [avatarsByMode, setAvatarsByMode] = useState(() => ({
     child: defaultAvatarConfig('child'),
     parent: defaultAvatarConfig('parent'),
   }));
+  const [namesByMode, setNamesByMode] = useState(defaultNamesByMode);
 
   useEffect(() => {
     try {
@@ -35,21 +51,23 @@ export function AvatarProvider({ children }) {
       if (!stored) return;
       const parsed = JSON.parse(stored);
       setAvatarsByMode(normalizePayload(parsed.avatarsByMode || parsed));
+      setNamesByMode(normalizeNames(parsed.namesByMode));
     } catch {
       setAvatarsByMode({
         child: defaultAvatarConfig('child'),
         parent: defaultAvatarConfig('parent'),
       });
+      setNamesByMode(defaultNamesByMode);
     }
   }, []);
 
   useEffect(() => {
     try {
-      localStorage.setItem(avatarStorageKey, JSON.stringify({ avatarsByMode }));
+      localStorage.setItem(avatarStorageKey, JSON.stringify({ avatarsByMode, namesByMode }));
     } catch {
       // no-op
     }
-  }, [avatarsByMode]);
+  }, [avatarsByMode, namesByMode]);
 
   const updateAvatar = (mode, configPatch) => {
     setAvatarsByMode((prev) => {
@@ -75,18 +93,29 @@ export function AvatarProvider({ children }) {
     }));
   };
 
+  const setName = (mode, value) => {
+    const safeValue = typeof value === 'string' ? value.slice(0, 30) : '';
+    setNamesByMode((prev) => ({
+      ...prev,
+      [mode]: safeValue,
+    }));
+  };
+
   const value = useMemo(
     () => ({
       avatarsByMode,
+      namesByMode,
       getAvatarByMode: (mode) => avatarsByMode[mode] || defaultAvatarConfig(mode),
+      getNameByMode: (mode) => namesByMode[mode] || '',
       updateAvatar,
       setAvatar,
       randomizeAvatar,
+      setName,
       // Backend sync hooks: ready for future login-based persistence.
       syncFromBackend: async () => {},
       syncToBackend: async () => {},
     }),
-    [avatarsByMode],
+    [avatarsByMode, namesByMode],
   );
 
   return <AvatarContext.Provider value={value}>{children}</AvatarContext.Provider>;

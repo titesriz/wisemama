@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import AvatarEditor from './components/AvatarEditor.jsx';
 import Flashcard from './components/Flashcard.jsx';
+import LandingPage from './components/LandingPage.jsx';
 import LessonEditor from './components/LessonEditor.jsx';
 import ModeAvatar from './components/ModeAvatar.jsx';
+import { useAvatar } from './context/AvatarContext.jsx';
 import { useLessons } from './context/LessonsContext.jsx';
 import { useMode } from './context/ModeContext.jsx';
 
@@ -14,12 +16,15 @@ function getCardKey(lessonId, cardId) {
 }
 
 export default function App() {
-  const { mode, isParentMode } = useMode();
+  const { mode, isParentMode, switchToChild, switchToParent } = useMode();
+  const { avatarsByMode } = useAvatar();
   const { lessons: lessonOptions } = useLessons();
   const [lessonId, setLessonId] = useState(lessonOptions[0]?.id ?? '');
   const activeLesson = lessonOptions.find((lesson) => lesson.id === lessonId);
   const [cardIndex, setCardIndex] = useState(0);
   const [starsByProfile, setStarsByProfile] = useState({ child: {}, parent: {} });
+  const [enteredApp, setEnteredApp] = useState(false);
+  const [showLandingAvatarEditor, setShowLandingAvatarEditor] = useState(false);
 
   useEffect(() => {
     if (lessonOptions.length === 0) {
@@ -128,6 +133,28 @@ export default function App() {
       return { ...prev, child: nextChild };
     });
   };
+
+  if (!enteredApp) {
+    return (
+      <LandingPage
+        childAvatar={avatarsByMode?.child}
+        parentAvatar={avatarsByMode?.parent}
+        showAvatarEditor={showLandingAvatarEditor}
+        onToggleAvatarEditor={() => setShowLandingAvatarEditor((prev) => !prev)}
+        avatarEditorContent={<AvatarEditor />}
+        onStartChild={() => {
+          switchToChild();
+          setShowLandingAvatarEditor(false);
+          setEnteredApp(true);
+        }}
+        onStartParent={() => {
+          switchToParent();
+          setShowLandingAvatarEditor(false);
+          setEnteredApp(true);
+        }}
+      />
+    );
+  }
 
   return (
     <div className="app">
