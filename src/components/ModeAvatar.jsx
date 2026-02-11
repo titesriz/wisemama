@@ -1,15 +1,20 @@
 import { useEffect, useRef, useState } from 'react';
 import { useMode } from '../context/ModeContext.jsx';
+import { useAvatar } from '../context/AvatarContext.jsx';
+import AvatarRenderer from './AvatarRenderer.jsx';
 
 const holdDurationMs = 900;
 
 export default function ModeAvatar() {
   const { mode, isChildMode, switchToChild, switchToParent } = useMode();
+  const { getAvatarByMode } = useAvatar();
   const [isHolding, setIsHolding] = useState(false);
   const [holdProgress, setHoldProgress] = useState(0);
   const holdTimerRef = useRef(null);
   const progressTimerRef = useRef(null);
   const startedAtRef = useRef(0);
+
+  const avatarConfig = getAvatarByMode(mode);
 
   const clearTimers = () => {
     if (holdTimerRef.current) {
@@ -74,9 +79,7 @@ export default function ModeAvatar() {
       onPointerCancel={stopHold}
       onClick={handleClick}
     >
-      <span className="avatar-face" aria-hidden="true">
-        {isChildMode ? 'C' : 'P'}
-      </span>
+      <AvatarRenderer config={avatarConfig} size={38} alt="Avatar profil" className="mode-avatar-img" />
       <span className="avatar-text">{isChildMode ? 'Enfant' : 'Parent'}</span>
       {isChildMode ? (
         <span className="avatar-hint">Maintenir pour Parent</span>

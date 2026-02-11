@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import AvatarEditor from './components/AvatarEditor.jsx';
 import Flashcard from './components/Flashcard.jsx';
 import ModeAvatar from './components/ModeAvatar.jsx';
 import { useMode } from './context/ModeContext.jsx';
@@ -162,6 +163,7 @@ export default function App() {
                 Reinitialiser progression enfant (lecon)
               </button>
             </div>
+            <AvatarEditor />
           </section>
         ) : null}
 

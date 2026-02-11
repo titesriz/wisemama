@@ -14,7 +14,8 @@ Puis ouvrir l'URL affichee par Vite.
 ## Fonctionnalites implementees
 
 - Mode global persistant Parent/Enfant
-- Avatar fixe pour basculer de mode
+- Avatar DiceBear persistant pour basculer de mode
+- Editeur avatar (parent) avec apercu en direct, randomisation, sauvegarde
 - Protection enfant: maintien long pour ouvrir le mode parent
 - Theme dynamique selon le mode (enfant playful, parent neutre)
 - Flashcards avec caractere chinois, pinyin, francais (principal) et anglais (secondaire)
@@ -40,6 +41,20 @@ Puis ouvrir l'URL affichee par Vite.
 - Enfant vers Parent: maintenir l'avatar environ 1 seconde
 - Parent vers Enfant: tap simple sur l'avatar
 - Le mode actif est memorise entre rechargements
+
+## Editeur avatar
+
+- Accessible en `Mode Parent`, bloc `Creation avatar`
+- Edition separee de l'avatar `Enfant` et `Parent`
+- Apercu instantane (DiceBear SVG) pendant les changements
+- `Randomiser` prepare un nouvel avatar, `Sauvegarder` l'applique partout
+- L'avatar persiste via `localStorage` (cle `wisemama-avatar-config-v1`)
+
+Architecture avatar:
+- `src/context/AvatarContext.jsx`: etat global + persistence + hook backend-ready (`syncToBackend`, `syncFromBackend`)
+- `src/components/AvatarRenderer.jsx`: rendu SVG DiceBear a partir de config
+- `src/components/AvatarEditor.jsx`: interface d'edition tactile
+- `src/lib/avatarConfig.js`: defaults, sanitation, randomisation, generation URL
 
 ## Structure des donnees
 

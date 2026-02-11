@@ -162,6 +162,79 @@ body {
   gap: 10px;
 }
 
+.avatar-editor {
+  margin-top: 8px;
+  padding: 12px;
+  border: 1px solid var(--pill-border);
+  border-radius: 12px;
+  background: #ffffff;
+  display: grid;
+  gap: 12px;
+}
+
+.avatar-editor-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.avatar-editor-head h3 {
+  margin: 0;
+  color: var(--accent-indigo);
+}
+
+.avatar-mode-tabs {
+  display: inline-flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.avatar-preview-wrap {
+  display: grid;
+  place-items: center;
+}
+
+.avatar-preview {
+  border-radius: 18px;
+  border: 3px solid var(--pill-border);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.14);
+  transition: transform 140ms ease;
+}
+
+.avatar-preview:hover {
+  transform: scale(1.03);
+}
+
+.avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+}
+
+.avatar-field {
+  display: grid;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.avatar-field select {
+  width: 100%;
+  border-radius: 10px;
+  border: 2px solid var(--pill-border);
+  background: var(--pill-bg);
+  padding: 8px;
+  color: var(--text-main);
+}
+
+.avatar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 .flashcard {
   width: min(720px, 100%);
   background: var(--card-bg);
@@ -471,20 +544,22 @@ body {
   justify-items: center;
   gap: 2px;
   overflow: hidden;
-  transition: transform 180ms ease, background 220ms ease, color 220ms ease;
+  transition: transform 180ms ease, background 220ms ease, color 220ms ease, box-shadow 180ms ease;
+  animation: avatar-breathe 2.6s ease-in-out infinite;
 }
 
 .mode-avatar:hover {
   transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
 .mode-avatar.parent {
   background: #f0f4fa;
 }
 
-.avatar-face {
-  font-size: 22px;
-  line-height: 1;
+.mode-avatar-img {
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.9);
 }
 
 .avatar-text {
@@ -506,6 +581,18 @@ body {
   border-radius: 18px;
   pointer-events: none;
   transition: opacity 120ms ease;
+}
+
+@keyframes avatar-breathe {
+  0% {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.16);
+  }
+  50% {
+    box-shadow: 0 12px 22px rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.16);
+  }
 }
 
 @media (max-width: 720px) {
