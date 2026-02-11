@@ -1,7 +1,8 @@
 import { useRef } from 'react';
+import AudioPracticePanel from './AudioPracticePanel.jsx';
 import WritingPractice from './WritingPractice.jsx';
 
-export default function Flashcard({ card, onWritingSuccess, earnedStars = 0 }) {
+export default function Flashcard({ card, cardKey, onWritingSuccess, earnedStars = 0 }) {
   const audioRef = useRef(null);
 
   const playAudio = () => {
@@ -47,10 +48,11 @@ export default function Flashcard({ card, onWritingSuccess, earnedStars = 0 }) {
         {card.audioUrl ? (
           <audio ref={audioRef} src={card.audioUrl} preload="auto" />
         ) : (
-          <span className="audio-placeholder">Ajoute un audio pour ecouter la prononciation.</span>
+          <span className="audio-placeholder">Ajoute un audio fixe si besoin.</span>
         )}
       </div>
 
+      <AudioPracticePanel cardKey={cardKey} />
       <WritingPractice hanzi={card.hanzi} onSuccess={onWritingSuccess} />
     </section>
   );

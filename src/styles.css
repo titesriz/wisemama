@@ -60,6 +60,24 @@ body {
   font-size: 16px;
 }
 
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.profile-toggle {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.profile-label {
+  font-weight: 700;
+  color: #5b5b5b;
+}
+
 .lesson-picker select {
   font-size: 16px;
   padding: 6px 12px;
@@ -179,6 +197,124 @@ body {
   font-size: 14px;
 }
 
+.audio-practice {
+  margin-top: 8px;
+  padding: 16px;
+  border: 2px solid #ffe4bf;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #fffdf8 0%, #fff6e7 100%);
+  display: grid;
+  gap: 12px;
+}
+
+.audio-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.audio-header h3 {
+  margin: 0;
+  color: #7e4f0e;
+  font-size: 22px;
+}
+
+.mode-toggle {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.pill {
+  border: 1px solid #f2c987;
+  background: #fff6e6;
+  color: #7e4f0e;
+  border-radius: 999px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.pill.active {
+  background: #ffd89e;
+}
+
+.audio-section {
+  display: grid;
+  gap: 12px;
+}
+
+.audio-help {
+  margin: 0;
+  color: #5b5b5b;
+}
+
+.audio-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.audio-preview {
+  display: grid;
+  gap: 6px;
+}
+
+.audio-compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.audio-compare h4 {
+  margin: 0 0 6px;
+  color: #6d4b1f;
+}
+
+.audio-note {
+  margin: 0;
+  padding: 10px;
+  border-radius: 10px;
+  background: #fff0d2;
+  color: #7d4c11;
+  font-weight: 700;
+}
+
+.history h4 {
+  margin: 0 0 8px;
+  color: #6d4b1f;
+}
+
+.history ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.history li {
+  display: grid;
+  gap: 6px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #f3ddb5;
+  background: #fffdf6;
+}
+
+.error-line {
+  margin: 0;
+  color: #a31424;
+  font-weight: 700;
+}
+
+.ok-line {
+  margin: 0;
+  color: #1d6d3f;
+  font-weight: 700;
+}
+
 .writing-practice {
   margin-top: 8px;
   padding: 16px;
@@ -283,5 +419,9 @@ body {
   .progress-strip {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .header-controls {
+    justify-content: flex-start;
   }
 }

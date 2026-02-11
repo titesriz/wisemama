@@ -15,17 +15,26 @@ Puis ouvrir l'URL affichee par Vite.
 
 - Flashcards avec caractere chinois, pinyin, francais (principal) et anglais (secondaire)
 - Lecons en JSON (`src/data/lessons.json`)
-- Atelier d'ecriture avec Hanzi Writer
-- Animation de l'ordre des traits
-- Quiz de trace avec validation
+- Atelier d'ecriture avec Hanzi Writer (ordre des traits + quiz)
 - Etoiles par carte et progression de lecon
-- Sauvegarde locale via `localStorage`
+- Atelier audio Parent/Enfant par carte
+- Sauvegarde locale:
+  - progression: `localStorage`
+  - enregistrements audio: `IndexedDB`
+
+## Atelier audio (Phase 3)
+
+- `Mode Parent`: enregistrer puis sauvegarder un modele audio
+- `Mode Enfant`: enregistrer une tentative, ecouter modele + tentative cote a cote
+- Validation locale simple (score base sur proximite de duree)
+- Bouton `Je garde cette version` pour sauvegarder dans `Mes enregistrements`
+- Historique conserve par carte (IndexedDB)
 
 ## Structure des donnees
 
 Les lecons sont stockees dans `src/data/lessons.json`.
 
-Exemple de carte :
+Exemple de carte:
 
 ```json
 {
@@ -39,22 +48,20 @@ Exemple de carte :
 }
 ```
 
-## Test rapide Phase 2
+## Test rapide (audio)
 
-1. Ouvrir une carte puis cliquer `Voir les traits`.
-2. Cliquer `Tracer` et dessiner le caractere avec souris ou stylet.
-3. Verifier que le message de feedback change selon les erreurs.
-4. Verifier que les etoiles se mettent a jour pour la carte.
-5. Recharger la page et verifier que la progression est conservee.
+1. Ouvrir une carte puis passer en `Mode Parent`.
+2. Cliquer `Enregistrer parent`, puis `Arreter parent`, puis `Sauvegarder modele`.
+3. Passer en `Mode Enfant`.
+4. Cliquer `Enregistrer enfant`, puis `Arreter enfant`.
+5. Ecouter modele + tentative, puis cliquer `Je garde cette version`.
+6. Verifier que la tentative apparait dans `Mes enregistrements`.
+7. Recharger la page et verifier que les enregistrements sont conserves.
 
 ## Notes techniques
 
 - Stack: React + Vite
-- Bibliotheque de trace: `hanzi-writer`
+- Traces caracteres: `hanzi-writer`
+- Enregistrement audio: `MediaRecorder` + `getUserMedia`
+- Stockage audio local: `IndexedDB`
 - App 100% client-side
-
-## Prochaines etapes suggerees
-
-1. Ajouter audio reel (fichiers `.mp3` par carte)
-2. Ajouter option visuelle des tons en couleur
-3. Ajouter mini-interface d'edition de lecons dans l'app
