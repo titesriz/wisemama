@@ -1,8 +1,6 @@
 import { useRef } from 'react';
-import AudioPracticePanel from './AudioPracticePanel.jsx';
-import WritingPractice from './WritingPractice.jsx';
 
-export default function Flashcard({ card, cardKey, mode, onWritingSuccess, earnedStars = 0 }) {
+export default function Flashcard({ card, earnedStars = 0 }) {
   const audioRef = useRef(null);
 
   const playAudio = () => {
@@ -51,9 +49,6 @@ export default function Flashcard({ card, cardKey, mode, onWritingSuccess, earne
           <span className="audio-placeholder">Ajoute un audio fixe si besoin.</span>
         )}
       </div>
-
-      <AudioPracticePanel cardKey={cardKey} mode={mode} />
-      <WritingPractice hanzi={card.hanzi} onSuccess={onWritingSuccess} />
     </section>
   );
 }

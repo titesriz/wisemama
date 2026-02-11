@@ -1,113 +1,29 @@
-import { useEffect, useRef, useState } from 'react';
-import { useMode } from '../context/ModeContext.jsx';
 import { useAvatar } from '../context/AvatarContext.jsx';
 import AvatarRenderer from './AvatarRenderer.jsx';
 
-const holdDurationMs = 900;
+export default function ModeAvatar({ onClick }) {
+  const { activeProfile } = useAvatar();
 
-export default function ModeAvatar() {
-  const { mode, isChildMode, switchToChild, switchToParent } = useMode();
-  const { avatarsByMode } = useAvatar();
-  const [isHolding, setIsHolding] = useState(false);
-  const [holdProgress, setHoldProgress] = useState(0);
-  const holdTimerRef = useRef(null);
-  const progressTimerRef = useRef(null);
-  const startedAtRef = useRef(0);
-  const switchedByHoldRef = useRef(false);
+  if (!activeProfile) return null;
 
-  const avatarConfig = avatarsByMode?.[mode] || null;
-
-  const clearTimers = () => {
-    if (holdTimerRef.current) {
-      clearTimeout(holdTimerRef.current);
-      holdTimerRef.current = null;
-    }
-    if (progressTimerRef.current) {
-      clearInterval(progressTimerRef.current);
-      progressTimerRef.current = null;
-    }
-  };
-
-  useEffect(() => {
-    return () => clearTimers();
-  }, []);
-
-  const startHold = () => {
-    if (!isChildMode) return;
-
-    clearTimers();
-    setIsHolding(true);
-    setHoldProgress(0);
-    startedAtRef.current = Date.now();
-
-    progressTimerRef.current = setInterval(() => {
-      const elapsed = Date.now() - startedAtRef.current;
-      const progress = Math.min(1, elapsed / holdDurationMs);
-      setHoldProgress(progress);
-    }, 30);
-
-    holdTimerRef.current = setTimeout(() => {
-      clearTimers();
-      setIsHolding(false);
-      setHoldProgress(1);
-      switchedByHoldRef.current = true;
-      switchToParent();
-    }, holdDurationMs);
-  };
-
-  const stopHold = () => {
-    if (!isChildMode) return;
-    clearTimers();
-    setIsHolding(false);
-    setHoldProgress(0);
-  };
-
-  const handleClick = () => {
-    if (switchedByHoldRef.current) {
-      switchedByHoldRef.current = false;
-      return;
-    }
-    if (!isChildMode) {
-      switchToChild();
-    }
-  };
-
-  const progressDeg = Math.round(holdProgress * 360);
+  const label = activeProfile.role === 'parent' ? 'Parent' : 'Enfant';
 
   return (
     <button
       type="button"
-      className={`mode-avatar ${mode}`}
-      aria-label={isChildMode ? 'Maintenir pour ouvrir le mode parent' : 'Retourner en mode enfant'}
-      onPointerDown={startHold}
-      onPointerUp={stopHold}
-      onPointerLeave={stopHold}
-      onPointerCancel={stopHold}
-      onClick={handleClick}
+      className={`mode-avatar ${activeProfile.role}`}
+      aria-label={`Profil actif ${label}. Ouvrir editeur avatar`}
+      onClick={onClick}
     >
       <AvatarRenderer
-        config={avatarConfig}
+        config={activeProfile.avatar}
         size={38}
-        alt="Avatar profil"
+        alt="Avatar profil actif"
         className="mode-avatar-img"
         loading="eager"
       />
-      <span className="avatar-text">{isChildMode ? 'Enfant' : 'Parent'}</span>
-      {isChildMode ? (
-        <span className="avatar-hint">Maintenir pour Parent</span>
-      ) : (
-        <span className="avatar-hint">Tap pour Enfant</span>
-      )}
-      {isChildMode ? (
-        <span
-          className="hold-ring"
-          style={{
-            background: `conic-gradient(var(--accent-orange) ${progressDeg}deg, rgba(255,255,255,0.2) ${progressDeg}deg)`,
-            opacity: isHolding || holdProgress > 0 ? 1 : 0,
-          }}
-          aria-hidden="true"
-        />
-      ) : null}
+      <span className="avatar-text">{activeProfile.name || label}</span>
+      <span className="avatar-hint">{label}</span>
     </button>
   );
 }

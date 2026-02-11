@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useAvatar } from '../context/AvatarContext.jsx';
 import AvatarRenderer from './AvatarRenderer.jsx';
 import {
+  getAvatarStyles,
   getAvatarTraitsByStyle,
   randomAvatarConfig,
   sanitizeAvatarConfig,
@@ -37,6 +38,11 @@ const excludedHairPairs = new Set([
   `spiky${HAIR_PAIR_SEPARATOR}neckHigh`,
   `spiky${HAIR_PAIR_SEPARATOR}shoulderHigh`,
 ]);
+const styleLabelMap = {
+  'toon-head': 'Toon Head',
+  adventurer: 'Adventurer',
+  personas: 'Personas',
+};
 
 function formatOptionLabel(value, activeCategory) {
   if (activeCategory === 'hair' && String(value).includes(HAIR_PAIR_SEPARATOR)) {
@@ -78,24 +84,44 @@ function OptionChip({ value, selected, onSelect, activeCategory, previewConfig }
 }
 
 export default function AvatarEditor() {
-  const { getAvatarByMode, setAvatar, getNameByMode, setName } = useAvatar();
-  const [targetMode, setTargetMode] = useState('child');
-  const [draft, setDraft] = useState(() => getAvatarByMode('child'));
-  const [profileName, setProfileName] = useState(() => getNameByMode('child'));
+  const {
+    profiles,
+    activeProfileId,
+    setActiveProfileId,
+    getProfileById,
+    createProfile,
+    setProfileAvatar,
+    setProfileName,
+    setProfileRole,
+  } = useAvatar();
+
+  const [targetProfileId, setTargetProfileId] = useState(activeProfileId || profiles[0]?.id || '');
+  const [draft, setDraft] = useState(() => sanitizeAvatarConfig(profiles[0]?.avatar, profiles[0]?.role || 'child'));
+  const [profileName, setProfileNameDraft] = useState(() => profiles[0]?.name || '');
+  const [targetRole, setTargetRole] = useState(() => profiles[0]?.role || 'child');
   const [activeCategory, setActiveCategory] = useState('skinColor');
   const [savedMsg, setSavedMsg] = useState('');
+  const [showStylePicker, setShowStylePicker] = useState(false);
 
-  const currentSaved = getAvatarByMode(targetMode);
+  const targetProfile = useMemo(
+    () => getProfileById(targetProfileId) || profiles[0] || null,
+    [getProfileById, targetProfileId, profiles],
+  );
 
   useEffect(() => {
-    setDraft(currentSaved);
-  }, [targetMode, currentSaved]);
+    if (!activeProfileId) return;
+    setTargetProfileId(activeProfileId);
+  }, [activeProfileId]);
 
   useEffect(() => {
-    setProfileName(getNameByMode(targetMode));
-  }, [targetMode, getNameByMode]);
+    if (!targetProfile) return;
+    setDraft(sanitizeAvatarConfig(targetProfile.avatar, targetProfile.role));
+    setProfileNameDraft(targetProfile.name || '');
+    setTargetRole(targetProfile.role || 'child');
+  }, [targetProfile]);
 
   const styleTraits = useMemo(() => getAvatarTraitsByStyle(draft.style), [draft.style]);
+  const styleOptions = useMemo(() => getAvatarStyles(), []);
   const isProbabilityCategory = probabilityCategories.has(activeCategory);
 
   const optionsForCategory = useMemo(() => {
@@ -103,6 +129,7 @@ export default function AvatarEditor() {
     if (activeCategory === 'hair') {
       const hairOptions = styleTraits?.hair || [];
       const rearHairOptions = styleTraits?.rearHair || [];
+      if (rearHairOptions.length <= 1) return hairOptions;
       return hairOptions
         .flatMap((frontHair) =>
           rearHairOptions.map((rearHair) => `${frontHair}${HAIR_PAIR_SEPARATOR}${rearHair}`),
@@ -114,7 +141,7 @@ export default function AvatarEditor() {
 
   const updateDraft = (patch) => {
     setSavedMsg('');
-    setDraft((prev) => sanitizeAvatarConfig({ ...prev, ...patch }, targetMode));
+    setDraft((prev) => sanitizeAvatarConfig({ ...prev, ...patch }, targetRole));
   };
 
   const selectOption = (value) => {
@@ -127,47 +154,82 @@ export default function AvatarEditor() {
   };
 
   const randomize = () => {
-    const next = randomAvatarConfig(targetMode, draft.style);
+    const next = randomAvatarConfig(targetRole, draft.style);
     setDraft(next);
     setSavedMsg('Avatar randomise. Pense a sauvegarder.');
   };
 
-  const save = () => {
-    setAvatar(targetMode, draft);
-    setName(targetMode, profileName.trim());
-    setSavedMsg('Avatar sauvegarde.');
+  const setAvatarStyle = (nextStyle) => {
+    if (!nextStyle || nextStyle === draft.style) {
+      setShowStylePicker(false);
+      return;
+    }
+    const nextDraft = randomAvatarConfig(targetRole, nextStyle);
+    setDraft(sanitizeAvatarConfig(nextDraft, targetRole));
+    setSavedMsg(`Style change: ${styleLabelMap[nextStyle] || nextStyle}.`);
+    setShowStylePicker(false);
   };
 
-  const currentValue =
-    activeCategory === 'hair'
-      ? `${draft.hair}${HAIR_PAIR_SEPARATOR}${draft.rearHair}`
-      : draft[activeCategory];
+  const save = () => {
+    if (!targetProfile) return;
+    setProfileRole(targetProfile.id, targetRole);
+    setProfileAvatar(targetProfile.id, draft);
+    setProfileName(targetProfile.id, profileName.trim());
+    setSavedMsg('Profil sauvegarde.');
+  };
+
+  const addProfile = () => {
+    const newId = createProfile({ role: 'child', name: 'Nouveau profil' });
+    setTargetProfileId(newId);
+    setActiveProfileId(newId);
+    setSavedMsg('Nouveau profil cree.');
+  };
+
+  const currentValue = (() => {
+    if (activeCategory !== 'hair') return draft[activeCategory];
+    const rearHairOptions = styleTraits?.rearHair || [];
+    if (rearHairOptions.length <= 1) return draft.hair;
+    return `${draft.hair}${HAIR_PAIR_SEPARATOR}${draft.rearHair}`;
+  })();
 
   const buildPreviewConfig = (value) => {
     if (activeCategory === 'hair' && String(value).includes(HAIR_PAIR_SEPARATOR)) {
       const [frontHair, rearHair] = String(value).split(HAIR_PAIR_SEPARATOR);
-      return sanitizeAvatarConfig({ ...draft, hair: frontHair, rearHair }, targetMode);
+      return sanitizeAvatarConfig({ ...draft, hair: frontHair, rearHair }, targetRole);
     }
-    return sanitizeAvatarConfig({ ...draft, [activeCategory]: value }, targetMode);
+    return sanitizeAvatarConfig({ ...draft, [activeCategory]: value }, targetRole);
   };
 
   return (
     <section className="avatar-editor avatar-editor-v2">
       <div className="avatar-editor-head">
         <h3>Creation avatar</h3>
+        <button type="button" className="button secondary button-sm" onClick={addProfile}>
+          Nouveau profil
+        </button>
       </div>
 
-      <div className="avatar-family-strip" aria-label="Avatars existants">
-        {['child', 'parent'].map((mode) => (
-          <div key={mode} className={`avatar-family-item ${targetMode === mode ? 'active' : ''}`}>
+      <div className="avatar-family-strip" aria-label="Profils existants">
+        {profiles.map((profile) => (
+          <button
+            key={profile.id}
+            type="button"
+            className={`avatar-family-item ${targetProfile?.id === profile.id ? 'active' : ''}`}
+            onClick={() => {
+              setTargetProfileId(profile.id);
+              setActiveProfileId(profile.id);
+              setSavedMsg('');
+            }}
+          >
             <AvatarRenderer
-              config={getAvatarByMode(mode)}
+              config={profile.avatar}
               size={40}
               className="avatar-family-preview"
-              alt={mode === 'child' ? 'Avatar enfant existant' : 'Avatar parent existant'}
+              alt={`Avatar ${profile.name}`}
             />
-            <span>{getNameByMode(mode) || (mode === 'child' ? 'Enfant' : 'Parent')}</span>
-          </div>
+            <span>{profile.name || (profile.role === 'parent' ? 'Parent' : 'Enfant')}</span>
+            <span className="profile-role-chip">{profile.role === 'parent' ? 'Parent' : 'Kid'}</span>
+          </button>
         ))}
       </div>
 
@@ -180,27 +242,19 @@ export default function AvatarEditor() {
 
         <div className="avatar-studio-right">
           <div className="avatar-editor-meta">
-            <div className="avatar-mode-tabs" role="tablist" aria-label="Choix profil">
+            <div className="avatar-mode-tabs" role="tablist" aria-label="Statut profil">
               <button
                 type="button"
-                className={`pill ${targetMode === 'child' ? 'active' : ''}`}
-                onClick={() => {
-                  setTargetMode('child');
-                  setDraft(getAvatarByMode('child'));
-                  setSavedMsg('');
-                }}
+                className={`pill ${targetRole === 'child' ? 'active' : ''}`}
+                onClick={() => setTargetRole('child')}
               >
                 <span className="person-icon small" aria-hidden="true" />
-                Enfant
+                Kid
               </button>
               <button
                 type="button"
-                className={`pill ${targetMode === 'parent' ? 'active' : ''}`}
-                onClick={() => {
-                  setTargetMode('parent');
-                  setDraft(getAvatarByMode('parent'));
-                  setSavedMsg('');
-                }}
+                className={`pill ${targetRole === 'parent' ? 'active' : ''}`}
+                onClick={() => setTargetRole('parent')}
               >
                 <span className="person-icon big" aria-hidden="true" />
                 Parent
@@ -210,9 +264,9 @@ export default function AvatarEditor() {
               type="text"
               className="avatar-name-input"
               value={profileName}
-              onChange={(event) => setProfileName(event.target.value)}
-              placeholder={targetMode === 'child' ? 'Prenom enfant' : 'Nom parent'}
-              aria-label={targetMode === 'child' ? 'Prenom enfant' : 'Nom parent'}
+              onChange={(event) => setProfileNameDraft(event.target.value)}
+              placeholder={targetRole === 'child' ? 'Prenom enfant' : 'Nom parent'}
+              aria-label="Nom profil"
             />
             <button type="button" className="button button-sm" onClick={save}>
               Sauvegarder
@@ -281,6 +335,29 @@ export default function AvatarEditor() {
         <button type="button" className="button secondary button-sm" onClick={randomize}>
           Randomiser
         </button>
+        <div className="style-picker-wrap">
+          <button
+            type="button"
+            className="button secondary button-sm"
+            onClick={() => setShowStylePicker((prev) => !prev)}
+          >
+            Style: {styleLabelMap[draft.style] || draft.style}
+          </button>
+          {showStylePicker ? (
+            <div className="style-picker-popover">
+              {styleOptions.map((styleKey) => (
+                <button
+                  key={styleKey}
+                  type="button"
+                  className={`pill ${draft.style === styleKey ? 'active' : ''}`}
+                  onClick={() => setAvatarStyle(styleKey)}
+                >
+                  {styleLabelMap[styleKey] || styleKey}
+                </button>
+              ))}
+            </div>
+          ) : null}
+        </div>
         {categories.map((item) => (
           <button
             key={item.key}

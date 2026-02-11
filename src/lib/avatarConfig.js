@@ -15,6 +15,34 @@ const styleProfiles = {
     head: ['head'],
     backgroundColor: ['b6e3f4', 'c0aede', 'd1d4f9', 'ffd5dc', 'ffdfbf', 'a7ffc4', 'e8f3a7'],
   },
+  adventurer: {
+    beard: ['none'],
+    clothes: ['blazerAndShirt', 'hoodie', 'shirtCrewNeck', 'shirtVNeck'],
+    clothesColor: ['1f2937', '3b82f6', '16a34a', 'ca8a04', 'b91c1c', '7c3aed'],
+    hair: ['short01', 'short05', 'short10', 'long01', 'long08', 'long15', 'long22'],
+    hairColor: ['2c1b18', '724133', 'a55728', 'b58143', 'd6b370'],
+    eyes: ['variant01', 'variant02', 'variant03', 'variant05', 'variant08'],
+    mouth: ['variant01', 'variant02', 'variant03', 'variant05', 'variant08'],
+    rearHair: ['none'],
+    skinColor: ['f9c9b6', 'f4b28b', 'eaa17e', 'd08b5b', 'ae5d29', '614335'],
+    eyebrows: ['default'],
+    head: ['default'],
+    backgroundColor: ['b6e3f4', 'c0aede', 'd1d4f9', 'ffd5dc', 'ffdfbf', 'a7ffc4', 'e8f3a7'],
+  },
+  personas: {
+    beard: ['none', 'beardMustache', 'pyramid', 'walrus', 'goatee', 'shadow', 'soulPatch'],
+    clothes: ['squared', 'rounded', 'small', 'checkered'],
+    clothesColor: ['262e33', '65c9ff', '5199e4', '25557c', 'e6e6e6', '929598', '3c4f5c', 'b1e2ff', 'ffafb9'],
+    hair: ['long', 'sideShave', 'shortCombover', 'curlyHighTop', 'bobCut', 'curly', 'pigtails', 'buzzcut', 'bald', 'mohawk'],
+    hairColor: ['2c1b18', '724133', 'a55728', 'b58143', 'd6b370', 'ffffff'],
+    eyes: ['open', 'sleep', 'wink', 'glasses', 'happy', 'sunglasses'],
+    mouth: ['smile', 'frown', 'surprise', 'pacifier', 'bigSmile', 'smirk', 'lips'],
+    rearHair: ['none'],
+    skinColor: ['f2d3b1', 'ecad80', '9e5622', '763900'],
+    eyebrows: ['default'],
+    head: ['smallRound'],
+    backgroundColor: ['b6e3f4', 'c0aede', 'd1d4f9', 'ffd5dc', 'ffdfbf', 'a7ffc4', 'e8f3a7'],
+  },
 };
 
 function randomItem(items) {
@@ -84,7 +112,8 @@ export function randomAvatarConfig(seedPrefix = 'kid', style = defaultStyle) {
 export function sanitizeAvatarConfig(input, seedPrefix = 'kid') {
   const defaultConfig = defaultAvatarConfig(seedPrefix);
   const requestedStyle = input?.style;
-  const style = getAvatarStyles().includes(requestedStyle) ? requestedStyle : defaultStyle;
+  const normalizedRequestedStyle = requestedStyle === 'avataaars' ? 'personas' : requestedStyle;
+  const style = getAvatarStyles().includes(normalizedRequestedStyle) ? normalizedRequestedStyle : defaultStyle;
   const profile = getProfile(style);
 
   const config = {
@@ -135,7 +164,35 @@ function buildParams(config) {
   const params = new URLSearchParams();
   params.set('seed', config.seed);
   params.set('radius', '18');
-  params.set('backgroundColor', config.backgroundColor);
+  params.set('backgroundColor', config.backgroundColor || config.clothesColor);
+
+  if (config.style === 'adventurer') {
+    params.set('hair', config.hair);
+    params.set('eyes', config.eyes);
+    params.set('mouth', config.mouth);
+    params.set('skinColor', config.skinColor);
+    params.set('hairColor', config.hairColor);
+    return params;
+  }
+
+  if (config.style === 'personas') {
+    params.set('hair', config.hair);
+    params.set('eyes', config.eyes);
+    params.set('mouth', config.mouth);
+    params.set('skinColor', config.skinColor);
+    params.set('hairColor', config.hairColor);
+    params.set('nose', config.head);
+    params.set('body', config.clothes);
+    params.set('clothingColor', config.clothesColor);
+    if (config.beard && config.beard !== 'none') {
+      params.set('facialHair', config.beard);
+      params.set('facialHairProbability', '100');
+    } else {
+      params.set('facialHairProbability', '0');
+    }
+    return params;
+  }
+
   if (config.beard === 'none') {
     params.set('beardProbability', '0');
   } else {
@@ -164,7 +221,7 @@ function buildParams(config) {
 export function avatarUrlFromConfig(config) {
   const safeConfig = sanitizeAvatarConfig(config);
   const params = buildParams(safeConfig);
-  return `https://api.dicebear.com/9.x/${defaultStyle}/svg?${params.toString()}`;
+  return `https://api.dicebear.com/9.x/${safeConfig.style}/svg?${params.toString()}`;
 }
 
 export const avatarTraits = styleProfiles[defaultStyle];
