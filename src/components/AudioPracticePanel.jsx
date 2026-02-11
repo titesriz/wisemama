@@ -48,8 +48,8 @@ function validateAttempt(parentDurationMs, childDurationMs) {
   return { score, note: 'Essaie de parler plus proche du modele.' };
 }
 
-export default function AudioPracticePanel({ cardKey }) {
-  const [mode, setMode] = useState('child');
+export default function AudioPracticePanel({ cardKey, mode }) {
+  const isParentMode = mode === 'parent';
   const [parentModel, setParentModel] = useState(null);
   const [attempts, setAttempts] = useState([]);
   const [saveStatus, setSaveStatus] = useState('');
@@ -81,7 +81,6 @@ export default function AudioPracticePanel({ cardKey }) {
   }, [cardKey]);
 
   const keepHistory = attempts.filter((attempt) => attempt.kept);
-
   const childValidation = validateAttempt(parentModel?.durationMs, childRecorder.durationMs);
 
   const saveParentRecording = async () => {
@@ -125,30 +124,17 @@ export default function AudioPracticePanel({ cardKey }) {
     <section className="audio-practice">
       <div className="audio-header">
         <h3>Atelier audio</h3>
-        <div className="mode-toggle" role="tablist" aria-label="Mode audio">
-          <button
-            type="button"
-            className={`pill ${mode === 'parent' ? 'active' : ''}`}
-            onClick={() => setMode('parent')}
-          >
-            Mode Parent
-          </button>
-          <button
-            type="button"
-            className={`pill ${mode === 'child' ? 'active' : ''}`}
-            onClick={() => setMode('child')}
-          >
-            Mode Enfant
-          </button>
-        </div>
+        <span className="audio-mode-chip">
+          {isParentMode ? 'Vue parent' : 'Vue enfant'}
+        </span>
       </div>
 
       {panelError ? <p className="error-line">{panelError}</p> : null}
       {saveStatus ? <p className="ok-line">{saveStatus}</p> : null}
 
-      {mode === 'parent' ? (
-        <div className="audio-section">
-          <p className="audio-help">Enregistre une prononciation modele pour cette carte.</p>
+      {isParentMode ? (
+        <div className="audio-section parent-view">
+          <p className="audio-help">Enregistre et gere le modele de prononciation pour cette carte.</p>
           <div className="audio-actions">
             <button
               type="button"
@@ -178,19 +164,45 @@ export default function AudioPracticePanel({ cardKey }) {
               <span>Modele sauvegarde:</span>
               <BlobPlayer blob={parentModel.blob} />
             </div>
-          ) : null}
+          ) : (
+            <p className="audio-placeholder">Pas encore de modele parent.</p>
+          )}
+
+          <div className="history">
+            <h4>Historique enfant</h4>
+            {keepHistory.length === 0 ? (
+              <p className="audio-placeholder">Aucune version enfant sauvegardee.</p>
+            ) : (
+              <ul>
+                {keepHistory.map((attempt) => (
+                  <li key={attempt.id}>
+                    <span>{formatTime(attempt.createdAt)}</span>
+                    <BlobPlayer blob={attempt.blob} />
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
       ) : (
-        <div className="audio-section">
+        <div className="audio-section child-view">
           <p className="audio-help">Ecoute le modele puis enregistre ta voix. Tu peux recommencer avant de garder.</p>
           <div className="audio-compare">
             <div>
               <h4>Modele parent</h4>
-              {parentModel?.blob ? <BlobPlayer blob={parentModel.blob} /> : <p className="audio-placeholder">Pas encore de modele parent.</p>}
+              {parentModel?.blob ? (
+                <BlobPlayer blob={parentModel.blob} />
+              ) : (
+                <p className="audio-placeholder">Le parent doit d abord enregistrer un modele.</p>
+              )}
             </div>
             <div>
               <h4>Ma tentative</h4>
-              {childRecorder.recordedBlob ? <BlobPlayer blob={childRecorder.recordedBlob} /> : <p className="audio-placeholder">Enregistre d abord une tentative.</p>}
+              {childRecorder.recordedBlob ? (
+                <BlobPlayer blob={childRecorder.recordedBlob} />
+              ) : (
+                <p className="audio-placeholder">Enregistre d abord une tentative.</p>
+              )}
             </div>
           </div>
 
@@ -200,9 +212,14 @@ export default function AudioPracticePanel({ cardKey }) {
               className="button secondary"
               onClick={childRecorder.isRecording ? childRecorder.stop : childRecorder.start}
             >
-              {childRecorder.isRecording ? 'Arreter enfant' : 'Enregistrer enfant'}
+              {childRecorder.isRecording ? 'Arreter' : 'Enregistrer'}
             </button>
-            <button type="button" className="button" onClick={saveChildAttempt} disabled={!childRecorder.recordedBlob}>
+            <button
+              type="button"
+              className="button"
+              onClick={saveChildAttempt}
+              disabled={!childRecorder.recordedBlob}
+            >
               Je garde cette version
             </button>
           </div>

@@ -13,6 +13,10 @@ Puis ouvrir l'URL affichee par Vite.
 
 ## Fonctionnalites implementees
 
+- Mode global persistant Parent/Enfant
+- Avatar fixe pour basculer de mode
+- Protection enfant: maintien long pour ouvrir le mode parent
+- Theme dynamique selon le mode (enfant playful, parent neutre)
 - Flashcards avec caractere chinois, pinyin, francais (principal) et anglais (secondaire)
 - Lecons en JSON (`src/data/lessons.json`)
 - Atelier d'ecriture avec Hanzi Writer (ordre des traits + quiz)
@@ -29,6 +33,13 @@ Puis ouvrir l'URL affichee par Vite.
 - Validation locale simple (score base sur proximite de duree)
 - Bouton `Je garde cette version` pour sauvegarder dans `Mes enregistrements`
 - Historique conserve par carte (IndexedDB)
+
+## Navigation des modes
+
+- Avatar en haut a droite toujours visible
+- Enfant vers Parent: maintenir l'avatar environ 1 seconde
+- Parent vers Enfant: tap simple sur l'avatar
+- Le mode actif est memorise entre rechargements
 
 ## Structure des donnees
 

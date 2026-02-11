@@ -1,21 +1,22 @@
 import { useEffect, useMemo, useState } from 'react';
 import Flashcard from './components/Flashcard.jsx';
+import ModeAvatar from './components/ModeAvatar.jsx';
+import { useMode } from './context/ModeContext.jsx';
 import lessons from './data/lessons.json';
 
 const appTitle = 'WiseMama - Apprendre le chinois';
 const progressStorageKey = 'wisemama-progress-v1';
-const profiles = ['child', 'parent'];
 
 function getCardKey(lessonId, cardId) {
   return `${lessonId}:${cardId}`;
 }
 
 export default function App() {
+  const { mode, isParentMode } = useMode();
   const lessonOptions = useMemo(() => lessons, []);
   const [lessonId, setLessonId] = useState(lessonOptions[0]?.id ?? '');
   const activeLesson = lessonOptions.find((lesson) => lesson.id === lessonId);
   const [cardIndex, setCardIndex] = useState(0);
-  const [activeProfile, setActiveProfile] = useState('child');
   const [starsByProfile, setStarsByProfile] = useState({ child: {}, parent: {} });
 
   useEffect(() => {
@@ -33,7 +34,6 @@ export default function App() {
         return;
       }
 
-      // Backward compatibility for v1 payloads that stored one shared map.
       if (parsed.starsByCard && typeof parsed.starsByCard === 'object') {
         setStarsByProfile({
           child: parsed.starsByCard,
@@ -48,6 +48,9 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem(progressStorageKey, JSON.stringify({ starsByProfile }));
   }, [starsByProfile]);
+
+  const currentProfile = mode;
+  const currentStarsMap = starsByProfile[currentProfile] || {};
 
   const currentCard = activeLesson?.cards?.[cardIndex];
   const totalCards = activeLesson?.cards?.length ?? 0;
@@ -74,12 +77,12 @@ export default function App() {
     const earned = mistakes === 0 ? 3 : mistakes === 1 ? 2 : 1;
 
     setStarsByProfile((prev) => {
-      const profileMap = prev[activeProfile] || {};
-      const current = profileMap[cardKey] ?? 0;
+      const map = prev[currentProfile] || {};
+      const current = map[cardKey] ?? 0;
       return {
         ...prev,
-        [activeProfile]: {
-          ...profileMap,
+        [currentProfile]: {
+          ...map,
           [cardKey]: Math.max(current, earned),
         },
       };
@@ -87,61 +90,79 @@ export default function App() {
   };
 
   const currentCardKey = currentCard ? getCardKey(activeLesson.id, currentCard.id) : '';
-  const activeStars = starsByProfile[activeProfile] || {};
-  const earnedStars = currentCard ? activeStars[currentCardKey] ?? 0 : 0;
+  const earnedStars = currentCard ? currentStarsMap[currentCardKey] ?? 0 : 0;
 
   const lessonCompletion = activeLesson
-    ? activeLesson.cards.filter((card) => (activeStars[getCardKey(activeLesson.id, card.id)] ?? 0) > 0).length
+    ? activeLesson.cards.filter((card) => (currentStarsMap[getCardKey(activeLesson.id, card.id)] ?? 0) > 0).length
     : 0;
 
   const lessonComplete = activeLesson ? lessonCompletion === activeLesson.cards.length : false;
+  const childMap = starsByProfile.child || {};
+  const childLessonCompletion = activeLesson
+    ? activeLesson.cards.filter((card) => (childMap[getCardKey(activeLesson.id, card.id)] ?? 0) > 0).length
+    : 0;
+
+  const resetChildLesson = () => {
+    if (!activeLesson) return;
+    setStarsByProfile((prev) => {
+      const nextChild = { ...(prev.child || {}) };
+      activeLesson.cards.forEach((card) => {
+        delete nextChild[getCardKey(activeLesson.id, card.id)];
+      });
+      return { ...prev, child: nextChild };
+    });
+  };
 
   return (
     <div className="app">
+      <ModeAvatar />
+
       <header className="app-header">
         <div>
           <h1>{appTitle}</h1>
-          <p className="subtitle">Apprentissage joyeux pour enfants</p>
+          <p className="subtitle">
+            {isParentMode ? 'Mode parent: gestion et suivi' : 'Mode enfant: apprentissage'}
+          </p>
         </div>
-        <div className="header-controls">
-          <div className="lesson-picker">
-            <label htmlFor="lesson">Lecon :</label>
-            <select id="lesson" value={lessonId} onChange={handleLessonChange}>
-              {lessonOptions.map((lesson) => (
-                <option key={lesson.id} value={lesson.id}>
-                  {lesson.title}
-                </option>
-              ))}
-            </select>
+
+        {isParentMode ? (
+          <div className="header-controls">
+            <div className="lesson-picker">
+              <label htmlFor="lesson">Lecon :</label>
+              <select id="lesson" value={lessonId} onChange={handleLessonChange}>
+                {lessonOptions.map((lesson) => (
+                  <option key={lesson.id} value={lesson.id}>
+                    {lesson.title}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
-          <div className="profile-toggle" role="tablist" aria-label="Profil actif">
-            {profiles.map((profile) => (
-              <button
-                key={profile}
-                type="button"
-                className={`pill ${activeProfile === profile ? 'active' : ''}`}
-                onClick={() => setActiveProfile(profile)}
-              >
-                {profile === 'child' ? 'Mode Enfant' : 'Mode Parent'}
-              </button>
-            ))}
-          </div>
-        </div>
+        ) : null}
       </header>
 
       <main className="content">
-        {activeLesson ? (
+        {activeLesson && isParentMode ? (
           <div className="progress-strip" aria-live="polite">
             <span>
-              Progression de la lecon: {lessonCompletion}/{activeLesson.cards.length}
+              Progression ({currentProfile}): {lessonCompletion}/{activeLesson.cards.length}
             </span>
-            <span className="profile-label">
-              Profil actif: {activeProfile === 'child' ? 'Enfant' : 'Parent'}
-            </span>
+            <span>Enfant: {childLessonCompletion}/{activeLesson.cards.length}</span>
             <span className={lessonComplete ? 'badge done' : 'badge'}>
-              {lessonComplete ? 'Lecon terminee' : 'Continue'}
+              {lessonComplete ? 'Lecon terminee' : 'En cours'}
             </span>
           </div>
+        ) : null}
+
+        {activeLesson && isParentMode ? (
+          <section className="parent-panel">
+            <h3>Controle parent</h3>
+            <div className="parent-actions">
+              <button type="button" className="button secondary" onClick={resetChildLesson}>
+                Reinitialiser progression enfant (lecon)
+              </button>
+            </div>
+          </section>
         ) : null}
 
         {currentCard ? (
@@ -149,6 +170,7 @@ export default function App() {
             <Flashcard
               card={currentCard}
               cardKey={currentCardKey}
+              mode={mode}
               onWritingSuccess={handleWritingSuccess}
               earnedStars={earnedStars}
             />
