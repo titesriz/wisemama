@@ -145,6 +145,44 @@ body {
   background: #fff;
 }
 
+.writing-only-page {
+  min-height: 100vh;
+  padding: 14px;
+  background: #f5f6f8;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.writing-only-lesson-pop {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 70;
+  width: min(320px, 86vw);
+  border: 1px solid #d8dbe2;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: var(--shadow);
+  padding: 10px;
+  display: grid;
+  gap: 8px;
+}
+
+.writing-only-lesson-pop label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-soft);
+}
+
+.writing-only-lesson-pop select {
+  border-radius: 10px;
+  border: 1px solid #d8dbe2;
+  background: #fff;
+  color: #2d3436;
+  padding: 8px;
+}
+
 .app {
   min-height: 100vh;
   display: flex;
@@ -328,6 +366,66 @@ body {
   width: 100%;
   display: grid;
   gap: 8px;
+}
+
+.big-smile-tester {
+  display: grid;
+  gap: 12px;
+}
+
+.big-smile-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.big-smile-head h3 {
+  margin: 0;
+}
+
+.big-smile-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.big-smile-main {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 14px;
+  align-items: start;
+}
+
+.big-smile-preview {
+  border: 1px solid var(--pill-border);
+  border-radius: 14px;
+  padding: 10px;
+  background: #fff;
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+}
+
+.big-smile-url {
+  width: 100%;
+  display: block;
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid var(--soft-border);
+  background: #f7f9fc;
+  color: var(--text-soft);
+  font-size: 11px;
+  word-break: break-all;
+}
+
+.big-smile-panel {
+  border: 1px solid var(--pill-border);
+  border-radius: 14px;
+  padding: 10px;
+  background: #fff;
+  display: grid;
+  gap: 10px;
 }
 
 .module-pill-row {
@@ -1220,45 +1318,313 @@ body {
   font-weight: 700;
 }
 
-.writing-practice {
-  margin-top: 8px;
-  padding: 16px;
-  border: 2px solid var(--soft-border);
+.writing-screen {
+  width: min(834px, 100%);
+  background: #fff;
+  border: 1px solid #e0e0e0;
   border-radius: 18px;
-  background: linear-gradient(180deg, #fbfdff 0%, #f6f9ff 100%);
+  overflow: hidden;
+  display: grid;
+  font-family: Inter, 'Segoe UI', sans-serif;
+}
+
+.writing-top-banner {
+  height: 100px;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 0 18px;
+}
+
+.writing-logo {
+  width: 80px;
+  height: 80px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+  color: #fff;
+  font-size: 30px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.writing-profile-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.writing-avatar-tile {
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #4ecdc4 0%, #44a3a0 100%);
+  display: grid;
+  place-items: center;
+}
+
+.writing-avatar-tile img {
+  border-radius: 12px;
+}
+
+.writing-profile-name {
+  display: grid;
+  gap: 2px;
+}
+
+.writing-profile-name strong {
+  font-size: 18px;
+  color: #2d3436;
+}
+
+.writing-profile-name span {
+  font-size: 13px;
+  color: #636e72;
+  font-weight: 700;
+}
+
+.writing-lesson-selector {
+  height: 56px;
+  padding: 0 18px;
+  border-radius: 12px;
+  border: 2px solid #4ecdc4;
+  background: #fff;
+  color: #2d3436;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.writing-card-info {
+  min-height: 94px;
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: #fff;
+}
+
+.writing-pinyin {
+  font-size: 20px;
+  color: #636e72;
+  font-weight: 700;
+}
+
+.writing-char-small {
+  font-size: 56px;
+  line-height: 1;
+  color: #2d3436;
+  font-weight: 800;
+  font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+
+.writing-translation {
+  display: grid;
+  gap: 2px;
+}
+
+.writing-translation span {
+  font-size: 17px;
+  color: #2d3436;
+  font-weight: 700;
+}
+
+.writing-translation small {
+  font-size: 14px;
+  color: #636e72;
+}
+
+.writing-sound-btn {
+  margin-left: auto;
+  min-width: 96px;
+  height: 48px;
+  border-radius: 12px;
+  border: 2px solid #ff6b6b;
+  background: #ff6b6b;
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.writing-sound-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.writing-area {
+  background: #fff;
+  display: grid;
+  grid-template-columns: 1fr 92px;
+  gap: 16px;
+  align-items: center;
+  padding: 12px 18px;
+}
+
+.writing-canvas-container {
+  width: 500px;
+  height: 500px;
+  max-width: 100%;
+  margin: 0 auto;
+  position: relative;
+  border-radius: 14px;
+  border: 2px solid #e0e0e0;
+  overflow: hidden;
+  background: #fff;
+}
+
+.writer-box {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.writer-ghost-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.writer-box-large > svg,
+.writer-ghost-layer > svg,
+.writer-box-large canvas,
+.writer-ghost-layer canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.writing-guide-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.writing-guide-grid span:nth-child(1) {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  border-left: 2px dashed #e0e0e0;
+}
+
+.writing-guide-grid span:nth-child(2) {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  border-top: 2px dashed #e0e0e0;
+}
+
+.writing-guide-grid span:nth-child(3) {
+  display: none;
+}
+
+.writing-action-buttons {
   display: grid;
   gap: 12px;
 }
 
-.writing-practice h3 {
-  margin: 0;
-  color: var(--accent-indigo);
-  font-size: 22px;
-}
-
-.writer-box {
-  width: 100%;
-  min-height: 270px;
+.writing-action-btn {
+  width: 80px;
+  height: 80px;
+  border: 2px solid #e0e0e0;
+  border-radius: 16px;
+  background: #fff;
+  color: #2d3436;
   display: grid;
   place-items: center;
-  border-radius: 14px;
-  background: #ffffff;
-  border: 1px solid #dbe2ff;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.writing-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+.writing-action-btn small {
+  color: #636e72;
+  font-weight: 700;
+  font-size: 11px;
+}
+
+.writing-action-btn.primary {
+  background: #00b894;
+  border-color: #00b894;
+  color: #fff;
+}
+
+.writing-action-btn.primary small {
+  color: #fff;
+}
+
+.writing-action-btn.model-on {
+  border-color: #4ecdc4;
+  background: #eefcfb;
 }
 
 .writing-feedback {
   margin: 0;
-  padding: 10px;
-  border-radius: 10px;
-  background: #edf2ff;
-  color: #29315e;
-  font-weight: 600;
+  padding: 12px 18px;
+  background: #fff;
+  color: #2d3436;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  font-weight: 700;
+}
+
+.writing-bottom-nav {
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: #fff;
+}
+
+.writing-nav-btn {
+  min-width: 106px;
+  height: 48px;
+  border-radius: 12px;
+  border: 2px solid #4ecdc4;
+  background: #fff;
+  color: #2d3436;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.writing-counter {
+  font-size: 19px;
+  color: #2d3436;
+  font-weight: 800;
+}
+
+.writing-mode-selector {
+  border-top: 1px solid #e0e0e0;
+  min-height: 96px;
+  padding: 10px 18px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  background: #fff;
+}
+
+.writing-mode-btn {
+  width: 100px;
+  height: 74px;
+  border-radius: 12px;
+  border: 2px solid #e0e0e0;
+  background: #fff;
+  color: #636e72;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.writing-mode-btn.active {
+  border-color: #ff6b6b;
+  background: #ff6b6b;
+  color: #fff;
 }
 
 .card-controls {
@@ -1462,6 +1828,47 @@ body {
 
   .avatar-studio-main {
     grid-template-columns: 1fr;
+  }
+
+  .big-smile-main {
+    grid-template-columns: 1fr;
+  }
+
+  .writing-top-banner {
+    height: auto;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 10px;
+  }
+
+  .writing-lesson-selector {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .writing-card-info {
+    flex-wrap: wrap;
+  }
+
+  .writing-sound-btn {
+    margin-left: 0;
+  }
+
+  .writing-area {
+    grid-template-columns: 1fr;
+  }
+
+  .writing-action-buttons {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .writing-action-btn {
+    width: 100%;
+  }
+
+  .writing-mode-selector {
+    justify-content: center;
   }
 
   .avatar-circle {

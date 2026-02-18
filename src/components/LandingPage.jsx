@@ -3,6 +3,7 @@ import AvatarRenderer from './AvatarRenderer.jsx';
 export default function LandingPage({
   profiles,
   onStartProfile,
+  onOpenWritingUi,
   showAvatarEditor,
   onToggleAvatarEditor,
   avatarEditorContent,
@@ -18,6 +19,9 @@ export default function LandingPage({
         <div className="landing-actions">
           <button type="button" className="button secondary" onClick={onToggleAvatarEditor}>
             {showAvatarEditor ? 'Fermer editeur avatar' : 'Gerer profils et avatars'}
+          </button>
+          <button type="button" className="button" onClick={onOpenWritingUi}>
+            Ouvrir UI ecriture
           </button>
         </div>
 

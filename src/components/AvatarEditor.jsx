@@ -8,7 +8,7 @@ import {
   sanitizeAvatarConfig,
 } from '../lib/avatarConfig.js';
 
-const categories = [
+const defaultCategories = [
   { key: 'skinColor', label: 'Skin color' },
   { key: 'hair', label: 'Hair' },
   { key: 'hairColor', label: 'Hair color' },
@@ -18,6 +18,14 @@ const categories = [
   { key: 'mouth', label: 'Mouth' },
   { key: 'clothes', label: 'Clothes' },
   { key: 'clothesColor', label: 'Clothes color' },
+];
+const bigSmileCategories = [
+  { key: 'skinColor', label: 'Skin color' },
+  { key: 'hair', label: 'Hair' },
+  { key: 'hairColor', label: 'Hair color' },
+  { key: 'eyes', label: 'Eye' },
+  { key: 'mouth', label: 'Mouth' },
+  { key: 'accessories', label: 'Accessories' },
 ];
 const topCategories = [
   { key: 'backgroundColor', label: 'Background color' },
@@ -42,7 +50,18 @@ const styleLabelMap = {
   'toon-head': 'Toon Head',
   adventurer: 'Adventurer',
   personas: 'Personas',
+  dylan: 'Dylan',
+  'open-peeps': 'Open Peeps',
+  miniavs: 'Miniavs',
+  micah: 'Micah',
+  'big-smile': 'Big Smile',
 };
+const enabledBaseStyles = ['toon-head', 'big-smile'];
+
+function getCategoriesByStyle(style) {
+  if (style === 'big-smile') return bigSmileCategories;
+  return defaultCategories;
+}
 
 function formatOptionLabel(value, activeCategory) {
   if (activeCategory === 'hair' && String(value).includes(HAIR_PAIR_SEPARATOR)) {
@@ -121,8 +140,19 @@ export default function AvatarEditor() {
   }, [targetProfile]);
 
   const styleTraits = useMemo(() => getAvatarTraitsByStyle(draft.style), [draft.style]);
-  const styleOptions = useMemo(() => getAvatarStyles(), []);
+  const styleOptions = useMemo(
+    () => getAvatarStyles().filter((styleKey) => enabledBaseStyles.includes(styleKey)),
+    [],
+  );
+  const categories = useMemo(() => getCategoriesByStyle(draft.style), [draft.style]);
   const isProbabilityCategory = probabilityCategories.has(activeCategory);
+
+  useEffect(() => {
+    const allowed = new Set([...topCategories.map((item) => item.key), ...categories.map((item) => item.key)]);
+    if (!allowed.has(activeCategory)) {
+      setActiveCategory(categories[0]?.key || 'skinColor');
+    }
+  }, [activeCategory, categories]);
 
   const optionsForCategory = useMemo(() => {
     if (isProbabilityCategory) return [];

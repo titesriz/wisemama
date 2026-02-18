@@ -43,6 +43,78 @@ const styleProfiles = {
     head: ['smallRound'],
     backgroundColor: ['b6e3f4', 'c0aede', 'd1d4f9', 'ffd5dc', 'ffdfbf', 'a7ffc4', 'e8f3a7'],
   },
+  dylan: {
+    beard: ['none', 'default'],
+    clothes: ['default'],
+    clothesColor: ['65c9ff'],
+    hair: ['plain', 'wavy', 'shortCurls', 'parting', 'spiky', 'roundBob', 'longCurls', 'buns', 'bangs', 'fluffy', 'flatTop', 'shaggy'],
+    hairColor: ['2c1b18', '724133', 'a55728', 'b58143', 'd6b370', 'ffffff'],
+    eyes: ['happy', 'angry', 'neutral', 'superHappy', 'sad', 'hopeful', 'confused'],
+    mouth: ['happy', 'angry', 'neutral', 'superHappy', 'sad', 'hopeful', 'confused'],
+    rearHair: ['none'],
+    skinColor: ['f2d3b1', 'ecad80', '9e5622', '763900'],
+    eyebrows: ['default'],
+    head: ['default'],
+    backgroundColor: ['65c9ff', 'b6e3f4', 'c0aede', 'd1d4f9', 'ffd5dc', 'ffdfbf'],
+  },
+  'open-peeps': {
+    beard: ['none', 'chin', 'full', 'full2', 'full3', 'full4', 'goatee1', 'goatee2', 'moustache1', 'moustache2', 'moustache3'],
+    clothes: ['none', 'eyepatch', 'glasses', 'glasses2', 'glasses3', 'sunglasses', 'sunglasses2'],
+    clothesColor: ['262e33', '65c9ff', '5199e4', '25557c', 'e6e6e6', '929598', '3c4f5c', 'ffafb9'],
+    hair: ['afro', 'bangs', 'bangs2', 'bun', 'buns', 'cornrows', 'dreads1', 'flatTop', 'hatBeanie', 'hijab', 'long', 'longCurly', 'medium1', 'medium2', 'short1', 'short2', 'short3', 'short4', 'short5'],
+    hairColor: ['2c1b18', '724133', 'a55728', 'b58143', 'd6b370', 'ffffff'],
+    eyes: ['angryWithFang', 'awe', 'calm', 'cheeky', 'cute', 'driven', 'eyesClosed', 'lovingGrin1', 'smile', 'smileBig', 'solemn'],
+    mouth: ['angryWithFang', 'awe', 'calm', 'cheeky', 'cute', 'driven', 'eyesClosed', 'lovingGrin1', 'smile', 'smileBig', 'solemn'],
+    rearHair: ['none'],
+    skinColor: ['f2d3b1', 'ecad80', '9e5622', '763900'],
+    eyebrows: ['default'],
+    head: ['default'],
+    backgroundColor: ['b6e3f4', 'c0aede', 'd1d4f9', 'ffd5dc', 'ffdfbf', 'a7ffc4', 'e8f3a7'],
+  },
+  miniavs: {
+    beard: ['none', 'pencilThinBeard', 'pencilThin', 'horshoe', 'freddy'],
+    clothes: ['tShirt', 'golf'],
+    clothesColor: ['ff5733', '4caf50', '3f51b5', 'ff9800', '9c27b0', '795548'],
+    hair: ['balndess', 'slaughter', 'ponyTail', 'long', 'curly', 'stylish', 'elvis', 'classic02', 'classic01'],
+    hairColor: ['2c1b18', '724133', 'a55728', 'b58143', 'd6b370', 'ffffff'],
+    eyes: ['normal', 'confident', 'happy'],
+    mouth: ['default', 'missingTooth'],
+    rearHair: ['none'],
+    skinColor: ['f2d3b1', 'ecad80', '9e5622', '763900'],
+    eyebrows: ['default'],
+    head: ['normal', 'wide', 'thin'],
+    backgroundColor: ['b6e3f4', 'c0aede', 'd1d4f9', 'ffd5dc', 'ffdfbf', 'a7ffc4', 'e8f3a7'],
+  },
+  micah: {
+    beard: ['none', 'beard', 'scruff'],
+    clothes: ['open', 'crew', 'collared'],
+    clothesColor: ['262e33', '65c9ff', '5199e4', '25557c', 'e6e6e6', '929598', '3c4f5c', 'ffafb9'],
+    hair: ['fonze', 'mrT', 'dougFunny', 'mrClean', 'dannyPhantom', 'full', 'turban', 'pixie'],
+    hairColor: ['2c1b18', '724133', 'a55728', 'b58143', 'd6b370', 'ffffff'],
+    eyes: ['eyes', 'round', 'eyesShadow', 'smiling', 'smilingShadow'],
+    mouth: ['surprised', 'laughing', 'nervous', 'smile', 'sad', 'pucker', 'frown', 'smirk'],
+    rearHair: ['none'],
+    skinColor: ['f2d3b1', 'ecad80', '9e5622', '763900'],
+    eyebrows: ['up', 'down', 'eyelashesUp', 'eyelashesDown'],
+    head: ['curve', 'pointed', 'tound'],
+    backgroundColor: ['b6e3f4', 'c0aede', 'd1d4f9', 'ffd5dc', 'ffdfbf', 'a7ffc4', 'e8f3a7'],
+  },
+  'big-smile': {
+    accessories: ['none', 'catEars', 'glasses', 'sailormoonCrown', 'clownNose', 'sleepMask', 'sunglasses', 'faceMask', 'mustache'],
+    face: ['base'],
+    beard: ['none', 'catEars', 'glasses', 'sailormoonCrown', 'clownNose', 'sleepMask', 'sunglasses', 'faceMask', 'mustache'],
+    clothes: ['base'],
+    clothesColor: ['65c9ff'],
+    hair: ['shortHair', 'mohawk', 'wavyBob', 'bowlCutHair', 'curlyBob', 'straightHair', 'braids', 'shavedHead', 'bunHair', 'froBun', 'bangs', 'halfShavedHead', 'curlyShortHair'],
+    hairColor: ['2c1b18', '724133', 'a55728', 'b58143', 'd6b370', 'ffffff'],
+    eyes: ['cheery', 'normal', 'confused', 'starstruck', 'winking', 'sleepy', 'sad', 'angry'],
+    mouth: ['openedSmile', 'unimpressed', 'gapSmile', 'openSad', 'teethSmile', 'awkwardSmile', 'braces', 'kawaii'],
+    rearHair: ['none'],
+    skinColor: ['f2d3b1', 'ecad80', '9e5622', '763900'],
+    eyebrows: ['default'],
+    head: ['base'],
+    backgroundColor: ['b6e3f4', 'c0aede', 'd1d4f9', 'ffd5dc', 'ffdfbf', 'a7ffc4', 'e8f3a7'],
+  },
 };
 
 function randomItem(items) {
@@ -84,6 +156,8 @@ export function defaultAvatarConfig(seedPrefix = 'kid') {
     eyebrows: profile.eyebrows[0],
     head: profile.head[0],
     backgroundColor: profile.backgroundColor[0],
+    accessories: profile.accessories?.[0] || profile.beard?.[0] || 'none',
+    face: profile.face?.[0] || profile.head?.[0] || 'base',
   };
 }
 
@@ -106,6 +180,8 @@ export function randomAvatarConfig(seedPrefix = 'kid', style = defaultStyle) {
     eyebrows: randomItem(profile.eyebrows),
     head: profile.head[0],
     backgroundColor: randomItem(profile.backgroundColor),
+    accessories: randomItem(profile.accessories || profile.beard),
+    face: randomItem(profile.face || profile.head),
   };
 }
 
@@ -143,6 +219,25 @@ export function sanitizeAvatarConfig(input, seedPrefix = 'kid') {
   if (!profile.eyebrows.includes(config.eyebrows)) config.eyebrows = profile.eyebrows[0];
   if (!profile.head.includes(config.head)) config.head = profile.head[0];
   if (!profile.backgroundColor.includes(config.backgroundColor)) config.backgroundColor = profile.backgroundColor[0];
+
+  if (style === 'big-smile') {
+    const accessoryOptions = profile.accessories || profile.beard;
+    const faceOptions = profile.face || profile.head;
+
+    if (!config.accessories && config.beard) {
+      config.accessories = config.beard;
+    }
+    if (!config.face && config.head) {
+      config.face = config.head;
+    }
+
+    if (!accessoryOptions.includes(config.accessories)) config.accessories = accessoryOptions[0];
+    if (!faceOptions.includes(config.face)) config.face = faceOptions[0];
+
+    // Keep backward compatibility with existing editor categories.
+    config.beard = config.accessories;
+    config.head = config.face;
+  }
 
   const parsedHairProbability = Number.parseInt(config.hairProbability, 10);
   const parsedRearHairProbability = Number.parseInt(config.rearHairProbability, 10);
@@ -189,6 +284,94 @@ function buildParams(config) {
       params.set('facialHairProbability', '100');
     } else {
       params.set('facialHairProbability', '0');
+    }
+    return params;
+  }
+
+  if (config.style === 'dylan') {
+    params.set('hair', config.hair);
+    params.set('hairColor', config.hairColor);
+    params.set('skinColor', config.skinColor);
+    params.set('mood', config.eyes);
+    if (config.beard && config.beard !== 'none') {
+      params.set('facialHair', 'default');
+      params.set('facialHairProbability', '100');
+    } else {
+      params.set('facialHairProbability', '0');
+    }
+    return params;
+  }
+
+  if (config.style === 'open-peeps') {
+    params.set('head', config.hair);
+    params.set('face', config.eyes);
+    params.set('skinColor', config.skinColor);
+    params.set('headContrastColor', config.hairColor);
+    params.set('clothingColor', config.clothesColor);
+    if (config.clothes && config.clothes !== 'none') {
+      params.set('accessories', config.clothes);
+      params.set('accessoriesProbability', '100');
+    } else {
+      params.set('accessoriesProbability', '0');
+    }
+    if (config.beard && config.beard !== 'none') {
+      params.set('facialHair', config.beard);
+      params.set('facialHairProbability', '100');
+    } else {
+      params.set('facialHairProbability', '0');
+    }
+    return params;
+  }
+
+  if (config.style === 'miniavs') {
+    params.set('hair', config.hair);
+    params.set('hairColor', config.hairColor);
+    params.set('eyes', config.eyes);
+    params.set('mouth', config.mouth);
+    params.set('head', config.head);
+    params.set('body', config.clothes);
+    params.set('bodyColor', config.clothesColor);
+    params.set('skinColor', config.skinColor);
+    if (config.beard && config.beard !== 'none') {
+      params.set('mustache', config.beard);
+      params.set('mustacheProbability', '100');
+    } else {
+      params.set('mustacheProbability', '0');
+    }
+    return params;
+  }
+
+  if (config.style === 'micah') {
+    params.set('hair', config.hair);
+    params.set('hairColor', config.hairColor);
+    params.set('eyes', config.eyes);
+    params.set('mouth', config.mouth);
+    params.set('nose', config.head);
+    params.set('eyebrows', config.eyebrows);
+    params.set('shirt', config.clothes);
+    params.set('shirtColor', config.clothesColor);
+    if (config.beard && config.beard !== 'none') {
+      params.set('facialHair', config.beard);
+      params.set('facialHairProbability', '100');
+    } else {
+      params.set('facialHairProbability', '0');
+    }
+    return params;
+  }
+
+  if (config.style === 'big-smile') {
+    params.set('hair', config.hair);
+    params.set('hairColor', config.hairColor);
+    params.set('eyes', config.eyes);
+    params.set('mouth', config.mouth);
+    params.set('face', config.face || config.head || 'base');
+    params.set('skinColor', config.skinColor);
+    const accessories = config.accessories || config.beard || 'none';
+    if (accessories !== 'none') {
+      params.set('accessories', accessories);
+      params.set('accessoriesProbability', '100');
+    } else {
+      params.set('accessoriesProbability', '0');
     }
     return params;
   }

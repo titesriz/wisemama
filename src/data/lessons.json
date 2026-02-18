@@ -433,9 +433,18 @@
         "audioUrl": null
       },
       {
-        "id": "shenme",
-        "hanzi": "什么",
-        "pinyin": "shen2 me5",
+        "id": "shen",
+        "hanzi": "什",
+        "pinyin": "shen2",
+        "french": "quoi; quel",
+        "english": "what",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "me",
+        "hanzi": "么",
+        "pinyin": "me5",
         "french": "quoi; quel",
         "english": "what",
         "imageUrl": null,
@@ -469,38 +478,47 @@
         "audioUrl": null
       },
       {
-        "id": "tianyi",
-        "hanzi": "天一",
-        "pinyin": "tian1 yi1",
-        "french": "Tianyi (prénom)",
-        "english": "Tianyi (given name)",
+        "id": "ta-he",
+        "hanzi": "他",
+        "pinyin": "ta1",
+        "french": "il",
+        "english": "he; him",
         "imageUrl": null,
         "audioUrl": null
       },
       {
-        "id": "sentence-ni-xing-shenme",
-        "hanzi": "你姓什么",
-        "pinyin": "ni3 xing4 shen2 me5",
-        "french": "tu t'appelles comment (nom de famille)",
-        "english": "what is your surname",
+        "id": "ta-she",
+        "hanzi": "她",
+        "pinyin": "ta1",
+        "french": "elle",
+        "english": "she; her",
         "imageUrl": null,
         "audioUrl": null
       },
       {
-        "id": "sentence-wo-xing-wang",
-        "hanzi": "我姓王",
-        "pinyin": "wo3 xing4 wang2",
-        "french": "je m'appelle Wang (nom de famille)",
-        "english": "my surname is Wang",
+        "id": "tian",
+        "hanzi": "天",
+        "pinyin": "tian1",
+        "french": "Ciel",
+        "english": "Sky",
         "imageUrl": null,
         "audioUrl": null
       },
       {
-        "id": "sentence-wo-jiao-tianyi",
-        "hanzi": "我叫天一",
-        "pinyin": "wo3 jiao4 tian1 yi1",
-        "french": "je m'appelle Tianyi",
-        "english": "my name is Tianyi",
+        "id": "ming",
+        "hanzi": "名",
+        "pinyin": "ming2",
+        "french": "prénom",
+        "english": "Given name",
+        "imageUrl": null,
+        "audioUrl": null
+      },
+      {
+        "id": "zi",
+        "hanzi": "字",
+        "pinyin": "zi4",
+        "french": "mot, caractère",
+        "english": "word, character",
         "imageUrl": null,
         "audioUrl": null
       }

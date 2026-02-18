@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import defaultLessons from '../data/lessons.json';
 
 const lessonsStorageKey = 'wisemama-lessons-v1';
+const lessonsStorageVersion = '2026-02-18-name-v2';
 const LessonsContext = createContext(null);
 
 function safeString(value, fallback = '') {
@@ -35,6 +36,36 @@ function normalizeLessons(input) {
   return input.map((lesson, index) => normalizeLesson(lesson, index));
 }
 
+function mergeBundledLessons(storedLessons, bundledLessons) {
+  const normalizedStored = normalizeLessons(storedLessons);
+  const normalizedBundled = normalizeLessons(bundledLessons);
+  const storedById = new Map(normalizedStored.map((lesson) => [lesson.id, lesson]));
+  const merged = [...normalizedStored];
+
+  for (const bundledLesson of normalizedBundled) {
+    const current = storedById.get(bundledLesson.id);
+    if (!current) {
+      merged.push(bundledLesson);
+      storedById.set(bundledLesson.id, bundledLesson);
+      continue;
+    }
+
+    const currentCardIds = new Set(current.cards.map((card) => card.id));
+    const missingCards = bundledLesson.cards.filter((card) => !currentCardIds.has(card.id));
+    if (missingCards.length === 0) continue;
+
+    const updated = {
+      ...current,
+      cards: [...current.cards, ...missingCards],
+    };
+    const index = merged.findIndex((lesson) => lesson.id === current.id);
+    if (index >= 0) merged[index] = updated;
+    storedById.set(updated.id, updated);
+  }
+
+  return merged;
+}
+
 function makeLessonId() {
   return `lesson-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
 }
@@ -61,12 +92,16 @@ export function LessonsProvider({ children }) {
   useEffect(() => {
     try {
       const stored = localStorage.getItem(lessonsStorageKey);
-      if (!stored) return;
-      const parsed = JSON.parse(stored);
-      const normalized = normalizeLessons(parsed);
-      if (normalized.length > 0) {
-        setLessons(normalized);
+      if (!stored) {
+        setLessons(normalizeLessons(defaultLessons));
+        return;
       }
+      const parsed = JSON.parse(stored);
+      const storedLessons = Array.isArray(parsed) ? parsed : parsed?.lessons;
+      const normalizedStored = normalizeLessons(storedLessons);
+      const merged = mergeBundledLessons(normalizedStored, defaultLessons);
+      if (merged.length > 0) setLessons(merged);
+      else setLessons(normalizeLessons(defaultLessons));
     } catch {
       setLessons(normalizeLessons(defaultLessons));
     }
@@ -74,7 +109,13 @@ export function LessonsProvider({ children }) {
 
   useEffect(() => {
     try {
-      localStorage.setItem(lessonsStorageKey, JSON.stringify(lessons));
+      localStorage.setItem(
+        lessonsStorageKey,
+        JSON.stringify({
+          version: lessonsStorageVersion,
+          lessons,
+        }),
+      );
     } catch {
       // no-op
     }

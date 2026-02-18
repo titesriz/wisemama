@@ -1,0 +1,114 @@
+{
+  "id": "lesson-ask-name",
+  "title": "Leçon - Asking surname and name",
+  "cards": [
+    {
+      "id": "ni",
+      "hanzi": "你",
+      "pinyin": "ni3",
+      "french": "tu; toi",
+      "english": "you",
+      "imageUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "xing",
+      "hanzi": "姓",
+      "pinyin": "xing4",
+      "french": "nom de famille",
+      "english": "surname; family name",
+      "imageUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "shen",
+      "hanzi": "什",
+      "pinyin": "shen2",
+      "french": "quoi; quel",
+      "english": "what",
+      "imageUrl": null,
+      "audioUrl": null
+    },
+        {
+      "id": "me",
+      "hanzi": "么",
+      "pinyin": "me5",
+      "french": "quoi; quel",
+      "english": "what",
+      "imageUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "wang",
+      "hanzi": "王",
+      "pinyin": "wang2",
+      "french": "Wang (nom de famille)",
+      "english": "Wang (surname)",
+      "imageUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "wo",
+      "hanzi": "我",
+      "pinyin": "wo3",
+      "french": "je; moi",
+      "english": "I; me",
+      "imageUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "jiao",
+      "hanzi": "叫",
+      "pinyin": "jiao4",
+      "french": "s'appeler",
+      "english": "to be called; to be named",
+      "imageUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "ta-he",
+      "hanzi": "他",
+      "pinyin": "ta1",
+      "french": "il",
+      "english": "he; him",
+      "imageUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "ta-she",
+      "hanzi": "她",
+      "pinyin": "ta1",
+      "french": "elle",
+      "english": "she; her",
+      "imageUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "tian",
+      "hanzi": "天",
+      "pinyin": "tian1",
+      "french": "Ciel",
+      "english": "Sky",
+      "imageUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "ming",
+      "hanzi": "名",
+      "pinyin": "ming2",
+      "french": "prénom",
+      "english": "Given name",
+      "imageUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "zi",
+      "hanzi": "字",
+      "pinyin": "zi4",
+      "french": "mot, caractère",
+      "english": "word, character",
+      "imageUrl": null,
+      "audioUrl": null
+    }
+  ]
+}

@@ -1,11 +1,14 @@
 import { useEffect, useMemo, useState } from 'react';
 import AudioPracticePanel from './components/AudioPracticePanel.jsx';
 import AvatarEditor from './components/AvatarEditor.jsx';
+import BigSmileTester from './components/BigSmileTester.jsx';
 import Flashcard from './components/Flashcard.jsx';
 import LandingPage from './components/LandingPage.jsx';
 import LessonEditor from './components/LessonEditor.jsx';
 import ModeAvatar from './components/ModeAvatar.jsx';
+import ToonHeadTester from './components/ToonHeadTester.jsx';
 import WritingPractice from './components/WritingPractice.jsx';
+import WritingOnlyPage from './components/WritingOnlyPage.jsx';
 import { useAvatar } from './context/AvatarContext.jsx';
 import { useLessons } from './context/LessonsContext.jsx';
 import { useMode } from './context/ModeContext.jsx';
@@ -18,6 +21,8 @@ const MODULES = {
   FLASHCARDS: 'flashcards',
   AUDIO: 'audio',
   WRITING: 'writing',
+  BIG_SMILE: 'big-smile',
+  TOON_HEAD: 'toon-head',
 };
 
 function getCardKey(lessonId, cardId) {
@@ -44,6 +49,7 @@ export default function App() {
   const [cardIndex, setCardIndex] = useState(0);
   const [starsByProfile, setStarsByProfile] = useState({});
   const [enteredApp, setEnteredApp] = useState(false);
+  const [showWritingOnlyPage, setShowWritingOnlyPage] = useState(false);
   const [showLandingAvatarEditor, setShowLandingAvatarEditor] = useState(false);
   const [activeModule, setActiveModule] = useState(MODULES.LESSONS);
   const [showLessonPicker, setShowLessonPicker] = useState(false);
@@ -215,10 +221,34 @@ export default function App() {
     switchProfile(newId);
   };
 
+  if (showWritingOnlyPage) {
+    return (
+      <WritingOnlyPage
+        profile={activeProfile}
+        lessons={lessonOptions}
+        lessonId={lessonId}
+        onLessonChange={(id) => {
+          setLessonId(id);
+          setCardIndex(0);
+        }}
+        cardIndex={cardIndex}
+        totalCards={totalCards}
+        onPrev={goPrev}
+        onNext={goNext}
+        onBack={() => {
+          setShowWritingOnlyPage(false);
+          setEnteredApp(false);
+        }}
+        onSuccess={handleWritingSuccess}
+      />
+    );
+  }
+
   if (!enteredApp) {
     return (
       <LandingPage
         profiles={profiles}
+        onOpenWritingUi={() => setShowWritingOnlyPage(true)}
         showAvatarEditor={showLandingAvatarEditor}
         onToggleAvatarEditor={() => setShowLandingAvatarEditor((prev) => !prev)}
         avatarEditorContent={<AvatarEditor />}
@@ -355,6 +385,8 @@ export default function App() {
               { id: MODULES.FLASHCARDS, label: 'Flashcard', key: 'F', parentOnly: false },
               { id: MODULES.AUDIO, label: 'Sound', key: 'S', parentOnly: false },
               { id: MODULES.WRITING, label: 'Ecriture', key: 'E', parentOnly: false },
+              { id: MODULES.BIG_SMILE, label: 'Big Smile test', key: 'B', parentOnly: true },
+              { id: MODULES.TOON_HEAD, label: 'Toon Head test', key: 'T', parentOnly: true },
             ]
               .filter((item) => !item.parentOnly || isParentMode)
               .map((item) => {
@@ -425,11 +457,27 @@ export default function App() {
 
           {activeModule === MODULES.WRITING && currentCard ? (
             <section className="module-pane">
-              <WritingPractice hanzi={currentCard.hanzi} onSuccess={handleWritingSuccess} />
+              <WritingPractice
+                hanzi={currentCard.hanzi}
+                card={currentCard}
+                lessonTitle={activeLesson?.title}
+                profile={activeProfile}
+                cardIndex={cardIndex}
+                totalCards={totalCards}
+                onPrev={goPrev}
+                onNext={goNext}
+                onOpenLessonPicker={() => setShowLessonPicker(true)}
+                onSwitchModule={setActiveModule}
+                onSuccess={handleWritingSuccess}
+              />
             </section>
           ) : null}
 
-          {activeModule !== MODULES.LESSONS ? (
+          {activeModule === MODULES.BIG_SMILE ? <BigSmileTester /> : null}
+
+          {activeModule === MODULES.TOON_HEAD ? <ToonHeadTester /> : null}
+
+          {activeModule !== MODULES.LESSONS && activeModule !== MODULES.WRITING ? (
             currentCard ? (
               <div className="card-controls">
                 <button className="button secondary" type="button" onClick={goPrev}>

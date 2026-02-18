@@ -287,6 +287,29 @@ export default function LessonEditor({ activeLessonId, onSelectLesson }) {
                           prev.map((lesson) => {
                             if (lesson.id !== activeLesson.id) return lesson;
                             const idx = lesson.cards.findIndex((c) => c.id === card.id);
+                            if (idx < 0) return lesson;
+                            const source = lesson.cards[idx];
+                            const duplicate = {
+                              ...source,
+                              id: makeCardId(),
+                            };
+                            const nextCards = [...lesson.cards];
+                            nextCards.splice(idx + 1, 0, duplicate);
+                            return { ...lesson, cards: nextCards };
+                          }),
+                        );
+                      }}
+                    >
+                      Dupliquer
+                    </button>
+                    <button
+                      type="button"
+                      className="button secondary"
+                      onClick={() => {
+                        setDraft((prev) =>
+                          prev.map((lesson) => {
+                            if (lesson.id !== activeLesson.id) return lesson;
+                            const idx = lesson.cards.findIndex((c) => c.id === card.id);
                             if (idx <= 0) return lesson;
                             const nextCards = [...lesson.cards];
                             const [item] = nextCards.splice(idx, 1);
