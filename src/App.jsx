@@ -430,6 +430,32 @@ export default function App() {
     setShowSettingsPanel(false);
   };
 
+  const handleResetFtueAndTutorial = () => {
+    const ok = window.confirm('Reinitialiser FTUE et tutoriel ?');
+    if (!ok) return;
+
+    const resetFtue = saveFtueState({
+      completed: false,
+      childName: '',
+      childAvatarPlaceholder: '🦊',
+      companionPlaceholder: '🐼',
+    });
+    setFtueState(resetFtue);
+
+    localStorage.setItem(tutorialStorageKey, JSON.stringify({ completed: false }));
+    setTutorialStep(0);
+    setShowTutorial(true);
+
+    setShowLandingAvatarEditor(false);
+    setShowDailyRituel(false);
+    setShowWritingOnlyPage(false);
+    setShowFlashcardOnlyPage(false);
+    setShowAudioOnlyPage(false);
+    setShowUnifiedFlowOnlyPage(false);
+    setEnteredApp(false);
+    setShowFtue(true);
+  };
+
   const handleTutorialNext = () => {
     if (tutorialStep >= tutorialSteps.length - 1) {
       completeTutorial();
@@ -591,6 +617,7 @@ export default function App() {
         onOpenFlashcardsUi={openFlashcardsFromLanding}
         onOpenAudioUi={openAudioFromLanding}
         onOpenWritingUi={() => setShowWritingOnlyPage(true)}
+        onResetOnboarding={handleResetFtueAndTutorial}
         showAvatarEditor={showLandingAvatarEditor}
         onToggleAvatarEditor={() => setShowLandingAvatarEditor((prev) => !prev)}
         avatarEditorContent={<AvatarEditor />}

@@ -8,6 +8,7 @@ export default function LandingPage({
   onOpenFlashcardsUi,
   onOpenAudioUi,
   onOpenWritingUi,
+  onResetOnboarding,
   showAvatarEditor,
   onToggleAvatarEditor,
   avatarEditorContent,
@@ -54,8 +55,9 @@ export default function LandingPage({
       <div className="landing-new-shell">
         <div className="logo-area">
           <div className="app-logo">文</div>
-          <div className="app-title">WiseMama</div>
-          <div className="app-subtitle">Apprendre le chinois en s amusant</div>
+          <div className="logo-copy">
+            <div className="app-subtitle">Apprenons le chinois ensemble</div>
+          </div>
         </div>
 
         <article className="profile-card-kid">
@@ -137,6 +139,9 @@ export default function LandingPage({
         <button type="button" className="settings-link" onClick={onToggleAvatarEditor}>
           {showAvatarEditor ? 'Fermer les parametres' : 'Parametres profils et avatars'}
         </button>
+        <button type="button" className="landing-reset-link" onClick={onResetOnboarding}>
+          Reset FTUE + Tutoriel
+        </button>
 
         {showAvatarEditor ? (
           <div className="landing-avatar-editor-overlay">
@@ -155,25 +160,6 @@ export default function LandingPage({
           </div>
         ) : null}
 
-        {!showAvatarEditor ? (
-          <div className="landing-shortcuts">
-            <button type="button" className="landing-writing-shortcut button secondary button-sm" onClick={onOpenWritingUi}>
-              Ouvrir UI ecriture
-            </button>
-            <button type="button" className="landing-writing-shortcut button secondary button-sm" onClick={onOpenDailyRituel}>
-              Rituel quotidien (optionnel)
-            </button>
-            <button type="button" className="landing-writing-shortcut button secondary button-sm" onClick={onOpenUnifiedFlow}>
-              Parcours complet (voir-ecouter-dire-ecrire)
-            </button>
-            <button type="button" className="landing-writing-shortcut button secondary button-sm" onClick={onOpenFlashcardsUi}>
-              UI Flashcards
-            </button>
-            <button type="button" className="landing-writing-shortcut button secondary button-sm" onClick={onOpenAudioUi}>
-              UI Audio
-            </button>
-          </div>
-        ) : null}
       </div>
     </section>
   );

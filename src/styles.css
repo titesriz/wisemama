@@ -26,9 +26,14 @@ body {
 
 .logo-area {
   position: absolute;
-  top: 100px;
-  width: 100%;
-  text-align: center;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(640px, calc(100% - 32px));
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  justify-content: flex-start;
 }
 
 .app-logo {
@@ -36,7 +41,7 @@ body {
   height: 120px;
   background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
   border-radius: 30px;
-  margin: 0 auto 16px;
+  margin: 0;
   font-size: 72px;
   color: #fff;
   display: grid;
@@ -50,14 +55,20 @@ body {
   margin-bottom: 8px;
 }
 
+.logo-copy {
+  display: grid;
+  align-items: center;
+}
+
 .app-subtitle {
-  font-size: 18px;
+  font-size: 26px;
+  font-weight: 800;
   color: #636e72;
 }
 
 .profile-card-kid {
   position: absolute;
-  top: 300px;
+  top: 240px;
   left: 50%;
   transform: translateX(-50%);
   width: min(640px, calc(100% - 32px));
@@ -206,7 +217,7 @@ body {
 
 .profile-card-parent {
   position: absolute;
-  top: 650px;
+  top: 590px;
   left: 50%;
   transform: translateX(-50%);
   width: min(640px, calc(100% - 32px));
@@ -255,8 +266,19 @@ body {
 .settings-link {
   position: absolute;
   bottom: 50px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: calc(50% - 320px);
+  font-size: 16px;
+  color: #636e72;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.landing-reset-link {
+  position: absolute;
+  bottom: 50px;
+  right: calc(50% - 320px);
   font-size: 16px;
   color: #636e72;
   text-decoration: underline;
@@ -2433,7 +2455,11 @@ body {
   }
 
   .logo-area {
-    top: 56px;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(640px, calc(100% - 32px));
+    gap: 10px;
   }
 
   .app-logo {
@@ -2443,16 +2469,12 @@ body {
     font-size: 56px;
   }
 
-  .app-title {
-    font-size: 28px;
-  }
-
   .app-subtitle {
-    font-size: 16px;
+    font-size: 20px;
   }
 
   .profile-card-kid {
-    top: 220px;
+    top: 180px;
     padding: 20px;
   }
 
@@ -2474,6 +2496,18 @@ body {
   .kid-module-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
+  }
+
+  .settings-link,
+  .landing-reset-link {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    font-size: 14px;
+  }
+
+  .landing-reset-link {
+    bottom: 24px;
   }
 
   .kid-module-btn {
