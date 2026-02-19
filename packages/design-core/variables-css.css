@@ -1,0 +1,78 @@
+:root {
+  --wm-color-primary: #ff6b6b;
+  --wm-color-primary-hover: #ff5a5a;
+  --wm-color-accent: #4ecdc4;
+  --wm-color-accent-hover: #44a3a0;
+  --wm-color-secondary: #ffe66d;
+  --wm-color-surface: #ffffff;
+  --wm-color-surface-soft: #f8fafc;
+  --wm-color-text-main: #2d3436;
+  --wm-color-text-soft: #636e72;
+  --wm-color-border: #e0e0e0;
+  --wm-color-success: #00b894;
+  --wm-color-warning: #f4b740;
+  --wm-color-error: #e74c3c;
+  --wm-color-info: #5bb9ff;
+  --wm-color-overlay: rgba(45, 52, 54, 0.42);
+
+  --wm-radius-xs: 8px;
+  --wm-radius-sm: 12px;
+  --wm-radius-md: 16px;
+  --wm-radius-lg: 24px;
+  --wm-radius-xl: 30px;
+  --wm-radius-pill: 999px;
+
+  --wm-shadow-card: 0 8px 24px rgba(45, 52, 54, 0.12);
+  --wm-shadow-card-kid: 0 8px 24px rgba(255, 230, 109, 0.3);
+  --wm-shadow-card-parent: 0 8px 24px rgba(78, 205, 196, 0.3);
+  --wm-shadow-button: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --wm-shadow-button-primary: 0 4px 12px rgba(255, 107, 107, 0.3);
+  --wm-shadow-focus: 0 0 0 3px rgba(78, 205, 196, 0.25);
+
+  --wm-font-base: Inter, 'Baloo 2', 'Segoe UI', sans-serif;
+  --wm-font-hanzi: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+
+  --wm-motion-fast: 120ms;
+  --wm-motion-normal: 220ms;
+  --wm-motion-slow: 320ms;
+  --wm-ease-standard: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --wm-ease-soft: cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  --bg-top: #fff1cc;
+  --bg-mid: #ffe6ef;
+  --bg-bottom: #dff3ff;
+  --text-main: var(--wm-color-text-main);
+  --text-soft: var(--wm-color-text-soft);
+  --accent-orange: var(--wm-color-primary);
+  --accent-blue: var(--wm-color-info);
+  --accent-indigo: #1f2a5a;
+  --card-bg: var(--wm-color-surface);
+  --soft-border: #e8ecff;
+  --panel-bg: rgba(255, 255, 255, 0.72);
+  --chip-bg: #fff2ce;
+  --chip-text: #84591c;
+  --pill-bg: #fff6e6;
+  --pill-border: #f2c987;
+  --pill-active: #ffd89e;
+  --shadow: var(--wm-shadow-card);
+}
+
+:root[data-mode='parent'] {
+  --bg-top: #e8edf5;
+  --bg-mid: #f0f2f7;
+  --bg-bottom: #dde4ee;
+  --text-main: #1a2230;
+  --text-soft: #556173;
+  --accent-orange: #2f6db3;
+  --accent-blue: #5c7fa7;
+  --accent-indigo: #22344d;
+  --card-bg: #ffffff;
+  --soft-border: #d4dbe6;
+  --panel-bg: rgba(255, 255, 255, 0.86);
+  --chip-bg: #ecf1f8;
+  --chip-text: #2c4d72;
+  --pill-bg: #edf2f8;
+  --pill-border: #c6d2e0;
+  --pill-active: #d7e2f0;
+  --shadow: 0 10px 24px rgba(25, 42, 66, 0.16);
+}

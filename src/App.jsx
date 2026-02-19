@@ -3,6 +3,7 @@ import AudioPracticePanel from './components/AudioPracticePanel.jsx';
 import AvatarEditor from './components/AvatarEditor.jsx';
 import BigSmileTester from './components/BigSmileTester.jsx';
 import Flashcard from './components/Flashcard.jsx';
+import FTUEFlow from './components/FTUEFlow.jsx';
 import LandingPage from './components/LandingPage.jsx';
 import LessonEditor from './components/LessonEditor.jsx';
 import ModeAvatar from './components/ModeAvatar.jsx';
@@ -12,6 +13,11 @@ import WritingOnlyPage from './components/WritingOnlyPage.jsx';
 import { useAvatar } from './context/AvatarContext.jsx';
 import { useLessons } from './context/LessonsContext.jsx';
 import { useMode } from './context/ModeContext.jsx';
+import {
+  readFtueState,
+  resetAllWiseMamaData,
+  saveFtueState,
+} from './lib/ftueStorage.js';
 
 const appTitle = 'WiseMama - Apprendre le chinois';
 const progressStorageKey = 'wisemama-progress-v1';
@@ -42,6 +48,8 @@ export default function App() {
     setActiveProfileId,
     getProfileById,
     createProfile,
+    setProfileName,
+    setProfileAvatar,
   } = useAvatar();
   const { lessons: lessonOptions } = useLessons();
   const [lessonId, setLessonId] = useState(lessonOptions[0]?.id ?? '');
@@ -55,6 +63,10 @@ export default function App() {
   const [showLessonPicker, setShowLessonPicker] = useState(false);
   const [showAvatarEditorModal, setShowAvatarEditorModal] = useState(false);
   const [showProfilePicker, setShowProfilePicker] = useState(false);
+  const [showSettingsPanel, setShowSettingsPanel] = useState(false);
+  const [isResetting, setIsResetting] = useState(false);
+  const [ftueState, setFtueState] = useState(() => readFtueState());
+  const [showFtue, setShowFtue] = useState(() => !readFtueState().completed);
 
   useEffect(() => {
     if (lessonOptions.length === 0) {
@@ -107,6 +119,12 @@ export default function App() {
       setActiveModule(MODULES.FLASHCARDS);
     }
   }, [activeModule, isParentMode]);
+
+  useEffect(() => {
+    if (showFtue) {
+      setEnteredApp(false);
+    }
+  }, [showFtue]);
 
   const currentProfileKey = activeProfileId || mode;
   const currentStarsMap = starsByProfile[currentProfileKey] || {};
@@ -221,6 +239,47 @@ export default function App() {
     switchProfile(newId);
   };
 
+  const handleFtueComplete = ({ childName, childAvatarPlaceholder, companionPlaceholder }) => {
+    const child = profiles.find((profile) => profile.role === 'child');
+    const parent = profiles.find((profile) => profile.role === 'parent');
+    if (child) {
+      setProfileName(child.id, childName || 'Enfant');
+      setActiveProfileId(child.id);
+      setProfileAvatar(child.id, {
+        ...child.avatar,
+        seed: `child-${(childName || 'kid').toLowerCase().replace(/\s+/g, '-')}`,
+      });
+    }
+    if (parent) {
+      setProfileAvatar(parent.id, {
+        ...parent.avatar,
+        seed: `parent-${companionPlaceholder || 'guide'}`,
+      });
+    }
+    const nextFtue = saveFtueState({
+      completed: true,
+      childName,
+      childAvatarPlaceholder,
+      companionPlaceholder,
+    });
+    setFtueState(nextFtue);
+    setShowFtue(false);
+    switchToChild();
+  };
+
+  const handleResetAllData = async () => {
+    const ok = window.confirm('Toutes les données seront effacées. Continuer ?');
+    if (!ok) return;
+    setIsResetting(true);
+    try {
+      await resetAllWiseMamaData();
+      setShowSettingsPanel(false);
+      window.location.reload();
+    } finally {
+      setIsResetting(false);
+    }
+  };
+
   if (showWritingOnlyPage) {
     return (
       <WritingOnlyPage
@@ -240,6 +299,17 @@ export default function App() {
           setEnteredApp(false);
         }}
         onSuccess={handleWritingSuccess}
+      />
+    );
+  }
+
+  if (showFtue) {
+    return (
+      <FTUEFlow
+        initialName={ftueState.childName}
+        initialChildAvatar={ftueState.childAvatarPlaceholder}
+        initialCompanion={ftueState.companionPlaceholder}
+        onComplete={handleFtueComplete}
       />
     );
   }
@@ -365,6 +435,32 @@ export default function App() {
               </div>
             ) : null}
           </div>
+
+          {isParentMode ? (
+            <div className="header-action-pop">
+              <button
+                type="button"
+                className="button secondary button-sm"
+                onClick={() => setShowSettingsPanel((prev) => !prev)}
+              >
+                Settings
+              </button>
+              {showSettingsPanel ? (
+                <div className="floating-profile-popover">
+                  <strong>Parametres parent</strong>
+                  <p className="settings-note">Tu peux relancer l onboarding enfant a tout moment.</p>
+                  <button
+                    type="button"
+                    className="button"
+                    onClick={handleResetAllData}
+                    disabled={isResetting}
+                  >
+                    {isResetting ? 'Reinitialisation...' : 'Reinitialiser donnees + FTUE'}
+                  </button>
+                </div>
+              ) : null}
+            </div>
+          ) : null}
 
         </div>
       </header>

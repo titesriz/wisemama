@@ -1,0 +1,60 @@
+{
+  "meta": {
+    "name": "WiseMama Design Core",
+    "version": "1.0.0",
+    "theme": "landing-fusion",
+    "notes": "Palette and visual language aligned with Landing page while preserving Writing UI structure."
+  },
+  "color": {
+    "primary": "#FF6B6B",
+    "primaryHover": "#FF5A5A",
+    "accent": "#4ECDC4",
+    "accentHover": "#44A3A0",
+    "secondary": "#FFE66D",
+    "surface": "#FFFFFF",
+    "surfaceSoft": "#F8FAFC",
+    "textMain": "#2D3436",
+    "textSoft": "#636E72",
+    "border": "#E0E0E0",
+    "success": "#00B894",
+    "warning": "#F4B740",
+    "error": "#E74C3C",
+    "info": "#5BB9FF",
+    "overlay": "rgba(45, 52, 54, 0.42)"
+  },
+  "radius": {
+    "xs": 8,
+    "sm": 12,
+    "md": 16,
+    "lg": 24,
+    "xl": 30,
+    "pill": 999
+  },
+  "shadow": {
+    "card": "0 8px 24px rgba(45, 52, 54, 0.12)",
+    "cardKid": "0 8px 24px rgba(255, 230, 109, 0.30)",
+    "cardParent": "0 8px 24px rgba(78, 205, 196, 0.30)",
+    "button": "0 4px 12px rgba(0, 0, 0, 0.10)",
+    "buttonPrimary": "0 4px 12px rgba(255, 107, 107, 0.30)",
+    "focus": "0 0 0 3px rgba(78, 205, 196, 0.25)"
+  },
+  "typography": {
+    "fontFamilyBase": "Inter, 'Baloo 2', 'Segoe UI', sans-serif",
+    "fontFamilyHanzi": "'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif",
+    "titleXL": { "size": 32, "lineHeight": 40, "weight": 800 },
+    "titleLG": { "size": 28, "lineHeight": 34, "weight": 700 },
+    "titleMD": { "size": 24, "lineHeight": 30, "weight": 700 },
+    "subtitle": { "size": 18, "lineHeight": 24, "weight": 500 },
+    "body": { "size": 16, "lineHeight": 22, "weight": 500 },
+    "bodySmall": { "size": 14, "lineHeight": 20, "weight": 500 },
+    "button": { "size": 18, "lineHeight": 22, "weight": 700 },
+    "label": { "size": 12, "lineHeight": 16, "weight": 700 }
+  },
+  "motion": {
+    "fast": "120ms",
+    "normal": "220ms",
+    "slow": "320ms",
+    "easingStandard": "cubic-bezier(0.22, 0.61, 0.36, 1)",
+    "easingSoft": "cubic-bezier(0.25, 0.8, 0.25, 1)"
+  }
+}

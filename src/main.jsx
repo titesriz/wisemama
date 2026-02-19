@@ -3,6 +3,7 @@ import App from './App.jsx';
 import { AvatarProvider } from './context/AvatarContext.jsx';
 import { LessonsProvider } from './context/LessonsContext.jsx';
 import { ModeProvider } from './context/ModeContext.jsx';
+import './styles/variables-css.css';
 import './styles.css';
 
 const root = createRoot(document.getElementById('root'));

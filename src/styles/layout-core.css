@@ -1,0 +1,209 @@
+.wm-app-shell {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 16px;
+  background: var(--wm-color-surface);
+  color: var(--wm-color-text-main);
+  padding-top: max(16px, env(safe-area-inset-top));
+  padding-right: max(16px, env(safe-area-inset-right));
+  padding-bottom: max(16px, env(safe-area-inset-bottom));
+  padding-left: max(16px, env(safe-area-inset-left));
+}
+
+.wm-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  min-height: 96px;
+  border-radius: var(--wm-radius-lg);
+  background: var(--wm-color-surface);
+  box-shadow: var(--wm-shadow-card);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+}
+
+.wm-header-left,
+.wm-header-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wm-header-center {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.wm-header-title {
+  margin: 0;
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 700;
+  color: var(--wm-color-text-main);
+}
+
+.wm-header-subtitle {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: var(--wm-color-text-soft);
+}
+
+.wm-content {
+  min-height: 0;
+  overflow: auto;
+  border-radius: var(--wm-radius-lg);
+  background: var(--wm-color-surface);
+  box-shadow: var(--wm-shadow-card);
+  padding: 16px;
+}
+
+.wm-content-inner {
+  width: min(900px, 100%);
+  margin: 0 auto;
+}
+
+.wm-action-bar {
+  position: sticky;
+  bottom: 0;
+  z-index: 30;
+  min-height: 96px;
+  border-radius: var(--wm-radius-lg);
+  background: var(--wm-color-surface);
+  box-shadow: var(--wm-shadow-card);
+  display: grid;
+  grid-template-columns: minmax(110px, auto) 1fr minmax(110px, auto);
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+}
+
+.wm-action-left,
+.wm-action-right {
+  display: inline-flex;
+  align-items: center;
+}
+
+.wm-action-center {
+  justify-self: center;
+  text-align: center;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 700;
+  color: var(--wm-color-text-main);
+}
+
+.wm-btn {
+  border: none;
+  cursor: pointer;
+  height: 48px;
+  padding: 0 18px;
+  border-radius: var(--wm-radius-md);
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 700;
+  transition: transform var(--wm-motion-fast) var(--wm-ease-standard),
+    box-shadow var(--wm-motion-fast) var(--wm-ease-standard),
+    background var(--wm-motion-normal) var(--wm-ease-soft),
+    color var(--wm-motion-normal) var(--wm-ease-soft);
+}
+
+.wm-btn:active {
+  transform: translateY(1px);
+}
+
+.wm-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.wm-btn-primary {
+  background: var(--wm-color-primary);
+  color: #fff;
+  box-shadow: var(--wm-shadow-button-primary);
+}
+
+.wm-btn-primary:hover {
+  background: var(--wm-color-primary-hover);
+}
+
+.wm-btn-secondary {
+  background: #fff;
+  color: var(--wm-color-text-main);
+  border: 2px solid var(--wm-color-accent);
+  border-radius: var(--wm-radius-sm);
+  box-shadow: var(--wm-shadow-button);
+}
+
+.wm-btn-secondary:hover {
+  border-color: var(--wm-color-accent-hover);
+}
+
+.wm-btn-ghost {
+  background: transparent;
+  color: var(--wm-color-text-soft);
+  border-radius: var(--wm-radius-sm);
+  box-shadow: none;
+}
+
+@media (max-width: 767px) {
+  .wm-app-shell {
+    gap: 12px;
+    padding-top: max(12px, env(safe-area-inset-top));
+    padding-right: max(12px, env(safe-area-inset-right));
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+    padding-left: max(12px, env(safe-area-inset-left));
+  }
+
+  .wm-header {
+    min-height: 76px;
+    border-radius: var(--wm-radius-md);
+    padding: 8px 12px;
+    gap: 8px;
+  }
+
+  .wm-header-title {
+    font-size: 20px;
+    line-height: 26px;
+  }
+
+  .wm-header-subtitle {
+    font-size: 13px;
+    line-height: 18px;
+  }
+
+  .wm-content {
+    border-radius: var(--wm-radius-md);
+    padding: 12px;
+  }
+
+  .wm-content-inner {
+    width: 100%;
+  }
+
+  .wm-action-bar {
+    min-height: 84px;
+    border-radius: var(--wm-radius-md);
+    grid-template-columns: minmax(88px, auto) 1fr minmax(88px, auto);
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .wm-action-center {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .wm-btn {
+    height: 44px;
+    padding: 0 12px;
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
