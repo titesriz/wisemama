@@ -59,40 +59,61 @@
 
 .parent-layout-grid {
   display: grid;
-  grid-template-columns: 220px 1fr;
+  grid-template-columns: 1fr;
   gap: 16px;
-}
-
-.parent-nav {
-  display: grid;
-  gap: 10px;
-  align-content: start;
-}
-
-.parent-nav-item {
-  height: 44px;
-  border-radius: var(--wm-radius-sm);
-  border: 1px solid var(--parent-border);
-  background: var(--parent-surface-soft);
-  color: var(--parent-text-soft);
-  font-size: 15px;
-  font-weight: 700;
-  text-align: left;
-  padding: 0 12px;
-  cursor: pointer;
-  transition: background var(--wm-motion-fast) var(--wm-ease-standard),
-    color var(--wm-motion-fast) var(--wm-ease-standard),
-    border-color var(--wm-motion-fast) var(--wm-ease-standard);
-}
-
-.parent-nav-item.active {
-  background: #dde9f7;
-  color: #1f3c5b;
-  border-color: #88a7ca;
 }
 
 .parent-layout-content {
   min-width: 0;
+}
+
+.parent-hub-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.parent-hub-card {
+  border: 1px solid var(--parent-border);
+  border-radius: var(--wm-radius-md);
+  background: var(--wm-color-surface);
+  padding: 14px;
+  text-align: left;
+  display: grid;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(25, 42, 66, 0.12);
+  transition: transform var(--wm-motion-fast) var(--wm-ease-standard),
+    box-shadow var(--wm-motion-fast) var(--wm-ease-standard),
+    border-color var(--wm-motion-fast) var(--wm-ease-standard);
+}
+
+.parent-hub-card:hover {
+  border-color: #8ba4c3;
+  box-shadow: 0 12px 24px rgba(25, 42, 66, 0.16);
+}
+
+.parent-hub-card strong {
+  color: var(--parent-text-strong);
+  font-size: 18px;
+}
+
+.parent-hub-card p {
+  margin: 0;
+  color: var(--parent-text-soft);
+  font-size: 14px;
+}
+
+.parent-hub-badge {
+  display: inline-flex;
+  width: fit-content;
+  padding: 4px 8px;
+  border-radius: var(--wm-radius-pill);
+  border: 1px solid #c5d4e6;
+  background: #eef4fc;
+  color: #34516f;
+  font-size: 11px;
+  font-weight: 800;
 }
 
 .parent-panel {
@@ -304,16 +325,12 @@
 }
 
 @media (max-width: 1024px) {
-  .parent-layout-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .parent-nav {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .parent-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .parent-hub-grid {
+    grid-template-columns: 1fr;
   }
 
   .parent-audio-row {
@@ -323,10 +340,6 @@
 }
 
 @media (max-width: 767px) {
-  .parent-nav {
-    grid-template-columns: 1fr;
-  }
-
   .parent-grid {
     grid-template-columns: 1fr;
   }

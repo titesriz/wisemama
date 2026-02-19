@@ -4,7 +4,8 @@ import LayoutShell from './LayoutShell.jsx';
 import TokenButton from './ui/TokenButton.jsx';
 import '../styles/parent-mode.css';
 
-const SECTION_IDS = {
+const MODULE_IDS = {
+  DASHBOARD: 'dashboard',
   LESSONS: 'lessons',
   AUDIO: 'audio',
   PROGRESS: 'progress',
@@ -12,39 +13,22 @@ const SECTION_IDS = {
   SETTINGS: 'settings',
 };
 
-function SectionNav({ activeSection, onChange }) {
-  const items = [
-    { id: SECTION_IDS.LESSONS, label: '1. Gestion Lecons' },
-    { id: SECTION_IDS.AUDIO, label: '2. Gestion Audio' },
-    { id: SECTION_IDS.PROGRESS, label: '3. Progres Enfant' },
-    { id: SECTION_IDS.FAMILY, label: 'Contenu famille' },
-    { id: SECTION_IDS.SETTINGS, label: '5. Parametres' },
-  ];
+const MODULE_LABELS = {
+  [MODULE_IDS.LESSONS]: 'Lecons',
+  [MODULE_IDS.AUDIO]: 'Gestion Audio',
+  [MODULE_IDS.PROGRESS]: 'Progres Enfant',
+  [MODULE_IDS.FAMILY]: 'Contenu Famille',
+  [MODULE_IDS.SETTINGS]: 'Parametres',
+};
 
-  return (
-    <nav className="parent-nav" aria-label="Sections parent">
-      {items.map((item) => (
-        <button
-          key={item.id}
-          type="button"
-          className={`parent-nav-item ${activeSection === item.id ? 'active' : ''}`}
-          onClick={() => onChange(item.id)}
-        >
-          {item.label}
-        </button>
-      ))}
-    </nav>
-  );
-}
-
-function LessonsSection({ lessons = [] }) {
+function LessonsModule({ lessons = [] }) {
   return (
     <section className="parent-panel" aria-label="Gestion Lecons">
       <div className="parent-panel-head">
-        <h3>1. Gestion Lecons</h3>
+        <h3>Gestion Lecons</h3>
         <TokenButton variant="secondary">Nouvelle lecon</TokenButton>
       </div>
-      <p className="parent-panel-subtitle">Gerer les packs, importer et organiser les cartes.</p>
+      <p className="parent-panel-subtitle">Creer, editer, importer et organiser les cartes.</p>
 
       <div className="parent-list">
         {lessons.length ? (
@@ -68,10 +52,10 @@ function LessonsSection({ lessons = [] }) {
   );
 }
 
-function AudioBulkSection({ lessons = [] }) {
+function AudioModule({ lessons = [] }) {
   const rows = lessons.flatMap((lesson) =>
     (lesson.cards || []).map((card) => ({
-      lessonId: lesson.id,
+      id: `${lesson.id}-${card.id}`,
       lessonTitle: lesson.title,
       cardId: card.id,
       hanzi: card.hanzi,
@@ -82,26 +66,24 @@ function AudioBulkSection({ lessons = [] }) {
   return (
     <section className="parent-panel" aria-label="Gestion Audio">
       <div className="parent-panel-head">
-        <h3>2. Gestion Audio (bulk)</h3>
+        <h3>Gestion Audio</h3>
         <div className="parent-list-actions">
           <TokenButton variant="secondary" className="wm-btn-compact">Record all</TokenButton>
-          <TokenButton variant="secondary" className="wm-btn-compact">Importer lot</TokenButton>
+          <TokenButton variant="secondary" className="wm-btn-compact">Import lot</TokenButton>
         </div>
       </div>
-      <p className="parent-panel-subtitle">
-        Enregistrer ou remplacer les modeles audio pour plusieurs cartes d un coup.
-      </p>
+      <p className="parent-panel-subtitle">Enregistrement bulk des modeles parent pour toutes les cartes.</p>
 
-      <div className="parent-audio-table" role="table" aria-label="Bulk audio cards">
+      <div className="parent-audio-table" role="table" aria-label="Table bulk audio">
         <div className="parent-audio-row parent-audio-head" role="row">
           <span role="columnheader">Lecon</span>
           <span role="columnheader">Carte</span>
-          <span role="columnheader">Audio modele</span>
+          <span role="columnheader">Audio</span>
           <span role="columnheader">Actions</span>
         </div>
         {rows.length ? (
-          rows.slice(0, 12).map((row) => (
-            <div className="parent-audio-row" role="row" key={`${row.lessonId}-${row.cardId}`}>
+          rows.slice(0, 20).map((row) => (
+            <div className="parent-audio-row" role="row" key={row.id}>
               <span role="cell">{row.lessonTitle}</span>
               <span role="cell">{row.hanzi} ({row.cardId})</span>
               <span role="cell" className={row.hasAudio ? 'status-ok' : 'status-missing'}>
@@ -121,14 +103,20 @@ function AudioBulkSection({ lessons = [] }) {
   );
 }
 
-function ProgressSection({ progress = [] }) {
+function ProgressModule() {
+  const progress = [
+    { id: 'flashcards', label: 'Flashcards', value: 78 },
+    { id: 'audio', label: 'Audio', value: 61 },
+    { id: 'writing', label: 'Ecriture', value: 44 },
+  ];
+
   return (
     <section className="parent-panel" aria-label="Progres Enfant">
       <div className="parent-panel-head">
-        <h3>3. Progres Enfant</h3>
+        <h3>Progres Enfant</h3>
         <TokenButton variant="secondary">Exporter rapport</TokenButton>
       </div>
-      <p className="parent-panel-subtitle">Vue rapide de l avancement par enfant et par module.</p>
+      <p className="parent-panel-subtitle">Analyse des performances par module et tendance hebdomadaire.</p>
 
       <div className="parent-grid">
         {progress.map((item) => (
@@ -136,7 +124,7 @@ function ProgressSection({ progress = [] }) {
             <strong>{item.label}</strong>
             <p>{item.value}%</p>
             <div className="parent-progress-track" aria-hidden="true">
-              <span style={{ width: `${Math.min(100, Math.max(0, item.value))}%` }} />
+              <span style={{ width: `${item.value}%` }} />
             </div>
           </article>
         ))}
@@ -145,14 +133,14 @@ function ProgressSection({ progress = [] }) {
   );
 }
 
-function FamilySection({ profiles = [] }) {
+function FamilyModule({ profiles = [] }) {
   return (
-    <section className="parent-panel" aria-label="Contenu famille">
+    <section className="parent-panel" aria-label="Contenu Famille">
       <div className="parent-panel-head">
-        <h3>4. Contenu famille</h3>
+        <h3>Contenu Famille</h3>
         <TokenButton variant="secondary">Ajouter profil</TokenButton>
       </div>
-      <p className="parent-panel-subtitle">Associer les lecons et droits selon le role Parent ou Kid.</p>
+      <p className="parent-panel-subtitle">Bibliotheque partagee, attribution des contenus et role parent/enfant.</p>
 
       <div className="parent-list">
         {profiles.map((profile) => (
@@ -172,13 +160,13 @@ function FamilySection({ profiles = [] }) {
   );
 }
 
-function SettingsSection() {
+function SettingsModule() {
   return (
     <section className="parent-panel" aria-label="Parametres">
       <div className="parent-panel-head">
-        <h3>5. Parametres</h3>
+        <h3>Parametres</h3>
       </div>
-      <p className="parent-panel-subtitle">Reglages globaux, sauvegarde et securite de l app.</p>
+      <p className="parent-panel-subtitle">Configuration app, securite, sauvegarde et maintenance.</p>
 
       <div className="parent-settings-list">
         <label className="parent-toggle">
@@ -203,42 +191,76 @@ function SettingsSection() {
   );
 }
 
-export default function ParentModeDashboard({
-  lessons = [],
-  profiles = [],
-  onBack,
-  onSave,
-}) {
-  const [activeSection, setActiveSection] = useState(SECTION_IDS.LESSONS);
-  const parentProfile = profiles.find((profile) => profile.role === 'parent') || profiles[0] || null;
+function DashboardHub({ onOpenModule }) {
+  const cards = [
+    { id: MODULE_IDS.LESSONS, title: 'Lecons', subtitle: 'Creer et editer le contenu', badge: '5 packs' },
+    { id: MODULE_IDS.AUDIO, title: 'Gestion Audio', subtitle: 'Enregistrement bulk des modeles', badge: 'Bulk' },
+    { id: MODULE_IDS.PROGRESS, title: 'Progres Enfant', subtitle: 'Analytics et visualisation', badge: 'Live' },
+    { id: MODULE_IDS.FAMILY, title: 'Contenu Famille', subtitle: 'Bibliotheque partagee', badge: 'Partage' },
+    { id: MODULE_IDS.SETTINGS, title: 'Parametres', subtitle: 'Configuration de l app', badge: 'Config' },
+  ];
 
-  const progressMock = useMemo(
-    () => [
-      { id: 'flashcards', label: 'Flashcards', value: 78 },
-      { id: 'audio', label: 'Audio', value: 61 },
-      { id: 'writing', label: 'Ecriture', value: 44 },
-    ],
-    [],
+  return (
+    <section className="parent-panel" aria-label="Hub Parent">
+      <div className="parent-panel-head">
+        <h3>Modules Parent</h3>
+      </div>
+      <p className="parent-panel-subtitle">Choisis un module pour gerer l apprentissage de ta famille.</p>
+
+      <div className="parent-hub-grid">
+        {cards.map((card) => (
+          <button
+            key={card.id}
+            type="button"
+            className="parent-hub-card ui-pressable"
+            onClick={() => onOpenModule(card.id)}
+          >
+            <span className="parent-hub-badge">{card.badge}</span>
+            <strong>{card.title}</strong>
+            <p>{card.subtitle}</p>
+          </button>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export default function ParentModeDashboard({ lessons = [], profiles = [], onBack, onSave }) {
+  const [activeModule, setActiveModule] = useState(MODULE_IDS.DASHBOARD);
+  const parentProfile = useMemo(
+    () => profiles.find((profile) => profile.role === 'parent') || profiles[0] || null,
+    [profiles],
   );
 
-  const sectionTitle = {
-    [SECTION_IDS.LESSONS]: 'Gestion Lecons',
-    [SECTION_IDS.AUDIO]: 'Gestion Audio',
-    [SECTION_IDS.PROGRESS]: 'Progres Enfant',
-    [SECTION_IDS.FAMILY]: 'Contenu famille',
-    [SECTION_IDS.SETTINGS]: 'Parametres',
-  }[activeSection];
+  const subtitle = activeModule === MODULE_IDS.DASHBOARD
+    ? 'Tableau de bord'
+    : `Section active: ${MODULE_LABELS[activeModule]}`;
+
+  const renderModule = () => {
+    if (activeModule === MODULE_IDS.DASHBOARD) {
+      return <DashboardHub onOpenModule={setActiveModule} />;
+    }
+    if (activeModule === MODULE_IDS.LESSONS) return <LessonsModule lessons={lessons} />;
+    if (activeModule === MODULE_IDS.AUDIO) return <AudioModule lessons={lessons} />;
+    if (activeModule === MODULE_IDS.PROGRESS) return <ProgressModule />;
+    if (activeModule === MODULE_IDS.FAMILY) return <FamilyModule profiles={profiles} />;
+    return <SettingsModule />;
+  };
 
   return (
     <div className="parent-mode-dashboard" data-mode-tone="neutral">
       <LayoutShell
-        headerLeft={(
-          <button type="button" className="home-hanzi-btn ui-pressable" onClick={onBack} aria-label="Retour">
-            文
-          </button>
-        )}
+        headerLeft={
+          activeModule === MODULE_IDS.DASHBOARD ? (
+            <button type="button" className="home-hanzi-btn ui-pressable" onClick={onBack} aria-label="Retour Landing">
+              文
+            </button>
+          ) : (
+            <TokenButton variant="ghost" onClick={() => setActiveModule(MODULE_IDS.DASHBOARD)}>Back to Dashboard</TokenButton>
+          )
+        }
         headerTitle="Espace Parent"
-        headerSubtitle={`Section active: ${sectionTitle}`}
+        headerSubtitle={subtitle}
         headerRight={(
           <div className="parent-top-right">
             {parentProfile ? (
@@ -257,15 +279,7 @@ export default function ParentModeDashboard({
         actionRight={<TokenButton onClick={onSave}>Sauvegarder</TokenButton>}
       >
         <div className="parent-layout-grid">
-          <SectionNav activeSection={activeSection} onChange={setActiveSection} />
-
-          <div className="parent-layout-content">
-            {activeSection === SECTION_IDS.LESSONS ? <LessonsSection lessons={lessons} /> : null}
-            {activeSection === SECTION_IDS.AUDIO ? <AudioBulkSection lessons={lessons} /> : null}
-            {activeSection === SECTION_IDS.PROGRESS ? <ProgressSection progress={progressMock} /> : null}
-            {activeSection === SECTION_IDS.FAMILY ? <FamilySection profiles={profiles} /> : null}
-            {activeSection === SECTION_IDS.SETTINGS ? <SettingsSection /> : null}
-          </div>
+          <div className="parent-layout-content">{renderModule()}</div>
         </div>
       </LayoutShell>
     </div>

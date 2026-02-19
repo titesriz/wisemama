@@ -1,0 +1,43 @@
+{
+  "page": "ParentDashboard",
+  "layout": {
+    "shell": "wm-app-shell",
+    "header": "wm-header",
+    "content": "wm-content",
+    "actionBar": "wm-action-bar"
+  },
+  "zones": {
+    "hubCards": {
+      "bg": "--parent-surface-soft",
+      "border": "--parent-border",
+      "radius": "--wm-radius-md",
+      "shadow": "0 10px 20px rgba(25, 42, 66, 0.12)",
+      "motion": "--wm-motion-fast + --wm-ease-standard"
+    },
+    "modulePanels": {
+      "bg": "--parent-surface-soft",
+      "border": "--parent-border",
+      "radius": "--wm-radius-md",
+      "shadow": "0 6px 16px rgba(31,49,75,0.1)"
+    },
+    "navigation": {
+      "itemBg": "--parent-surface-soft",
+      "itemActiveBg": "#dde9f7",
+      "itemText": "--parent-text-soft",
+      "itemActiveText": "#1f3c5b"
+    }
+  },
+  "components": {
+    "buttons": [
+      "wm-btn wm-btn-primary",
+      "wm-btn wm-btn-secondary",
+      "wm-btn wm-btn-ghost",
+      "ui-pressable"
+    ],
+    "cards": [
+      "parent-hub-card",
+      "parent-panel",
+      "parent-list-item"
+    ]
+  }
+}
