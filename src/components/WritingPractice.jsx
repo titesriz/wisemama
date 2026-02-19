@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import HanziWriter from 'hanzi-writer';
 import AvatarRenderer from './AvatarRenderer.jsx';
+import SuccessBurst from './SuccessBurst.jsx';
+import { useUiSounds } from '../hooks/useUiSounds.js';
 
 export default function WritingPractice({
   hanzi,
@@ -26,10 +28,25 @@ export default function WritingPractice({
   const [quizActive, setQuizActive] = useState(false);
   const [showModel, setShowModel] = useState(true);
   const [feedback, setFeedback] = useState('Trace directement sur le modele gris.');
+  const [successTick, setSuccessTick] = useState(0);
+  const sounds = useUiSounds();
   const targetChar = useMemo(() => {
     const first = Array.from(hanzi || '')[0];
     return first || '';
   }, [hanzi]);
+
+  const handleQuizComplete = ({ totalMistakes = 0 } = {}) => {
+    setQuizActive(false);
+    if (totalMistakes <= 2) {
+      setFeedback('Bravo ! Etoile gagnee.');
+      setSuccessTick((prev) => prev + 1);
+      sounds.playSuccess();
+      onSuccess?.(totalMistakes);
+    } else {
+      setFeedback('Bon effort. Reessaie pour gagner une etoile.');
+      sounds.playError();
+    }
+  };
 
   useEffect(() => {
     if (!containerRef.current || !ghostContainerRef.current || !targetChar) {
@@ -78,15 +95,7 @@ export default function WritingPractice({
       onMistake: () => {
         setFeedback('Continue, tu es presque.');
       },
-      onComplete: ({ totalMistakes = 0 } = {}) => {
-        setQuizActive(false);
-        if (totalMistakes <= 2) {
-          setFeedback('Bravo ! Etoile gagnee.');
-          onSuccess?.(totalMistakes);
-        } else {
-          setFeedback('Bon effort. Reessaie pour gagner une etoile.');
-        }
-      },
+      onComplete: handleQuizComplete,
     });
     setQuizActive(true);
 
@@ -103,6 +112,7 @@ export default function WritingPractice({
   }, [targetChar, renderKey]);
 
   const showStrokeOrder = async () => {
+    sounds.playTap();
     if (!writerRef.current) {
       return;
     }
@@ -114,11 +124,13 @@ export default function WritingPractice({
   };
 
   const clearCanvas = () => {
+    sounds.playTap();
     setFeedback('Canvas efface. Recommence calmement.');
     setRenderKey((prev) => prev + 1);
   };
 
   const startQuiz = () => {
+    sounds.playTap();
     if (!writerRef.current || quizActive) {
       return;
     }
@@ -132,19 +144,12 @@ export default function WritingPractice({
       onMistake: () => {
         setFeedback('Continue, tu es presque.');
       },
-      onComplete: ({ totalMistakes = 0 } = {}) => {
-        setQuizActive(false);
-        if (totalMistakes <= 2) {
-          setFeedback('Bravo ! Etoile gagnee.');
-          onSuccess?.(totalMistakes);
-        } else {
-          setFeedback('Bon effort. Reessaie pour gagner une etoile.');
-        }
-      },
+      onComplete: handleQuizComplete,
     });
   };
 
   const playCardAudio = () => {
+    sounds.playTap();
     if (!audioRef.current) return;
     audioRef.current.currentTime = 0;
     audioRef.current.play();
@@ -217,25 +222,26 @@ export default function WritingPractice({
         <div className="writing-action-buttons">
           <button
             type="button"
-            className={`writing-action-btn ${showModel ? 'model-on' : ''}`}
+            className={`writing-action-btn ui-pressable ${showModel ? 'model-on' : ''}`}
             onClick={() => setShowModel((prev) => !prev)}
           >
             <span>{showModel ? '🙈' : '👁'}</span>
             <small>{showModel ? 'Cacher' : 'Montrer'}</small>
           </button>
-          <button type="button" className="writing-action-btn" onClick={showStrokeOrder}>
+          <button type="button" className="writing-action-btn ui-pressable" onClick={showStrokeOrder}>
             <span>Voir</span>
             <small>Modele</small>
           </button>
-          <button type="button" className="writing-action-btn" onClick={clearCanvas}>
+          <button type="button" className="writing-action-btn ui-pressable" onClick={clearCanvas}>
             <span>Reset</span>
             <small>Effacer</small>
           </button>
           <button
             type="button"
-            className="writing-action-btn primary"
+            className="writing-action-btn primary ui-pressable"
             onClick={startQuiz}
             disabled={quizActive}
+            data-coach="write"
           >
             <span>{quizActive ? '...' : 'OK'}</span>
             <small>Verifier</small>
@@ -243,7 +249,10 @@ export default function WritingPractice({
         </div>
       </div>
 
-      <p className="writing-feedback">{feedback}</p>
+      <p className={`writing-feedback wm-ok-line ${feedback.includes('Bravo') ? 'wm-success-pulse' : ''}`}>
+        {feedback}
+        <SuccessBurst trigger={successTick} />
+      </p>
 
       <div className="writing-bottom-nav">
         <button type="button" className="writing-nav-btn" onClick={onPrev}>

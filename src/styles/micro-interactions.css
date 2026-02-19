@@ -1,0 +1,123 @@
+:root {
+  --wm-motion-enter: var(--wm-motion-normal);
+  --wm-motion-feedback: var(--wm-motion-fast);
+}
+
+.ui-pressable {
+  transition: transform var(--wm-motion-fast) var(--wm-ease-standard),
+    box-shadow var(--wm-motion-fast) var(--wm-ease-standard),
+    filter var(--wm-motion-fast) var(--wm-ease-standard),
+    background var(--wm-motion-normal) var(--wm-ease-soft);
+}
+
+.ui-pressable:hover {
+  transform: translateY(-1px);
+  filter: saturate(1.04);
+}
+
+.ui-pressable:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.ui-pressable:focus-visible {
+  outline: none;
+  box-shadow: var(--wm-shadow-focus);
+}
+
+.wm-enter-fade {
+  animation: wm-enter-fade var(--wm-motion-enter) var(--wm-ease-soft);
+}
+
+.wm-success-pulse {
+  animation: wm-success-pulse 420ms var(--wm-ease-standard);
+}
+
+.wm-success-glow {
+  box-shadow: 0 0 0 0 rgba(0, 184, 148, 0.24);
+  animation: wm-success-glow 620ms var(--wm-ease-soft);
+}
+
+.wm-ok-line {
+  position: relative;
+  overflow: visible;
+}
+
+.success-burst {
+  position: absolute;
+  right: 10px;
+  top: -4px;
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+}
+
+.success-burst-dot {
+  --angle: calc(var(--i) * 36deg);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  margin-top: -3px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--wm-color-secondary), var(--wm-color-primary));
+  transform: rotate(var(--angle)) translateY(-2px);
+  animation: wm-confetti-pop 520ms var(--wm-ease-standard) forwards;
+  opacity: 0;
+}
+
+.success-burst-dot:nth-child(2n) {
+  background: linear-gradient(135deg, var(--wm-color-accent), var(--wm-color-info));
+}
+
+.flashcard-audio-row .button.is-played {
+  box-shadow: 0 0 0 0 rgba(78, 205, 196, 0.3);
+  animation: wm-success-glow 620ms var(--wm-ease-soft);
+}
+
+@keyframes wm-enter-fade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes wm-success-pulse {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes wm-success-glow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 184, 148, 0.34);
+  }
+  100% {
+    box-shadow: 0 0 0 10px rgba(0, 184, 148, 0);
+  }
+}
+
+@keyframes wm-confetti-pop {
+  0% {
+    opacity: 0;
+    transform: rotate(var(--angle)) translateY(-2px) scale(0.7);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(var(--angle)) translateY(-20px) scale(1);
+  }
+}

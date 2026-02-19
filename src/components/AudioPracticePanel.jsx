@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
+import SuccessBurst from './SuccessBurst.jsx';
 import { useAudioRecorder } from '../hooks/useAudioRecorder.js';
+import { useUiSounds } from '../hooks/useUiSounds.js';
 import {
   addChildAttempt,
   getParentModel,
@@ -99,6 +101,8 @@ export default function AudioPracticePanel({ cardKey, mode }) {
   const [historyCardFilter, setHistoryCardFilter] = useState('current');
   const [parentWaveSamples, setParentWaveSamples] = useState([]);
   const [childWaveSamples, setChildWaveSamples] = useState([]);
+  const [successTick, setSuccessTick] = useState(0);
+  const sounds = useUiSounds();
 
   const parentRecorder = useAudioRecorder();
   const childRecorder = useAudioRecorder();
@@ -167,10 +171,13 @@ export default function AudioPracticePanel({ cardKey, mode }) {
         durationMs: parentRecorder.durationMs,
       });
       setSaveStatus('Modele parent enregistre.');
+      setSuccessTick((prev) => prev + 1);
+      sounds.playSuccess();
       setConfirmReplaceModel(false);
       await loadAudioData();
     } catch {
       setPanelError('Echec de sauvegarde du modele parent.');
+      sounds.playError();
     }
   };
 
@@ -188,9 +195,12 @@ export default function AudioPracticePanel({ cardKey, mode }) {
       });
       await updateAttemptKept(inserted.id, true);
       setSaveStatus('Tentative enregistree dans Mes enregistrements.');
+      setSuccessTick((prev) => prev + 1);
+      sounds.playSuccess();
       await loadAudioData();
     } catch {
       setPanelError('Echec de sauvegarde de la tentative enfant.');
+      sounds.playError();
     }
   };
 
@@ -210,70 +220,82 @@ export default function AudioPracticePanel({ cardKey, mode }) {
       </div>
 
       {panelError ? <p className="error-line">{panelError}</p> : null}
-      {saveStatus ? <p className="ok-line">{saveStatus}</p> : null}
+      {saveStatus ? (
+        <p className="ok-line wm-ok-line wm-success-pulse">
+          {saveStatus}
+          <SuccessBurst trigger={successTick} />
+        </p>
+      ) : null}
 
       {isParentMode ? (
         <div className="audio-section parent-view">
-          <p className="audio-help">Enregistre et gere le modele de prononciation pour cette carte.</p>
-          <div className="audio-actions">
-            <button
-              type="button"
-              className="button secondary"
-              onClick={parentRecorder.isRecording ? parentRecorder.stop : parentRecorder.start}
-            >
-              {parentRecorder.isRecording ? 'Arreter parent' : 'Enregistrer parent'}
-            </button>
-            <button
-              type="button"
-              className="button"
-              onClick={saveParentRecording}
-              disabled={!parentRecorder.recordedBlob}
-            >
-              {parentModel?.blob ? 'Remplacer modele' : 'Sauvegarder modele'}
-            </button>
-          </div>
+          <article className="audio-panel-card">
+            <h4 className="audio-panel-title">Modele parent</h4>
+            <p className="audio-help">Enregistre et gere le modele de prononciation pour cette carte.</p>
+            <div className="audio-actions">
+              <button
+                type="button"
+                className={`button secondary ui-pressable ${parentRecorder.isRecording ? 'recording' : ''}`}
+                onClick={() => {
+                  sounds.playTap();
+                  if (parentRecorder.isRecording) parentRecorder.stop();
+                  else parentRecorder.start();
+                }}
+              >
+                {parentRecorder.isRecording ? 'Arreter parent' : 'Enregistrer parent'}
+              </button>
+              <button
+                type="button"
+                className="button ui-pressable"
+                onClick={saveParentRecording}
+                disabled={!parentRecorder.recordedBlob}
+              >
+                {parentModel?.blob ? 'Remplacer modele' : 'Sauvegarder modele'}
+              </button>
+            </div>
 
-          <div className="recording-meter">
-            <span>Timer: {formatDuration(parentRecorder.isRecording ? parentRecorder.elapsedMs : parentRecorder.durationMs)}</span>
-            <WaveformBars samples={parentWaveSamples} active={parentRecorder.isRecording} />
-          </div>
+            <div className="recording-meter">
+              <span>Timer: {formatDuration(parentRecorder.isRecording ? parentRecorder.elapsedMs : parentRecorder.durationMs)}</span>
+              <WaveformBars samples={parentWaveSamples} active={parentRecorder.isRecording} />
+            </div>
 
-          {confirmReplaceModel ? (
-            <div className="confirm-box">
-              <span>Confirmer remplacement du modele actuel ?</span>
-              <div className="lesson-actions compact">
-                <button type="button" className="button" onClick={saveParentRecording}>
-                  Oui remplacer
-                </button>
-                <button
-                  type="button"
-                  className="button secondary"
-                  onClick={() => setConfirmReplaceModel(false)}
-                >
-                  Annuler
-                </button>
+            {confirmReplaceModel ? (
+              <div className="confirm-box">
+                <span>Confirmer remplacement du modele actuel ?</span>
+                <div className="lesson-actions compact">
+                  <button type="button" className="button" onClick={saveParentRecording}>
+                    Oui remplacer
+                  </button>
+                  <button
+                    type="button"
+                    className="button secondary"
+                    onClick={() => setConfirmReplaceModel(false)}
+                  >
+                    Annuler
+                  </button>
+                </div>
               </div>
-            </div>
-          ) : null}
+            ) : null}
 
-          {parentRecorder.error ? <p className="error-line">{parentRecorder.error}</p> : null}
-          {parentRecorder.recordedBlob ? (
-            <div className="audio-preview">
-              <span>Apercu parent:</span>
-              <BlobPlayer blob={parentRecorder.recordedBlob} />
-            </div>
-          ) : null}
-          {parentModel?.blob ? (
-            <div className="audio-preview">
-              <span>Modele sauvegarde:</span>
-              <BlobPlayer blob={parentModel.blob} />
-            </div>
-          ) : (
-            <p className="audio-placeholder">Pas encore de modele parent.</p>
-          )}
+            {parentRecorder.error ? <p className="error-line">{parentRecorder.error}</p> : null}
+            {parentRecorder.recordedBlob ? (
+              <div className="audio-preview">
+                <span>Apercu parent:</span>
+                <BlobPlayer blob={parentRecorder.recordedBlob} />
+              </div>
+            ) : null}
+            {parentModel?.blob ? (
+              <div className="audio-preview">
+                <span>Modele sauvegarde:</span>
+                <BlobPlayer blob={parentModel.blob} />
+              </div>
+            ) : (
+              <p className="audio-placeholder">Pas encore de modele parent.</p>
+            )}
+          </article>
 
-          <div className="history">
-            <h4>Historique enfant</h4>
+          <article className="audio-panel-card history">
+            <h4 className="audio-panel-title">Historique enfant</h4>
             <div className="history-filters">
               <label>
                 Date
@@ -305,58 +327,66 @@ export default function AudioPracticePanel({ cardKey, mode }) {
                 ))}
               </ul>
             )}
-          </div>
+          </article>
         </div>
       ) : (
         <div className="audio-section child-view">
-          <p className="audio-help">Ecoute le modele puis enregistre ta voix. Tu peux recommencer avant de garder.</p>
-          <div className="audio-compare">
-            <div>
-              <h4>Modele parent</h4>
-              {parentModel?.blob ? (
-                <BlobPlayer blob={parentModel.blob} />
-              ) : (
-                <p className="audio-placeholder">Le parent doit d abord enregistrer un modele.</p>
-              )}
+          <article className="audio-panel-card">
+            <h4 className="audio-panel-title">Ecoute et compare</h4>
+            <p className="audio-help">Ecoute le modele puis enregistre ta voix. Tu peux recommencer avant de garder.</p>
+            <div className="audio-compare">
+              <div>
+                <h4>Modele parent</h4>
+                {parentModel?.blob ? (
+                  <BlobPlayer blob={parentModel.blob} />
+                ) : (
+                  <p className="audio-placeholder">Le parent doit d abord enregistrer un modele.</p>
+                )}
+              </div>
+              <div>
+                <h4>Ma tentative</h4>
+                {childRecorder.recordedBlob ? (
+                  <BlobPlayer blob={childRecorder.recordedBlob} />
+                ) : (
+                  <p className="audio-placeholder">Enregistre d abord une tentative.</p>
+                )}
+              </div>
             </div>
-            <div>
-              <h4>Ma tentative</h4>
-              {childRecorder.recordedBlob ? (
-                <BlobPlayer blob={childRecorder.recordedBlob} />
-              ) : (
-                <p className="audio-placeholder">Enregistre d abord une tentative.</p>
-              )}
+
+            <div className="audio-actions">
+              <button
+                type="button"
+                className={`button secondary ui-pressable ${childRecorder.isRecording ? 'recording' : ''}`}
+                onClick={() => {
+                  sounds.playTap();
+                  if (childRecorder.isRecording) childRecorder.stop();
+                  else childRecorder.start();
+                }}
+                data-coach="speak"
+              >
+                {childRecorder.isRecording ? 'Arreter' : 'Enregistrer'}
+              </button>
+              <button type="button" className="button ui-pressable" onClick={saveChildAttempt} disabled={!childRecorder.recordedBlob}>
+                Je garde cette version
+              </button>
             </div>
-          </div>
 
-          <div className="audio-actions">
-            <button
-              type="button"
-              className="button secondary"
-              onClick={childRecorder.isRecording ? childRecorder.stop : childRecorder.start}
-            >
-              {childRecorder.isRecording ? 'Arreter' : 'Enregistrer'}
-            </button>
-            <button type="button" className="button" onClick={saveChildAttempt} disabled={!childRecorder.recordedBlob}>
-              Je garde cette version
-            </button>
-          </div>
+            <div className="recording-meter">
+              <span>Timer: {formatDuration(childRecorder.isRecording ? childRecorder.elapsedMs : childRecorder.durationMs)}</span>
+              <WaveformBars samples={childWaveSamples} active={childRecorder.isRecording} />
+            </div>
 
-          <div className="recording-meter">
-            <span>Timer: {formatDuration(childRecorder.isRecording ? childRecorder.elapsedMs : childRecorder.durationMs)}</span>
-            <WaveformBars samples={childWaveSamples} active={childRecorder.isRecording} />
-          </div>
+            {childRecorder.error ? <p className="error-line">{childRecorder.error}</p> : null}
+            {childRecorder.recordedBlob ? (
+              <p className="audio-note">
+                Validation: {childValidation.note}
+                {typeof childValidation.score === 'number' ? ` (score ${(childValidation.score * 100).toFixed(0)}%)` : ''}
+              </p>
+            ) : null}
+          </article>
 
-          {childRecorder.error ? <p className="error-line">{childRecorder.error}</p> : null}
-          {childRecorder.recordedBlob ? (
-            <p className="audio-note">
-              Validation: {childValidation.note}
-              {typeof childValidation.score === 'number' ? ` (score ${(childValidation.score * 100).toFixed(0)}%)` : ''}
-            </p>
-          ) : null}
-
-          <div className="history">
-            <h4>Mes enregistrements</h4>
+          <article className="audio-panel-card history">
+            <h4 className="audio-panel-title">Mes enregistrements</h4>
             <div className="history-filters">
               <label>
                 Date
@@ -388,7 +418,7 @@ export default function AudioPracticePanel({ cardKey, mode }) {
                 ))}
               </ul>
             )}
-          </div>
+          </article>
         </div>
       )}
     </section>

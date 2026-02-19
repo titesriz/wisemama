@@ -1,0 +1,38 @@
+{
+  "module": "parent-mode",
+  "variant": "neutral-functional",
+  "tokens": {
+    "colors": {
+      "surface": "--parent-surface",
+      "surfaceSoft": "--parent-surface-soft",
+      "border": "--parent-border",
+      "textStrong": "--parent-text-strong",
+      "textSoft": "--parent-text-soft",
+      "primary": "#2f6db3",
+      "primaryHover": "#2a5f9c",
+      "error": "--wm-color-error"
+    },
+    "radius": {
+      "shell": "--wm-radius-lg",
+      "panel": "--wm-radius-md",
+      "item": "--wm-radius-sm",
+      "chip": "--wm-radius-pill"
+    },
+    "shadow": {
+      "shell": "--wm-shadow-card",
+      "panel": "0 6px 16px rgba(31,49,75,0.1)",
+      "button": "--wm-shadow-button"
+    },
+    "typography": {
+      "headerTitle": "700 24px/30px var(--wm-font-base)",
+      "headerSubtitle": "500 14px/20px var(--wm-font-base)",
+      "panelTitle": "700 22px/28px var(--wm-font-base)",
+      "body": "500 14px/20px var(--wm-font-base)",
+      "button": "700 15px/20px var(--wm-font-base)"
+    },
+    "motion": {
+      "hover": "var(--wm-motion-fast) var(--wm-ease-standard)",
+      "layout": "var(--wm-motion-normal) var(--wm-ease-soft)"
+    }
+  }
+}

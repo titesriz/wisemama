@@ -1,0 +1,58 @@
+{
+  "microInteractions": {
+    "motionTokens": {
+      "press": "--wm-motion-fast + --wm-ease-standard",
+      "enter": "--wm-motion-normal + --wm-ease-soft",
+      "feedback": "--wm-motion-fast + --wm-ease-standard",
+      "recordPulse": "1.2s ease-in-out (audio-record-pulse)"
+    },
+    "components": [
+      {
+        "component": "button.ui-pressable",
+        "tokenUsage": [
+          "--wm-motion-fast",
+          "--wm-motion-normal",
+          "--wm-ease-standard",
+          "--wm-ease-soft",
+          "--wm-shadow-focus"
+        ],
+        "effects": ["hover lift", "press scale", "focus ring"]
+      },
+      {
+        "component": "status success (ok-line + SuccessBurst)",
+        "tokenUsage": [
+          "--wm-color-success",
+          "--wm-color-secondary",
+          "--wm-color-primary",
+          "--wm-color-accent",
+          "--wm-color-info",
+          "--wm-motion-fast",
+          "--wm-ease-standard"
+        ],
+        "effects": ["success pulse", "confetti burst", "soft glow"]
+      },
+      {
+        "component": "flashcard listen CTA",
+        "tokenUsage": [
+          "--wm-motion-fast",
+          "--wm-ease-soft",
+          "--wm-color-accent"
+        ],
+        "effects": ["played glow"]
+      },
+      {
+        "component": "audio recording",
+        "tokenUsage": [
+          "--wm-color-primary",
+          "--wm-shadow-focus"
+        ],
+        "effects": ["record pulse", "waveform active highlight"]
+      }
+    ],
+    "audioCues": {
+      "tap": "single short triangle tone",
+      "success": "ascending 3-tone chime",
+      "error": "descending 2-tone cue"
+    }
+  }
+}

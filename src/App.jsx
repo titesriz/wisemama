@@ -2,12 +2,16 @@ import { useEffect, useMemo, useState } from 'react';
 import AudioPracticePanel from './components/AudioPracticePanel.jsx';
 import AvatarEditor from './components/AvatarEditor.jsx';
 import BigSmileTester from './components/BigSmileTester.jsx';
+import CoachMark from './components/CoachMark.jsx';
+import DailyRituelFlow from './components/DailyRituelFlow.jsx';
 import Flashcard from './components/Flashcard.jsx';
 import FTUEFlow from './components/FTUEFlow.jsx';
 import LandingPage from './components/LandingPage.jsx';
 import LessonEditor from './components/LessonEditor.jsx';
 import ModeAvatar from './components/ModeAvatar.jsx';
+import ParentModeDashboard from './components/ParentModeDashboard.jsx';
 import ToonHeadTester from './components/ToonHeadTester.jsx';
+import UnifiedLearningFlow from './components/UnifiedLearningFlow.jsx';
 import WritingPractice from './components/WritingPractice.jsx';
 import WritingOnlyPage from './components/WritingOnlyPage.jsx';
 import { useAvatar } from './context/AvatarContext.jsx';
@@ -21,12 +25,15 @@ import {
 
 const appTitle = 'WiseMama - Apprendre le chinois';
 const progressStorageKey = 'wisemama-progress-v1';
+const tutorialStorageKey = 'wisemama-tutorial-v1';
 
 const MODULES = {
+  PARENT_HOME: 'parent-home',
   LESSONS: 'lessons',
   FLASHCARDS: 'flashcards',
   AUDIO: 'audio',
   WRITING: 'writing',
+  LEARNING_FLOW: 'learning-flow',
   BIG_SMILE: 'big-smile',
   TOON_HEAD: 'toon-head',
 };
@@ -36,7 +43,7 @@ function getCardKey(lessonId, cardId) {
 }
 
 function getDefaultModuleByRole(role) {
-  return role === 'parent' ? MODULES.LESSONS : MODULES.FLASHCARDS;
+  return role === 'parent' ? MODULES.PARENT_HOME : MODULES.FLASHCARDS;
 }
 
 export default function App() {
@@ -67,6 +74,50 @@ export default function App() {
   const [isResetting, setIsResetting] = useState(false);
   const [ftueState, setFtueState] = useState(() => readFtueState());
   const [showFtue, setShowFtue] = useState(() => !readFtueState().completed);
+  const [showDailyRituel, setShowDailyRituel] = useState(false);
+  const [showTutorial, setShowTutorial] = useState(() => {
+    try {
+      const parsed = JSON.parse(localStorage.getItem(tutorialStorageKey) || '{}');
+      return !parsed.completed;
+    } catch {
+      return true;
+    }
+  });
+  const [tutorialStep, setTutorialStep] = useState(0);
+
+  const tutorialSteps = useMemo(
+    () => [
+      {
+        id: 'listen',
+        module: MODULES.FLASHCARDS,
+        selector: '[data-coach="listen"]',
+        title: 'Ecoute',
+        description: 'Appuie sur Ecouter pour entendre la prononciation.',
+      },
+      {
+        id: 'speak',
+        module: MODULES.AUDIO,
+        selector: '[data-coach="speak"]',
+        title: 'Parle',
+        description: 'Enregistre ta voix pour comparer avec le modele.',
+      },
+      {
+        id: 'write',
+        module: MODULES.WRITING,
+        selector: '[data-coach="write"]',
+        title: 'Ecris',
+        description: 'Trace le caractere puis verifie ton geste.',
+      },
+      {
+        id: 'continue',
+        module: MODULES.FLASHCARDS,
+        selector: '[data-coach="continue"]',
+        title: 'Continue',
+        description: 'Passe a la carte suivante pour continuer la lecon.',
+      },
+    ],
+    [],
+  );
 
   useEffect(() => {
     if (lessonOptions.length === 0) {
@@ -115,10 +166,35 @@ export default function App() {
   }, [activeProfile, switchToChild, switchToParent]);
 
   useEffect(() => {
-    if (!isParentMode && activeModule === MODULES.LESSONS) {
+    if (
+      !isParentMode &&
+      (activeModule === MODULES.LESSONS || activeModule === MODULES.PARENT_HOME)
+    ) {
       setActiveModule(MODULES.FLASHCARDS);
     }
   }, [activeModule, isParentMode]);
+
+  useEffect(() => {
+    if (!enteredApp || showFtue || isParentMode || showWritingOnlyPage) return;
+    if (!showTutorial) return;
+    const firstLessonId = lessonOptions[0]?.id;
+    if (!firstLessonId || activeLesson?.id !== firstLessonId) return;
+    const step = tutorialSteps[tutorialStep];
+    if (step && activeModule !== step.module) {
+      setActiveModule(step.module);
+    }
+  }, [
+    enteredApp,
+    showFtue,
+    isParentMode,
+    showWritingOnlyPage,
+    showTutorial,
+    activeLesson?.id,
+    activeModule,
+    tutorialStep,
+    tutorialSteps,
+    lessonOptions,
+  ]);
 
   useEffect(() => {
     if (showFtue) {
@@ -204,6 +280,7 @@ export default function App() {
 
   const goToLanding = () => {
     setShowLandingAvatarEditor(false);
+    setShowDailyRituel(false);
     setEnteredApp(false);
   };
 
@@ -221,6 +298,7 @@ export default function App() {
 
     setActiveModule(getDefaultModuleByRole(profile.role));
     setShowLandingAvatarEditor(false);
+    setShowDailyRituel(false);
     setEnteredApp(true);
   };
 
@@ -230,8 +308,32 @@ export default function App() {
     setActiveProfileId(profile.id);
     if (profile.role === 'parent') switchToParent();
     else switchToChild();
-    setActiveModule((prev) => (profile.role === 'parent' ? prev : prev === MODULES.LESSONS ? MODULES.FLASHCARDS : prev));
+    setShowDailyRituel(false);
+    setActiveModule(getDefaultModuleByRole(profile.role));
     setShowProfilePicker(false);
+  };
+
+  const openDailyRituelFromLanding = () => {
+    const childProfile = profiles.find((profile) => profile.role === 'child') || profiles[0];
+    if (!childProfile) return;
+    setActiveProfileId(childProfile.id);
+    switchToChild();
+    setShowLandingAvatarEditor(false);
+    setShowWritingOnlyPage(false);
+    setShowDailyRituel(true);
+    setEnteredApp(true);
+  };
+
+  const openUnifiedFlowFromLanding = () => {
+    const childProfile = profiles.find((profile) => profile.role === 'child') || profiles[0];
+    if (!childProfile) return;
+    setActiveProfileId(childProfile.id);
+    switchToChild();
+    setShowLandingAvatarEditor(false);
+    setShowWritingOnlyPage(false);
+    setShowDailyRituel(false);
+    setEnteredApp(true);
+    setActiveModule(MODULES.LEARNING_FLOW);
   };
 
   const createAndSwitchProfile = () => {
@@ -280,6 +382,27 @@ export default function App() {
     }
   };
 
+  const completeTutorial = () => {
+    localStorage.setItem(tutorialStorageKey, JSON.stringify({ completed: true }));
+    setShowTutorial(false);
+  };
+
+  const restartTutorial = () => {
+    localStorage.setItem(tutorialStorageKey, JSON.stringify({ completed: false }));
+    setTutorialStep(0);
+    setShowTutorial(true);
+    setActiveModule(MODULES.FLASHCARDS);
+    setShowSettingsPanel(false);
+  };
+
+  const handleTutorialNext = () => {
+    if (tutorialStep >= tutorialSteps.length - 1) {
+      completeTutorial();
+      return;
+    }
+    setTutorialStep((prev) => prev + 1);
+  };
+
   if (showWritingOnlyPage) {
     return (
       <WritingOnlyPage
@@ -318,11 +441,29 @@ export default function App() {
     return (
       <LandingPage
         profiles={profiles}
+        onOpenDailyRituel={openDailyRituelFromLanding}
+        onOpenUnifiedFlow={openUnifiedFlowFromLanding}
         onOpenWritingUi={() => setShowWritingOnlyPage(true)}
         showAvatarEditor={showLandingAvatarEditor}
         onToggleAvatarEditor={() => setShowLandingAvatarEditor((prev) => !prev)}
         avatarEditorContent={<AvatarEditor />}
         onStartProfile={startWithProfile}
+      />
+    );
+  }
+
+  if (enteredApp && !isParentMode && showDailyRituel) {
+    return (
+      <DailyRituelFlow
+        childName={activeProfile?.name || 'Enfant'}
+        childAvatar="🦊"
+        parentAvatar="🧑"
+        onBackHome={goToLanding}
+        onStartLesson={() => {
+          setShowDailyRituel(false);
+          setActiveModule(MODULES.FLASHCARDS);
+          setCardIndex(0);
+        }}
       />
     );
   }
@@ -457,6 +598,13 @@ export default function App() {
                   >
                     {isResetting ? 'Reinitialisation...' : 'Reinitialiser donnees + FTUE'}
                   </button>
+                  <button
+                    type="button"
+                    className="button secondary"
+                    onClick={restartTutorial}
+                  >
+                    Relancer tutoriel lecon 1
+                  </button>
                 </div>
               ) : null}
             </div>
@@ -477,10 +625,12 @@ export default function App() {
 
           <nav className="module-nav module-nav-vertical" aria-label="Navigation modules">
             {[
+              { id: MODULES.PARENT_HOME, label: 'Espace parent', key: 'P', parentOnly: true },
               { id: MODULES.LESSONS, label: 'Editeur de lecon', key: 'L', parentOnly: true },
               { id: MODULES.FLASHCARDS, label: 'Flashcard', key: 'F', parentOnly: false },
               { id: MODULES.AUDIO, label: 'Sound', key: 'S', parentOnly: false },
               { id: MODULES.WRITING, label: 'Ecriture', key: 'E', parentOnly: false },
+              { id: MODULES.LEARNING_FLOW, label: 'Parcours complet', key: 'U', parentOnly: false },
               { id: MODULES.BIG_SMILE, label: 'Big Smile test', key: 'B', parentOnly: true },
               { id: MODULES.TOON_HEAD, label: 'Toon Head test', key: 'T', parentOnly: true },
             ]
@@ -539,6 +689,17 @@ export default function App() {
           </section>
         ) : null}
 
+          {activeModule === MODULES.PARENT_HOME && isParentMode ? (
+            <section className="module-pane">
+              <ParentModeDashboard
+                lessons={lessonOptions}
+                profiles={profiles}
+                onBack={goToLanding}
+                onSave={() => setShowSettingsPanel(false)}
+              />
+            </section>
+          ) : null}
+
           {activeModule === MODULES.FLASHCARDS && currentCard ? (
             <section className="module-pane">
               <Flashcard card={currentCard} earnedStars={earnedStars} />
@@ -569,11 +730,28 @@ export default function App() {
             </section>
           ) : null}
 
+          {activeModule === MODULES.LEARNING_FLOW && activeLesson ? (
+            <section className="module-pane">
+              <UnifiedLearningFlow
+                profile={activeProfile}
+                lesson={activeLesson}
+                cardIndex={cardIndex}
+                onPrevCard={goPrev}
+                onNextCard={goNext}
+                onBackHome={goToLanding}
+                onWritingSuccess={handleWritingSuccess}
+              />
+            </section>
+          ) : null}
+
           {activeModule === MODULES.BIG_SMILE ? <BigSmileTester /> : null}
 
           {activeModule === MODULES.TOON_HEAD ? <ToonHeadTester /> : null}
 
-          {activeModule !== MODULES.LESSONS && activeModule !== MODULES.WRITING ? (
+          {activeModule !== MODULES.LESSONS &&
+          activeModule !== MODULES.WRITING &&
+          activeModule !== MODULES.LEARNING_FLOW &&
+          activeModule !== MODULES.PARENT_HOME ? (
             currentCard ? (
               <div className="card-controls">
                 <button className="button secondary" type="button" onClick={goPrev}>
@@ -582,7 +760,7 @@ export default function App() {
                 <span className="card-counter">
                   Carte {cardIndex + 1} / {totalCards}
                 </span>
-                <button className="button" type="button" onClick={goNext}>
+                <button className="button" type="button" onClick={goNext} data-coach="continue">
                   Suivant
                 </button>
               </div>
@@ -592,6 +770,26 @@ export default function App() {
           ) : null}
         </section>
       </main>
+
+      <CoachMark
+        open={
+          enteredApp &&
+          !showFtue &&
+          !isParentMode &&
+          !showDailyRituel &&
+          !showWritingOnlyPage &&
+          showTutorial &&
+          activeLesson?.id === lessonOptions[0]?.id
+        }
+        stepIndex={tutorialStep}
+        totalSteps={tutorialSteps.length}
+        title={tutorialSteps[tutorialStep]?.title || ''}
+        description={tutorialSteps[tutorialStep]?.description || ''}
+        selector={tutorialSteps[tutorialStep]?.selector || ''}
+        onPrev={() => setTutorialStep((prev) => Math.max(0, prev - 1))}
+        onNext={handleTutorialNext}
+        onSkip={completeTutorial}
+      />
     </div>
   );
 }

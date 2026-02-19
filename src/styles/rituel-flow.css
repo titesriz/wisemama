@@ -1,0 +1,264 @@
+.token-card {
+  border-radius: var(--wm-radius-lg);
+  border: 1px solid var(--wm-color-border);
+  box-shadow: var(--wm-shadow-card);
+  padding: 16px;
+}
+
+.token-card-neutral {
+  background: var(--wm-color-surface);
+  color: var(--wm-color-text-main);
+}
+
+.token-card-kid {
+  background: linear-gradient(135deg, #ffe66d, #ffed9f);
+  color: var(--wm-color-text-main);
+  box-shadow: var(--wm-shadow-card-kid);
+}
+
+.token-card-parent {
+  background: linear-gradient(135deg, #4ecdc4, #44a3a0);
+  color: #fff;
+  box-shadow: var(--wm-shadow-card-parent);
+}
+
+.rituel-flow {
+  width: min(760px, 100%);
+  margin: 0 auto;
+}
+
+.rituel-screen {
+  min-height: 420px;
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  animation: rituel-fade-in var(--wm-motion-normal) var(--wm-ease-soft);
+}
+
+.rituel-screen h2 {
+  margin: 0;
+  font-size: var(--wm-title-lg-size);
+  line-height: var(--wm-title-lg-line);
+  font-weight: var(--wm-title-lg-weight);
+}
+
+.rituel-screen p {
+  margin: 0;
+  font-size: var(--wm-body-size);
+  line-height: var(--wm-body-line);
+  font-weight: var(--wm-body-weight);
+}
+
+.rituel-header-avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 999px;
+  border: 2px solid #fff;
+  box-shadow: var(--wm-shadow-button);
+  background: #fff8e6;
+  display: grid;
+  place-items: center;
+  font-size: 28px;
+}
+
+.rituel-hero-avatar {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid var(--wm-color-border);
+  box-shadow: var(--wm-shadow-button);
+  display: grid;
+  place-items: center;
+  font-size: 64px;
+  margin-top: 4px;
+}
+
+.rituel-hero-avatar.glow {
+  animation: rituel-glow 1.2s ease-in-out infinite;
+}
+
+.rituel-hero-avatar.confetti::after {
+  content: '✨ ⭐ ✨';
+  position: absolute;
+  transform: translateY(74px);
+  font-size: 16px;
+  animation: rituel-sparkle 900ms ease-in-out infinite alternate;
+}
+
+.rituel-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.rituel-choice {
+  border: 1px solid var(--wm-color-border);
+  border-radius: var(--wm-radius-md);
+  background: var(--wm-color-surface);
+  box-shadow: var(--wm-shadow-button);
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 10px;
+  cursor: pointer;
+  transition: transform var(--wm-motion-fast) var(--wm-ease-standard),
+    border-color var(--wm-motion-fast) var(--wm-ease-standard),
+    box-shadow var(--wm-motion-fast) var(--wm-ease-standard);
+}
+
+.rituel-choice:hover {
+  transform: translateY(-1px);
+}
+
+.rituel-choice.selected {
+  border-color: var(--wm-color-accent);
+  box-shadow: var(--wm-shadow-focus);
+}
+
+.rituel-choice-avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 999px;
+  background: #fff8e6;
+  border: 1px solid var(--wm-color-border);
+  display: grid;
+  place-items: center;
+  font-size: 28px;
+}
+
+.rituel-choice strong {
+  font-size: var(--wm-body-size);
+  line-height: var(--wm-body-line);
+}
+
+.rituel-choice small {
+  font-size: var(--wm-label-size);
+  line-height: var(--wm-label-line);
+  color: var(--wm-color-text-soft);
+}
+
+.rituel-feedback {
+  margin-top: 6px;
+  border-radius: var(--wm-radius-sm);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--wm-color-border);
+  padding: 8px 10px;
+  font-size: var(--wm-body-sm-size);
+  line-height: var(--wm-body-sm-line);
+  font-weight: var(--wm-body-sm-weight);
+}
+
+.rituel-duo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.rituel-duo-avatar {
+  width: 84px;
+  height: 84px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  display: grid;
+  place-items: center;
+  font-size: 40px;
+}
+
+.rituel-duo-plus {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.rituel-stars {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.rituel-stars span {
+  animation: rituel-sparkle 900ms ease-in-out infinite alternate;
+}
+
+.rituel-progress {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+}
+
+.rituel-progress span {
+  font-size: var(--wm-label-size);
+  line-height: var(--wm-label-line);
+  color: var(--wm-color-text-soft);
+  font-weight: 700;
+}
+
+.rituel-progress-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.rituel-progress-dots i {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #d8dee7;
+}
+
+.rituel-progress-dots i.active {
+  background: var(--wm-color-primary);
+}
+
+@keyframes rituel-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rituel-glow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.24), var(--wm-shadow-button);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 107, 107, 0), var(--wm-shadow-button);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0), var(--wm-shadow-button);
+  }
+}
+
+@keyframes rituel-sparkle {
+  from {
+    transform: translateY(0);
+    opacity: 0.75;
+  }
+  to {
+    transform: translateY(-2px);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 767px) {
+  .rituel-screen {
+    min-height: 360px;
+    gap: 10px;
+  }
+
+  .rituel-choice-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rituel-hero-avatar {
+    width: 96px;
+    height: 96px;
+    font-size: 48px;
+  }
+}

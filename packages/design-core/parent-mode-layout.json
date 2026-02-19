@@ -1,0 +1,94 @@
+{
+  "layout": {
+    "name": "parent-mode-shell",
+    "zones": [
+      {
+        "id": "header",
+        "children": ["logo/back", "title/subtitle", "role-chip"],
+        "tokenMapping": {
+          "background": "--parent-surface",
+          "radius": "--wm-radius-lg",
+          "shadow": "--wm-shadow-card",
+          "titleTypography": "700 24px/30px var(--wm-font-base)",
+          "subtitleTypography": "500 14px/20px var(--wm-font-base)"
+        }
+      },
+      {
+        "id": "content",
+        "children": ["section-nav", "section-panel"],
+        "tokenMapping": {
+          "background": "--parent-surface",
+          "panelBackground": "--parent-surface-soft",
+          "panelRadius": "--wm-radius-md",
+          "panelBorder": "--parent-border",
+          "panelShadow": "0 6px 16px rgba(31, 49, 75, 0.1)",
+          "spacing": "16px"
+        }
+      },
+      {
+        "id": "actionBar",
+        "children": ["home", "status", "save"],
+        "tokenMapping": {
+          "background": "--parent-surface",
+          "radius": "--wm-radius-lg",
+          "shadow": "--wm-shadow-card",
+          "primaryButton": "wm-btn wm-btn-primary",
+          "secondaryButton": "wm-btn wm-btn-secondary",
+          "ghostButton": "wm-btn wm-btn-ghost"
+        }
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "lessons",
+      "label": "Lecons",
+      "components": ["list-item", "compact-actions", "new-lesson-cta"]
+    },
+    {
+      "id": "progress",
+      "label": "Progres",
+      "components": ["stat-card", "progress-track", "export-cta"]
+    },
+    {
+      "id": "family",
+      "label": "Contenu famille",
+      "components": ["profile-row", "role-badge", "permissions-cta"]
+    },
+    {
+      "id": "settings",
+      "label": "Parametres",
+      "components": ["toggle-list", "danger-zone", "reset-cta"]
+    }
+  ],
+  "componentToToken": {
+    "section-nav-item": {
+      "radius": "--wm-radius-sm",
+      "bg": "--parent-surface-soft",
+      "border": "--parent-border",
+      "activeBg": "#dde9f7",
+      "text": "--parent-text-soft"
+    },
+    "panel": {
+      "radius": "--wm-radius-md",
+      "bg": "--parent-surface-soft",
+      "border": "--parent-border",
+      "shadow": "0 6px 16px rgba(31, 49, 75, 0.1)"
+    },
+    "list-item": {
+      "radius": "--wm-radius-sm",
+      "bg": "--wm-color-surface",
+      "border": "--parent-border"
+    },
+    "progress-track": {
+      "track": "#e3eaf3",
+      "fill": "#5e85b4",
+      "radius": "--wm-radius-pill"
+    },
+    "danger-cta": {
+      "bg": "--wm-color-error",
+      "text": "#ffffff",
+      "radius": "--wm-radius-md"
+    }
+  }
+}

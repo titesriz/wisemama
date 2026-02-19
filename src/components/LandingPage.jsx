@@ -3,6 +3,8 @@ import AvatarRenderer from './AvatarRenderer.jsx';
 export default function LandingPage({
   profiles,
   onStartProfile,
+  onOpenDailyRituel,
+  onOpenUnifiedFlow,
   onOpenWritingUi,
   showAvatarEditor,
   onToggleAvatarEditor,
@@ -93,9 +95,17 @@ export default function LandingPage({
         ) : null}
 
         {!showAvatarEditor ? (
-          <button type="button" className="landing-writing-shortcut button secondary button-sm" onClick={onOpenWritingUi}>
-            Ouvrir UI ecriture
-          </button>
+          <div className="landing-shortcuts">
+            <button type="button" className="landing-writing-shortcut button secondary button-sm" onClick={onOpenWritingUi}>
+              Ouvrir UI ecriture
+            </button>
+            <button type="button" className="landing-writing-shortcut button secondary button-sm" onClick={onOpenDailyRituel}>
+              Rituel quotidien (optionnel)
+            </button>
+            <button type="button" className="landing-writing-shortcut button secondary button-sm" onClick={onOpenUnifiedFlow}>
+              Parcours complet (voir-ecouter-dire-ecrire)
+            </button>
+          </div>
         ) : null}
       </div>
     </section>
