@@ -12,9 +12,21 @@ function safeString(value, fallback = '') {
 
 function normalizeCard(card, index = 0) {
   const rawManual = card?.manualOverrides && typeof card.manualOverrides === 'object' ? card.manualOverrides : {};
+  const rawTranslation = card?.translation && typeof card.translation === 'object' ? card.translation : {};
+  const translationEn = safeString(rawTranslation.en, safeString(card?.english, ''));
+  const translationFr = safeString(rawTranslation.fr, safeString(card?.french, ''));
   const relatedVocabulary = Array.isArray(card?.relatedVocabulary)
     ? card.relatedVocabulary.map((item) => safeString(item)).filter(Boolean)
     : [];
+  const relatedWords = Array.isArray(card?.relatedWords)
+    ? card.relatedWords
+      .map((item) => ({
+        hanzi: safeString(item?.hanzi),
+        pinyin: safeString(item?.pinyin),
+        en: safeString(item?.en),
+      }))
+      .filter((item) => item.hanzi)
+    : relatedVocabulary.map((hanzi) => ({ hanzi, pinyin: '', en: '' }));
   const relatedVocabularyText = safeString(card?.relatedVocabularyText, relatedVocabulary.join(', '));
   return {
     id: safeString(card?.id, `card-${Date.now()}-${index}`),
@@ -22,11 +34,23 @@ function normalizeCard(card, index = 0) {
     hanzi: safeString(card?.hanzi),
     pinyinEnabled: card?.pinyinEnabled !== false,
     pinyin: safeString(card?.pinyin),
-    french: safeString(card?.french),
-    english: safeString(card?.english),
+    translation: {
+      en: translationEn,
+      fr: translationFr,
+    },
+    french: translationFr,
+    english: translationEn,
+    meanings: Array.isArray(card?.meanings) ? card.meanings.map((item) => safeString(item)).filter(Boolean) : [],
+    classifiers: Array.isArray(card?.classifiers) ? card.classifiers.map((item) => safeString(item)).filter(Boolean) : [],
+    partOfSpeech: safeString(card?.partOfSpeech, ''),
     exampleSentence: safeString(card?.exampleSentence, ''),
+    notes: safeString(card?.notes, ''),
+    relatedWords,
     relatedVocabulary,
     relatedVocabularyText,
+    meta: {
+      dictFound: card?.meta?.dictFound !== false,
+    },
     manualOverrides: {
       pinyin: Boolean(rawManual.pinyin),
       french: Boolean(rawManual.french),
@@ -125,11 +149,23 @@ function defaultCard() {
     hanzi: '',
     pinyinEnabled: true,
     pinyin: '',
+    translation: {
+      en: '',
+      fr: '',
+    },
     french: '',
     english: '',
+    meanings: [],
+    classifiers: [],
+    partOfSpeech: '',
     exampleSentence: '',
+    notes: '',
+    relatedWords: [],
     relatedVocabulary: [],
     relatedVocabularyText: '',
+    meta: {
+      dictFound: true,
+    },
     manualOverrides: {
       pinyin: false,
       french: false,

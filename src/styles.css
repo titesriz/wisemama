@@ -340,6 +340,28 @@ body {
   color: var(--text-soft);
 }
 
+.beta-dict-badge {
+  border-radius: var(--wm-radius-pill);
+  border: 1px solid var(--pill-border);
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-soft);
+  background: #f6f9fc;
+}
+
+.beta-dict-badge.incomplete {
+  border-color: #d8b07a;
+  color: #9b6a2e;
+  background: #fff4e3;
+}
+
+.beta-dict-badge.ok {
+  border-color: #8bc3ab;
+  color: #236643;
+  background: #e9fff3;
+}
+
 .lesson-beta-card {
   border: 1px solid var(--pill-border);
   border-radius: 16px;
