@@ -44,7 +44,6 @@ function SeeStep({ card }) {
           <img src={card.imageUrl} alt={card.french || card.english || card.hanzi} />
         </div>
       ) : null}
-      {card.meaning ? <p className="learning-feedback">Sens: {card.meaning}</p> : null}
       {Array.isArray(card.relatedVocabulary) && card.relatedVocabulary.length ? (
         <p className="learning-feedback">Vocabulaire lie: {card.relatedVocabulary.join(', ')}</p>
       ) : null}

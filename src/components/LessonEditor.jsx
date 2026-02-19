@@ -29,7 +29,6 @@ function defaultCard() {
     hanzi: '',
     pinyinEnabled: true,
     pinyin: '',
-    meaning: '',
     french: '',
     english: '',
     exampleSentence: '',
@@ -37,7 +36,6 @@ function defaultCard() {
     relatedVocabularyText: '',
     manualOverrides: {
       pinyin: false,
-      meaning: false,
       french: false,
       english: false,
       exampleSentence: false,
@@ -483,13 +481,6 @@ export default function LessonEditor({ activeLessonId, activeCardId = '', onSele
                     }}
                   />
                   <CardField
-                    label="Meaning (court)"
-                    value={card.meaning || ''}
-                    onChange={(value) => {
-                      patchCard(card.id, { meaning: value }, 'meaning');
-                    }}
-                  />
-                  <CardField
                     label="Francais"
                     value={card.french}
                     onChange={(value) => {
@@ -557,13 +548,11 @@ export default function LessonEditor({ activeLessonId, activeCardId = '', onSele
                                     ...c,
                                     hanzi: entry.hanzi,
                                     pinyin: entry.pinyin,
-                                    meaning: entry.french || entry.english || c.meaning,
                                     french: entry.french || c.french,
                                     english: entry.english || c.english,
                                     manualOverrides: {
                                       ...(c.manualOverrides || {}),
                                       pinyin: true,
-                                      meaning: true,
                                       french: true,
                                       english: true,
                                     },

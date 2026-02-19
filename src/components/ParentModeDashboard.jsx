@@ -5,6 +5,7 @@ import LessonEditor from './LessonEditor.jsx';
 import OcrLessonBuilder from './OcrLessonBuilder.jsx';
 import SuccessBurst from './SuccessBurst.jsx';
 import TokenButton from './ui/TokenButton.jsx';
+import { buildWiseMamaLocalExportPayload, downloadJsonFile } from '../lib/localDataExport.js';
 import '../styles/parent-mode.css';
 
 const MODULE_IDS = {
@@ -512,6 +513,9 @@ export default function ParentModeDashboard({
 }) {
   const [activeModule, setActiveModule] = useState(MODULE_IDS.DASHBOARD);
   const [editorContext, setEditorContext] = useState({ lessonId: '', cardId: '' });
+  const [exportStatus, setExportStatus] = useState('');
+  const [exportTick, setExportTick] = useState(0);
+  const [isExporting, setIsExporting] = useState(false);
   const parentProfile = useMemo(
     () => profiles.find((profile) => profile.role === 'parent') || profiles[0] || null,
     [profiles],
@@ -520,6 +524,22 @@ export default function ParentModeDashboard({
   const subtitle = activeModule === MODULE_IDS.DASHBOARD
     ? 'Tableau de bord'
     : `Section active: ${MODULE_LABELS[activeModule]}`;
+
+  const exportAllLocalData = async () => {
+    setIsExporting(true);
+    setExportStatus('');
+    try {
+      const payload = await buildWiseMamaLocalExportPayload();
+      const stamp = new Date().toISOString().slice(0, 19).replaceAll(':', '-');
+      downloadJsonFile(payload, `wisemama-local-export-${stamp}.json`);
+      setExportStatus('Export local termine.');
+      setExportTick((prev) => prev + 1);
+    } catch {
+      setExportStatus('Export local impossible.');
+    } finally {
+      setIsExporting(false);
+    }
+  };
 
   const renderModule = () => {
     if (activeModule === MODULE_IDS.DASHBOARD) {
@@ -594,8 +614,24 @@ export default function ParentModeDashboard({
           </div>
         )}
         actionLeft={<TokenButton variant="secondary" onClick={onBack}>Accueil</TokenButton>}
-        actionCenter={<span className="parent-action-text">Gestion familiale WiseMama</span>}
-        actionRight={<TokenButton onClick={onSave}>Sauvegarder</TokenButton>}
+        actionCenter={(
+          exportStatus ? (
+            <span className="parent-action-text wm-ok-line">
+              {exportStatus}
+              {exportStatus.includes('termine') ? <SuccessBurst trigger={exportTick} /> : null}
+            </span>
+          ) : (
+            <span className="parent-action-text">Gestion familiale WiseMama</span>
+          )
+        )}
+        actionRight={(
+          <div className="parent-list-actions">
+            <TokenButton variant="secondary" onClick={exportAllLocalData} disabled={isExporting}>
+              {isExporting ? 'Export...' : 'Exporter donnees locales'}
+            </TokenButton>
+            <TokenButton onClick={onSave}>Sauvegarder</TokenButton>
+          </div>
+        )}
       >
         <div className="parent-layout-grid">
           <div className="parent-layout-content">{renderModule()}</div>

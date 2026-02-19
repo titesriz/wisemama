@@ -22,7 +22,6 @@ function normalizeCard(card, index = 0) {
     hanzi: safeString(card?.hanzi),
     pinyinEnabled: card?.pinyinEnabled !== false,
     pinyin: safeString(card?.pinyin),
-    meaning: safeString(card?.meaning, ''),
     french: safeString(card?.french),
     english: safeString(card?.english),
     exampleSentence: safeString(card?.exampleSentence, ''),
@@ -30,7 +29,6 @@ function normalizeCard(card, index = 0) {
     relatedVocabularyText,
     manualOverrides: {
       pinyin: Boolean(rawManual.pinyin),
-      meaning: Boolean(rawManual.meaning),
       french: Boolean(rawManual.french),
       english: Boolean(rawManual.english),
       exampleSentence: Boolean(rawManual.exampleSentence),
@@ -127,7 +125,6 @@ function defaultCard() {
     hanzi: '',
     pinyinEnabled: true,
     pinyin: '',
-    meaning: '',
     french: '',
     english: '',
     exampleSentence: '',
@@ -135,7 +132,6 @@ function defaultCard() {
     relatedVocabularyText: '',
     manualOverrides: {
       pinyin: false,
-      meaning: false,
       french: false,
       english: false,
       exampleSentence: false,

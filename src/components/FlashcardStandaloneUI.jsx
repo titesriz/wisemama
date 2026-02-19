@@ -64,12 +64,6 @@ export default function FlashcardStandaloneUI({
           {earnedStars > 0 ? <SuccessBurst trigger={earnedStars} /> : null}
         </div>
 
-        {card.meaning ? (
-          <div className="module-note-line">
-            <strong>Sens:</strong> {card.meaning}
-          </div>
-        ) : null}
-
         {Array.isArray(card.relatedVocabulary) && card.relatedVocabulary.length ? (
           <div className="module-note-line">
             <strong>Vocabulaire lie:</strong> {card.relatedVocabulary.join(', ')}

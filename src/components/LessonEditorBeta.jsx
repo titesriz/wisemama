@@ -25,7 +25,6 @@ export default function LessonEditorBeta({ onBack }) {
   const [sourceText, setSourceText] = useState('');
   const [rawOcrText, setRawOcrText] = useState('');
   const [generationMode, setGenerationMode] = useState('characters');
-  const [autoFillFrench, setAutoFillFrench] = useState(false);
   const [cardsDraft, setCardsDraft] = useState([]);
   const [isScanning, setIsScanning] = useState(false);
   const [status, setStatus] = useState('');
@@ -112,7 +111,6 @@ export default function LessonEditorBeta({ onBack }) {
       pinyinToggles,
       previousCards: cardsDraft.length ? cardsDraft : selectedLesson?.cards || [],
       generationMode,
-      autoFillFrench,
     });
     if (!nextCards.length) {
       applyStatus('Aucune fiche generee depuis ce texte.', 'error');
@@ -256,14 +254,6 @@ export default function LessonEditorBeta({ onBack }) {
         </label>
 
         <div className="lesson-beta-actions">
-          <label className="lesson-field checkbox-field">
-            <span>Auto-remplir FR depuis dico</span>
-            <input
-              type="checkbox"
-              checked={autoFillFrench}
-              onChange={(e) => setAutoFillFrench(e.target.checked)}
-            />
-          </label>
           <button type="button" className="button secondary ui-pressable" onClick={regenerate}>
             Regenerer depuis texte
           </button>
@@ -313,13 +303,6 @@ export default function LessonEditorBeta({ onBack }) {
                   <input
                     value={card.pinyin || ''}
                     onChange={(e) => patchCard(card.id, { pinyin: e.target.value }, 'pinyin')}
-                  />
-                </label>
-                <label className="lesson-field">
-                  <span>Meaning</span>
-                  <input
-                    value={card.meaning || ''}
-                    onChange={(e) => patchCard(card.id, { meaning: e.target.value }, 'meaning')}
                   />
                 </label>
                 <label className="lesson-field">

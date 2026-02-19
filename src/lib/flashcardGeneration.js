@@ -65,8 +65,26 @@ function buildRelatedVocabulary(tokens, currentToken, max = 6) {
   return ranked;
 }
 
+function resolveDictionaryForToken(token) {
+  const exact = findDictionaryEntryByHanzi(token);
+  if (exact) return exact;
+
+  const charEntries = Array.from(token)
+    .map((char) => findDictionaryEntryByHanzi(char))
+    .filter(Boolean);
+
+  if (!charEntries.length) return null;
+
+  return {
+    hanzi: token,
+    pinyin: charEntries.map((entry) => entry.pinyin).filter(Boolean).join(' '),
+    english: charEntries.map((entry) => entry.english).filter(Boolean).join('; '),
+    french: charEntries.map((entry) => entry.french).filter(Boolean).join('; '),
+  };
+}
+
 function dictionaryToCardBase(token, pinyinToggles = {}) {
-  const entry = findDictionaryEntryByHanzi(token);
+  const entry = resolveDictionaryForToken(token);
   const pinyinEnabled = pinyinToggles[token] !== false;
   const fallbackPinyin = pinyinFromText(token, { type: 'num', toneType: 'num' }) || '';
   const resolvedPinyin = entry?.pinyin || fallbackPinyin;
@@ -74,7 +92,6 @@ function dictionaryToCardBase(token, pinyinToggles = {}) {
     hanzi: token,
     pinyinEnabled,
     pinyin: pinyinEnabled ? resolvedPinyin : '',
-    meaning: entry?.french || entry?.english || '',
     french: entry?.french || '',
     english: entry?.english || '',
     exampleSentence: '',
@@ -84,21 +101,22 @@ function dictionaryToCardBase(token, pinyinToggles = {}) {
 function applyManualOverrides(baseCard, previousCard) {
   if (!previousCard) return baseCard;
   const manual = previousCard.manualOverrides || {};
+  const previousPinyin = String(previousCard.pinyin || '').trim();
+  const previousFrench = String(previousCard.french || '').trim();
+  const previousEnglish = String(previousCard.english || '').trim();
+  const previousExample = String(previousCard.exampleSentence || '').trim();
+  const previousRelated = Array.isArray(previousCard.relatedVocabulary) ? previousCard.relatedVocabulary : [];
+
   return {
     ...baseCard,
-    pinyin: manual.pinyin ? (previousCard.pinyin || '') : baseCard.pinyin,
-    meaning: manual.meaning ? (previousCard.meaning || '') : baseCard.meaning,
-    french: manual.french ? (previousCard.french || '') : baseCard.french,
-    english: manual.english ? (previousCard.english || '') : baseCard.english,
-    exampleSentence: manual.exampleSentence
-      ? (previousCard.exampleSentence || '')
-      : baseCard.exampleSentence,
-    relatedVocabulary: manual.relatedVocabulary
-      ? (Array.isArray(previousCard.relatedVocabulary) ? previousCard.relatedVocabulary : [])
-      : baseCard.relatedVocabulary,
+    pinyin: manual.pinyin && previousPinyin ? previousPinyin : baseCard.pinyin,
+    french: manual.french && previousFrench ? previousFrench : baseCard.french,
+    english: manual.english && previousEnglish ? previousEnglish : baseCard.english,
+    exampleSentence: manual.exampleSentence && previousExample ? previousExample : baseCard.exampleSentence,
+    relatedVocabulary:
+      manual.relatedVocabulary && previousRelated.length ? previousRelated : baseCard.relatedVocabulary,
     manualOverrides: {
       pinyin: Boolean(manual.pinyin),
-      meaning: Boolean(manual.meaning),
       french: Boolean(manual.french),
       english: Boolean(manual.english),
       exampleSentence: Boolean(manual.exampleSentence),
@@ -113,7 +131,6 @@ export function generateLessonFlashcards({
   pinyinToggles = {},
   previousCards = [],
   generationMode = 'characters',
-  autoFillFrench = true,
   timestamp = '',
 } = {}) {
   const normalizedText = normalizeLessonInput(sourceText);
@@ -132,8 +149,7 @@ export function generateLessonFlashcards({
       hanzi: base.hanzi,
       pinyinEnabled: base.pinyinEnabled,
       pinyin: base.pinyin,
-      meaning: base.meaning,
-      french: autoFillFrench ? base.french : '',
+      french: base.french,
       english: base.english,
       exampleSentence: base.exampleSentence,
       relatedVocabulary,
@@ -142,7 +158,6 @@ export function generateLessonFlashcards({
       audioUrl: null,
       manualOverrides: {
         pinyin: false,
-        meaning: false,
         french: false,
         english: false,
         exampleSentence: false,
