@@ -21,6 +21,7 @@ export default function WritingPractice({
 }) {
   const containerRef = useRef(null);
   const ghostContainerRef = useRef(null);
+  const canvasWrapRef = useRef(null);
   const writerRef = useRef(null);
   const ghostWriterRef = useRef(null);
   const audioRef = useRef(null);
@@ -29,6 +30,7 @@ export default function WritingPractice({
   const [showModel, setShowModel] = useState(true);
   const [feedback, setFeedback] = useState('Trace directement sur le modele gris.');
   const [successTick, setSuccessTick] = useState(0);
+  const [canvasSize, setCanvasSize] = useState(500);
   const sounds = useUiSounds();
   const targetChar = useMemo(() => {
     const first = Array.from(hanzi || '')[0];
@@ -49,16 +51,47 @@ export default function WritingPractice({
   };
 
   useEffect(() => {
-    if (!containerRef.current || !ghostContainerRef.current || !targetChar) {
+    if (!canvasWrapRef.current) return undefined;
+    const element = canvasWrapRef.current;
+
+    const updateSize = () => {
+      const rect = element.getBoundingClientRect();
+      const next = Math.max(220, Math.floor(Math.min(rect.width, rect.height || rect.width)));
+      setCanvasSize((prev) => (prev === next ? prev : next));
+    };
+
+    updateSize();
+
+    let observer;
+    if (typeof ResizeObserver !== 'undefined') {
+      observer = new ResizeObserver(updateSize);
+      observer.observe(element);
+    } else {
+      window.addEventListener('resize', updateSize);
+    }
+
+    window.addEventListener('orientationchange', updateSize);
+
+    return () => {
+      window.removeEventListener('orientationchange', updateSize);
+      if (observer) observer.disconnect();
+      else window.removeEventListener('resize', updateSize);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!containerRef.current || !ghostContainerRef.current || !targetChar || !canvasSize) {
       return;
     }
 
     containerRef.current.innerHTML = '';
     ghostContainerRef.current.innerHTML = '';
+    const dynamicPadding = Math.max(16, Math.round(canvasSize * 0.07));
+
     const ghostWriter = HanziWriter.create(ghostContainerRef.current, targetChar, {
-      width: 500,
-      height: 500,
-      padding: 24,
+      width: canvasSize,
+      height: canvasSize,
+      padding: dynamicPadding,
       showOutline: false,
       showCharacter: true,
       strokeAnimationSpeed: 1,
@@ -71,9 +104,9 @@ export default function WritingPractice({
     });
 
     const writer = HanziWriter.create(containerRef.current, targetChar, {
-      width: 500,
-      height: 500,
-      padding: 24,
+      width: canvasSize,
+      height: canvasSize,
+      padding: dynamicPadding,
       showOutline: false,
       showCharacter: false,
       strokeAnimationSpeed: 1,
@@ -109,7 +142,7 @@ export default function WritingPractice({
         containerRef.current.innerHTML = '';
       }
     };
-  }, [targetChar, renderKey]);
+  }, [targetChar, renderKey, canvasSize]);
 
   const showStrokeOrder = async () => {
     sounds.playTap();
@@ -205,7 +238,7 @@ export default function WritingPractice({
       </div>
 
       <div className="writing-area">
-        <div className="writing-canvas-container">
+        <div className="writing-canvas-container" ref={canvasWrapRef}>
           <div className="writing-guide-grid" aria-hidden="true">
             <span />
             <span />
