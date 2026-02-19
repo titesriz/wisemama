@@ -615,6 +615,19 @@ export default function App() {
     );
   }
 
+  if (enteredApp && isParentMode) {
+    return (
+      <section className="module-pane">
+        <ParentModeDashboard
+          lessons={lessonOptions}
+          profiles={profiles}
+          onBack={goToLanding}
+          onSave={() => setShowSettingsPanel(false)}
+        />
+      </section>
+    );
+  }
+
   return (
     <div className="app">
       {showAvatarEditorModal ? (

@@ -130,7 +130,7 @@ export default function LandingPage({
             onClick={() => parentProfile && onStartProfile(parentProfile.id)}
             disabled={!parentProfile}
           >
-            Gerer les lecons
+            Gérer
           </button>
         </article>
 
