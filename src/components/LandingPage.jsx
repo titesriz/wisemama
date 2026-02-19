@@ -8,6 +8,7 @@ export default function LandingPage({
   onOpenFlashcardsUi,
   onOpenAudioUi,
   onOpenWritingUi,
+  onOpenLessonEditorBeta,
   onResetOnboarding,
   showAvatarEditor,
   onToggleAvatarEditor,
@@ -134,6 +135,9 @@ export default function LandingPage({
 
         <button type="button" className="settings-link" onClick={onToggleAvatarEditor}>
           {showAvatarEditor ? 'Fermer les parametres' : 'Parametres profils et avatars'}
+        </button>
+        <button type="button" className="landing-beta-link" onClick={onOpenLessonEditorBeta}>
+          Ouvrir Lesson Creator Beta
         </button>
         <button type="button" className="landing-reset-link" onClick={onResetOnboarding}>
           Reset FTUE + Tutoriel

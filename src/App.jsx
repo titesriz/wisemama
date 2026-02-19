@@ -11,6 +11,7 @@ import FlashcardStandaloneUI from './components/FlashcardStandaloneUI.jsx';
 import FTUEFlow from './components/FTUEFlow.jsx';
 import LandingPage from './components/LandingPage.jsx';
 import LessonEditor from './components/LessonEditor.jsx';
+import LessonEditorBeta from './components/LessonEditorBeta.jsx';
 import ModeAvatar from './components/ModeAvatar.jsx';
 import ParentModeDashboard from './components/ParentModeDashboard.jsx';
 import ToonHeadTester from './components/ToonHeadTester.jsx';
@@ -78,6 +79,7 @@ export default function App() {
   const [showFlashcardOnlyPage, setShowFlashcardOnlyPage] = useState(false);
   const [showAudioOnlyPage, setShowAudioOnlyPage] = useState(false);
   const [showUnifiedFlowOnlyPage, setShowUnifiedFlowOnlyPage] = useState(false);
+  const [showLessonEditorBetaPage, setShowLessonEditorBetaPage] = useState(false);
   const [unifiedFlowStepIndex, setUnifiedFlowStepIndex] = useState(0);
   const [showLandingAvatarEditor, setShowLandingAvatarEditor] = useState(false);
   const [activeModule, setActiveModule] = useState(MODULES.LESSONS);
@@ -346,6 +348,7 @@ export default function App() {
     setShowFlashcardOnlyPage(moduleId === MODULES.FLASHCARDS);
     setShowAudioOnlyPage(moduleId === MODULES.AUDIO);
     setShowUnifiedFlowOnlyPage(moduleId === MODULES.LEARNING_FLOW);
+    setShowLessonEditorBetaPage(false);
     setShowDailyRituel(false);
     setShowLandingAvatarEditor(false);
     setEnteredApp(false);
@@ -382,6 +385,17 @@ export default function App() {
     setActiveProfileId(childProfile.id);
     switchToChild();
     openStandaloneModule(MODULES.WRITING);
+  };
+
+  const openLessonEditorBetaFromLanding = () => {
+    setShowWritingOnlyPage(false);
+    setShowFlashcardOnlyPage(false);
+    setShowAudioOnlyPage(false);
+    setShowUnifiedFlowOnlyPage(false);
+    setShowDailyRituel(false);
+    setShowLandingAvatarEditor(false);
+    setShowLessonEditorBetaPage(true);
+    setEnteredApp(false);
   };
 
   const createAndSwitchProfile = () => {
@@ -644,6 +658,10 @@ export default function App() {
     );
   }
 
+  if (showLessonEditorBetaPage) {
+    return <LessonEditorBeta onBack={() => setShowLessonEditorBetaPage(false)} />;
+  }
+
   if (showFtue) {
     return (
       <FTUEFlow
@@ -664,6 +682,7 @@ export default function App() {
         onOpenFlashcardsUi={openFlashcardsFromLanding}
         onOpenAudioUi={openAudioFromLanding}
         onOpenWritingUi={openWritingFromLanding}
+        onOpenLessonEditorBeta={openLessonEditorBetaFromLanding}
         onResetOnboarding={handleResetFtueAndTutorial}
         showAvatarEditor={showLandingAvatarEditor}
         onToggleAvatarEditor={() => setShowLandingAvatarEditor((prev) => !prev)}

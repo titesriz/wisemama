@@ -1,5 +1,6 @@
 import { parseChineseTextToCards } from './chineseImport.js';
 import { findDictionaryEntryByHanzi } from './dictionarySearch.js';
+import { pinyin as pinyinFromText } from 'pinyin-pro';
 
 function charsSet(input) {
   return new Set(Array.from(String(input || '')).filter((c) => /[\u3400-\u9fff\uf900-\ufaff]/u.test(c)));
@@ -23,6 +24,36 @@ function toCsv(items) {
   return items.join(', ');
 }
 
+export function normalizeLessonInput(rawText = '') {
+  return String(rawText || '')
+    .replace(/[，、；：]/g, ' ')
+    .replace(/[。！？]/g, '\n')
+    .replace(/\s+/g, ' ')
+    .replace(/\n\s+/g, '\n')
+    .trim();
+}
+
+function extractUniqueCharacters(rawText = '') {
+  const seen = new Set();
+  const ordered = [];
+  for (const char of Array.from(rawText)) {
+    if (!/[\u3400-\u9fff\uf900-\ufaff]/u.test(char)) continue;
+    if (seen.has(char)) continue;
+    seen.add(char);
+    ordered.push(char);
+  }
+  return ordered;
+}
+
+function extractTokenList(rawText = '', mode = 'characters') {
+  if (mode === 'words') {
+    return parseChineseTextToCards(rawText)
+      .map((card) => card.hanzi)
+      .filter(Boolean);
+  }
+  return extractUniqueCharacters(rawText);
+}
+
 function buildRelatedVocabulary(tokens, currentToken, max = 6) {
   const ranked = tokens
     .filter((token) => token !== currentToken)
@@ -37,10 +68,12 @@ function buildRelatedVocabulary(tokens, currentToken, max = 6) {
 function dictionaryToCardBase(token, pinyinToggles = {}) {
   const entry = findDictionaryEntryByHanzi(token);
   const pinyinEnabled = pinyinToggles[token] !== false;
+  const fallbackPinyin = pinyinFromText(token, { type: 'num', toneType: 'num' }) || '';
+  const resolvedPinyin = entry?.pinyin || fallbackPinyin;
   return {
     hanzi: token,
     pinyinEnabled,
-    pinyin: pinyinEnabled ? (entry?.pinyin || '') : '',
+    pinyin: pinyinEnabled ? resolvedPinyin : '',
     meaning: entry?.french || entry?.english || '',
     french: entry?.french || '',
     english: entry?.english || '',
@@ -79,22 +112,28 @@ export function generateLessonFlashcards({
   sourceText = '',
   pinyinToggles = {},
   previousCards = [],
+  generationMode = 'characters',
+  autoFillFrench = true,
+  timestamp = '',
 } = {}) {
-  const parsedTokens = parseChineseTextToCards(sourceText);
-  const tokens = parsedTokens.map((card) => card.hanzi).filter(Boolean);
+  const normalizedText = normalizeLessonInput(sourceText);
+  const tokens = extractTokenList(normalizedText, generationMode);
   const byToken = new Map(previousCards.map((card) => [card.hanzi, card]));
+  const generatedAt = timestamp || new Date().toISOString();
 
   return tokens.map((token, index) => {
     const base = dictionaryToCardBase(token, pinyinToggles);
-    const relatedVocabulary = buildRelatedVocabulary(tokens, token);
+    const relatedVocabulary = buildRelatedVocabulary(tokens, token, 5);
     const generated = {
       id: makeCardId(index),
       lessonId,
+      source: 'auto-generated',
+      generatedAt,
       hanzi: base.hanzi,
       pinyinEnabled: base.pinyinEnabled,
       pinyin: base.pinyin,
       meaning: base.meaning,
-      french: base.french,
+      french: autoFillFrench ? base.french : '',
       english: base.english,
       exampleSentence: base.exampleSentence,
       relatedVocabulary,
@@ -116,6 +155,8 @@ export function generateLessonFlashcards({
       ...merged,
       id: previous?.id || generated.id,
       lessonId: lessonId || previous?.lessonId || '',
+      source: previous?.source || generated.source,
+      generatedAt,
       imageUrl: previous?.imageUrl ?? null,
       audioUrl: previous?.audioUrl ?? null,
       relatedVocabularyText: toCsv(

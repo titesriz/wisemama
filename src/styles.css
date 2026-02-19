@@ -271,7 +271,20 @@ body {
 .settings-link {
   position: absolute;
   bottom: 50px;
-  left: calc(50% - 320px);
+  left: calc(50% - 380px);
+  font-size: 16px;
+  color: #636e72;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.landing-beta-link {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 16px;
   color: #636e72;
   text-decoration: underline;
@@ -283,7 +296,7 @@ body {
 .landing-reset-link {
   position: absolute;
   bottom: 50px;
-  right: calc(50% - 320px);
+  right: calc(50% - 380px);
   font-size: 16px;
   color: #636e72;
   text-decoration: underline;
@@ -301,6 +314,72 @@ body {
   gap: 8px;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.lesson-beta-page {
+  min-height: 100dvh;
+  padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
+    max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  background: linear-gradient(180deg, #fff7ef 0%, #f3fbff 100%);
+  display: grid;
+  gap: 12px;
+}
+
+.lesson-beta-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lesson-beta-top h2 {
+  margin: 0;
+}
+
+.lesson-beta-top p {
+  margin: 2px 0 0;
+  color: var(--text-soft);
+}
+
+.lesson-beta-card {
+  border: 1px solid var(--pill-border);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: var(--shadow);
+  padding: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.lesson-beta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.lesson-beta-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.lesson-beta-actions .ocr-upload-btn {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--wm-radius-sm);
+  border: 1px solid var(--pill-border);
+  background: #fff;
+  color: var(--text-main);
+  font-weight: 700;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+.lesson-beta-actions .ocr-upload-btn input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
 }
 
 .landing-writing-shortcut {
@@ -2557,6 +2636,7 @@ body {
   }
 
   .settings-link,
+  .landing-beta-link,
   .landing-reset-link {
     left: 50%;
     right: auto;
@@ -2564,8 +2644,16 @@ body {
     font-size: 14px;
   }
 
+  .landing-beta-link {
+    bottom: 48px;
+  }
+
   .landing-reset-link {
     bottom: 24px;
+  }
+
+  .settings-link {
+    bottom: 72px;
   }
 
   .kid-module-btn {
@@ -2739,6 +2827,10 @@ body {
   .avatar-circle {
     width: 180px;
     height: 180px;
+  }
+
+  .lesson-beta-grid {
+    grid-template-columns: 1fr;
   }
 }
 
