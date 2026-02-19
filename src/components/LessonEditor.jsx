@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import DictionaryLookup from './DictionaryLookup.jsx';
 import { buildLessonFromChineseText } from '../lib/chineseImport.js';
+import { buildLessonsSyncEnvelope, extractLessonsFromPayload, isSyncEnvelope } from '../lib/lessonSyncFormat.js';
 import { useLessons } from '../context/LessonsContext.jsx';
 
 function CardField({ label, value, onChange, placeholder = '' }) {
@@ -32,7 +33,7 @@ function defaultCard() {
   };
 }
 
-export default function LessonEditor({ activeLessonId, onSelectLesson }) {
+export default function LessonEditor({ activeLessonId, activeCardId = '', onSelectLesson }) {
   const { lessons, replaceLessons } = useLessons();
 
   const [draftLessons, setDraftLessons] = useState(() => cloneLessons(lessons));
@@ -52,6 +53,17 @@ export default function LessonEditor({ activeLessonId, onSelectLesson }) {
     }
   }, [activeLessonId, isDirty, lessons, selectedLessonId]);
 
+  const activeLesson = draftLessons.find((lesson) => lesson.id === selectedLessonId) || draftLessons[0] || null;
+
+  useEffect(() => {
+    if (!activeCardId || !activeLesson || activeLesson.id !== selectedLessonId) return;
+    const node = document.querySelector(`[data-card-id="${activeCardId}"]`);
+    if (!node) return;
+    node.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    node.classList.add('is-targeted-card');
+    window.setTimeout(() => node.classList.remove('is-targeted-card'), 1200);
+  }, [activeCardId, activeLesson, selectedLessonId]);
+
   const setDraft = (updater) => {
     setDraftLessons((prev) => {
       const next = typeof updater === 'function' ? updater(prev) : updater;
@@ -60,8 +72,6 @@ export default function LessonEditor({ activeLessonId, onSelectLesson }) {
     setIsDirty(true);
     setStatus('');
   };
-
-  const activeLesson = draftLessons.find((lesson) => lesson.id === selectedLessonId) || draftLessons[0] || null;
 
   const handleAddLesson = () => {
     const newLesson = {
@@ -75,14 +85,15 @@ export default function LessonEditor({ activeLessonId, onSelectLesson }) {
   };
 
   const handleExport = () => {
-    const blob = new Blob([JSON.stringify(draftLessons, null, 2)], { type: 'application/json' });
+    const payload = buildLessonsSyncEnvelope(draftLessons);
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement('a');
     anchor.href = url;
-    anchor.download = 'wisemama-lessons.json';
+    anchor.download = 'wisemama-lessons-sync.json';
     anchor.click();
     URL.revokeObjectURL(url);
-    setStatus('Lecons exportees.');
+    setStatus('Lecons exportees (format sync v1).');
   };
 
   const handleImportFile = async (event) => {
@@ -92,12 +103,17 @@ export default function LessonEditor({ activeLessonId, onSelectLesson }) {
     try {
       const text = await file.text();
       const parsed = JSON.parse(text);
-      if (!Array.isArray(parsed) || parsed.length === 0) {
+      const importedLessons = extractLessonsFromPayload(parsed);
+      if (!Array.isArray(importedLessons) || importedLessons.length === 0) {
         throw new Error('invalid');
       }
-      setDraft(cloneLessons(parsed));
-      setSelectedLessonId(parsed[0]?.id || '');
-      setStatus('Lecons importees en brouillon. Sauvegarde pour appliquer.');
+      setDraft(cloneLessons(importedLessons));
+      setSelectedLessonId(importedLessons[0]?.id || '');
+      setStatus(
+        isSyncEnvelope(parsed)
+          ? 'Lecons importees (format sync) en brouillon. Sauvegarde pour appliquer.'
+          : 'Lecons importees en brouillon. Sauvegarde pour appliquer.',
+      );
     } catch {
       setStatus('Import invalide. Verifie le JSON.');
     } finally {
@@ -266,7 +282,7 @@ export default function LessonEditor({ activeLessonId, onSelectLesson }) {
 
           <div className="cards-edit-list">
             {activeLesson.cards.map((card, index) => (
-              <article key={card.id} className="card-edit-item">
+              <article key={card.id} className="card-edit-item" data-card-id={card.id}>
                 <div className="card-edit-head">
                   <strong>Carte {index + 1}</strong>
                   <div className="lesson-actions compact">

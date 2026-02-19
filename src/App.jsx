@@ -62,7 +62,13 @@ export default function App() {
     setProfileName,
     setProfileAvatar,
   } = useAvatar();
-  const { lessons: lessonOptions } = useLessons();
+  const {
+    lessons: lessonOptions,
+    createLesson,
+    updateLesson,
+    removeLesson,
+    duplicateLesson,
+  } = useLessons();
   const [lessonId, setLessonId] = useState(lessonOptions[0]?.id ?? '');
   const activeLesson = lessonOptions.find((lesson) => lesson.id === lessonId);
   const [cardIndex, setCardIndex] = useState(0);
@@ -691,6 +697,10 @@ export default function App() {
           profiles={profiles}
           onBack={goToLanding}
           onSave={() => setShowSettingsPanel(false)}
+          onCreateLesson={createLesson}
+          onUpdateLesson={updateLesson}
+          onDeleteLesson={removeLesson}
+          onDuplicateLesson={duplicateLesson}
         />
       </section>
     );
@@ -925,6 +935,10 @@ export default function App() {
                 profiles={profiles}
                 onBack={goToLanding}
                 onSave={() => setShowSettingsPanel(false)}
+                onCreateLesson={createLesson}
+                onUpdateLesson={updateLesson}
+                onDeleteLesson={removeLesson}
+                onDuplicateLesson={duplicateLesson}
               />
             </section>
           ) : null}

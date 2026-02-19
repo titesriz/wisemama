@@ -1116,6 +1116,12 @@ body {
   display: grid;
   gap: 8px;
   background: var(--pill-bg);
+  transition: box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.card-edit-item.is-targeted-card {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 26%, transparent);
 }
 
 .card-edit-head {

@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import defaultLessons from '../data/lessons.json';
 
 const lessonsStorageKey = 'wisemama-lessons-v1';
-const lessonsStorageVersion = '2026-02-18-name-v2';
+const lessonsStorageVersion = '2026-02-19-sync-v1';
 const LessonsContext = createContext(null);
 
 function safeString(value, fallback = '') {
@@ -26,7 +26,10 @@ function normalizeLesson(lesson, index = 0) {
   const cards = Array.isArray(lesson?.cards) ? lesson.cards.map((c, i) => normalizeCard(c, i)) : [];
   return {
     id: safeString(lesson?.id, `lesson-${Date.now()}-${index}`),
+    globalLessonId: safeString(lesson?.globalLessonId, makeGlobalLessonId()),
     title: safeString(lesson?.title, `Lecon ${index + 1}`),
+    description: safeString(lesson?.description, ''),
+    updatedAt: safeString(lesson?.updatedAt, ''),
     cards,
   };
 }
@@ -70,8 +73,19 @@ function makeLessonId() {
   return `lesson-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
 }
 
+function makeGlobalLessonId() {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+  return `glesson-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+}
+
 function makeCardId() {
   return `card-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
+}
+
+function stampNow() {
+  return new Date().toISOString();
 }
 
 function defaultCard() {
@@ -124,7 +138,10 @@ export function LessonsProvider({ children }) {
   const addLesson = () => {
     const newLesson = {
       id: makeLessonId(),
+      globalLessonId: makeGlobalLessonId(),
       title: 'Nouvelle lecon',
+      description: '',
+      updatedAt: stampNow(),
       cards: [defaultCard()],
     };
     setLessons((prev) => [...prev, newLesson]);
@@ -137,14 +154,16 @@ export function LessonsProvider({ children }) {
 
   const updateLessonTitle = (lessonId, title) => {
     setLessons((prev) =>
-      prev.map((lesson) => (lesson.id === lessonId ? { ...lesson, title } : lesson)),
+      prev.map((lesson) => (lesson.id === lessonId ? { ...lesson, title, updatedAt: stampNow() } : lesson)),
     );
   };
 
   const addCard = (lessonId) => {
     setLessons((prev) =>
       prev.map((lesson) =>
-        lesson.id === lessonId ? { ...lesson, cards: [...lesson.cards, defaultCard()] } : lesson,
+        lesson.id === lessonId
+          ? { ...lesson, cards: [...lesson.cards, defaultCard()], updatedAt: stampNow() }
+          : lesson,
       ),
     );
   };
@@ -153,7 +172,7 @@ export function LessonsProvider({ children }) {
     setLessons((prev) =>
       prev.map((lesson) => {
         if (lesson.id !== lessonId) return lesson;
-        return { ...lesson, cards: lesson.cards.filter((card) => card.id !== cardId) };
+        return { ...lesson, cards: lesson.cards.filter((card) => card.id !== cardId), updatedAt: stampNow() };
       }),
     );
   };
@@ -169,7 +188,7 @@ export function LessonsProvider({ children }) {
         const nextCards = [...lesson.cards];
         const [item] = nextCards.splice(idx, 1);
         nextCards.splice(target, 0, item);
-        return { ...lesson, cards: nextCards };
+        return { ...lesson, cards: nextCards, updatedAt: stampNow() };
       }),
     );
   };
@@ -180,10 +199,57 @@ export function LessonsProvider({ children }) {
         if (lesson.id !== lessonId) return lesson;
         return {
           ...lesson,
+          updatedAt: stampNow(),
           cards: lesson.cards.map((card) => (card.id === cardId ? { ...card, ...patch } : card)),
         };
       }),
     );
+  };
+
+  const createLesson = ({ title = 'Nouvelle lecon', description = '', cards = [defaultCard()] } = {}) => {
+    const lesson = normalizeLesson(
+      {
+        id: makeLessonId(),
+        globalLessonId: makeGlobalLessonId(),
+        title,
+        description,
+        updatedAt: stampNow(),
+        cards,
+      },
+      0,
+    );
+    setLessons((prev) => [...prev, lesson]);
+    return lesson;
+  };
+
+  const updateLesson = (lessonId, patch = {}) => {
+    setLessons((prev) =>
+      prev.map((lesson) => (lesson.id === lessonId ? { ...lesson, ...patch, updatedAt: stampNow() } : lesson)),
+    );
+  };
+
+  const duplicateLesson = (lessonId) => {
+    let duplicated = null;
+    setLessons((prev) => {
+      const source = prev.find((lesson) => lesson.id === lessonId);
+      if (!source) return prev;
+      duplicated = normalizeLesson(
+        {
+          ...source,
+          id: makeLessonId(),
+          globalLessonId: makeGlobalLessonId(),
+          title: `${source.title} (Copy)`,
+          updatedAt: stampNow(),
+          cards: source.cards.map((card) => ({
+            ...card,
+            id: makeCardId(),
+          })),
+        },
+        0,
+      );
+      return [...prev, duplicated];
+    });
+    return duplicated;
   };
 
   const replaceLessons = (payload) => {
@@ -202,7 +268,10 @@ export function LessonsProvider({ children }) {
     () => ({
       lessons,
       addLesson,
+      createLesson,
       removeLesson,
+      updateLesson,
+      duplicateLesson,
       updateLessonTitle,
       addCard,
       removeCard,

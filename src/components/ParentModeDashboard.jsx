@@ -1,12 +1,15 @@
 import { useMemo, useState } from 'react';
 import AvatarRenderer from './AvatarRenderer.jsx';
 import LayoutShell from './LayoutShell.jsx';
+import LessonEditor from './LessonEditor.jsx';
+import SuccessBurst from './SuccessBurst.jsx';
 import TokenButton from './ui/TokenButton.jsx';
 import '../styles/parent-mode.css';
 
 const MODULE_IDS = {
   DASHBOARD: 'dashboard',
   LESSONS: 'lessons',
+  LESSONS_EDITOR: 'lessons-editor',
   AUDIO: 'audio',
   PROGRESS: 'progress',
   FAMILY: 'family',
@@ -15,32 +18,207 @@ const MODULE_IDS = {
 
 const MODULE_LABELS = {
   [MODULE_IDS.LESSONS]: 'Lecons',
+  [MODULE_IDS.LESSONS_EDITOR]: 'Editeur Lecons',
   [MODULE_IDS.AUDIO]: 'Gestion Audio',
   [MODULE_IDS.PROGRESS]: 'Progres Enfant',
   [MODULE_IDS.FAMILY]: 'Contenu Famille',
   [MODULE_IDS.SETTINGS]: 'Parametres',
 };
 
-function LessonsModule({ lessons = [] }) {
+function LessonsModule({
+  lessons = [],
+  onCreateLesson,
+  onUpdateLesson,
+  onDeleteLesson,
+  onDuplicateLesson,
+  onOpenFullEditor,
+}) {
+  const [status, setStatus] = useState('');
+  const [statusType, setStatusType] = useState('success');
+  const [statusTick, setStatusTick] = useState(0);
+  const [showEditor, setShowEditor] = useState(false);
+  const [editingId, setEditingId] = useState('');
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [formError, setFormError] = useState('');
+  const [templateLessonId, setTemplateLessonId] = useState('');
+  const [jsonText, setJsonText] = useState('');
+  const [confirmDeleteId, setConfirmDeleteId] = useState('');
+  const [removingId, setRemovingId] = useState('');
+
+  const parseCardsFromJson = (raw) => {
+    const text = String(raw || '').trim();
+    if (!text) return null;
+    const parsed = JSON.parse(text);
+    if (Array.isArray(parsed)) return parsed;
+    if (Array.isArray(parsed?.cards)) return parsed.cards;
+    if (Array.isArray(parsed?.data?.lessons) && parsed.data.lessons[0]?.cards) return parsed.data.lessons[0].cards;
+    if (Array.isArray(parsed?.lessons) && parsed.lessons[0]?.cards) return parsed.lessons[0].cards;
+    throw new Error('invalid_json');
+  };
+
+  const openCreate = () => {
+    setEditingId('');
+    setTitle('');
+    setDescription('');
+    setFormError('');
+    setTemplateLessonId('');
+    setJsonText('');
+    setShowEditor(true);
+  };
+
+  const openEdit = (lesson) => {
+    setEditingId(lesson.id);
+    setTitle(lesson.title || '');
+    setDescription(lesson.description || '');
+    setFormError('');
+    setTemplateLessonId('');
+    setJsonText('');
+    setShowEditor(true);
+  };
+
+  const applyStatus = (message, type = 'success') => {
+    setStatus(message);
+    setStatusType(type);
+    setStatusTick((prev) => prev + 1);
+  };
+
+  const createOrUpdate = () => {
+    const cleanTitle = title.trim();
+    const cleanDescription = description.trim();
+    let importedCards = null;
+
+    if (!cleanTitle) {
+      setFormError('Le titre est obligatoire.');
+      applyStatus('Erreur: titre obligatoire.', 'error');
+      return;
+    }
+    setFormError('');
+
+    try {
+      importedCards = parseCardsFromJson(jsonText);
+    } catch {
+      applyStatus('JSON invalide. Utilise un tableau de cartes ou un objet lesson.', 'error');
+      return;
+    }
+
+    if (editingId) {
+      const lesson = lessons.find((item) => item.id === editingId);
+      if (!lesson) return;
+      const patch = { title: cleanTitle, description: cleanDescription };
+      if (importedCards) patch.cards = importedCards;
+      onUpdateLesson?.(editingId, patch);
+      setShowEditor(false);
+      applyStatus('Lecon mise a jour.', 'success');
+      return;
+    }
+
+    const template = lessons.find((item) => item.id === templateLessonId);
+    const sourceCards = importedCards || template?.cards || [
+      {
+        id: `card-${Date.now()}-0`,
+        hanzi: '',
+        pinyin: '',
+        french: '',
+        english: '',
+        imageUrl: null,
+        audioUrl: null,
+      },
+    ];
+    onCreateLesson?.({
+      title: cleanTitle,
+      description: cleanDescription,
+      cards: sourceCards,
+    });
+    setShowEditor(false);
+    applyStatus('Lecon creee.', 'success');
+  };
+
+  const duplicate = (lessonId) => {
+    onDuplicateLesson?.(lessonId);
+    applyStatus('Lecon dupliquee.', 'success');
+  };
+
+  const openFullEditor = (lesson) => {
+    const firstCardId = lesson?.cards?.[0]?.id || '';
+    onOpenFullEditor?.(lesson?.id, firstCardId);
+  };
+
+  const requestDelete = (lessonId) => {
+    setConfirmDeleteId(lessonId);
+  };
+
+  const confirmDelete = () => {
+    if (!confirmDeleteId) return;
+    setRemovingId(confirmDeleteId);
+    window.setTimeout(() => {
+      onDeleteLesson?.(confirmDeleteId);
+      setRemovingId('');
+      setConfirmDeleteId('');
+      applyStatus('Lecon supprimee.', 'success');
+    }, 220);
+  };
+
+  const formatEdited = (iso) => {
+    if (!iso) return 'Jamais';
+    const date = new Date(iso);
+    if (Number.isNaN(date.getTime())) return 'Jamais';
+    return date.toLocaleString('fr-FR', {
+      day: '2-digit',
+      month: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  };
+
   return (
     <section className="parent-panel" aria-label="Gestion Lecons">
       <div className="parent-panel-head">
         <h3>Gestion Lecons</h3>
-        <TokenButton variant="secondary">Nouvelle lecon</TokenButton>
+        <TokenButton variant="secondary" className="ui-pressable" onClick={openCreate}>
+          + Nouvelle Lecon
+        </TokenButton>
       </div>
       <p className="parent-panel-subtitle">Creer, editer, importer et organiser les cartes.</p>
 
-      <div className="parent-list">
+      {status ? (
+        <p
+          className={
+            statusType === 'error'
+              ? 'error-line'
+              : 'ok-line wm-ok-line wm-success-pulse'
+          }
+        >
+          {status}
+          {statusType === 'success' ? <SuccessBurst trigger={statusTick} /> : null}
+        </p>
+      ) : null}
+
+      <div className="parent-lesson-list">
         {lessons.length ? (
           lessons.map((lesson) => (
-            <article key={lesson.id} className="parent-list-item">
-              <div>
+            <article
+              key={lesson.id}
+              className={`parent-list-item lesson-row ${removingId === lesson.id ? 'is-removing' : ''}`}
+            >
+              <div className="lesson-main">
                 <strong>{lesson.title}</strong>
-                <p>{lesson.cards?.length || 0} fiches</p>
+                <p>{lesson.cards?.length || 0} fiches · Modifie: {formatEdited(lesson.updatedAt)}</p>
+                {lesson.description ? <small>{lesson.description}</small> : null}
               </div>
               <div className="parent-list-actions">
-                <TokenButton variant="ghost" className="wm-btn-compact">Dupliquer</TokenButton>
-                <TokenButton variant="secondary" className="wm-btn-compact">Editer</TokenButton>
+                <TokenButton variant="secondary" className="wm-btn-compact ui-pressable" onClick={() => openFullEditor(lesson)}>
+                  Editeur complet
+                </TokenButton>
+                <TokenButton variant="secondary" className="wm-btn-compact ui-pressable" onClick={() => openEdit(lesson)}>
+                  Editer
+                </TokenButton>
+                <TokenButton variant="ghost" className="wm-btn-compact ui-pressable" onClick={() => duplicate(lesson.id)}>
+                  Dupliquer
+                </TokenButton>
+                <TokenButton className="wm-btn-compact parent-danger-btn ui-pressable" onClick={() => requestDelete(lesson.id)}>
+                  Supprimer
+                </TokenButton>
               </div>
             </article>
           ))
@@ -48,6 +226,82 @@ function LessonsModule({ lessons = [] }) {
           <p className="parent-empty">Aucune lecon disponible.</p>
         )}
       </div>
+
+      {showEditor ? (
+        <div className="parent-modal-overlay" role="dialog" aria-modal="true" aria-label="Editeur lecon">
+          <div className="parent-modal-card">
+            <div className="parent-panel-head">
+              <h3>{editingId ? 'Editer Lecon' : 'Nouvelle Lecon'}</h3>
+              <TokenButton variant="ghost" className="ui-pressable" onClick={() => setShowEditor(false)}>
+                Annuler
+              </TokenButton>
+            </div>
+
+            <label className="lesson-field">
+              <span>Titre</span>
+              <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Ex: Lecon 5" />
+            </label>
+            {formError ? <p className="error-line">{formError}</p> : null}
+            <label className="lesson-field">
+              <span>Description</span>
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Description courte de la lecon"
+              />
+            </label>
+
+            {!editingId ? (
+              <label className="lesson-field">
+                <span>Template (optionnel)</span>
+                <select value={templateLessonId} onChange={(e) => setTemplateLessonId(e.target.value)}>
+                  <option value="">Aucun template</option>
+                  {lessons.map((lesson) => (
+                    <option key={lesson.id} value={lesson.id}>
+                      {lesson.title}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            ) : null}
+
+            <label className="lesson-field">
+              <span>Import JSON (optionnel)</span>
+              <textarea
+                value={jsonText}
+                onChange={(e) => setJsonText(e.target.value)}
+                placeholder='[{"hanzi":"你","pinyin":"ni3","french":"tu","english":"you"}]'
+              />
+            </label>
+
+            <div className="parent-list-actions">
+              <TokenButton variant="secondary" className="ui-pressable" onClick={() => setShowEditor(false)}>
+                Cancel
+              </TokenButton>
+              <TokenButton className="ui-pressable" onClick={createOrUpdate}>
+                Save
+              </TokenButton>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {confirmDeleteId ? (
+        <div className="parent-modal-overlay" role="dialog" aria-modal="true" aria-label="Confirmer suppression">
+          <div className="parent-modal-card">
+            <h3>Supprimer cette lecon ?</h3>
+            <p className="parent-panel-subtitle">Cette action est irreversible.</p>
+            <div className="parent-list-actions">
+              <TokenButton variant="secondary" className="ui-pressable" onClick={() => setConfirmDeleteId('')}>
+                Annuler
+              </TokenButton>
+              <TokenButton className="parent-danger-btn ui-pressable" onClick={confirmDelete}>
+                Confirmer
+              </TokenButton>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </section>
   );
 }
@@ -225,8 +479,18 @@ function DashboardHub({ onOpenModule }) {
   );
 }
 
-export default function ParentModeDashboard({ lessons = [], profiles = [], onBack, onSave }) {
+export default function ParentModeDashboard({
+  lessons = [],
+  profiles = [],
+  onBack,
+  onSave,
+  onCreateLesson,
+  onUpdateLesson,
+  onDeleteLesson,
+  onDuplicateLesson,
+}) {
   const [activeModule, setActiveModule] = useState(MODULE_IDS.DASHBOARD);
+  const [editorContext, setEditorContext] = useState({ lessonId: '', cardId: '' });
   const parentProfile = useMemo(
     () => profiles.find((profile) => profile.role === 'parent') || profiles[0] || null,
     [profiles],
@@ -240,7 +504,39 @@ export default function ParentModeDashboard({ lessons = [], profiles = [], onBac
     if (activeModule === MODULE_IDS.DASHBOARD) {
       return <DashboardHub onOpenModule={setActiveModule} />;
     }
-    if (activeModule === MODULE_IDS.LESSONS) return <LessonsModule lessons={lessons} />;
+    if (activeModule === MODULE_IDS.LESSONS) {
+      return (
+        <LessonsModule
+          lessons={lessons}
+          onCreateLesson={onCreateLesson}
+          onUpdateLesson={onUpdateLesson}
+          onDeleteLesson={onDeleteLesson}
+          onDuplicateLesson={onDuplicateLesson}
+          onOpenFullEditor={(lessonId, cardId) => {
+            setEditorContext({ lessonId, cardId });
+            setActiveModule(MODULE_IDS.LESSONS_EDITOR);
+          }}
+        />
+      );
+    }
+    if (activeModule === MODULE_IDS.LESSONS_EDITOR) {
+      return (
+        <section className="parent-panel" aria-label="Editeur complet">
+          <div className="parent-panel-head">
+            <h3>Editeur complet des lecons</h3>
+            <TokenButton variant="secondary" className="ui-pressable" onClick={() => setActiveModule(MODULE_IDS.LESSONS)}>
+              Retour CRUD
+            </TokenButton>
+          </div>
+          <p className="parent-panel-subtitle">Contexte charge: lecon + carte preselectionnees.</p>
+          <LessonEditor
+            activeLessonId={editorContext.lessonId}
+            activeCardId={editorContext.cardId}
+            onSelectLesson={(lessonId) => setEditorContext((prev) => ({ ...prev, lessonId }))}
+          />
+        </section>
+      );
+    }
     if (activeModule === MODULE_IDS.AUDIO) return <AudioModule lessons={lessons} />;
     if (activeModule === MODULE_IDS.PROGRESS) return <ProgressModule />;
     if (activeModule === MODULE_IDS.FAMILY) return <FamilyModule profiles={profiles} />;
@@ -255,6 +551,8 @@ export default function ParentModeDashboard({ lessons = [], profiles = [], onBac
             <button type="button" className="home-hanzi-btn ui-pressable" onClick={onBack} aria-label="Retour Landing">
               文
             </button>
+          ) : activeModule === MODULE_IDS.LESSONS_EDITOR ? (
+            <TokenButton variant="ghost" onClick={() => setActiveModule(MODULE_IDS.LESSONS)}>Back to Lecons</TokenButton>
           ) : (
             <TokenButton variant="ghost" onClick={() => setActiveModule(MODULE_IDS.DASHBOARD)}>Back to Dashboard</TokenButton>
           )
