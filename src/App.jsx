@@ -1,11 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
-import AudioPracticePanel from './components/AudioPracticePanel.jsx';
+import AudioStandaloneUI from './components/AudioStandaloneUI.jsx';
 import AvatarEditor from './components/AvatarEditor.jsx';
 import BigSmileTester from './components/BigSmileTester.jsx';
 import CoachMark from './components/CoachMark.jsx';
 import DailyRituelFlow from './components/DailyRituelFlow.jsx';
 import EmotionalDuoSystem from './components/EmotionalDuoSystem.jsx';
-import Flashcard from './components/Flashcard.jsx';
+import AudioOnlyPage from './components/AudioOnlyPage.jsx';
+import FlashcardOnlyPage from './components/FlashcardOnlyPage.jsx';
+import FlashcardStandaloneUI from './components/FlashcardStandaloneUI.jsx';
 import FTUEFlow from './components/FTUEFlow.jsx';
 import LandingPage from './components/LandingPage.jsx';
 import LessonEditor from './components/LessonEditor.jsx';
@@ -67,6 +69,9 @@ export default function App() {
   const [starsByProfile, setStarsByProfile] = useState({});
   const [enteredApp, setEnteredApp] = useState(false);
   const [showWritingOnlyPage, setShowWritingOnlyPage] = useState(false);
+  const [showFlashcardOnlyPage, setShowFlashcardOnlyPage] = useState(false);
+  const [showAudioOnlyPage, setShowAudioOnlyPage] = useState(false);
+  const [showUnifiedFlowOnlyPage, setShowUnifiedFlowOnlyPage] = useState(false);
   const [showLandingAvatarEditor, setShowLandingAvatarEditor] = useState(false);
   const [activeModule, setActiveModule] = useState(MODULES.LESSONS);
   const [showLessonPicker, setShowLessonPicker] = useState(false);
@@ -333,9 +338,37 @@ export default function App() {
     switchToChild();
     setShowLandingAvatarEditor(false);
     setShowWritingOnlyPage(false);
+    setShowFlashcardOnlyPage(false);
+    setShowAudioOnlyPage(false);
+    setShowUnifiedFlowOnlyPage(true);
     setShowDailyRituel(false);
-    setEnteredApp(true);
+    setEnteredApp(false);
     setActiveModule(MODULES.LEARNING_FLOW);
+  };
+
+  const openFlashcardsFromLanding = () => {
+    const childProfile = profiles.find((profile) => profile.role === 'child') || profiles[0];
+    if (!childProfile) return;
+    setActiveProfileId(childProfile.id);
+    switchToChild();
+    setShowLandingAvatarEditor(false);
+    setShowWritingOnlyPage(false);
+    setShowFlashcardOnlyPage(true);
+    setShowDailyRituel(false);
+    setEnteredApp(false);
+  };
+
+  const openAudioFromLanding = () => {
+    const childProfile = profiles.find((profile) => profile.role === 'child') || profiles[0];
+    if (!childProfile) return;
+    setActiveProfileId(childProfile.id);
+    switchToChild();
+    setShowLandingAvatarEditor(false);
+    setShowWritingOnlyPage(false);
+    setShowFlashcardOnlyPage(false);
+    setShowAudioOnlyPage(true);
+    setShowDailyRituel(false);
+    setEnteredApp(false);
   };
 
   const createAndSwitchProfile = () => {
@@ -428,6 +461,116 @@ export default function App() {
     );
   }
 
+  if (showFlashcardOnlyPage) {
+    return (
+      <FlashcardOnlyPage
+        profile={activeProfile}
+        lessons={lessonOptions}
+        lessonId={lessonId}
+        onLessonChange={(id) => {
+          setLessonId(id);
+          setCardIndex(0);
+        }}
+        cardIndex={cardIndex}
+        totalCards={totalCards}
+        earnedStars={earnedStars}
+        onPrev={goPrev}
+        onNext={goNext}
+        onBack={() => {
+          setShowFlashcardOnlyPage(false);
+          setEnteredApp(false);
+        }}
+        onSwitchModule={(module) => {
+          if (module === MODULES.WRITING) {
+            setShowFlashcardOnlyPage(false);
+            setShowWritingOnlyPage(true);
+            return;
+          }
+          if (module === MODULES.AUDIO) {
+            setShowFlashcardOnlyPage(false);
+            setShowAudioOnlyPage(true);
+            return;
+          }
+          setActiveModule(MODULES.FLASHCARDS);
+        }}
+      />
+    );
+  }
+
+  if (showAudioOnlyPage) {
+    return (
+      <AudioOnlyPage
+        profile={activeProfile}
+        mode={mode}
+        lessons={lessonOptions}
+        lessonId={lessonId}
+        onLessonChange={(id) => {
+          setLessonId(id);
+          setCardIndex(0);
+        }}
+        cardIndex={cardIndex}
+        totalCards={totalCards}
+        cardKey={currentCardKey}
+        onPrev={goPrev}
+        onNext={goNext}
+        onBack={() => {
+          setShowAudioOnlyPage(false);
+          setEnteredApp(false);
+        }}
+        onSwitchModule={(module) => {
+          if (module === MODULES.WRITING) {
+            setShowAudioOnlyPage(false);
+            setShowWritingOnlyPage(true);
+            return;
+          }
+          if (module === MODULES.FLASHCARDS) {
+            setShowAudioOnlyPage(false);
+            setShowFlashcardOnlyPage(true);
+            return;
+          }
+          setActiveModule(MODULES.AUDIO);
+        }}
+      />
+    );
+  }
+
+  if (showUnifiedFlowOnlyPage) {
+    if (!activeLesson || !currentCard) {
+      return (
+        <section className="writing-only-page">
+          <p className="empty">Aucune carte disponible.</p>
+          <button
+            type="button"
+            className="button secondary"
+            onClick={() => {
+              setShowUnifiedFlowOnlyPage(false);
+              setEnteredApp(false);
+            }}
+          >
+            Retour
+          </button>
+        </section>
+      );
+    }
+
+    return (
+      <section className="module-pane">
+        <UnifiedLearningFlow
+          profile={activeProfile}
+          lesson={activeLesson}
+          cardIndex={cardIndex}
+          onPrevCard={goPrev}
+          onNextCard={goNext}
+          onBackHome={() => {
+            setShowUnifiedFlowOnlyPage(false);
+            setEnteredApp(false);
+          }}
+          onWritingSuccess={handleWritingSuccess}
+        />
+      </section>
+    );
+  }
+
   if (showFtue) {
     return (
       <FTUEFlow
@@ -445,6 +588,8 @@ export default function App() {
         profiles={profiles}
         onOpenDailyRituel={openDailyRituelFromLanding}
         onOpenUnifiedFlow={openUnifiedFlowFromLanding}
+        onOpenFlashcardsUi={openFlashcardsFromLanding}
+        onOpenAudioUi={openAudioFromLanding}
         onOpenWritingUi={() => setShowWritingOnlyPage(true)}
         showAvatarEditor={showLandingAvatarEditor}
         onToggleAvatarEditor={() => setShowLandingAvatarEditor((prev) => !prev)}
@@ -705,13 +850,38 @@ export default function App() {
 
           {activeModule === MODULES.FLASHCARDS && currentCard ? (
             <section className="module-pane">
-              <Flashcard card={currentCard} earnedStars={earnedStars} />
+              <FlashcardStandaloneUI
+                profile={activeProfile}
+                lessonTitle={activeLesson?.title}
+                card={currentCard}
+                cardIndex={cardIndex}
+                totalCards={totalCards}
+                earnedStars={earnedStars}
+                onPrev={goPrev}
+                onNext={goNext}
+                onOpenLessonPicker={() => setShowLessonPicker(true)}
+                onSwitchModule={setActiveModule}
+                onBack={goToLanding}
+              />
             </section>
           ) : null}
 
           {activeModule === MODULES.AUDIO && currentCard ? (
             <section className="module-pane">
-              <AudioPracticePanel cardKey={currentCardKey} mode={mode} />
+              <AudioStandaloneUI
+                profile={activeProfile}
+                lessonTitle={activeLesson?.title}
+                card={currentCard}
+                cardIndex={cardIndex}
+                totalCards={totalCards}
+                mode={mode}
+                cardKey={currentCardKey}
+                onPrev={goPrev}
+                onNext={goNext}
+                onOpenLessonPicker={() => setShowLessonPicker(true)}
+                onSwitchModule={setActiveModule}
+                onBack={goToLanding}
+              />
             </section>
           ) : null}
 
@@ -767,6 +937,8 @@ export default function App() {
           {activeModule === MODULES.TOON_HEAD ? <ToonHeadTester /> : null}
 
           {activeModule !== MODULES.LESSONS &&
+          activeModule !== MODULES.FLASHCARDS &&
+          activeModule !== MODULES.AUDIO &&
           activeModule !== MODULES.WRITING &&
           activeModule !== MODULES.LEARNING_FLOW &&
           activeModule !== MODULES.EMOTIONAL_DUO &&

@@ -5,6 +5,8 @@ export default function LandingPage({
   onStartProfile,
   onOpenDailyRituel,
   onOpenUnifiedFlow,
+  onOpenFlashcardsUi,
+  onOpenAudioUi,
   onOpenWritingUi,
   showAvatarEditor,
   onToggleAvatarEditor,
@@ -12,6 +14,40 @@ export default function LandingPage({
 }) {
   const childProfile = profiles.find((profile) => profile.role === 'child') || profiles[0] || null;
   const parentProfile = profiles.find((profile) => profile.role === 'parent') || profiles[0] || null;
+  const kidActions = [
+    {
+      id: 'new',
+      label: 'New',
+      subtitle: 'Learn a new word',
+      iconSrc: '/assets/kid/new.png',
+      fallback: '💡',
+      onClick: onOpenUnifiedFlow,
+    },
+    {
+      id: 'read',
+      label: 'Read',
+      subtitle: 'Practice Reading',
+      iconSrc: '/assets/kid/read.png',
+      fallback: '📖',
+      onClick: onOpenFlashcardsUi,
+    },
+    {
+      id: 'speak',
+      label: 'Speak',
+      subtitle: 'Practice Speaking',
+      iconSrc: '/assets/kid/speak.png',
+      fallback: '🎤',
+      onClick: onOpenAudioUi,
+    },
+    {
+      id: 'write',
+      label: 'Write',
+      subtitle: 'Practice Writing',
+      iconSrc: '/assets/kid/write.png',
+      fallback: '✏️',
+      onClick: onOpenWritingUi,
+    },
+  ];
 
   return (
     <section className="landing" aria-label="Page d accueil">
@@ -23,32 +59,57 @@ export default function LandingPage({
         </div>
 
         <article className="profile-card-kid">
-          <h2 className="profile-greeting">
-            Bonjour {childProfile?.name || 'Enfant'}
-          </h2>
-          <div className="profile-avatar-large">
-            {childProfile ? (
-              <AvatarRenderer
-                config={childProfile.avatar}
-                size={88}
-                className="landing-avatar-circle"
-                alt={`Avatar ${childProfile.name || 'Enfant'}`}
-                loading="eager"
-              />
-            ) : null}
+          <div className="kid-header">
+            <div className="profile-avatar-large">
+              {childProfile ? (
+                <AvatarRenderer
+                  config={childProfile.avatar}
+                  size={88}
+                  className="landing-avatar-circle"
+                  alt={`Avatar ${childProfile.name || 'Enfant'}`}
+                  loading="eager"
+                />
+              ) : null}
+            </div>
+            <div className="kid-header-copy">
+              <h2 className="profile-greeting">
+                Bonjour {childProfile?.name || 'Enfant'}
+              </h2>
+              <div className="profile-stats">
+                <span>Role: Kid</span>
+                <span>Mode: Apprentissage</span>
+              </div>
+            </div>
           </div>
-          <div className="profile-stats">
-            <span>Role: Kid</span>
-            <span>Mode: Apprentissage</span>
+          <div className="kid-module-grid" role="group" aria-label="Modules apprentissage enfant">
+            {kidActions.map((action) => (
+              <button
+                key={action.id}
+                type="button"
+                className="kid-module-btn ui-pressable"
+                onClick={action.onClick}
+                disabled={!childProfile}
+                aria-label={action.subtitle}
+                title={action.subtitle}
+              >
+                <span className="kid-module-icon-wrap">
+                  <img
+                    src={action.iconSrc}
+                    alt={action.label}
+                    className="kid-module-icon"
+                    onError={(event) => {
+                      event.currentTarget.style.display = 'none';
+                      event.currentTarget.nextElementSibling.style.display = 'grid';
+                    }}
+                  />
+                  <span className="kid-module-icon-fallback" aria-hidden="true">
+                    {action.fallback}
+                  </span>
+                </span>
+                <span className="kid-module-label">{action.label}</span>
+              </button>
+            ))}
           </div>
-          <button
-            type="button"
-            className="start-button"
-            onClick={() => childProfile && onStartProfile(childProfile.id)}
-            disabled={!childProfile}
-          >
-            Commencer
-          </button>
         </article>
 
         <article className="profile-card-parent">
@@ -104,6 +165,12 @@ export default function LandingPage({
             </button>
             <button type="button" className="landing-writing-shortcut button secondary button-sm" onClick={onOpenUnifiedFlow}>
               Parcours complet (voir-ecouter-dire-ecrire)
+            </button>
+            <button type="button" className="landing-writing-shortcut button secondary button-sm" onClick={onOpenFlashcardsUi}>
+              UI Flashcards
+            </button>
+            <button type="button" className="landing-writing-shortcut button secondary button-sm" onClick={onOpenAudioUi}>
+              UI Audio
             </button>
           </div>
         ) : null}

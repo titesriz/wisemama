@@ -1,0 +1,57 @@
+{
+  "unifiedStructure": {
+    "zones": [
+      "TopBanner",
+      "CardInfo",
+      "Content",
+      "BottomNav",
+      "ModeSelector"
+    ],
+    "reference": "Writing UI"
+  },
+  "modules": {
+    "flashcards": {
+      "component": "FlashcardStandaloneUI",
+      "layoutComponent": "ModuleFrame",
+      "contentComponent": "module-card-center",
+      "tokens": {
+        "surface": "--wm-color-surface",
+        "border": "--wm-color-border",
+        "radius": "--wm-radius-md|--wm-radius-lg",
+        "title": "--wm-color-text-main",
+        "accent": "--wm-color-primary",
+        "motion": "--wm-motion-fast|--wm-motion-normal"
+      }
+    },
+    "audio": {
+      "component": "AudioStandaloneUI",
+      "layoutComponent": "ModuleFrame",
+      "contentComponent": "AudioPracticePanel",
+      "tokens": {
+        "surface": "--wm-color-surface",
+        "border": "--wm-color-border",
+        "radius": "--wm-radius-md|--wm-radius-lg",
+        "accent": "--wm-color-primary|--wm-color-accent",
+        "success": "--wm-color-success",
+        "motion": "--wm-motion-fast|--wm-motion-normal"
+      }
+    },
+    "writing": {
+      "component": "WritingPractice",
+      "layoutComponent": "native writing layout",
+      "tokens": {
+        "surface": "--wm-color-surface",
+        "border": "--wm-color-border",
+        "radius": "--wm-radius-md|--wm-radius-lg",
+        "accent": "--wm-color-primary|--wm-color-accent",
+        "motion": "--wm-motion-fast|--wm-motion-normal"
+      }
+    }
+  },
+  "interactions": {
+    "hover": "ui-pressable + --wm-motion-fast",
+    "press": "ui-pressable:active + --wm-ease-standard",
+    "focus": "--wm-shadow-focus",
+    "successFeedback": "wm-success-pulse + SuccessBurst"
+  }
+}
