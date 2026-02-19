@@ -382,6 +382,10 @@
   gap: 12px;
 }
 
+.parent-modal-card.parent-modal-wide {
+  width: min(980px, 100%);
+}
+
 .lesson-field {
   display: grid;
   gap: 6px;
@@ -409,6 +413,98 @@
   resize: vertical;
 }
 
+.ocr-builder {
+  display: grid;
+  gap: 12px;
+}
+
+.ocr-upload-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ocr-upload-btn {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--wm-radius-sm);
+  border: 1px solid var(--parent-border);
+  background: #fff;
+  color: var(--parent-text-strong);
+  font-weight: 700;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+.ocr-upload-btn input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.ocr-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.ocr-char-panel {
+  border: 1px solid var(--parent-border);
+  border-radius: var(--wm-radius-sm);
+  background: #fff;
+  padding: 10px;
+  display: grid;
+  gap: 10px;
+}
+
+.ocr-char-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  color: var(--parent-text-strong);
+}
+
+.ocr-char-head span {
+  color: var(--parent-text-soft);
+  font-size: 13px;
+}
+
+.ocr-char-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ocr-char-chip {
+  border: 1px solid var(--parent-border);
+  border-radius: var(--wm-radius-pill);
+  background: var(--parent-surface);
+  color: var(--parent-text-strong);
+  padding: 6px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ocr-char-chip.active {
+  border-color: #6a9ad1;
+  background: #edf3fa;
+}
+
+.ocr-char-chip span {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.ocr-char-chip small {
+  color: var(--parent-text-soft);
+  font-size: 11px;
+  font-weight: 700;
+}
+
 @media (max-width: 1024px) {
   .parent-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -426,6 +522,10 @@
 
 @media (max-width: 767px) {
   .parent-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ocr-grid {
     grid-template-columns: 1fr;
   }
 

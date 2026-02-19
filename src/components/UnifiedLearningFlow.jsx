@@ -28,7 +28,7 @@ function SeeStep({ card }) {
     <section className="learning-step-card">
       <h3>Voir</h3>
       <div className="learning-hanzi">{card.hanzi}</div>
-      <p className="learning-pinyin">{card.pinyin}</p>
+      <p className="learning-pinyin">{card.pinyinEnabled === false ? '' : card.pinyin}</p>
       <div className="learning-translation-grid">
         <article>
           <strong>Francais</strong>
@@ -43,6 +43,10 @@ function SeeStep({ card }) {
         <div className="learning-image">
           <img src={card.imageUrl} alt={card.french || card.english || card.hanzi} />
         </div>
+      ) : null}
+      {card.meaning ? <p className="learning-feedback">Sens: {card.meaning}</p> : null}
+      {Array.isArray(card.relatedVocabulary) && card.relatedVocabulary.length ? (
+        <p className="learning-feedback">Vocabulaire lie: {card.relatedVocabulary.join(', ')}</p>
       ) : null}
       <p className="learning-feedback">Observe calmement le mot avant de passer a l etape suivante.</p>
     </section>

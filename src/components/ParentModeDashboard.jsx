@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import AvatarRenderer from './AvatarRenderer.jsx';
 import LayoutShell from './LayoutShell.jsx';
 import LessonEditor from './LessonEditor.jsx';
+import OcrLessonBuilder from './OcrLessonBuilder.jsx';
 import SuccessBurst from './SuccessBurst.jsx';
 import TokenButton from './ui/TokenButton.jsx';
 import '../styles/parent-mode.css';
@@ -37,6 +38,7 @@ function LessonsModule({
   const [statusType, setStatusType] = useState('success');
   const [statusTick, setStatusTick] = useState(0);
   const [showEditor, setShowEditor] = useState(false);
+  const [showOcrBuilder, setShowOcrBuilder] = useState(false);
   const [editingId, setEditingId] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -175,9 +177,14 @@ function LessonsModule({
     <section className="parent-panel" aria-label="Gestion Lecons">
       <div className="parent-panel-head">
         <h3>Gestion Lecons</h3>
-        <TokenButton variant="secondary" className="ui-pressable" onClick={openCreate}>
-          + Nouvelle Lecon
-        </TokenButton>
+        <div className="parent-list-actions">
+          <TokenButton variant="secondary" className="ui-pressable" onClick={() => setShowOcrBuilder(true)}>
+            OCR {'->'} Lecon
+          </TokenButton>
+          <TokenButton variant="secondary" className="ui-pressable" onClick={openCreate}>
+            + Nouvelle Lecon
+          </TokenButton>
+        </div>
       </div>
       <p className="parent-panel-subtitle">Creer, editer, importer et organiser les cartes.</p>
 
@@ -226,6 +233,20 @@ function LessonsModule({
           <p className="parent-empty">Aucune lecon disponible.</p>
         )}
       </div>
+
+      {showOcrBuilder ? (
+        <div className="parent-modal-overlay" role="dialog" aria-modal="true" aria-label="OCR vers lecon">
+          <div className="parent-modal-card parent-modal-wide">
+            <OcrLessonBuilder
+              lessons={lessons}
+              onCreateLesson={onCreateLesson}
+              onUpdateLesson={onUpdateLesson}
+              onClose={() => setShowOcrBuilder(false)}
+              onSuccess={() => applyStatus('Generation terminee.', 'success')}
+            />
+          </div>
+        </div>
+      ) : null}
 
       {showEditor ? (
         <div className="parent-modal-overlay" role="dialog" aria-modal="true" aria-label="Editeur lecon">

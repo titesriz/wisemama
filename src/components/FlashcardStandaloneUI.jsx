@@ -46,7 +46,7 @@ export default function FlashcardStandaloneUI({
     >
       <div className="module-card-center wm-enter-fade">
         <div className="module-hanzi-large">{card.hanzi}</div>
-        <div className="module-pinyin-large">{card.pinyin}</div>
+        <div className="module-pinyin-large">{card.pinyinEnabled === false ? '' : card.pinyin}</div>
 
         <div className="module-translation-panels">
           <article>
@@ -63,6 +63,18 @@ export default function FlashcardStandaloneUI({
           Etoiles: {'⭐'.repeat(Math.max(earnedStars, 0)) || '0'}
           {earnedStars > 0 ? <SuccessBurst trigger={earnedStars} /> : null}
         </div>
+
+        {card.meaning ? (
+          <div className="module-note-line">
+            <strong>Sens:</strong> {card.meaning}
+          </div>
+        ) : null}
+
+        {Array.isArray(card.relatedVocabulary) && card.relatedVocabulary.length ? (
+          <div className="module-note-line">
+            <strong>Vocabulaire lie:</strong> {card.relatedVocabulary.join(', ')}
+          </div>
+        ) : null}
 
         {card.imageUrl ? (
           <div className="module-image-wrap">

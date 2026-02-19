@@ -65,7 +65,7 @@ export default function ModuleFrame({
       </div>
 
       <div className="writing-card-info">
-        <div className="writing-pinyin">{card?.pinyin || ''}</div>
+        <div className="writing-pinyin">{card?.pinyinEnabled === false ? '' : (card?.pinyin || '')}</div>
         <div className="writing-char-small">{targetChar}</div>
         <div className="writing-translation">
           <span>{card?.french || ''}</span>
