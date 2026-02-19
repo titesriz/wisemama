@@ -1,0 +1,41 @@
+{
+  "module": "emotional-duo-system",
+  "goal": "child-parent emotional feedback loop",
+  "zones": {
+    "duoShell": {
+      "bg": "--wm-color-surface",
+      "border": "--wm-color-border",
+      "radius": "--wm-radius-lg",
+      "shadow": "--wm-shadow-card"
+    },
+    "avatarCards": {
+      "bg": "--wm-color-surface-soft",
+      "radius": "--wm-radius-md",
+      "border": "--wm-color-border",
+      "labelText": "--wm-color-text-soft",
+      "nameText": "--wm-color-text-main"
+    },
+    "streakAndProgress": {
+      "progressFill": "--wm-color-accent",
+      "progressTrack": "#e5ebf1",
+      "streakBadgeBg": "#e8fff8",
+      "streakBadgeText": "#0f6a4f"
+    },
+    "encouragement": {
+      "chipBg": "--pill-bg",
+      "chipBorder": "--pill-border",
+      "chipText": "--wm-color-text-soft"
+    }
+  },
+  "motion": {
+    "reactionPop": "--wm-motion-fast + --wm-ease-standard",
+    "progressEnter": "--wm-motion-normal + --wm-ease-soft",
+    "successGlow": "700ms + --wm-ease-soft",
+    "heartBeat": "1.8s + --wm-ease-soft"
+  },
+  "typography": {
+    "sectionTitle": "700 22px/28px var(--wm-font-base)",
+    "body": "700 15px/20px var(--wm-font-base)",
+    "meta": "700 12px/16px var(--wm-font-base)"
+  }
+}

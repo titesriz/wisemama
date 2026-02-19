@@ -4,6 +4,7 @@ import AvatarEditor from './components/AvatarEditor.jsx';
 import BigSmileTester from './components/BigSmileTester.jsx';
 import CoachMark from './components/CoachMark.jsx';
 import DailyRituelFlow from './components/DailyRituelFlow.jsx';
+import EmotionalDuoSystem from './components/EmotionalDuoSystem.jsx';
 import Flashcard from './components/Flashcard.jsx';
 import FTUEFlow from './components/FTUEFlow.jsx';
 import LandingPage from './components/LandingPage.jsx';
@@ -34,6 +35,7 @@ const MODULES = {
   AUDIO: 'audio',
   WRITING: 'writing',
   LEARNING_FLOW: 'learning-flow',
+  EMOTIONAL_DUO: 'emotional-duo',
   BIG_SMILE: 'big-smile',
   TOON_HEAD: 'toon-head',
 };
@@ -631,6 +633,7 @@ export default function App() {
               { id: MODULES.AUDIO, label: 'Sound', key: 'S', parentOnly: false },
               { id: MODULES.WRITING, label: 'Ecriture', key: 'E', parentOnly: false },
               { id: MODULES.LEARNING_FLOW, label: 'Parcours complet', key: 'U', parentOnly: false },
+              { id: MODULES.EMOTIONAL_DUO, label: 'Duo emotions', key: 'D', parentOnly: false },
               { id: MODULES.BIG_SMILE, label: 'Big Smile test', key: 'B', parentOnly: true },
               { id: MODULES.TOON_HEAD, label: 'Toon Head test', key: 'T', parentOnly: true },
             ]
@@ -744,6 +747,21 @@ export default function App() {
             </section>
           ) : null}
 
+          {activeModule === MODULES.EMOTIONAL_DUO ? (
+            <section className="module-pane">
+              <EmotionalDuoSystem
+                childProfile={profiles.find((profile) => profile.role === 'child') || activeProfile}
+                parentProfile={profiles.find((profile) => profile.role === 'parent') || activeProfile}
+                lessonProgress={
+                  activeLesson?.cards?.length
+                    ? Math.round((childLessonCompletion / activeLesson.cards.length) * 100)
+                    : 0
+                }
+                weeklyStreak={Math.max(1, Math.ceil((childLessonCompletion || 0) / 2))}
+              />
+            </section>
+          ) : null}
+
           {activeModule === MODULES.BIG_SMILE ? <BigSmileTester /> : null}
 
           {activeModule === MODULES.TOON_HEAD ? <ToonHeadTester /> : null}
@@ -751,6 +769,7 @@ export default function App() {
           {activeModule !== MODULES.LESSONS &&
           activeModule !== MODULES.WRITING &&
           activeModule !== MODULES.LEARNING_FLOW &&
+          activeModule !== MODULES.EMOTIONAL_DUO &&
           activeModule !== MODULES.PARENT_HOME ? (
             currentCard ? (
               <div className="card-controls">
