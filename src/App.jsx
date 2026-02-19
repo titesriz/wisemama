@@ -72,6 +72,7 @@ export default function App() {
   const [showFlashcardOnlyPage, setShowFlashcardOnlyPage] = useState(false);
   const [showAudioOnlyPage, setShowAudioOnlyPage] = useState(false);
   const [showUnifiedFlowOnlyPage, setShowUnifiedFlowOnlyPage] = useState(false);
+  const [unifiedFlowStepIndex, setUnifiedFlowStepIndex] = useState(0);
   const [showLandingAvatarEditor, setShowLandingAvatarEditor] = useState(false);
   const [activeModule, setActiveModule] = useState(MODULES.LESSONS);
   const [showLessonPicker, setShowLessonPicker] = useState(false);
@@ -326,9 +327,23 @@ export default function App() {
     setActiveProfileId(childProfile.id);
     switchToChild();
     setShowLandingAvatarEditor(false);
+    setShowFlashcardOnlyPage(false);
+    setShowAudioOnlyPage(false);
+    setShowUnifiedFlowOnlyPage(false);
     setShowWritingOnlyPage(false);
     setShowDailyRituel(true);
     setEnteredApp(true);
+  };
+
+  const openStandaloneModule = (moduleId) => {
+    setShowWritingOnlyPage(moduleId === MODULES.WRITING);
+    setShowFlashcardOnlyPage(moduleId === MODULES.FLASHCARDS);
+    setShowAudioOnlyPage(moduleId === MODULES.AUDIO);
+    setShowUnifiedFlowOnlyPage(moduleId === MODULES.LEARNING_FLOW);
+    setShowDailyRituel(false);
+    setShowLandingAvatarEditor(false);
+    setEnteredApp(false);
+    setActiveModule(moduleId);
   };
 
   const openUnifiedFlowFromLanding = () => {
@@ -336,14 +351,7 @@ export default function App() {
     if (!childProfile) return;
     setActiveProfileId(childProfile.id);
     switchToChild();
-    setShowLandingAvatarEditor(false);
-    setShowWritingOnlyPage(false);
-    setShowFlashcardOnlyPage(false);
-    setShowAudioOnlyPage(false);
-    setShowUnifiedFlowOnlyPage(true);
-    setShowDailyRituel(false);
-    setEnteredApp(false);
-    setActiveModule(MODULES.LEARNING_FLOW);
+    openStandaloneModule(MODULES.LEARNING_FLOW);
   };
 
   const openFlashcardsFromLanding = () => {
@@ -351,11 +359,7 @@ export default function App() {
     if (!childProfile) return;
     setActiveProfileId(childProfile.id);
     switchToChild();
-    setShowLandingAvatarEditor(false);
-    setShowWritingOnlyPage(false);
-    setShowFlashcardOnlyPage(true);
-    setShowDailyRituel(false);
-    setEnteredApp(false);
+    openStandaloneModule(MODULES.FLASHCARDS);
   };
 
   const openAudioFromLanding = () => {
@@ -363,12 +367,15 @@ export default function App() {
     if (!childProfile) return;
     setActiveProfileId(childProfile.id);
     switchToChild();
-    setShowLandingAvatarEditor(false);
-    setShowWritingOnlyPage(false);
-    setShowFlashcardOnlyPage(false);
-    setShowAudioOnlyPage(true);
-    setShowDailyRituel(false);
-    setEnteredApp(false);
+    openStandaloneModule(MODULES.AUDIO);
+  };
+
+  const openWritingFromLanding = () => {
+    const childProfile = profiles.find((profile) => profile.role === 'child') || profiles[0];
+    if (!childProfile) return;
+    setActiveProfileId(childProfile.id);
+    switchToChild();
+    openStandaloneModule(MODULES.WRITING);
   };
 
   const createAndSwitchProfile = () => {
@@ -482,6 +489,21 @@ export default function App() {
           setShowWritingOnlyPage(false);
           setEnteredApp(false);
         }}
+        onSwitchModule={(module) => {
+          if (module === MODULES.FLASHCARDS) {
+            openStandaloneModule(MODULES.FLASHCARDS);
+            return;
+          }
+          if (module === MODULES.AUDIO) {
+            openStandaloneModule(MODULES.AUDIO);
+            return;
+          }
+          if (module === MODULES.LEARNING_FLOW) {
+            openStandaloneModule(MODULES.LEARNING_FLOW);
+            return;
+          }
+          setActiveModule(MODULES.WRITING);
+        }}
         onSuccess={handleWritingSuccess}
       />
     );
@@ -508,13 +530,15 @@ export default function App() {
         }}
         onSwitchModule={(module) => {
           if (module === MODULES.WRITING) {
-            setShowFlashcardOnlyPage(false);
-            setShowWritingOnlyPage(true);
+            openStandaloneModule(MODULES.WRITING);
             return;
           }
           if (module === MODULES.AUDIO) {
-            setShowFlashcardOnlyPage(false);
-            setShowAudioOnlyPage(true);
+            openStandaloneModule(MODULES.AUDIO);
+            return;
+          }
+          if (module === MODULES.LEARNING_FLOW) {
+            openStandaloneModule(MODULES.LEARNING_FLOW);
             return;
           }
           setActiveModule(MODULES.FLASHCARDS);
@@ -545,13 +569,15 @@ export default function App() {
         }}
         onSwitchModule={(module) => {
           if (module === MODULES.WRITING) {
-            setShowAudioOnlyPage(false);
-            setShowWritingOnlyPage(true);
+            openStandaloneModule(MODULES.WRITING);
             return;
           }
           if (module === MODULES.FLASHCARDS) {
-            setShowAudioOnlyPage(false);
-            setShowFlashcardOnlyPage(true);
+            openStandaloneModule(MODULES.FLASHCARDS);
+            return;
+          }
+          if (module === MODULES.LEARNING_FLOW) {
+            openStandaloneModule(MODULES.LEARNING_FLOW);
             return;
           }
           setActiveModule(MODULES.AUDIO);
@@ -585,11 +611,26 @@ export default function App() {
           profile={activeProfile}
           lesson={activeLesson}
           cardIndex={cardIndex}
+          initialStepIndex={unifiedFlowStepIndex}
+          onStepIndexChange={setUnifiedFlowStepIndex}
           onPrevCard={goPrev}
           onNextCard={goNext}
           onBackHome={() => {
             setShowUnifiedFlowOnlyPage(false);
             setEnteredApp(false);
+          }}
+          onSwitchModule={(module) => {
+            if (module === MODULES.FLASHCARDS) {
+              openStandaloneModule(MODULES.FLASHCARDS);
+              return;
+            }
+            if (module === MODULES.AUDIO) {
+              openStandaloneModule(MODULES.AUDIO);
+              return;
+            }
+            if (module === MODULES.WRITING) {
+              openStandaloneModule(MODULES.WRITING);
+            }
           }}
           onWritingSuccess={handleWritingSuccess}
         />
@@ -616,7 +657,7 @@ export default function App() {
         onOpenUnifiedFlow={openUnifiedFlowFromLanding}
         onOpenFlashcardsUi={openFlashcardsFromLanding}
         onOpenAudioUi={openAudioFromLanding}
-        onOpenWritingUi={() => setShowWritingOnlyPage(true)}
+        onOpenWritingUi={openWritingFromLanding}
         onResetOnboarding={handleResetFtueAndTutorial}
         showAvatarEditor={showLandingAvatarEditor}
         onToggleAvatarEditor={() => setShowLandingAvatarEditor((prev) => !prev)}
@@ -949,9 +990,12 @@ export default function App() {
                 profile={activeProfile}
                 lesson={activeLesson}
                 cardIndex={cardIndex}
+                initialStepIndex={unifiedFlowStepIndex}
+                onStepIndexChange={setUnifiedFlowStepIndex}
                 onPrevCard={goPrev}
                 onNextCard={goNext}
                 onBackHome={goToLanding}
+                onSwitchModule={setActiveModule}
                 onWritingSuccess={handleWritingSuccess}
               />
             </section>

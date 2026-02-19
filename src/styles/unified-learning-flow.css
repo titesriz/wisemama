@@ -2,6 +2,19 @@
   animation: learning-step-enter var(--wm-motion-normal) var(--wm-ease-soft);
 }
 
+.learning-switch-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 0 10px;
+}
+
+.learning-switch-row .writing-mode-btn {
+  width: 120px;
+  height: 56px;
+}
+
 .learning-step-card {
   border: 1px solid var(--wm-color-border);
   border-radius: var(--wm-radius-lg);
@@ -147,6 +160,12 @@
 }
 
 @media (max-width: 767px) {
+  .learning-switch-row .writing-mode-btn {
+    width: calc(50% - 6px);
+    min-width: 128px;
+    height: 50px;
+  }
+
   .learning-step-header {
     flex-wrap: wrap;
     justify-content: center;
@@ -161,4 +180,3 @@
     grid-template-columns: 1fr;
   }
 }
-

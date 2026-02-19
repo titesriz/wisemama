@@ -78,16 +78,25 @@
   background: var(--wm-color-surface);
   box-shadow: var(--wm-shadow-card);
   display: grid;
-  grid-template-columns: minmax(110px, auto) 1fr minmax(110px, auto);
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 12px;
   padding: 12px 16px;
+  border: 1px solid var(--wm-color-border);
 }
 
 .wm-action-left,
 .wm-action-right {
   display: inline-flex;
   align-items: center;
+}
+
+.wm-action-left {
+  justify-content: flex-start;
+}
+
+.wm-action-right {
+  justify-content: flex-end;
 }
 
 .wm-action-center {
@@ -190,7 +199,7 @@
   .wm-action-bar {
     min-height: 84px;
     border-radius: var(--wm-radius-md);
-    grid-template-columns: minmax(88px, auto) 1fr minmax(88px, auto);
+    grid-template-columns: 1fr auto 1fr;
     gap: 8px;
     padding: 10px 12px;
   }

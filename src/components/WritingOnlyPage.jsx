@@ -11,6 +11,7 @@ export default function WritingOnlyPage({
   onPrev,
   onNext,
   onBack,
+  onSwitchModule,
   onSuccess,
 }) {
   const [showLessonPicker, setShowLessonPicker] = useState(false);
@@ -70,9 +71,7 @@ export default function WritingOnlyPage({
         onPrev={onPrev}
         onNext={onNext}
         onOpenLessonPicker={() => setShowLessonPicker(true)}
-        onSwitchModule={(module) => {
-          if (module === 'flashcards') onBack?.();
-        }}
+        onSwitchModule={onSwitchModule}
         onBack={onBack}
         standalone
         onSuccess={onSuccess}

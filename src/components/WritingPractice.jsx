@@ -255,13 +255,13 @@ export default function WritingPractice({
       </p>
 
       <div className="writing-bottom-nav">
-        <button type="button" className="writing-nav-btn" onClick={onPrev}>
+        <button type="button" className="writing-nav-btn ui-pressable" onClick={onPrev}>
           ◄ Prec
         </button>
         <div className="writing-counter">
           {Math.max(1, cardIndex + 1)}/{Math.max(1, totalCards)}
         </div>
-        <button type="button" className="writing-nav-btn" onClick={onNext}>
+        <button type="button" className="writing-nav-btn ui-pressable" onClick={onNext}>
           Suiv ►
         </button>
       </div>
@@ -269,22 +269,27 @@ export default function WritingPractice({
       <div className="writing-mode-selector">
         <button
           type="button"
-          className="writing-mode-btn"
+          className="writing-mode-btn ui-pressable"
           onClick={() => onSwitchModule?.('flashcards')}
-          disabled={standalone}
         >
           Mot
         </button>
         <button
           type="button"
-          className="writing-mode-btn"
+          className="writing-mode-btn ui-pressable"
           onClick={() => onSwitchModule?.('audio')}
-          disabled={standalone}
         >
           Son
         </button>
         <button type="button" className="writing-mode-btn active" disabled>
           Ecriture
+        </button>
+        <button
+          type="button"
+          className="writing-mode-btn ui-pressable"
+          onClick={() => onSwitchModule?.('learning-flow')}
+        >
+          Parcours
         </button>
       </div>
     </section>

@@ -123,14 +123,25 @@ export default function UnifiedLearningFlow({
   onNextCard,
   onBackHome,
   onWritingSuccess,
+  onSwitchModule,
+  initialStepIndex = 0,
+  onStepIndexChange,
 }) {
-  const [stepIndex, setStepIndex] = useState(0);
+  const [stepIndex, setStepIndex] = useState(initialStepIndex);
   const card = lesson?.cards?.[cardIndex] || null;
   const totalCards = lesson?.cards?.length || 0;
 
   useEffect(() => {
     setStepIndex(0);
   }, [cardIndex]);
+
+  useEffect(() => {
+    setStepIndex(initialStepIndex);
+  }, [initialStepIndex]);
+
+  useEffect(() => {
+    onStepIndexChange?.(stepIndex);
+  }, [onStepIndexChange, stepIndex]);
 
   const stepId = STEP_ORDER[stepIndex];
   const cardKey = card ? getCardKey(lesson.id, card.id) : '';
@@ -173,7 +184,7 @@ export default function UnifiedLearningFlow({
       actionLeft={
         <button
           type="button"
-          className="wm-btn wm-btn-secondary"
+          className="wm-btn wm-btn-secondary ui-pressable"
           onClick={() => {
             if (canGoPrevStep) {
               setStepIndex((prev) => prev - 1);
@@ -189,7 +200,7 @@ export default function UnifiedLearningFlow({
       actionRight={
         <button
           type="button"
-          className="wm-btn wm-btn-primary"
+          className="wm-btn wm-btn-primary ui-pressable"
           onClick={() => {
             if (!isLastStep) {
               setStepIndex((prev) => prev + 1);
@@ -203,6 +214,20 @@ export default function UnifiedLearningFlow({
         </button>
       }
     >
+      <div className="learning-switch-row">
+        <button type="button" className="writing-mode-btn ui-pressable active" disabled>
+          Parcours
+        </button>
+        <button type="button" className="writing-mode-btn ui-pressable" onClick={() => onSwitchModule?.('flashcards')}>
+          Mot
+        </button>
+        <button type="button" className="writing-mode-btn ui-pressable" onClick={() => onSwitchModule?.('audio')}>
+          Son
+        </button>
+        <button type="button" className="writing-mode-btn ui-pressable" onClick={() => onSwitchModule?.('writing')}>
+          Ecriture
+        </button>
+      </div>
       <div className="learning-flow-content" key={`${card.id}-${stepId}`}>
         {stepId === 'see' ? <SeeStep card={card} /> : null}
         {stepId === 'listen' ? <ListenStep card={card} /> : null}
@@ -221,4 +246,3 @@ export default function UnifiedLearningFlow({
     </LayoutShell>
   );
 }
-

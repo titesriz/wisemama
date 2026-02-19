@@ -130,6 +130,17 @@ export default function ModuleFrame({
         >
           Ecriture
         </button>
+        <button
+          type="button"
+          className={`writing-mode-btn ui-pressable ${activeModule === 'learning-flow' ? 'active' : ''}`}
+          onClick={() => {
+            sounds.playTap();
+            onSwitchModule?.('learning-flow');
+          }}
+          disabled={activeModule === 'learning-flow'}
+        >
+          Parcours
+        </button>
       </div>
     </section>
   );

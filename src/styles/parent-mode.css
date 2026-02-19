@@ -17,6 +17,10 @@
   border: 1px solid var(--parent-border);
 }
 
+.parent-mode-dashboard .wm-content-inner {
+  width: min(980px, 100%);
+}
+
 .parent-mode-dashboard .wm-btn-primary {
   background: #2f6db3;
   box-shadow: 0 4px 12px rgba(47, 109, 179, 0.28);
@@ -228,6 +232,7 @@
   border-radius: var(--wm-radius-sm);
   overflow: hidden;
   background: var(--wm-color-surface);
+  overflow-x: auto;
 }
 
 .parent-audio-row {

@@ -77,10 +77,6 @@ export default function LandingPage({
               <h2 className="profile-greeting">
                 Bonjour {childProfile?.name || 'Enfant'}
               </h2>
-              <div className="profile-stats">
-                <span>Role: Kid</span>
-                <span>Mode: Apprentissage</span>
-              </div>
             </div>
           </div>
           <div className="kid-module-grid" role="group" aria-label="Modules apprentissage enfant">
