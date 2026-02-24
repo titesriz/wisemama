@@ -1,6 +1,7 @@
 import { useMemo, useRef } from 'react';
 import AvatarRenderer from './AvatarRenderer.jsx';
 import { useUiSounds } from '../hooks/useUiSounds.js';
+import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
 
 export default function ModuleFrame({
   profile,
@@ -11,6 +12,7 @@ export default function ModuleFrame({
   activeModule = 'flashcards',
   onBack,
   onOpenLessonPicker,
+  onOpenLessonText,
   onPrev,
   onNext,
   onSwitchModule,
@@ -62,10 +64,22 @@ export default function ModuleFrame({
         >
           {lessonTitle || 'Lecon'}
         </button>
+        {onOpenLessonText ? (
+          <button
+            type="button"
+            className="writing-read-lesson-btn ui-pressable"
+            onClick={() => {
+              sounds.playTap();
+              onOpenLessonText();
+            }}
+          >
+            Lire la lecon
+          </button>
+        ) : null}
       </div>
 
       <div className="writing-card-info">
-        <div className="writing-pinyin">{card?.pinyinEnabled === false ? '' : (card?.pinyin || '')}</div>
+        <div className="writing-pinyin">{card?.pinyinEnabled === false ? '' : formatPinyinDisplay(card?.pinyin || '')}</div>
         <div className="writing-char-small">{targetChar}</div>
         <div className="writing-translation">
           <span>{card?.french || ''}</span>
@@ -106,7 +120,7 @@ export default function ModuleFrame({
           }}
           disabled={activeModule === 'flashcards'}
         >
-          Mot
+          Lire
         </button>
         <button
           type="button"
@@ -117,7 +131,7 @@ export default function ModuleFrame({
           }}
           disabled={activeModule === 'audio'}
         >
-          Son
+          Parler
         </button>
         <button
           type="button"
@@ -128,18 +142,7 @@ export default function ModuleFrame({
           }}
           disabled={activeModule === 'writing'}
         >
-          Ecriture
-        </button>
-        <button
-          type="button"
-          className={`writing-mode-btn ui-pressable ${activeModule === 'learning-flow' ? 'active' : ''}`}
-          onClick={() => {
-            sounds.playTap();
-            onSwitchModule?.('learning-flow');
-          }}
-          disabled={activeModule === 'learning-flow'}
-        >
-          Parcours
+          Ecrire
         </button>
       </div>
     </section>

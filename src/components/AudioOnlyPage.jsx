@@ -13,6 +13,7 @@ export default function AudioOnlyPage({
   onPrev,
   onNext,
   onBack,
+  onOpenLessonText,
   onSwitchModule,
 }) {
   const [showLessonPicker, setShowLessonPicker] = useState(false);
@@ -75,6 +76,7 @@ export default function AudioOnlyPage({
         onPrev={onPrev}
         onNext={onNext}
         onOpenLessonPicker={() => setShowLessonPicker(true)}
+        onOpenLessonText={onOpenLessonText}
         onSwitchModule={onSwitchModule}
         onBack={onBack}
       />

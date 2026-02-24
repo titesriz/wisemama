@@ -3,6 +3,7 @@ import AudioPracticePanel from './AudioPracticePanel.jsx';
 import LayoutShell from './LayoutShell.jsx';
 import WritingPractice from './WritingPractice.jsx';
 import '../styles/unified-learning-flow.css';
+import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
 
 const STEP_ORDER = ['see', 'listen', 'speak', 'write'];
 
@@ -28,7 +29,7 @@ function SeeStep({ card }) {
     <section className="learning-step-card">
       <h3>Voir</h3>
       <div className="learning-hanzi">{card.hanzi}</div>
-      <p className="learning-pinyin">{card.pinyinEnabled === false ? '' : card.pinyin}</p>
+      <p className="learning-pinyin">{card.pinyinEnabled === false ? '' : formatPinyinDisplay(card.pinyin || '')}</p>
       <div className="learning-translation-grid">
         <article>
           <strong>Francais</strong>
@@ -112,6 +113,7 @@ function WriteStep({
         onOpenLessonPicker={() => {}}
         onSwitchModule={() => {}}
         standalone
+        embedded
         onSuccess={onWritingSuccess}
       />
     </section>

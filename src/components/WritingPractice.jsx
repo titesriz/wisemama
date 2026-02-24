@@ -3,6 +3,7 @@ import HanziWriter from 'hanzi-writer';
 import AvatarRenderer from './AvatarRenderer.jsx';
 import SuccessBurst from './SuccessBurst.jsx';
 import { useUiSounds } from '../hooks/useUiSounds.js';
+import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
 
 export default function WritingPractice({
   hanzi,
@@ -14,9 +15,11 @@ export default function WritingPractice({
   onPrev,
   onNext,
   onOpenLessonPicker,
+  onOpenLessonText,
   onSwitchModule,
   onBack,
   standalone = false,
+  embedded = false,
   onSuccess,
 }) {
   const containerRef = useRef(null);
@@ -86,7 +89,7 @@ export default function WritingPractice({
 
     containerRef.current.innerHTML = '';
     ghostContainerRef.current.innerHTML = '';
-    const dynamicPadding = Math.max(16, Math.round(canvasSize * 0.07));
+    const dynamicPadding = Math.max(24, Math.min(60, Math.round(canvasSize * 0.12)));
 
     const ghostWriter = HanziWriter.create(ghostContainerRef.current, targetChar, {
       width: canvasSize,
@@ -191,51 +194,60 @@ export default function WritingPractice({
   const profileLabel = profile?.role === 'parent' ? 'Parent' : 'Kid';
 
   return (
-    <section className="writing-screen" aria-label="Atelier d ecriture tablette">
-      <div className="writing-top-banner">
-        <button
-          type="button"
-          className="writing-logo"
-          onClick={() => {
-            if (onBack) onBack();
-            else onSwitchModule?.('flashcards');
-          }}
-        >
-          文
-        </button>
+    <section className={`writing-screen ${embedded ? 'writing-screen-embedded' : ''}`} aria-label="Atelier d ecriture tablette">
+      {!embedded ? (
+        <div className="writing-top-banner">
+          <button
+            type="button"
+            className="writing-logo ui-pressable"
+            onClick={() => {
+              if (onBack) onBack();
+              else onSwitchModule?.('flashcards');
+            }}
+          >
+            文
+          </button>
 
-        <div className="writing-profile-section">
-          <div className="writing-avatar-tile">
-            <AvatarRenderer config={profile?.avatar} size={52} alt="Avatar profil" loading="eager" />
+          <div className="writing-profile-section">
+            <div className="writing-avatar-tile">
+              <AvatarRenderer config={profile?.avatar} size={52} alt="Avatar profil" loading="eager" />
+            </div>
+            <div className="writing-profile-name">
+              <strong>{profile?.name || 'Profil'}</strong>
+              <span>{profileLabel}</span>
+            </div>
           </div>
-          <div className="writing-profile-name">
-            <strong>{profile?.name || 'Profil'}</strong>
-            <span>{profileLabel}</span>
+
+          <button type="button" className="writing-lesson-selector ui-pressable" onClick={onOpenLessonPicker}>
+            {lessonTitle || 'Lecon'}
+          </button>
+          {onOpenLessonText ? (
+            <button type="button" className="writing-read-lesson-btn ui-pressable" onClick={onOpenLessonText}>
+              Lire la lecon
+            </button>
+          ) : null}
+        </div>
+      ) : null}
+
+      {!embedded ? (
+        <div className="writing-card-info">
+          <div className="writing-pinyin">{card?.pinyinEnabled === false ? '' : formatPinyinDisplay(card?.pinyin || '')}</div>
+          <div className="writing-char-small">{targetChar}</div>
+          <div className="writing-translation">
+            <span>{card?.french || ''}</span>
+            <small>{card?.english || ''}</small>
           </div>
+          <button
+            type="button"
+            className="writing-sound-btn ui-pressable"
+            onClick={playCardAudio}
+            disabled={!card?.audioUrl}
+          >
+            Son
+          </button>
+          {card?.audioUrl ? <audio ref={audioRef} src={card.audioUrl} preload="auto" /> : null}
         </div>
-
-        <button type="button" className="writing-lesson-selector" onClick={onOpenLessonPicker}>
-          {lessonTitle || 'Lecon'}
-        </button>
-      </div>
-
-      <div className="writing-card-info">
-        <div className="writing-pinyin">{card?.pinyinEnabled === false ? '' : (card?.pinyin || '')}</div>
-        <div className="writing-char-small">{targetChar}</div>
-        <div className="writing-translation">
-          <span>{card?.french || ''}</span>
-          <small>{card?.english || ''}</small>
-        </div>
-        <button
-          type="button"
-          className="writing-sound-btn"
-          onClick={playCardAudio}
-          disabled={!card?.audioUrl}
-        >
-          Son
-        </button>
-        {card?.audioUrl ? <audio ref={audioRef} src={card.audioUrl} preload="auto" /> : null}
-      </div>
+      ) : null}
 
       <div className="writing-area">
         <div className="writing-canvas-container" ref={canvasWrapRef}>
@@ -287,44 +299,41 @@ export default function WritingPractice({
         <SuccessBurst trigger={successTick} />
       </p>
 
-      <div className="writing-bottom-nav">
-        <button type="button" className="writing-nav-btn ui-pressable" onClick={onPrev}>
-          ◄ Prec
-        </button>
-        <div className="writing-counter">
-          {Math.max(1, cardIndex + 1)}/{Math.max(1, totalCards)}
-        </div>
-        <button type="button" className="writing-nav-btn ui-pressable" onClick={onNext}>
-          Suiv ►
-        </button>
-      </div>
+      {!embedded ? (
+        <>
+          <div className="writing-bottom-nav">
+            <button type="button" className="writing-nav-btn ui-pressable" onClick={onPrev}>
+              ◄ Prec
+            </button>
+            <div className="writing-counter">
+              {Math.max(1, cardIndex + 1)}/{Math.max(1, totalCards)}
+            </div>
+            <button type="button" className="writing-nav-btn ui-pressable" onClick={onNext}>
+              Suiv ►
+            </button>
+          </div>
 
-      <div className="writing-mode-selector">
-        <button
-          type="button"
-          className="writing-mode-btn ui-pressable"
-          onClick={() => onSwitchModule?.('flashcards')}
-        >
-          Mot
-        </button>
-        <button
-          type="button"
-          className="writing-mode-btn ui-pressable"
-          onClick={() => onSwitchModule?.('audio')}
-        >
-          Son
-        </button>
-        <button type="button" className="writing-mode-btn active" disabled>
-          Ecriture
-        </button>
-        <button
-          type="button"
-          className="writing-mode-btn ui-pressable"
-          onClick={() => onSwitchModule?.('learning-flow')}
-        >
-          Parcours
-        </button>
-      </div>
+          <div className="writing-mode-selector">
+            <button
+              type="button"
+              className="writing-mode-btn ui-pressable"
+              onClick={() => onSwitchModule?.('flashcards')}
+            >
+              Lire
+            </button>
+            <button
+              type="button"
+              className="writing-mode-btn ui-pressable"
+              onClick={() => onSwitchModule?.('audio')}
+            >
+              Parler
+            </button>
+            <button type="button" className="writing-mode-btn active" disabled>
+              Ecrire
+            </button>
+          </div>
+        </>
+      ) : null}
     </section>
   );
 }

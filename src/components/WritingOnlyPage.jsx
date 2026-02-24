@@ -11,6 +11,7 @@ export default function WritingOnlyPage({
   onPrev,
   onNext,
   onBack,
+  onOpenLessonText,
   onSwitchModule,
   onSuccess,
 }) {
@@ -71,6 +72,7 @@ export default function WritingOnlyPage({
         onPrev={onPrev}
         onNext={onNext}
         onOpenLessonPicker={() => setShowLessonPicker(true)}
+        onOpenLessonText={onOpenLessonText}
         onSwitchModule={onSwitchModule}
         onBack={onBack}
         standalone

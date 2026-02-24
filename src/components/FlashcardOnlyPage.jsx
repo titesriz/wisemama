@@ -12,6 +12,7 @@ export default function FlashcardOnlyPage({
   onPrev,
   onNext,
   onBack,
+  onOpenLessonText,
   onSwitchModule,
 }) {
   const [showLessonPicker, setShowLessonPicker] = useState(false);
@@ -73,6 +74,7 @@ export default function FlashcardOnlyPage({
         onPrev={onPrev}
         onNext={onNext}
         onOpenLessonPicker={() => setShowLessonPicker(true)}
+        onOpenLessonText={onOpenLessonText}
         onSwitchModule={onSwitchModule}
         onBack={onBack}
       />

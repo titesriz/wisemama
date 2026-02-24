@@ -1,8 +1,9 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { createWorker } from 'tesseract.js';
 import SuccessBurst from './SuccessBurst.jsx';
 import { useLessons } from '../context/LessonsContext.jsx';
 import { generateLessonFlashcards, normalizeLessonInput } from '../lib/flashcardGeneration.js';
+import { buildLessonsSyncEnvelope, extractLessonsFromPayload, isSyncEnvelope } from '../lib/lessonSyncFormat.js';
 import { useUiSounds } from '../hooks/useUiSounds.js';
 
 function listToCsv(input) {
@@ -20,9 +21,10 @@ function csvToRelatedWords(input) {
     .filter(Boolean);
 }
 
-export default function LessonEditorBeta({ onBack }) {
-  const { lessons, createLesson, updateLesson } = useLessons();
+export default function LessonEditorBeta({ onBack, onSelectLesson }) {
+  const { lessons, createLesson, updateLesson, duplicateLesson, removeLesson, replaceLessons } = useLessons();
   const sounds = useUiSounds();
+  const importRef = useRef(null);
   const [selectedLessonId, setSelectedLessonId] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -31,6 +33,11 @@ export default function LessonEditorBeta({ onBack }) {
   const [generationMode, setGenerationMode] = useState('characters');
   const [cardsDraft, setCardsDraft] = useState([]);
   const [isScanning, setIsScanning] = useState(false);
+  const [previewIndex, setPreviewIndex] = useState(0);
+  const [bulkAudioPrefix, setBulkAudioPrefix] = useState('/audio/');
+  const [bulkAudioSuffix, setBulkAudioSuffix] = useState('.mp3');
+  const [bulkImagePrefix, setBulkImagePrefix] = useState('/images/');
+  const [bulkImageSuffix, setBulkImageSuffix] = useState('.svg');
   const [status, setStatus] = useState('');
   const [statusType, setStatusType] = useState('success');
   const [statusTick, setStatusTick] = useState(0);
@@ -39,6 +46,8 @@ export default function LessonEditorBeta({ onBack }) {
     () => lessons.find((lesson) => lesson.id === selectedLessonId) || null,
     [lessons, selectedLessonId],
   );
+
+  const previewCard = cardsDraft[previewIndex] || cardsDraft[0] || null;
 
   const applyStatus = (message, type = 'success') => {
     setStatus(message);
@@ -50,11 +59,13 @@ export default function LessonEditorBeta({ onBack }) {
 
   const loadLesson = (lessonId) => {
     setSelectedLessonId(lessonId);
+    onSelectLesson?.(lessonId);
     if (!lessonId) {
       setTitle('');
       setDescription('');
       setSourceText('');
       setCardsDraft([]);
+      setPreviewIndex(0);
       return;
     }
     const lesson = lessons.find((item) => item.id === lessonId);
@@ -64,6 +75,7 @@ export default function LessonEditorBeta({ onBack }) {
     setSourceText(lesson.sourceText || lesson.cards.map((card) => card.hanzi).join(' '));
     setRawOcrText('');
     setCardsDraft(lesson.cards || []);
+    setPreviewIndex(0);
   };
 
   const runOcrFromFiles = async (files) => {
@@ -122,6 +134,7 @@ export default function LessonEditorBeta({ onBack }) {
     }
     setSourceText(normalized);
     setCardsDraft(nextCards);
+    setPreviewIndex(0);
     applyStatus(`Generation OK: ${nextCards.length} fiches.`);
   };
 
@@ -181,31 +194,148 @@ export default function LessonEditorBeta({ onBack }) {
 
     if (selectedLessonId) {
       updateLesson(selectedLessonId, payload);
+      onSelectLesson?.(selectedLessonId);
       applyStatus('Lecon mise a jour.');
       return;
     }
 
     const created = createLesson(payload);
     setSelectedLessonId(created.id);
+    onSelectLesson?.(created.id);
     applyStatus('Lecon creee.');
+  };
+
+  const handleDuplicateLesson = () => {
+    if (!selectedLessonId) {
+      applyStatus('Selectionne une lecon a dupliquer.', 'error');
+      return;
+    }
+    const copy = duplicateLesson(selectedLessonId);
+    if (!copy) {
+      applyStatus('Duplication impossible.', 'error');
+      return;
+    }
+    loadLesson(copy.id);
+    applyStatus('Lecon dupliquee.');
+  };
+
+  const handleDeleteLesson = () => {
+    if (!selectedLessonId) {
+      applyStatus('Selectionne une lecon a supprimer.', 'error');
+      return;
+    }
+    const ok = window.confirm('Supprimer cette lecon ?');
+    if (!ok) return;
+    removeLesson(selectedLessonId);
+    setSelectedLessonId('');
+    setTitle('');
+    setDescription('');
+    setSourceText('');
+    setCardsDraft([]);
+    onSelectLesson?.('');
+    applyStatus('Lecon supprimee.');
+  };
+
+  const applyBulkAudio = () => {
+    if (!cardsDraft.length) return;
+    setCardsDraft((prev) =>
+      prev.map((card) => {
+        if (card.audioUrl) return card;
+        const slug = encodeURIComponent(card.hanzi || card.id || 'card');
+        return { ...card, audioUrl: `${bulkAudioPrefix}${slug}${bulkAudioSuffix}` };
+      }),
+    );
+    applyStatus('Audio bulk applique sur les cartes sans audio.');
+  };
+
+  const applyBulkImages = () => {
+    if (!cardsDraft.length) return;
+    setCardsDraft((prev) =>
+      prev.map((card) => {
+        if (card.imageUrl) return card;
+        const slug = encodeURIComponent(card.hanzi || card.id || 'card');
+        return { ...card, imageUrl: `${bulkImagePrefix}${slug}${bulkImageSuffix}` };
+      }),
+    );
+    applyStatus('Images bulk appliquees sur les cartes sans image.');
+  };
+
+  const exportCurrentLesson = () => {
+    if (!title.trim()) {
+      applyStatus('Aucune lecon a exporter.', 'error');
+      return;
+    }
+    const payload = {
+      id: selectedLessonId || 'draft-lesson',
+      title: title.trim(),
+      description: description.trim(),
+      sourceText: normalizeLessonInput(sourceText),
+      cards: cardsDraft,
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = `wisemama-lesson-${payload.id}.json`;
+    anchor.click();
+    URL.revokeObjectURL(url);
+    applyStatus('Lecon exportee.');
+  };
+
+  const exportAllLessons = () => {
+    const payload = buildLessonsSyncEnvelope(lessons);
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = 'wisemama-lessons-sync.json';
+    anchor.click();
+    URL.revokeObjectURL(url);
+    applyStatus('Toutes les lecons exportees.');
+  };
+
+  const importLessonsFile = async (event) => {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+    if (!file) return;
+
+    try {
+      const text = await file.text();
+      const parsed = JSON.parse(text);
+      const importedLessons = extractLessonsFromPayload(parsed);
+      if (!Array.isArray(importedLessons) || importedLessons.length === 0) {
+        throw new Error('invalid');
+      }
+      replaceLessons(importedLessons);
+      loadLesson(importedLessons[0]?.id || '');
+      applyStatus(
+        isSyncEnvelope(parsed)
+          ? 'Import sync termine.'
+          : 'Import termine (format brut).',
+      );
+    } catch {
+      applyStatus('Import invalide. Verifie le JSON.', 'error');
+    }
   };
 
   return (
     <section className="lesson-beta-page">
       <header className="lesson-beta-top">
-        <button type="button" className="home-hanzi-btn ui-pressable" onClick={onBack} aria-label="Retour landing">
-          文
-        </button>
+        {onBack ? (
+          <button type="button" className="home-hanzi-btn ui-pressable" onClick={onBack} aria-label="Retour landing">
+            文
+          </button>
+        ) : null}
         <div>
-          <h2>Lesson Creator Beta</h2>
-          <p>OCR / copy-paste {'->'} generation {'->'} edition {'->'} sauvegarde</p>
+          <h2>Lesson Creator Pro</h2>
+          <p>Texte source, generation, edition cartes, audio/images bulk, preview, import/export.</p>
         </div>
       </header>
 
       <section className="lesson-beta-card">
         <div className="lesson-beta-grid">
           <label className="lesson-field">
-            <span>Lecon existante (optionnel)</span>
+            <span>Lecon</span>
             <select value={selectedLessonId} onChange={(e) => loadLesson(e.target.value)}>
               <option value="">Nouvelle lecon</option>
               {lessons.map((lesson) => (
@@ -216,7 +346,7 @@ export default function LessonEditorBeta({ onBack }) {
             </select>
           </label>
           <label className="lesson-field">
-            <span>Mode extraction</span>
+            <span>Mode generation</span>
             <select value={generationMode} onChange={(e) => setGenerationMode(e.target.value)}>
               <option value="characters">Caracteres uniques (debutant)</option>
               <option value="words">Mots/expressions</option>
@@ -244,19 +374,36 @@ export default function LessonEditorBeta({ onBack }) {
               disabled={isScanning}
               onChange={onPickOcrFiles}
             />
-            {isScanning ? 'OCR en cours...' : 'Importer image(s) pour OCR'}
+            {isScanning ? 'OCR en cours...' : 'Importer image(s) OCR'}
           </label>
-          <button
-            type="button"
-            className="button secondary ui-pressable"
-            onClick={() => {
-              setRawOcrText('');
-              setSourceText('');
-            }}
-            disabled={isScanning}
-          >
-            Vider texte OCR
+          <button type="button" className="button secondary ui-pressable" onClick={regenerate}>
+            Generer / Regenerer fiches
           </button>
+          <button type="button" className="button ui-pressable" onClick={saveLesson}>
+            Sauvegarder lecon
+          </button>
+          <button type="button" className="button secondary ui-pressable" onClick={handleDuplicateLesson}>
+            Dupliquer
+          </button>
+          <button type="button" className="button secondary ui-pressable" onClick={handleDeleteLesson}>
+            Supprimer
+          </button>
+          <button type="button" className="button secondary ui-pressable" onClick={exportCurrentLesson}>
+            Export lecon
+          </button>
+          <button type="button" className="button secondary ui-pressable" onClick={exportAllLessons}>
+            Export tout
+          </button>
+          <button type="button" className="button secondary ui-pressable" onClick={() => importRef.current?.click()}>
+            Import JSON
+          </button>
+          <input
+            ref={importRef}
+            type="file"
+            accept="application/json"
+            style={{ display: 'none' }}
+            onChange={importLessonsFile}
+          />
         </div>
 
         <label className="lesson-field">
@@ -269,22 +416,13 @@ export default function LessonEditorBeta({ onBack }) {
         </label>
 
         <label className="lesson-field">
-          <span>Texte chinois brut (OCR ou copier-coller)</span>
+          <span>Texte source (sourceText)</span>
           <textarea
             value={sourceText}
             onChange={(e) => setSourceText(e.target.value)}
             placeholder="Colle ici 50-100 caracteres chinois..."
           />
         </label>
-
-        <div className="lesson-beta-actions">
-          <button type="button" className="button secondary ui-pressable" onClick={regenerate}>
-            Regenerer depuis texte
-          </button>
-          <button type="button" className="button ui-pressable" onClick={saveLesson}>
-            Save
-          </button>
-        </div>
 
         {status ? (
           <p className={statusType === 'error' ? 'error-line' : 'ok-line wm-ok-line wm-success-pulse'}>
@@ -296,22 +434,95 @@ export default function LessonEditorBeta({ onBack }) {
 
       <section className="lesson-beta-card">
         <div className="parent-panel-head">
-          <h3>Flashcards ({cardsDraft.length})</h3>
-          <button
-            type="button"
-            className="button secondary ui-pressable"
-            onClick={() => setCardsDraft([])}
-            disabled={!cardsDraft.length}
-          >
-            Cancel
+          <h3>Gestion audio / images bulk</h3>
+        </div>
+        <div className="lesson-beta-grid">
+          <label className="lesson-field">
+            <span>Audio prefix</span>
+            <input value={bulkAudioPrefix} onChange={(e) => setBulkAudioPrefix(e.target.value)} placeholder="/audio/" />
+          </label>
+          <label className="lesson-field">
+            <span>Audio suffix</span>
+            <input value={bulkAudioSuffix} onChange={(e) => setBulkAudioSuffix(e.target.value)} placeholder=".mp3" />
+          </label>
+        </div>
+        <div className="lesson-beta-grid">
+          <label className="lesson-field">
+            <span>Image prefix</span>
+            <input value={bulkImagePrefix} onChange={(e) => setBulkImagePrefix(e.target.value)} placeholder="/images/" />
+          </label>
+          <label className="lesson-field">
+            <span>Image suffix</span>
+            <input value={bulkImageSuffix} onChange={(e) => setBulkImageSuffix(e.target.value)} placeholder=".svg" />
+          </label>
+        </div>
+        <div className="lesson-beta-actions">
+          <button type="button" className="button secondary ui-pressable" onClick={applyBulkAudio}>
+            Appliquer audio bulk
+          </button>
+          <button type="button" className="button secondary ui-pressable" onClick={applyBulkImages}>
+            Appliquer images bulk
           </button>
         </div>
+      </section>
 
+      <section className="lesson-beta-card">
+        <div className="parent-panel-head">
+          <h3>Previsualisation temps reel</h3>
+          <div className="lesson-beta-actions">
+            <button
+              type="button"
+              className="button secondary ui-pressable"
+              onClick={() => setPreviewIndex((prev) => Math.max(0, prev - 1))}
+              disabled={previewIndex <= 0}
+            >
+              ◄
+            </button>
+            <span>{cardsDraft.length ? `${previewIndex + 1}/${cardsDraft.length}` : '0/0'}</span>
+            <button
+              type="button"
+              className="button secondary ui-pressable"
+              onClick={() => setPreviewIndex((prev) => Math.min(cardsDraft.length - 1, prev + 1))}
+              disabled={previewIndex >= cardsDraft.length - 1}
+            >
+              ►
+            </button>
+          </div>
+        </div>
+        {previewCard ? (
+          <div className="module-card-center wm-enter-fade">
+            <div className="module-hanzi-large">{previewCard.hanzi}</div>
+            <div className="module-pinyin-large">{previewCard.pinyinEnabled === false ? '' : (previewCard.pinyin || '')}</div>
+            <div className="module-translation-panels">
+              <article>
+                <strong>Francais</strong>
+                <span>{previewCard.french || ''}</span>
+              </article>
+              <article>
+                <strong>Anglais</strong>
+                <span>{previewCard.english || ''}</span>
+              </article>
+            </div>
+            {previewCard.imageUrl ? (
+              <div className="module-image-wrap">
+                <img src={previewCard.imageUrl} alt={previewCard.hanzi} />
+              </div>
+            ) : null}
+          </div>
+        ) : (
+          <p className="parent-empty">Aucune carte a previsualiser.</p>
+        )}
+      </section>
+
+      <section className="lesson-beta-card">
+        <div className="parent-panel-head">
+          <h3>Edition cartes inline ({cardsDraft.length})</h3>
+        </div>
         <div className="cards-edit-list">
           {cardsDraft.map((card, index) => (
             <article key={card.id} className="card-edit-item">
               <div className="card-edit-head">
-                <strong>#{index + 1} {card.hanzi}</strong>
+                <strong>#{index + 1} {card.hanzi || 'Carte'}</strong>
                 <span className={`beta-dict-badge ${card?.meta?.dictFound === false ? 'incomplete' : 'ok'}`}>
                   {card?.meta?.dictFound === false ? 'auto / incomplete' : 'auto / complete'}
                 </span>
@@ -324,6 +535,10 @@ export default function LessonEditorBeta({ onBack }) {
                     checked={card.pinyinEnabled !== false}
                     onChange={(e) => patchCard(card.id, { pinyinEnabled: e.target.checked })}
                   />
+                </label>
+                <label className="lesson-field">
+                  <span>Hanzi</span>
+                  <input value={card.hanzi || ''} onChange={(e) => patchCard(card.id, { hanzi: e.target.value })} />
                 </label>
                 <label className="lesson-field">
                   <span>Pinyin</span>
@@ -350,21 +565,33 @@ export default function LessonEditorBeta({ onBack }) {
                   <span>Vocabulaire lie (CSV, max 5)</span>
                   <input
                     value={card.relatedVocabularyText || listToCsv(card.relatedWords || card.relatedVocabulary)}
-                    onChange={(e) =>
-                      {
-                        const words = csvToRelatedWords(e.target.value).slice(0, 5);
-                        const relatedWords = words.map((hanzi) => ({ hanzi, pinyin: '', en: '' }));
-                        patchCard(
-                          card.id,
-                          {
-                            relatedVocabularyText: e.target.value,
-                            relatedVocabulary: words,
-                            relatedWords,
-                          },
-                          'relatedVocabulary',
-                        );
-                      }
-                    }
+                    onChange={(e) => {
+                      const words = csvToRelatedWords(e.target.value).slice(0, 5);
+                      const relatedWords = words.map((hanzi) => ({ hanzi, pinyin: '', en: '' }));
+                      patchCard(
+                        card.id,
+                        {
+                          relatedVocabularyText: e.target.value,
+                          relatedVocabulary: words,
+                          relatedWords,
+                        },
+                        'relatedVocabulary',
+                      );
+                    }}
+                  />
+                </label>
+                <label className="lesson-field">
+                  <span>Image URL</span>
+                  <input
+                    value={card.imageUrl || ''}
+                    onChange={(e) => patchCard(card.id, { imageUrl: e.target.value || null })}
+                  />
+                </label>
+                <label className="lesson-field">
+                  <span>Audio URL</span>
+                  <input
+                    value={card.audioUrl || ''}
+                    onChange={(e) => patchCard(card.id, { audioUrl: e.target.value || null })}
                   />
                 </label>
               </div>

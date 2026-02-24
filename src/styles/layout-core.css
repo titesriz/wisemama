@@ -89,14 +89,7 @@
 .wm-action-right {
   display: inline-flex;
   align-items: center;
-}
-
-.wm-action-left {
-  justify-content: flex-start;
-}
-
-.wm-action-right {
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 .wm-action-center {
@@ -117,6 +110,7 @@
   font-size: 18px;
   line-height: 22px;
   font-weight: 700;
+  min-width: 132px;
   transition: transform var(--wm-motion-fast) var(--wm-ease-standard),
     box-shadow var(--wm-motion-fast) var(--wm-ease-standard),
     background var(--wm-motion-normal) var(--wm-ease-soft),
@@ -214,5 +208,6 @@
     padding: 0 12px;
     font-size: 16px;
     line-height: 20px;
+    min-width: 108px;
   }
 }

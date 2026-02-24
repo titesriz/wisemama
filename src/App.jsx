@@ -10,8 +10,8 @@ import FlashcardOnlyPage from './components/FlashcardOnlyPage.jsx';
 import FlashcardStandaloneUI from './components/FlashcardStandaloneUI.jsx';
 import FTUEFlow from './components/FTUEFlow.jsx';
 import LandingPage from './components/LandingPage.jsx';
-import LessonEditor from './components/LessonEditor.jsx';
 import LessonEditorBeta from './components/LessonEditorBeta.jsx';
+import LessonTextView from './components/LessonTextView.jsx';
 import ModeAvatar from './components/ModeAvatar.jsx';
 import ParentModeDashboard from './components/ParentModeDashboard.jsx';
 import ToonHeadTester from './components/ToonHeadTester.jsx';
@@ -43,8 +43,27 @@ const MODULES = {
   TOON_HEAD: 'toon-head',
 };
 
+const STANDALONE_VIEW = {
+  NONE: 'none',
+  WRITING: 'writing',
+  FLASHCARDS: 'flashcards',
+  AUDIO: 'audio',
+  LEARNING_FLOW: 'learning-flow',
+  LESSON_BETA: 'lesson-beta',
+};
+
 function getCardKey(lessonId, cardId) {
   return `${lessonId}:${cardId}`;
+}
+
+function getLessonTextRouteId(pathname) {
+  const match = pathname.match(/^\/lesson\/([^/]+)\/text\/?$/);
+  if (!match) return '';
+  try {
+    return decodeURIComponent(match[1]);
+  } catch {
+    return match[1];
+  }
 }
 
 function getDefaultModuleByRole(role) {
@@ -75,11 +94,9 @@ export default function App() {
   const [cardIndex, setCardIndex] = useState(0);
   const [starsByProfile, setStarsByProfile] = useState({});
   const [enteredApp, setEnteredApp] = useState(false);
-  const [showWritingOnlyPage, setShowWritingOnlyPage] = useState(false);
-  const [showFlashcardOnlyPage, setShowFlashcardOnlyPage] = useState(false);
-  const [showAudioOnlyPage, setShowAudioOnlyPage] = useState(false);
-  const [showUnifiedFlowOnlyPage, setShowUnifiedFlowOnlyPage] = useState(false);
-  const [showLessonEditorBetaPage, setShowLessonEditorBetaPage] = useState(false);
+  const [standaloneView, setStandaloneView] = useState(STANDALONE_VIEW.NONE);
+  const [lessonTextLessonId, setLessonTextLessonId] = useState(() => getLessonTextRouteId(window.location.pathname));
+  const [returnToLessonText, setReturnToLessonText] = useState(false);
   const [unifiedFlowStepIndex, setUnifiedFlowStepIndex] = useState(0);
   const [showLandingAvatarEditor, setShowLandingAvatarEditor] = useState(false);
   const [activeModule, setActiveModule] = useState(MODULES.LESSONS);
@@ -150,6 +167,15 @@ export default function App() {
   }, [lessonId, lessonOptions]);
 
   useEffect(() => {
+    if (!lessonTextLessonId) return;
+    const exists = lessonOptions.some((lesson) => lesson.id === lessonTextLessonId);
+    if (exists && lessonId !== lessonTextLessonId) {
+      setLessonId(lessonTextLessonId);
+      setCardIndex(0);
+    }
+  }, [lessonId, lessonOptions, lessonTextLessonId]);
+
+  useEffect(() => {
     try {
       const stored = localStorage.getItem(progressStorageKey);
       if (!stored) return;
@@ -191,7 +217,7 @@ export default function App() {
   }, [activeModule, isParentMode]);
 
   useEffect(() => {
-    if (!enteredApp || showFtue || isParentMode || showWritingOnlyPage) return;
+    if (!enteredApp || showFtue || isParentMode || standaloneView !== STANDALONE_VIEW.NONE) return;
     if (!showTutorial) return;
     const firstLessonId = lessonOptions[0]?.id;
     if (!firstLessonId || activeLesson?.id !== firstLessonId) return;
@@ -203,7 +229,7 @@ export default function App() {
     enteredApp,
     showFtue,
     isParentMode,
-    showWritingOnlyPage,
+    standaloneView,
     showTutorial,
     activeLesson?.id,
     activeModule,
@@ -297,6 +323,7 @@ export default function App() {
   const goToLanding = () => {
     setShowLandingAvatarEditor(false);
     setShowDailyRituel(false);
+    setStandaloneView(STANDALONE_VIEW.NONE);
     setEnteredApp(false);
   };
 
@@ -335,32 +362,74 @@ export default function App() {
     setActiveProfileId(childProfile.id);
     switchToChild();
     setShowLandingAvatarEditor(false);
-    setShowFlashcardOnlyPage(false);
-    setShowAudioOnlyPage(false);
-    setShowUnifiedFlowOnlyPage(false);
-    setShowWritingOnlyPage(false);
+    setStandaloneView(STANDALONE_VIEW.NONE);
     setShowDailyRituel(true);
     setEnteredApp(true);
   };
 
-  const openStandaloneModule = (moduleId) => {
-    setShowWritingOnlyPage(moduleId === MODULES.WRITING);
-    setShowFlashcardOnlyPage(moduleId === MODULES.FLASHCARDS);
-    setShowAudioOnlyPage(moduleId === MODULES.AUDIO);
-    setShowUnifiedFlowOnlyPage(moduleId === MODULES.LEARNING_FLOW);
-    setShowLessonEditorBetaPage(false);
+  const openStandaloneModule = (viewId, moduleId) => {
+    setStandaloneView(viewId);
     setShowDailyRituel(false);
     setShowLandingAvatarEditor(false);
     setEnteredApp(false);
     setActiveModule(moduleId);
   };
 
-  const openUnifiedFlowFromLanding = () => {
+  useEffect(() => {
+    const onPopState = () => {
+      const routeLessonId = getLessonTextRouteId(window.location.pathname);
+      setLessonTextLessonId(routeLessonId);
+      if (routeLessonId) {
+        setLessonId(routeLessonId);
+      }
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
+
+  const openLessonTextView = (targetLessonId) => {
+    if (!targetLessonId) return;
+    setLessonId(targetLessonId);
+    setLessonTextLessonId(targetLessonId);
+    const nextPath = `/lesson/${encodeURIComponent(targetLessonId)}/text`;
+    if (window.location.pathname !== nextPath) {
+      window.history.pushState({}, '', nextPath);
+    }
+  };
+
+  const closeLessonTextView = () => {
+    setLessonTextLessonId('');
+    setReturnToLessonText(false);
+    if (getLessonTextRouteId(window.location.pathname)) {
+      window.history.pushState({}, '', '/');
+    }
+  };
+
+  const openCharacterPracticeFromLessonText = (char) => {
+    const targetLesson = lessonOptions.find((lesson) => lesson.id === lessonTextLessonId);
+    if (!targetLesson || !char) return;
+    const targetCardIndex = targetLesson.cards.findIndex((card) => (card?.hanzi || '').includes(char));
+    if (targetCardIndex < 0) return;
+    setLessonId(targetLesson.id);
+    setCardIndex(targetCardIndex);
+    setUnifiedFlowStepIndex(0);
+    setReturnToLessonText(true);
+    setStandaloneView(STANDALONE_VIEW.LEARNING_FLOW);
+  };
+
+  const openLessonTextFromLanding = () => {
     const childProfile = profiles.find((profile) => profile.role === 'child') || profiles[0];
     if (!childProfile) return;
     setActiveProfileId(childProfile.id);
     switchToChild();
-    openStandaloneModule(MODULES.LEARNING_FLOW);
+    setShowLandingAvatarEditor(false);
+    setShowDailyRituel(false);
+    setStandaloneView(STANDALONE_VIEW.NONE);
+    setEnteredApp(false);
+    const targetLessonId = lessonId || lessonOptions[0]?.id || '';
+    if (targetLessonId) {
+      openLessonTextView(targetLessonId);
+    }
   };
 
   const openFlashcardsFromLanding = () => {
@@ -368,7 +437,7 @@ export default function App() {
     if (!childProfile) return;
     setActiveProfileId(childProfile.id);
     switchToChild();
-    openStandaloneModule(MODULES.FLASHCARDS);
+    openStandaloneModule(STANDALONE_VIEW.FLASHCARDS, MODULES.FLASHCARDS);
   };
 
   const openAudioFromLanding = () => {
@@ -376,7 +445,7 @@ export default function App() {
     if (!childProfile) return;
     setActiveProfileId(childProfile.id);
     switchToChild();
-    openStandaloneModule(MODULES.AUDIO);
+    openStandaloneModule(STANDALONE_VIEW.AUDIO, MODULES.AUDIO);
   };
 
   const openWritingFromLanding = () => {
@@ -384,17 +453,13 @@ export default function App() {
     if (!childProfile) return;
     setActiveProfileId(childProfile.id);
     switchToChild();
-    openStandaloneModule(MODULES.WRITING);
+    openStandaloneModule(STANDALONE_VIEW.WRITING, MODULES.WRITING);
   };
 
   const openLessonEditorBetaFromLanding = () => {
-    setShowWritingOnlyPage(false);
-    setShowFlashcardOnlyPage(false);
-    setShowAudioOnlyPage(false);
-    setShowUnifiedFlowOnlyPage(false);
+    setStandaloneView(STANDALONE_VIEW.LESSON_BETA);
     setShowDailyRituel(false);
     setShowLandingAvatarEditor(false);
-    setShowLessonEditorBetaPage(true);
     setEnteredApp(false);
   };
 
@@ -475,10 +540,7 @@ export default function App() {
 
     setShowLandingAvatarEditor(false);
     setShowDailyRituel(false);
-    setShowWritingOnlyPage(false);
-    setShowFlashcardOnlyPage(false);
-    setShowAudioOnlyPage(false);
-    setShowUnifiedFlowOnlyPage(false);
+    setStandaloneView(STANDALONE_VIEW.NONE);
     setEnteredApp(false);
     setShowFtue(true);
   };
@@ -491,7 +553,25 @@ export default function App() {
     setTutorialStep((prev) => prev + 1);
   };
 
-  if (showWritingOnlyPage) {
+  if (!showFtue && lessonTextLessonId && standaloneView === STANDALONE_VIEW.NONE) {
+    const lessonForText = lessonOptions.find((lesson) => lesson.id === lessonTextLessonId);
+    if (lessonForText) {
+      return (
+        <LessonTextView
+          lesson={lessonForText}
+          lessons={lessonOptions}
+          profile={activeProfile}
+          progressMap={currentStarsMap}
+          onChangeLesson={openLessonTextView}
+          onPracticeCharacter={openCharacterPracticeFromLessonText}
+          onBack={closeLessonTextView}
+          onStartPractice={closeLessonTextView}
+        />
+      );
+    }
+  }
+
+  if (standaloneView === STANDALONE_VIEW.WRITING) {
     return (
       <WritingOnlyPage
         profile={activeProfile}
@@ -506,20 +586,21 @@ export default function App() {
         onPrev={goPrev}
         onNext={goNext}
         onBack={() => {
-          setShowWritingOnlyPage(false);
+          setStandaloneView(STANDALONE_VIEW.NONE);
           setEnteredApp(false);
         }}
+        onOpenLessonText={() => openLessonTextView(lessonId)}
         onSwitchModule={(module) => {
           if (module === MODULES.FLASHCARDS) {
-            openStandaloneModule(MODULES.FLASHCARDS);
+            openStandaloneModule(STANDALONE_VIEW.FLASHCARDS, MODULES.FLASHCARDS);
             return;
           }
           if (module === MODULES.AUDIO) {
-            openStandaloneModule(MODULES.AUDIO);
+            openStandaloneModule(STANDALONE_VIEW.AUDIO, MODULES.AUDIO);
             return;
           }
           if (module === MODULES.LEARNING_FLOW) {
-            openStandaloneModule(MODULES.LEARNING_FLOW);
+            openStandaloneModule(STANDALONE_VIEW.LEARNING_FLOW, MODULES.LEARNING_FLOW);
             return;
           }
           setActiveModule(MODULES.WRITING);
@@ -529,7 +610,7 @@ export default function App() {
     );
   }
 
-  if (showFlashcardOnlyPage) {
+  if (standaloneView === STANDALONE_VIEW.FLASHCARDS) {
     return (
       <FlashcardOnlyPage
         profile={activeProfile}
@@ -545,20 +626,21 @@ export default function App() {
         onPrev={goPrev}
         onNext={goNext}
         onBack={() => {
-          setShowFlashcardOnlyPage(false);
+          setStandaloneView(STANDALONE_VIEW.NONE);
           setEnteredApp(false);
         }}
+        onOpenLessonText={() => openLessonTextView(lessonId)}
         onSwitchModule={(module) => {
           if (module === MODULES.WRITING) {
-            openStandaloneModule(MODULES.WRITING);
+            openStandaloneModule(STANDALONE_VIEW.WRITING, MODULES.WRITING);
             return;
           }
           if (module === MODULES.AUDIO) {
-            openStandaloneModule(MODULES.AUDIO);
+            openStandaloneModule(STANDALONE_VIEW.AUDIO, MODULES.AUDIO);
             return;
           }
           if (module === MODULES.LEARNING_FLOW) {
-            openStandaloneModule(MODULES.LEARNING_FLOW);
+            openStandaloneModule(STANDALONE_VIEW.LEARNING_FLOW, MODULES.LEARNING_FLOW);
             return;
           }
           setActiveModule(MODULES.FLASHCARDS);
@@ -567,7 +649,7 @@ export default function App() {
     );
   }
 
-  if (showAudioOnlyPage) {
+  if (standaloneView === STANDALONE_VIEW.AUDIO) {
     return (
       <AudioOnlyPage
         profile={activeProfile}
@@ -584,20 +666,21 @@ export default function App() {
         onPrev={goPrev}
         onNext={goNext}
         onBack={() => {
-          setShowAudioOnlyPage(false);
+          setStandaloneView(STANDALONE_VIEW.NONE);
           setEnteredApp(false);
         }}
+        onOpenLessonText={() => openLessonTextView(lessonId)}
         onSwitchModule={(module) => {
           if (module === MODULES.WRITING) {
-            openStandaloneModule(MODULES.WRITING);
+            openStandaloneModule(STANDALONE_VIEW.WRITING, MODULES.WRITING);
             return;
           }
           if (module === MODULES.FLASHCARDS) {
-            openStandaloneModule(MODULES.FLASHCARDS);
+            openStandaloneModule(STANDALONE_VIEW.FLASHCARDS, MODULES.FLASHCARDS);
             return;
           }
           if (module === MODULES.LEARNING_FLOW) {
-            openStandaloneModule(MODULES.LEARNING_FLOW);
+            openStandaloneModule(STANDALONE_VIEW.LEARNING_FLOW, MODULES.LEARNING_FLOW);
             return;
           }
           setActiveModule(MODULES.AUDIO);
@@ -606,7 +689,7 @@ export default function App() {
     );
   }
 
-  if (showUnifiedFlowOnlyPage) {
+  if (standaloneView === STANDALONE_VIEW.LEARNING_FLOW) {
     if (!activeLesson || !currentCard) {
       return (
         <section className="writing-only-page">
@@ -615,7 +698,7 @@ export default function App() {
             type="button"
             className="button secondary"
             onClick={() => {
-              setShowUnifiedFlowOnlyPage(false);
+              setStandaloneView(STANDALONE_VIEW.NONE);
               setEnteredApp(false);
             }}
           >
@@ -636,20 +719,25 @@ export default function App() {
           onPrevCard={goPrev}
           onNextCard={goNext}
           onBackHome={() => {
-            setShowUnifiedFlowOnlyPage(false);
+            if (returnToLessonText && lessonTextLessonId) {
+              setStandaloneView(STANDALONE_VIEW.NONE);
+              setReturnToLessonText(false);
+              return;
+            }
+            setStandaloneView(STANDALONE_VIEW.NONE);
             setEnteredApp(false);
           }}
           onSwitchModule={(module) => {
             if (module === MODULES.FLASHCARDS) {
-              openStandaloneModule(MODULES.FLASHCARDS);
+              openStandaloneModule(STANDALONE_VIEW.FLASHCARDS, MODULES.FLASHCARDS);
               return;
             }
             if (module === MODULES.AUDIO) {
-              openStandaloneModule(MODULES.AUDIO);
+              openStandaloneModule(STANDALONE_VIEW.AUDIO, MODULES.AUDIO);
               return;
             }
             if (module === MODULES.WRITING) {
-              openStandaloneModule(MODULES.WRITING);
+              openStandaloneModule(STANDALONE_VIEW.WRITING, MODULES.WRITING);
             }
           }}
           onWritingSuccess={handleWritingSuccess}
@@ -658,8 +746,17 @@ export default function App() {
     );
   }
 
-  if (showLessonEditorBetaPage) {
-    return <LessonEditorBeta onBack={() => setShowLessonEditorBetaPage(false)} />;
+  if (standaloneView === STANDALONE_VIEW.LESSON_BETA) {
+    return (
+      <LessonEditorBeta
+        onBack={() => setStandaloneView(STANDALONE_VIEW.NONE)}
+        onSelectLesson={(id) => {
+          if (!id) return;
+          setLessonId(id);
+          setCardIndex(0);
+        }}
+      />
+    );
   }
 
   if (showFtue) {
@@ -678,7 +775,7 @@ export default function App() {
       <LandingPage
         profiles={profiles}
         onOpenDailyRituel={openDailyRituelFromLanding}
-        onOpenUnifiedFlow={openUnifiedFlowFromLanding}
+        onOpenLessonTextUi={openLessonTextFromLanding}
         onOpenFlashcardsUi={openFlashcardsFromLanding}
         onOpenAudioUi={openAudioFromLanding}
         onOpenWritingUi={openWritingFromLanding}
@@ -830,6 +927,16 @@ export default function App() {
                     </option>
                   ))}
                 </select>
+                <button
+                  type="button"
+                  className="button secondary button-sm"
+                  onClick={() => {
+                    setShowLessonPicker(false);
+                    openLessonTextView(lessonId);
+                  }}
+                >
+                  Lire la lecon
+                </button>
               </div>
             ) : null}
           </div>
@@ -887,12 +994,12 @@ export default function App() {
               { id: MODULES.FLASHCARDS, label: 'Flashcard', key: 'F', parentOnly: false },
               { id: MODULES.AUDIO, label: 'Sound', key: 'S', parentOnly: false },
               { id: MODULES.WRITING, label: 'Ecriture', key: 'E', parentOnly: false },
-              { id: MODULES.LEARNING_FLOW, label: 'Parcours complet', key: 'U', parentOnly: false },
+              { id: MODULES.LEARNING_FLOW, label: 'Parcours complet', key: 'U', parentOnly: false, childHidden: true },
               { id: MODULES.EMOTIONAL_DUO, label: 'Duo emotions', key: 'D', parentOnly: false },
               { id: MODULES.BIG_SMILE, label: 'Big Smile test', key: 'B', parentOnly: true },
               { id: MODULES.TOON_HEAD, label: 'Toon Head test', key: 'T', parentOnly: true },
             ]
-              .filter((item) => !item.parentOnly || isParentMode)
+              .filter((item) => (!item.parentOnly || isParentMode) && (isParentMode || !item.childHidden))
               .map((item) => {
               return (
                 <button
@@ -926,26 +1033,25 @@ export default function App() {
 
           {activeModule === MODULES.LESSONS ? (
             <section className="parent-panel module-pane">
-            <h3>Creation de lecon (Parent)</h3>
-            <div className="parent-actions">
-              <button
-                type="button"
-                className="button secondary"
-                onClick={resetChildLesson}
-                disabled={!activeLesson || !firstChildProfile}
-              >
-                Reinitialiser progression enfant (lecon)
-              </button>
-            </div>
-            <LessonEditor
-              activeLessonId={activeLesson?.id || ''}
-              onSelectLesson={(id) => {
-                setLessonId(id);
-                setCardIndex(0);
-              }}
-            />
-          </section>
-        ) : null}
+              <LessonEditorBeta
+                onSelectLesson={(id) => {
+                  if (!id) return;
+                  setLessonId(id);
+                  setCardIndex(0);
+                }}
+              />
+              <div className="parent-actions">
+                <button
+                  type="button"
+                  className="button secondary"
+                  onClick={resetChildLesson}
+                  disabled={!activeLesson || !firstChildProfile}
+                >
+                  Reinitialiser progression enfant (lecon)
+                </button>
+              </div>
+            </section>
+          ) : null}
 
           {activeModule === MODULES.PARENT_HOME && isParentMode ? (
             <section className="module-pane">
@@ -974,6 +1080,7 @@ export default function App() {
                 onPrev={goPrev}
                 onNext={goNext}
                 onOpenLessonPicker={() => setShowLessonPicker(true)}
+                onOpenLessonText={() => openLessonTextView(activeLesson?.id)}
                 onSwitchModule={setActiveModule}
                 onBack={goToLanding}
               />
@@ -993,6 +1100,7 @@ export default function App() {
                 onPrev={goPrev}
                 onNext={goNext}
                 onOpenLessonPicker={() => setShowLessonPicker(true)}
+                onOpenLessonText={() => openLessonTextView(activeLesson?.id)}
                 onSwitchModule={setActiveModule}
                 onBack={goToLanding}
               />
@@ -1011,6 +1119,7 @@ export default function App() {
                 onPrev={goPrev}
                 onNext={goNext}
                 onOpenLessonPicker={() => setShowLessonPicker(true)}
+                onOpenLessonText={() => openLessonTextView(activeLesson?.id)}
                 onSwitchModule={setActiveModule}
                 onSuccess={handleWritingSuccess}
               />
@@ -1085,7 +1194,7 @@ export default function App() {
           !showFtue &&
           !isParentMode &&
           !showDailyRituel &&
-          !showWritingOnlyPage &&
+          standaloneView === STANDALONE_VIEW.NONE &&
           showTutorial &&
           activeLesson?.id === lessonOptions[0]?.id
         }

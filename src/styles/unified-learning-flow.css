@@ -1,5 +1,7 @@
 .learning-flow-content {
   animation: learning-step-enter var(--wm-motion-normal) var(--wm-ease-soft);
+  width: min(760px, 100%);
+  margin: 0 auto;
 }
 
 .learning-switch-row {
@@ -20,9 +22,9 @@
   border-radius: var(--wm-radius-lg);
   background: var(--wm-color-surface);
   box-shadow: var(--wm-shadow-card);
-  padding: 16px;
+  padding: 18px;
   display: grid;
-  gap: 12px;
+  gap: 14px;
 }
 
 .learning-step-card h3 {
@@ -148,6 +150,10 @@
   background: #e8fff8;
 }
 
+.learning-step-card .writing-screen-embedded {
+  background: transparent;
+}
+
 @keyframes learning-step-enter {
   from {
     opacity: 0;
@@ -178,5 +184,9 @@
 
   .learning-translation-grid {
     grid-template-columns: 1fr;
+  }
+
+  .learning-flow-content {
+    width: 100%;
   }
 }

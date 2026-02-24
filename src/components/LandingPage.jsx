@@ -4,7 +4,7 @@ export default function LandingPage({
   profiles,
   onStartProfile,
   onOpenDailyRituel,
-  onOpenUnifiedFlow,
+  onOpenLessonTextUi,
   onOpenFlashcardsUi,
   onOpenAudioUi,
   onOpenWritingUi,
@@ -18,33 +18,33 @@ export default function LandingPage({
   const parentProfile = profiles.find((profile) => profile.role === 'parent') || profiles[0] || null;
   const kidActions = [
     {
-      id: 'new',
-      label: 'New',
-      subtitle: 'Learn a new word',
+      id: 'lesson',
+      label: 'Lecon',
+      subtitle: 'Lire le texte de lecon',
       iconSrc: '/assets/kid/new.png',
       fallback: '💡',
-      onClick: onOpenUnifiedFlow,
+      onClick: onOpenLessonTextUi,
     },
     {
       id: 'read',
-      label: 'Read',
-      subtitle: 'Practice Reading',
+      label: 'Lire',
+      subtitle: 'Pratique lecture',
       iconSrc: '/assets/kid/read.png',
       fallback: '📖',
       onClick: onOpenFlashcardsUi,
     },
     {
       id: 'speak',
-      label: 'Speak',
-      subtitle: 'Practice Speaking',
+      label: 'Parler',
+      subtitle: 'Pratique orale',
       iconSrc: '/assets/kid/speak.png',
       fallback: '🎤',
       onClick: onOpenAudioUi,
     },
     {
       id: 'write',
-      label: 'Write',
-      subtitle: 'Practice Writing',
+      label: 'Ecrire',
+      subtitle: 'Pratique ecriture',
       iconSrc: '/assets/kid/write.png',
       fallback: '✏️',
       onClick: onOpenWritingUi,
@@ -137,7 +137,7 @@ export default function LandingPage({
           {showAvatarEditor ? 'Fermer les parametres' : 'Parametres profils et avatars'}
         </button>
         <button type="button" className="landing-beta-link" onClick={onOpenLessonEditorBeta}>
-          Ouvrir Lesson Creator Beta
+          Ouvrir Lesson Creator Pro
         </button>
         <button type="button" className="landing-reset-link" onClick={onResetOnboarding}>
           Reset FTUE + Tutoriel

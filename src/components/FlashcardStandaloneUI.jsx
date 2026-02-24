@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import ModuleFrame from './ModuleFrame.jsx';
 import SuccessBurst from './SuccessBurst.jsx';
 import { useUiSounds } from '../hooks/useUiSounds.js';
+import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
 
 export default function FlashcardStandaloneUI({
   profile,
@@ -13,6 +14,7 @@ export default function FlashcardStandaloneUI({
   onPrev,
   onNext,
   onOpenLessonPicker,
+  onOpenLessonText,
   onSwitchModule,
   onBack,
 }) {
@@ -40,13 +42,14 @@ export default function FlashcardStandaloneUI({
       activeModule="flashcards"
       onBack={onBack}
       onOpenLessonPicker={onOpenLessonPicker}
+      onOpenLessonText={onOpenLessonText}
       onPrev={onPrev}
       onNext={onNext}
       onSwitchModule={onSwitchModule}
     >
       <div className="module-card-center wm-enter-fade">
         <div className="module-hanzi-large">{card.hanzi}</div>
-        <div className="module-pinyin-large">{card.pinyinEnabled === false ? '' : card.pinyin}</div>
+        <div className="module-pinyin-large">{card.pinyinEnabled === false ? '' : formatPinyinDisplay(card.pinyin || '')}</div>
 
         <div className="module-translation-panels">
           <article>
