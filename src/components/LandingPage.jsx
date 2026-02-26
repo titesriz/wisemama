@@ -2,7 +2,9 @@ import AvatarRenderer from './AvatarRenderer.jsx';
 
 export default function LandingPage({
   profiles,
+  activeLesson,
   onStartProfile,
+  onOpenLessonSelection,
   onOpenDailyRituel,
   onOpenLessonTextUi,
   onOpenFlashcardsUi,
@@ -78,6 +80,31 @@ export default function LandingPage({
               <h2 className="profile-greeting">
                 Bonjour {childProfile?.name || 'Enfant'}
               </h2>
+              <div className="landing-active-lesson">
+                {activeLesson ? (
+                  <>
+                    <span className="landing-active-lesson-title">📚 Lecon : {activeLesson.title}</span>
+                    <button
+                      type="button"
+                      className="button secondary button-sm"
+                      onClick={onOpenLessonSelection}
+                    >
+                      Changer
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <span className="landing-active-lesson-title">Aucune lecon disponible</span>
+                    <button
+                      type="button"
+                      className="button secondary button-sm"
+                      onClick={onOpenLessonEditorBeta}
+                    >
+                      Creer une lecon
+                    </button>
+                  </>
+                )}
+              </div>
             </div>
           </div>
           <div className="kid-module-grid" role="group" aria-label="Modules apprentissage enfant">

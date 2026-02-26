@@ -11,7 +11,6 @@ export default function ModuleFrame({
   totalCards = 0,
   activeModule = 'flashcards',
   onBack,
-  onOpenLessonPicker,
   onOpenLessonText,
   onPrev,
   onNext,
@@ -54,14 +53,7 @@ export default function ModuleFrame({
           </div>
         </div>
 
-        <button
-          type="button"
-          className="writing-lesson-selector ui-pressable"
-          onClick={() => {
-            sounds.playTap();
-            onOpenLessonPicker?.();
-          }}
-        >
+        <button type="button" className="writing-lesson-selector" disabled>
           {lessonTitle || 'Lecon'}
         </button>
         {onOpenLessonText ? (

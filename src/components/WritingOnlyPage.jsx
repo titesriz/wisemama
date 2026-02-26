@@ -1,13 +1,9 @@
-import { useMemo, useState } from 'react';
 import WritingPractice from './WritingPractice.jsx';
 
 export default function WritingOnlyPage({
   profile,
-  lessons,
-  lessonId,
-  onLessonChange,
+  activeLesson,
   cardIndex,
-  totalCards,
   onPrev,
   onNext,
   onBack,
@@ -15,12 +11,8 @@ export default function WritingOnlyPage({
   onSwitchModule,
   onSuccess,
 }) {
-  const [showLessonPicker, setShowLessonPicker] = useState(false);
-  const activeLesson = useMemo(
-    () => lessons.find((lesson) => lesson.id === lessonId) || null,
-    [lessonId, lessons],
-  );
   const currentCard = activeLesson?.cards?.[cardIndex] || null;
+  const totalCards = activeLesson?.cards?.length || 0;
 
   if (!activeLesson || !currentCard) {
     return (
@@ -35,33 +27,6 @@ export default function WritingOnlyPage({
 
   return (
     <section className="writing-only-page">
-      {showLessonPicker ? (
-        <div className="writing-only-lesson-pop">
-          <label htmlFor="writing-only-lesson-select">Choisir une lecon</label>
-          <select
-            id="writing-only-lesson-select"
-            value={lessonId}
-            onChange={(event) => {
-              onLessonChange(event.target.value);
-              setShowLessonPicker(false);
-            }}
-          >
-            {lessons.map((lesson) => (
-              <option key={lesson.id} value={lesson.id}>
-                {lesson.title}
-              </option>
-            ))}
-          </select>
-          <button
-            type="button"
-            className="button secondary button-sm"
-            onClick={() => setShowLessonPicker(false)}
-          >
-            Fermer
-          </button>
-        </div>
-      ) : null}
-
       <WritingPractice
         hanzi={currentCard.hanzi}
         card={currentCard}
@@ -71,7 +36,6 @@ export default function WritingOnlyPage({
         totalCards={totalCards}
         onPrev={onPrev}
         onNext={onNext}
-        onOpenLessonPicker={() => setShowLessonPicker(true)}
         onOpenLessonText={onOpenLessonText}
         onSwitchModule={onSwitchModule}
         onBack={onBack}

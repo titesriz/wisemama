@@ -11,7 +11,6 @@ export default function AudioStandaloneUI({
   cardKey,
   onPrev,
   onNext,
-  onOpenLessonPicker,
   onOpenLessonText,
   onSwitchModule,
   onBack,
@@ -29,7 +28,6 @@ export default function AudioStandaloneUI({
       totalCards={totalCards}
       activeModule="audio"
       onBack={onBack}
-      onOpenLessonPicker={onOpenLessonPicker}
       onOpenLessonText={onOpenLessonText}
       onPrev={onPrev}
       onNext={onNext}

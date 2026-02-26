@@ -14,7 +14,6 @@ export default function WritingPractice({
   totalCards = 0,
   onPrev,
   onNext,
-  onOpenLessonPicker,
   onOpenLessonText,
   onSwitchModule,
   onBack,
@@ -218,7 +217,7 @@ export default function WritingPractice({
             </div>
           </div>
 
-          <button type="button" className="writing-lesson-selector ui-pressable" onClick={onOpenLessonPicker}>
+          <button type="button" className="writing-lesson-selector" disabled>
             {lessonTitle || 'Lecon'}
           </button>
           {onOpenLessonText ? (

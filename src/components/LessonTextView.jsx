@@ -61,15 +61,12 @@ function speakText(text) {
 
 export default function LessonTextView({
   lesson,
-  lessons = [],
   profile,
   progressMap = {},
-  onChangeLesson,
   onPracticeCharacter,
   onBack,
   onStartPractice,
 }) {
-  const [showLessonPicker, setShowLessonPicker] = useState(false);
   const [showAllPinyin, setShowAllPinyin] = useState(false);
   const [showNewCharsOnly, setShowNewCharsOnly] = useState(false);
   const [playingSentenceIndex, setPlayingSentenceIndex] = useState(-1);
@@ -145,43 +142,10 @@ export default function LessonTextView({
               <span>{profile?.role === 'parent' ? 'Parent' : 'Kid'}</span>
             </div>
           </div>
-          <button
-            type="button"
-            className="writing-lesson-selector ui-pressable"
-            onClick={() => setShowLessonPicker((prev) => !prev)}
-          >
+          <button type="button" className="writing-lesson-selector" disabled>
             {lesson?.title || 'Lecon'}
           </button>
         </div>
-
-        {showLessonPicker ? (
-          <div className="writing-only-lesson-pop">
-            <label htmlFor="lesson-text-select">Choisir une lecon</label>
-            <select
-              id="lesson-text-select"
-              value={lesson?.id || ''}
-              onChange={(event) => {
-                onChangeLesson?.(event.target.value);
-                setShowAllPinyin(false);
-                setShowNewCharsOnly(false);
-                setShowLessonPicker(false);
-              }}
-            >
-              {lessons.map((item) => (
-                <option key={item.id} value={item.id}>
-                  {item.title}
-                </option>
-              ))}
-            </select>
-            <button
-              type="button"
-              className="button secondary button-sm"
-              onClick={() => setShowLessonPicker(false)}
-            >
-              Fermer
-            </button>
-          </div>
-        ) : null}
 
         <div className="lesson-text-content">
           <div className="lesson-text-controls">

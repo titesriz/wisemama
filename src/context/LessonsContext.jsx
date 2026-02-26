@@ -180,24 +180,50 @@ function defaultCard() {
 
 export function LessonsProvider({ children }) {
   const [lessons, setLessons] = useState(() => normalizeLessons(defaultLessons));
+  const [activeLessonId, setActiveLessonId] = useState(null);
 
   useEffect(() => {
     try {
       const stored = localStorage.getItem(lessonsStorageKey);
       if (!stored) {
-        setLessons(normalizeLessons(defaultLessons));
+        const normalized = normalizeLessons(defaultLessons);
+        setLessons(normalized);
+        setActiveLessonId(normalized[0]?.id || null);
         return;
       }
       const parsed = JSON.parse(stored);
       const storedLessons = Array.isArray(parsed) ? parsed : parsed?.lessons;
       const normalizedStored = normalizeLessons(storedLessons);
       const merged = mergeBundledLessons(normalizedStored, defaultLessons);
-      if (merged.length > 0) setLessons(merged);
-      else setLessons(normalizeLessons(defaultLessons));
+      if (merged.length > 0) {
+        setLessons(merged);
+        const storedActiveLessonId = typeof parsed?.activeLessonId === 'string' ? parsed.activeLessonId : '';
+        const validActiveLessonId = merged.some((lesson) => lesson.id === storedActiveLessonId)
+          ? storedActiveLessonId
+          : merged[0]?.id || null;
+        setActiveLessonId(validActiveLessonId);
+      } else {
+        const normalized = normalizeLessons(defaultLessons);
+        setLessons(normalized);
+        setActiveLessonId(normalized[0]?.id || null);
+      }
     } catch {
-      setLessons(normalizeLessons(defaultLessons));
+      const normalized = normalizeLessons(defaultLessons);
+      setLessons(normalized);
+      setActiveLessonId(normalized[0]?.id || null);
     }
   }, []);
+
+  useEffect(() => {
+    if (!lessons.length) {
+      if (activeLessonId !== null) setActiveLessonId(null);
+      return;
+    }
+    const isValid = lessons.some((lesson) => lesson.id === activeLessonId);
+    if (!isValid) {
+      setActiveLessonId(lessons[0].id);
+    }
+  }, [activeLessonId, lessons]);
 
   useEffect(() => {
     try {
@@ -206,12 +232,13 @@ export function LessonsProvider({ children }) {
         JSON.stringify({
           version: lessonsStorageVersion,
           lessons,
+          activeLessonId,
         }),
       );
     } catch {
       // no-op
     }
-  }, [lessons]);
+  }, [activeLessonId, lessons]);
 
   const addLesson = () => {
     const newLesson = {
@@ -223,6 +250,7 @@ export function LessonsProvider({ children }) {
       cards: [defaultCard()],
     };
     setLessons((prev) => [...prev, newLesson]);
+    setActiveLessonId(newLesson.id);
     return newLesson.id;
   };
 
@@ -314,6 +342,7 @@ export function LessonsProvider({ children }) {
     );
     lesson.cards = lesson.cards.map((card) => ({ ...card, lessonId: lesson.id }));
     setLessons((prev) => [...prev, lesson]);
+    setActiveLessonId(lesson.id);
     return lesson;
   };
 
@@ -354,6 +383,7 @@ export function LessonsProvider({ children }) {
       duplicated.cards = duplicated.cards.map((card) => ({ ...card, lessonId: duplicated.id }));
       return [...prev, duplicated];
     });
+    if (duplicated?.id) setActiveLessonId(duplicated.id);
     return duplicated;
   };
 
@@ -363,15 +393,36 @@ export function LessonsProvider({ children }) {
       throw new Error('invalid_lessons');
     }
     setLessons(normalized);
+    setActiveLessonId((prev) => (normalized.some((lesson) => lesson.id === prev) ? prev : normalized[0]?.id || null));
   };
 
   const resetLessonsToDefault = () => {
-    setLessons(normalizeLessons(defaultLessons));
+    const normalized = normalizeLessons(defaultLessons);
+    setLessons(normalized);
+    setActiveLessonId(normalized[0]?.id || null);
+  };
+
+  const setActiveLesson = (lessonId) => {
+    const nextId = typeof lessonId === 'string' ? lessonId : '';
+    if (!nextId) return;
+    if (!lessons.some((lesson) => lesson.id === nextId)) return;
+    setActiveLessonId(nextId);
+  };
+
+  const getActiveLesson = () => lessons.find((lesson) => lesson.id === activeLessonId) || null;
+
+  const ensureActiveLesson = () => {
+    if (activeLessonId && lessons.some((lesson) => lesson.id === activeLessonId)) return activeLessonId;
+    if (lessons.length === 0) return null;
+    const firstId = lessons[0].id;
+    setActiveLessonId(firstId);
+    return firstId;
   };
 
   const value = useMemo(
     () => ({
       lessons,
+      activeLessonId,
       addLesson,
       createLesson,
       removeLesson,
@@ -384,8 +435,11 @@ export function LessonsProvider({ children }) {
       updateCard,
       replaceLessons,
       resetLessonsToDefault,
+      setActiveLesson,
+      getActiveLesson,
+      ensureActiveLesson,
     }),
-    [lessons],
+    [activeLessonId, lessons],
   );
 
   return <LessonsContext.Provider value={value}>{children}</LessonsContext.Provider>;

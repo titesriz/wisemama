@@ -13,7 +13,6 @@ export default function FlashcardStandaloneUI({
   earnedStars = 0,
   onPrev,
   onNext,
-  onOpenLessonPicker,
   onOpenLessonText,
   onSwitchModule,
   onBack,
@@ -41,7 +40,6 @@ export default function FlashcardStandaloneUI({
       totalCards={totalCards}
       activeModule="flashcards"
       onBack={onBack}
-      onOpenLessonPicker={onOpenLessonPicker}
       onOpenLessonText={onOpenLessonText}
       onPrev={onPrev}
       onNext={onNext}
