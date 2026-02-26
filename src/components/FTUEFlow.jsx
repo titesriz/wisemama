@@ -1,7 +1,7 @@
-import { useMemo, useState } from 'react';
-
-const childChoices = ['🦊', '🐯', '🐰', '🐨', '🐶', '🐱'];
-const companionChoices = ['🐼', '🦉', '🐸', '🐻', '🦄', '🐧'];
+import { useEffect, useMemo, useState } from 'react';
+import AvatarEditor from './AvatarEditor.jsx';
+import AvatarRenderer from './AvatarRenderer.jsx';
+import { useAvatar } from '../context/AvatarContext.jsx';
 
 function StepTitle({ title, subtitle }) {
   return (
@@ -12,16 +12,49 @@ function StepTitle({ title, subtitle }) {
   );
 }
 
+function getDefaultKidAvatar() {
+  return {
+    style: 'big-smile',
+    seed: 'default-kid',
+  };
+}
+
+function getDefaultAdultAvatar() {
+  return {
+    style: 'big-smile',
+    seed: 'default-adult',
+  };
+}
+
 export default function FTUEFlow({
   initialName = '',
-  initialChildAvatar = childChoices[0],
-  initialCompanion = companionChoices[0],
+  initialChildAvatar = '🦊',
+  initialCompanion = '🐼',
   onComplete,
 }) {
+  const { profiles, setActiveProfileId } = useAvatar();
+
   const [step, setStep] = useState(0);
   const [name, setName] = useState(initialName);
-  const [childAvatar, setChildAvatar] = useState(initialChildAvatar);
-  const [companion, setCompanion] = useState(initialCompanion);
+
+  const childProfile = useMemo(
+    () => profiles.find((profile) => profile.role === 'child') || profiles[0] || null,
+    [profiles],
+  );
+
+  const parentProfile = useMemo(
+    () => profiles.find((profile) => profile.role === 'parent') || profiles[0] || null,
+    [profiles],
+  );
+
+  useEffect(() => {
+    if (step === 2 && childProfile?.id) {
+      setActiveProfileId(childProfile.id);
+    }
+    if (step === 3 && parentProfile?.id) {
+      setActiveProfileId(parentProfile.id);
+    }
+  }, [step, childProfile?.id, parentProfile?.id, setActiveProfileId]);
 
   const canContinue = useMemo(() => {
     if (step === 1) return name.trim().length > 0;
@@ -38,8 +71,10 @@ export default function FTUEFlow({
   const finish = () => {
     onComplete?.({
       childName: name.trim(),
-      childAvatarPlaceholder: childAvatar,
-      companionPlaceholder: companion,
+      childAvatarConfig: childProfile?.avatar || getDefaultKidAvatar(),
+      companionAvatarConfig: parentProfile?.avatar || getDefaultAdultAvatar(),
+      childAvatarPlaceholder: initialChildAvatar,
+      companionPlaceholder: initialCompanion,
     });
   };
 
@@ -81,19 +116,10 @@ export default function FTUEFlow({
             <div className="ftue-screen in">
               <StepTitle
                 title="Avatar enfant"
-                subtitle="Choisis ton avatar. C est toi."
+                subtitle="Utilise la meme interface complete pour creer l avatar enfant."
               />
-              <div className="ftue-choice-grid">
-                {childChoices.map((item) => (
-                  <button
-                    key={item}
-                    type="button"
-                    className={`ftue-choice ${childAvatar === item ? 'active' : ''}`}
-                    onClick={() => setChildAvatar(item)}
-                  >
-                    {item}
-                  </button>
-                ))}
+              <div className="ftue-avatar-editor-shell">
+                <AvatarEditor />
               </div>
             </div>
           ) : null}
@@ -102,19 +128,10 @@ export default function FTUEFlow({
             <div className="ftue-screen in">
               <StepTitle
                 title="Avatar referent"
-                subtitle="Choisis ton compagnon de progression."
+                subtitle="Utilise la meme interface complete pour creer l avatar adulte."
               />
-              <div className="ftue-choice-grid">
-                {companionChoices.map((item) => (
-                  <button
-                    key={item}
-                    type="button"
-                    className={`ftue-choice ${companion === item ? 'active' : ''}`}
-                    onClick={() => setCompanion(item)}
-                  >
-                    {item}
-                  </button>
-                ))}
+              <div className="ftue-avatar-editor-shell">
+                <AvatarEditor />
               </div>
             </div>
           ) : null}
@@ -127,13 +144,23 @@ export default function FTUEFlow({
               />
               <div className="ftue-duo">
                 <div className="ftue-duo-item">
-                  <span className="ftue-duo-avatar">{childAvatar}</span>
-                  <strong>{name.trim() || 'Enfant'}</strong>
+                  <AvatarRenderer
+                    config={childProfile?.avatar || getDefaultKidAvatar()}
+                    size={72}
+                    className="ftue-duo-avatar-render"
+                    alt="Avatar enfant FTUE"
+                  />
+                  <strong>{name.trim() || childProfile?.name || 'Enfant'}</strong>
                 </div>
                 <div className="ftue-duo-link">+</div>
                 <div className="ftue-duo-item">
-                  <span className="ftue-duo-avatar">{companion}</span>
-                  <strong>Referent</strong>
+                  <AvatarRenderer
+                    config={parentProfile?.avatar || getDefaultAdultAvatar()}
+                    size={72}
+                    className="ftue-duo-avatar-render"
+                    alt="Avatar adulte FTUE"
+                  />
+                  <strong>{parentProfile?.name || 'Referent'}</strong>
                 </div>
               </div>
             </div>
@@ -169,4 +196,3 @@ export default function FTUEFlow({
     </section>
   );
 }
-

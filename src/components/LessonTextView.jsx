@@ -5,9 +5,24 @@ import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
 function splitLessonSentences(sourceText = '') {
   const normalized = String(sourceText || '').trim();
   if (!normalized) return [];
-  const lines = normalized.split('\n').map((line) => line.trim()).filter(Boolean);
-  const out = [];
+  const lines = normalized.split(/\n+/).map((line) => line.trim()).filter(Boolean);
+  const merged = [];
+  let buffer = '';
+
   lines.forEach((line) => {
+    const compactLine = line.replace(/\s+/g, '');
+    if (!compactLine) return;
+    buffer += compactLine;
+    if (/[。！？!?]$/.test(compactLine)) {
+      merged.push(buffer);
+      buffer = '';
+    }
+  });
+
+  if (buffer) merged.push(buffer);
+
+  const out = [];
+  merged.forEach((line) => {
     const chunks = line.match(/[^。！？!?]+[。！？!?]?/g);
     if (!chunks) {
       out.push(line);
@@ -15,6 +30,7 @@ function splitLessonSentences(sourceText = '') {
     }
     chunks.map((item) => item.trim()).filter(Boolean).forEach((item) => out.push(item));
   });
+
   return out;
 }
 
@@ -273,7 +289,7 @@ export default function LessonTextView({
           </div>
 
           <section className="vocabulary-section lesson-text-vocab">
-            <h2>📚 Vocabulaire a apprendre ({vocabulary.length} caracteres)</h2>
+            <h2>📚 Caractères à apprendre ({vocabulary.length} caractères)</h2>
             <div className="vocabulary-grid lesson-text-vocab-list">
               {vocabulary.map((item) => (
                 <button

@@ -1,23 +1,29 @@
+import { useState } from 'react';
 import AvatarRenderer from './AvatarRenderer.jsx';
 
 export default function LandingPage({
   profiles,
+  lessons = [],
+  activeLessonId = '',
   activeLesson,
+  lessonProgressMap = {},
   onStartProfile,
-  onOpenLessonSelection,
+  onSelectLesson,
   onOpenDailyRituel,
   onOpenLessonTextUi,
   onOpenFlashcardsUi,
   onOpenAudioUi,
   onOpenWritingUi,
-  onOpenLessonEditorBeta,
-  onResetOnboarding,
-  showAvatarEditor,
-  onToggleAvatarEditor,
-  avatarEditorContent,
 }) {
+  const [showLessonPicker, setShowLessonPicker] = useState(false);
   const childProfile = profiles.find((profile) => profile.role === 'child') || profiles[0] || null;
   const parentProfile = profiles.find((profile) => profile.role === 'parent') || profiles[0] || null;
+  const lessonCompletedCount = activeLesson
+    ? activeLesson.cards.filter((card) => (lessonProgressMap[`${activeLesson.id}:${card.id}`] || 0) > 0).length
+    : 0;
+  const lessonStars = activeLesson
+    ? activeLesson.cards.reduce((sum, card) => sum + Number(lessonProgressMap[`${activeLesson.id}:${card.id}`] || 0), 0)
+    : 0;
   const kidActions = [
     {
       id: 'lesson',
@@ -80,33 +86,88 @@ export default function LandingPage({
               <h2 className="profile-greeting">
                 Bonjour {childProfile?.name || 'Enfant'}
               </h2>
-              <div className="landing-active-lesson">
-                {activeLesson ? (
-                  <>
-                    <span className="landing-active-lesson-title">📚 Lecon : {activeLesson.title}</span>
-                    <button
-                      type="button"
-                      className="button secondary button-sm"
-                      onClick={onOpenLessonSelection}
-                    >
-                      Changer
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <span className="landing-active-lesson-title">Aucune lecon disponible</span>
-                    <button
-                      type="button"
-                      className="button secondary button-sm"
-                      onClick={onOpenLessonEditorBeta}
-                    >
-                      Creer une lecon
-                    </button>
-                  </>
-                )}
-              </div>
             </div>
           </div>
+          {activeLesson ? (
+            <div className="current-lesson-card">
+              <div className="lesson-header">
+                {activeLesson.coverImage ? (
+                  <img src={activeLesson.coverImage} alt={activeLesson.title} className="lesson-cover" />
+                ) : (
+                  <div className="lesson-cover-placeholder">
+                    <span className="lesson-icon">📚</span>
+                  </div>
+                )}
+                <div className="lesson-info">
+                  <h3 className="lesson-title">{activeLesson.title}</h3>
+                  {activeLesson.description ? (
+                    <p className="lesson-description">{activeLesson.description}</p>
+                  ) : null}
+                </div>
+              </div>
+              <div className="lesson-stats">
+                <div className="stat">
+                  <span className="stat-icon">🃏</span>
+                  <span className="stat-value">{activeLesson.cards.length}</span>
+                  <span className="stat-label">cartes</span>
+                </div>
+                <div className="stat">
+                  <span className="stat-icon">⭐</span>
+                  <span className="stat-value">{lessonStars}</span>
+                  <span className="stat-label">etoiles</span>
+                </div>
+                <div className="stat">
+                  <span className="stat-icon">✓</span>
+                  <span className="stat-value">
+                    {lessonCompletedCount}/{activeLesson.cards.length}
+                  </span>
+                  <span className="stat-label">complete</span>
+                </div>
+              </div>
+              <div className="lesson-actions">
+                <button
+                  type="button"
+                  className="change-lesson-btn ui-pressable"
+                  onClick={() => setShowLessonPicker((prev) => !prev)}
+                >
+                  🔄 Changer de lecon
+                </button>
+              </div>
+              {showLessonPicker ? (
+                <div className="lesson-picker-dropdown">
+                  {lessons.map((lesson) => (
+                    <button
+                      key={lesson.id}
+                      type="button"
+                      className={`lesson-option ui-pressable ${lesson.id === activeLessonId ? 'active' : ''}`}
+                      onClick={() => {
+                        onSelectLesson?.(lesson.id);
+                        setShowLessonPicker(false);
+                      }}
+                    >
+                      <div className="option-preview">{lesson.coverImage ? <img src={lesson.coverImage} alt="" /> : <span>📘</span>}</div>
+                      <div className="option-info">
+                        <strong>{lesson.title}</strong>
+                        <span className="option-meta">{lesson.cards.length} cartes</span>
+                      </div>
+                      {lesson.id === activeLessonId ? <span className="checkmark">✓</span> : null}
+                    </button>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          ) : (
+            <div className="landing-active-lesson">
+              <span className="landing-active-lesson-title">Aucune lecon disponible</span>
+              <button
+                type="button"
+                className="button secondary button-sm"
+                onClick={() => parentProfile && onStartProfile(parentProfile.id)}
+              >
+                Gerer pour creer une lecon
+              </button>
+            </div>
+          )}
           <div className="kid-module-grid" role="group" aria-label="Modules apprentissage enfant">
             {kidActions.map((action) => (
               <button
@@ -159,34 +220,6 @@ export default function LandingPage({
             Gérer
           </button>
         </article>
-
-        <button type="button" className="settings-link" onClick={onToggleAvatarEditor}>
-          {showAvatarEditor ? 'Fermer les parametres' : 'Parametres profils et avatars'}
-        </button>
-        <button type="button" className="landing-beta-link" onClick={onOpenLessonEditorBeta}>
-          Ouvrir Lesson Creator Pro
-        </button>
-        <button type="button" className="landing-reset-link" onClick={onResetOnboarding}>
-          Reset FTUE + Tutoriel
-        </button>
-
-        {showAvatarEditor ? (
-          <div className="landing-avatar-editor-overlay">
-            <div className="landing-avatar-editor-head">
-              <strong>Profils et Avatars</strong>
-              <div className="landing-avatar-editor-actions">
-                <button type="button" className="button secondary button-sm" onClick={onOpenWritingUi}>
-                  Ouvrir UI ecriture
-                </button>
-                <button type="button" className="button secondary button-sm" onClick={onToggleAvatarEditor}>
-                  Fermer
-                </button>
-              </div>
-            </div>
-            <div className="landing-avatar-editor">{avatarEditorContent}</div>
-          </div>
-        ) : null}
-
       </div>
     </section>
   );

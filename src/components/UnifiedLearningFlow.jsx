@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import AudioPracticePanel from './AudioPracticePanel.jsx';
-import LayoutShell from './LayoutShell.jsx';
+import AvatarRenderer from './AvatarRenderer.jsx';
 import WritingPractice from './WritingPractice.jsx';
+import { useUiSounds } from '../hooks/useUiSounds.js';
 import '../styles/unified-learning-flow.css';
 import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
 
@@ -127,6 +128,7 @@ export default function UnifiedLearningFlow({
   onPrevCard,
   onNextCard,
   onBackHome,
+  onOpenLessonText,
   onWritingSuccess,
   onSwitchModule,
   initialStepIndex = 0,
@@ -135,9 +137,11 @@ export default function UnifiedLearningFlow({
   journeyPosition = 0,
   journeyTotal = 0,
 }) {
+  const sounds = useUiSounds();
   const [stepIndex, setStepIndex] = useState(initialStepIndex);
   const card = lesson?.cards?.[cardIndex] || null;
   const totalCards = lesson?.cards?.length || 0;
+  const audioRef = useRef(null);
 
   useEffect(() => {
     setStepIndex(0);
@@ -160,100 +164,127 @@ export default function UnifiedLearningFlow({
   const displayIndex = inJourney ? journeyPosition + 1 : cardIndex + 1;
   const displayTotal = inJourney ? journeyTotal : totalCards;
 
-  const headerLeft = (
-    <button type="button" className="wm-btn wm-btn-ghost" onClick={onBackHome}>
-      文
-    </button>
-  );
-
-  const headerRight = (
-    <div className="learning-header-avatar" aria-hidden="true">
-      {profile?.name ? profile.name.slice(0, 1).toUpperCase() : 'K'}
-    </div>
-  );
-
   if (!lesson || !card) {
-    return (
-      <LayoutShell
-        headerLeft={headerLeft}
-        headerTitle="Learning Flow"
-        headerSubtitle="Aucune carte disponible"
-        headerRight={headerRight}
-        actionRight={<button type="button" className="wm-btn wm-btn-primary" onClick={onBackHome}>Retour</button>}
-      >
-        <p className="empty">Aucune carte disponible pour cette lecon.</p>
-      </LayoutShell>
-    );
+    return <p className="empty">Aucune carte disponible pour cette lecon.</p>;
   }
 
+  const handlePrev = () => {
+    sounds.playTap();
+    if (canGoPrevStep) {
+      setStepIndex((prev) => prev - 1);
+      return;
+    }
+    if (inJourney && journeyPosition <= 0) {
+      onBackHome?.();
+      return;
+    }
+    onPrevCard?.();
+  };
+
+  const handleNext = () => {
+    sounds.playTap();
+    if (!isLastStep) {
+      setStepIndex((prev) => prev + 1);
+      return;
+    }
+    onNextCard?.();
+  };
+
+  const playCardAudio = () => {
+    sounds.playTap();
+    if (!audioRef.current) return;
+    audioRef.current.currentTime = 0;
+    audioRef.current.play();
+  };
+
   return (
-    <LayoutShell
-      headerLeft={headerLeft}
-      headerTitle={lesson.title}
-      headerSubtitle={inJourney ? `Caractere ${displayIndex}/${displayTotal}` : `Carte ${displayIndex}/${displayTotal}`}
-      headerRight={headerRight}
-      actionLeft={
+    <section className="writing-screen module-screen" aria-label="Parcours complet">
+      <div className="writing-top-banner">
+        <button type="button" className="writing-logo ui-pressable" onClick={onBackHome}>
+          文
+        </button>
+        <div className="writing-profile-section">
+          <div className="writing-avatar-tile">
+            <AvatarRenderer config={profile?.avatar} size={52} alt="Avatar profil" loading="eager" />
+          </div>
+          <div className="writing-profile-name">
+            <strong>{profile?.name || 'Profil'}</strong>
+            <span>{profile?.role === 'parent' ? 'Parent' : 'Kid'}</span>
+          </div>
+        </div>
+        <button type="button" className="writing-lesson-selector" disabled>
+          {lesson.title}
+        </button>
         <button
           type="button"
-          className="wm-btn wm-btn-secondary ui-pressable"
+          className="writing-read-lesson-btn ui-pressable"
           onClick={() => {
-            if (canGoPrevStep) {
-              setStepIndex((prev) => prev - 1);
-              return;
-            }
-            onPrevCard?.();
+            sounds.playTap();
+            onOpenLessonText?.();
           }}
+          disabled={!onOpenLessonText}
         >
-          Retour
+          Lire la lecon
         </button>
-      }
-      actionCenter={<StepHeader index={stepIndex} />}
-      actionRight={
-        <button
-          type="button"
-          className="wm-btn wm-btn-primary ui-pressable"
-          onClick={() => {
-            if (!isLastStep) {
-              setStepIndex((prev) => prev + 1);
-              return;
-            }
-            onNextCard?.();
-          }}
-          data-coach="continue"
-        >
-          {isLastStep ? (inJourney ? 'Caractere suivant' : 'Carte suivante') : 'Continuer'}
-        </button>
-      }
-    >
-      <div className="learning-switch-row">
-        <button type="button" className="writing-mode-btn ui-pressable active" disabled>
-          Parcours
-        </button>
-        <button type="button" className="writing-mode-btn ui-pressable" onClick={() => onSwitchModule?.('flashcards')}>
-          Mot
-        </button>
-        <button type="button" className="writing-mode-btn ui-pressable" onClick={() => onSwitchModule?.('audio')}>
+      </div>
+
+      <div className="writing-card-info">
+        <div className="writing-pinyin">{card.pinyinEnabled === false ? '' : formatPinyinDisplay(card.pinyin || '')}</div>
+        <div className="writing-char-small">{Array.from(card.hanzi || '')[0] || ''}</div>
+        <div className="writing-translation">
+          <span>{card.french || ''}</span>
+          <small>{card.english || ''}</small>
+        </div>
+        <button type="button" className="writing-sound-btn ui-pressable" onClick={playCardAudio} disabled={!card.audioUrl}>
           Son
         </button>
-        <button type="button" className="writing-mode-btn ui-pressable" onClick={() => onSwitchModule?.('writing')}>
-          Ecriture
+        {card.audioUrl ? <audio ref={audioRef} src={card.audioUrl} preload="auto" /> : null}
+      </div>
+
+      <div className="module-content-area">
+        <div className="learning-switch-row">
+          <StepHeader index={stepIndex} />
+        </div>
+        <div className="learning-flow-content" key={`${card.id}-${stepId}`}>
+          {stepId === 'see' ? <SeeStep card={card} /> : null}
+          {stepId === 'listen' ? <ListenStep card={card} /> : null}
+          {stepId === 'speak' ? <SpeakStep cardKey={cardKey} /> : null}
+          {stepId === 'write' ? (
+            <WriteStep
+              card={card}
+              profile={profile}
+              lessonTitle={lesson.title}
+              cardIndex={cardIndex}
+              totalCards={totalCards}
+              onWritingSuccess={onWritingSuccess}
+            />
+          ) : null}
+        </div>
+      </div>
+
+      <div className="writing-bottom-nav">
+        <button type="button" className="writing-nav-btn ui-pressable" onClick={handlePrev}>
+          ◄ Prec
+        </button>
+        <div className="writing-counter">
+          {displayIndex}/{displayTotal}
+        </div>
+        <button type="button" className="writing-nav-btn ui-pressable" onClick={handleNext}>
+          Suiv ►
         </button>
       </div>
-      <div className="learning-flow-content" key={`${card.id}-${stepId}`}>
-        {stepId === 'see' ? <SeeStep card={card} /> : null}
-        {stepId === 'listen' ? <ListenStep card={card} /> : null}
-        {stepId === 'speak' ? <SpeakStep cardKey={cardKey} /> : null}
-        {stepId === 'write' ? (
-          <WriteStep
-            card={card}
-            profile={profile}
-            lessonTitle={lesson.title}
-            cardIndex={cardIndex}
-            totalCards={totalCards}
-            onWritingSuccess={onWritingSuccess}
-          />
-        ) : null}
+
+      <div className="writing-mode-selector">
+        <button type="button" className="writing-mode-btn ui-pressable active" disabled>
+          Lire
+        </button>
+        <button type="button" className="writing-mode-btn ui-pressable" onClick={() => onSwitchModule?.('audio')}>
+          Parler
+        </button>
+        <button type="button" className="writing-mode-btn ui-pressable" onClick={() => onSwitchModule?.('writing')}>
+          Ecrire
+        </button>
       </div>
-    </LayoutShell>
+    </section>
   );
 }

@@ -104,7 +104,6 @@ export default function App() {
   const [lessonJourneyQueue, setLessonJourneyQueue] = useState([]);
   const [lessonJourneyPosition, setLessonJourneyPosition] = useState(0);
   const [unifiedFlowStepIndex, setUnifiedFlowStepIndex] = useState(0);
-  const [showLandingAvatarEditor, setShowLandingAvatarEditor] = useState(false);
   const [activeModule, setActiveModule] = useState(MODULES.LESSONS);
   const [showAvatarEditorModal, setShowAvatarEditorModal] = useState(false);
   const [showProfilePicker, setShowProfilePicker] = useState(false);
@@ -315,7 +314,6 @@ export default function App() {
   };
 
   const goToLanding = () => {
-    setShowLandingAvatarEditor(false);
     setShowDailyRituel(false);
     setStandaloneView(STANDALONE_VIEW.NONE);
     setEnteredApp(false);
@@ -330,7 +328,6 @@ export default function App() {
     else switchToChild();
 
     setActiveModule(getDefaultModuleByRole(profile.role));
-    setShowLandingAvatarEditor(false);
     setShowDailyRituel(false);
     setEnteredApp(true);
   };
@@ -351,7 +348,6 @@ export default function App() {
     if (!childProfile) return;
     setActiveProfileId(childProfile.id);
     switchToChild();
-    setShowLandingAvatarEditor(false);
     setStandaloneView(STANDALONE_VIEW.NONE);
     setShowDailyRituel(true);
     setEnteredApp(true);
@@ -360,7 +356,6 @@ export default function App() {
   const openStandaloneModule = (viewId, moduleId) => {
     setStandaloneView(viewId);
     setShowDailyRituel(false);
-    setShowLandingAvatarEditor(false);
     setEnteredApp(false);
     setReturnToLessonText(false);
     setLessonJourneyQueue([]);
@@ -420,7 +415,6 @@ export default function App() {
     if (!childProfile) return;
     setActiveProfileId(childProfile.id);
     switchToChild();
-    setShowLandingAvatarEditor(false);
     setShowDailyRituel(false);
     setStandaloneView(STANDALONE_VIEW.NONE);
     setEnteredApp(false);
@@ -479,7 +473,6 @@ export default function App() {
   const openLessonSelectionFromLanding = () => {
     setStandaloneView(STANDALONE_VIEW.LESSON_SELECT);
     setShowDailyRituel(false);
-    setShowLandingAvatarEditor(false);
     setEnteredApp(false);
   };
 
@@ -507,34 +500,41 @@ export default function App() {
     openStandaloneModule(STANDALONE_VIEW.WRITING, MODULES.WRITING);
   };
 
-  const openLessonEditorBetaFromLanding = () => {
-    setStandaloneView(STANDALONE_VIEW.LESSON_BETA);
-    setShowDailyRituel(false);
-    setShowLandingAvatarEditor(false);
-    setEnteredApp(false);
-  };
-
   const createAndSwitchProfile = () => {
     const newId = createProfile({ role: 'child', name: 'Nouveau profil' });
     switchProfile(newId);
   };
 
-  const handleFtueComplete = ({ childName, childAvatarPlaceholder, companionPlaceholder }) => {
+  const handleFtueComplete = ({
+    childName,
+    childAvatarConfig,
+    companionAvatarConfig,
+    childAvatarPlaceholder,
+    companionPlaceholder,
+  }) => {
     const child = profiles.find((profile) => profile.role === 'child');
     const parent = profiles.find((profile) => profile.role === 'parent');
     if (child) {
       setProfileName(child.id, childName || 'Enfant');
       setActiveProfileId(child.id);
-      setProfileAvatar(child.id, {
-        ...child.avatar,
-        seed: `child-${(childName || 'kid').toLowerCase().replace(/\s+/g, '-')}`,
-      });
+      setProfileAvatar(
+        child.id,
+        childAvatarConfig || {
+          ...child.avatar,
+          style: 'big-smile',
+          seed: `child-${(childName || 'default-kid').toLowerCase().replace(/\s+/g, '-')}`,
+        },
+      );
     }
     if (parent) {
-      setProfileAvatar(parent.id, {
-        ...parent.avatar,
-        seed: `parent-${companionPlaceholder || 'guide'}`,
-      });
+      setProfileAvatar(
+        parent.id,
+        companionAvatarConfig || {
+          ...parent.avatar,
+          style: 'adventurer',
+          seed: `parent-${companionPlaceholder || 'default-adult'}`,
+        },
+      );
     }
     const nextFtue = saveFtueState({
       completed: true,
@@ -589,7 +589,6 @@ export default function App() {
     setTutorialStep(0);
     setShowTutorial(true);
 
-    setShowLandingAvatarEditor(false);
     setShowDailyRituel(false);
     setStandaloneView(STANDALONE_VIEW.NONE);
     setEnteredApp(false);
@@ -752,6 +751,7 @@ export default function App() {
           journeyMode={returnToLessonText}
           journeyPosition={lessonJourneyPosition}
           journeyTotal={lessonJourneyQueue.length || totalCards}
+          onOpenLessonText={() => activeLesson?.id && openLessonTextView(activeLesson.id)}
           onBackHome={() => {
             if (returnToLessonText && lessonTextLessonId) {
               setStandaloneView(STANDALONE_VIEW.NONE);
@@ -822,18 +822,19 @@ export default function App() {
     return (
       <LandingPage
         profiles={profiles}
+        lessons={lessonOptions}
+        activeLessonId={activeLessonId || ''}
         activeLesson={activeLesson}
+        lessonProgressMap={childMap}
         onOpenDailyRituel={openDailyRituelFromLanding}
-        onOpenLessonSelection={openLessonSelectionFromLanding}
+        onSelectLesson={(id) => {
+          setActiveLesson(id);
+          setCardIndex(0);
+        }}
         onOpenLessonTextUi={openLessonTextFromLanding}
         onOpenFlashcardsUi={openFlashcardsFromLanding}
         onOpenAudioUi={openAudioFromLanding}
         onOpenWritingUi={openWritingFromLanding}
-        onOpenLessonEditorBeta={openLessonEditorBetaFromLanding}
-        onResetOnboarding={handleResetFtueAndTutorial}
-        showAvatarEditor={showLandingAvatarEditor}
-        onToggleAvatarEditor={() => setShowLandingAvatarEditor((prev) => !prev)}
-        avatarEditorContent={<AvatarEditor />}
         onStartProfile={startWithProfile}
       />
     );
@@ -861,12 +862,20 @@ export default function App() {
         <ParentModeDashboard
           lessons={lessonOptions}
           profiles={profiles}
+          onSelectLesson={(id) => {
+            if (!id) return;
+            setActiveLesson(id);
+            setCardIndex(0);
+          }}
           onBack={goToLanding}
           onSave={() => setShowSettingsPanel(false)}
           onCreateLesson={createLesson}
           onUpdateLesson={updateLesson}
           onDeleteLesson={removeLesson}
           onDuplicateLesson={duplicateLesson}
+          onResetFtueAndTutorial={handleResetFtueAndTutorial}
+          onRestartTutorial={restartTutorial}
+          onResetAllData={handleResetAllData}
         />
       </section>
     );
@@ -1073,12 +1082,20 @@ export default function App() {
               <ParentModeDashboard
                 lessons={lessonOptions}
                 profiles={profiles}
+                onSelectLesson={(id) => {
+                  if (!id) return;
+                  setActiveLesson(id);
+                  setCardIndex(0);
+                }}
                 onBack={goToLanding}
                 onSave={() => setShowSettingsPanel(false)}
                 onCreateLesson={createLesson}
                 onUpdateLesson={updateLesson}
                 onDeleteLesson={removeLesson}
                 onDuplicateLesson={duplicateLesson}
+                onResetFtueAndTutorial={handleResetFtueAndTutorial}
+                onRestartTutorial={restartTutorial}
+                onResetAllData={handleResetAllData}
               />
             </section>
           ) : null}
@@ -1148,6 +1165,7 @@ export default function App() {
                 onStepIndexChange={setUnifiedFlowStepIndex}
                 onPrevCard={goPrev}
                 onNextCard={goNext}
+                onOpenLessonText={() => activeLesson?.id && openLessonTextView(activeLesson.id)}
                 onBackHome={goToLanding}
                 onSwitchModule={setActiveModule}
                 onWritingSuccess={handleWritingSuccess}

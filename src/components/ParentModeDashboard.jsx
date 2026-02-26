@@ -1,17 +1,18 @@
 import { useMemo, useState } from 'react';
 import AvatarRenderer from './AvatarRenderer.jsx';
 import LayoutShell from './LayoutShell.jsx';
-import LessonEditor from './LessonEditor.jsx';
+import LessonEditorBeta from './LessonEditorBeta.jsx';
 import OcrLessonBuilder from './OcrLessonBuilder.jsx';
 import SuccessBurst from './SuccessBurst.jsx';
 import TokenButton from './ui/TokenButton.jsx';
+import AvatarEditor from './AvatarEditor.jsx';
 import { buildWiseMamaLocalExportPayload, downloadJsonFile } from '../lib/localDataExport.js';
 import '../styles/parent-mode.css';
 
 const MODULE_IDS = {
   DASHBOARD: 'dashboard',
   LESSONS: 'lessons',
-  LESSONS_EDITOR: 'lessons-editor',
+  LESSONS_CREATOR: 'lessons-creator',
   AUDIO: 'audio',
   PROGRESS: 'progress',
   FAMILY: 'family',
@@ -20,7 +21,7 @@ const MODULE_IDS = {
 
 const MODULE_LABELS = {
   [MODULE_IDS.LESSONS]: 'Lecons',
-  [MODULE_IDS.LESSONS_EDITOR]: 'Editeur Lecons',
+  [MODULE_IDS.LESSONS_CREATOR]: 'Lesson Creator Pro',
   [MODULE_IDS.AUDIO]: 'Gestion Audio',
   [MODULE_IDS.PROGRESS]: 'Progres Enfant',
   [MODULE_IDS.FAMILY]: 'Contenu Famille',
@@ -436,13 +437,34 @@ function FamilyModule({ profiles = [] }) {
   );
 }
 
-function SettingsModule() {
+function SettingsModule({
+  profiles = [],
+  onResetFtueAndTutorial,
+  onRestartTutorial,
+  onResetAllData,
+}) {
   return (
     <section className="parent-panel" aria-label="Parametres">
       <div className="parent-panel-head">
         <h3>Parametres</h3>
       </div>
       <p className="parent-panel-subtitle">Configuration app, securite, sauvegarde et maintenance.</p>
+
+      <div className="parent-list">
+        {profiles.map((profile) => (
+          <article key={profile.id} className="parent-list-item">
+            <div>
+              <strong>{profile.name}</strong>
+              <p>Role: {profile.role === 'parent' ? 'Parent' : 'Kid'}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <section className="parent-settings-avatar">
+        <h4>Profils et avatars</h4>
+        <AvatarEditor />
+      </section>
 
       <div className="parent-settings-list">
         <label className="parent-toggle">
@@ -461,7 +483,11 @@ function SettingsModule() {
 
       <div className="parent-danger-zone">
         <h4>Zone sensible</h4>
-        <TokenButton className="parent-danger-btn">Reinitialiser donnees</TokenButton>
+        <div className="parent-list-actions">
+          <TokenButton variant="secondary" onClick={onResetFtueAndTutorial}>Reset FTUE + Tutoriel</TokenButton>
+          <TokenButton variant="secondary" onClick={onRestartTutorial}>Relancer tutoriel</TokenButton>
+          <TokenButton className="parent-danger-btn" onClick={onResetAllData}>Reinitialiser donnees</TokenButton>
+        </div>
       </div>
     </section>
   );
@@ -470,6 +496,7 @@ function SettingsModule() {
 function DashboardHub({ onOpenModule }) {
   const cards = [
     { id: MODULE_IDS.LESSONS, title: 'Lecons', subtitle: 'Creer et editer le contenu', badge: '5 packs' },
+    { id: MODULE_IDS.LESSONS_CREATOR, title: 'Lesson Creator Pro', subtitle: 'Texte source et generation cartes', badge: 'Pro' },
     { id: MODULE_IDS.AUDIO, title: 'Gestion Audio', subtitle: 'Enregistrement bulk des modeles', badge: 'Bulk' },
     { id: MODULE_IDS.PROGRESS, title: 'Progres Enfant', subtitle: 'Analytics et visualisation', badge: 'Live' },
     { id: MODULE_IDS.FAMILY, title: 'Contenu Famille', subtitle: 'Bibliotheque partagee', badge: 'Partage' },
@@ -506,10 +533,14 @@ export default function ParentModeDashboard({
   profiles = [],
   onBack,
   onSave,
+  onSelectLesson,
   onCreateLesson,
   onUpdateLesson,
   onDeleteLesson,
   onDuplicateLesson,
+  onResetFtueAndTutorial,
+  onRestartTutorial,
+  onResetAllData,
 }) {
   const [activeModule, setActiveModule] = useState(MODULE_IDS.DASHBOARD);
   const [editorContext, setEditorContext] = useState({ lessonId: '', cardId: '' });
@@ -555,25 +586,26 @@ export default function ParentModeDashboard({
           onDuplicateLesson={onDuplicateLesson}
           onOpenFullEditor={(lessonId, cardId) => {
             setEditorContext({ lessonId, cardId });
-            setActiveModule(MODULE_IDS.LESSONS_EDITOR);
+            setActiveModule(MODULE_IDS.LESSONS_CREATOR);
           }}
         />
       );
     }
-    if (activeModule === MODULE_IDS.LESSONS_EDITOR) {
+    if (activeModule === MODULE_IDS.LESSONS_CREATOR) {
       return (
-        <section className="parent-panel" aria-label="Editeur complet">
+        <section className="parent-panel" aria-label="Lesson Creator Pro">
           <div className="parent-panel-head">
-            <h3>Editeur complet des lecons</h3>
+            <h3>Lesson Creator Pro</h3>
             <TokenButton variant="secondary" className="ui-pressable" onClick={() => setActiveModule(MODULE_IDS.LESSONS)}>
               Retour CRUD
             </TokenButton>
           </div>
-          <p className="parent-panel-subtitle">Contexte charge: lecon + carte preselectionnees.</p>
-          <LessonEditor
-            activeLessonId={editorContext.lessonId}
-            activeCardId={editorContext.cardId}
-            onSelectLesson={(lessonId) => setEditorContext((prev) => ({ ...prev, lessonId }))}
+          <p className="parent-panel-subtitle">Edition texte source, generation cartes, enrichissement et correction.</p>
+          <LessonEditorBeta
+            onSelectLesson={(lessonId) => {
+              setEditorContext((prev) => ({ ...prev, lessonId }));
+              onSelectLesson?.(lessonId);
+            }}
           />
         </section>
       );
@@ -581,7 +613,14 @@ export default function ParentModeDashboard({
     if (activeModule === MODULE_IDS.AUDIO) return <AudioModule lessons={lessons} />;
     if (activeModule === MODULE_IDS.PROGRESS) return <ProgressModule />;
     if (activeModule === MODULE_IDS.FAMILY) return <FamilyModule profiles={profiles} />;
-    return <SettingsModule />;
+    return (
+      <SettingsModule
+        profiles={profiles}
+        onResetFtueAndTutorial={onResetFtueAndTutorial}
+        onRestartTutorial={onRestartTutorial}
+        onResetAllData={onResetAllData}
+      />
+    );
   };
 
   return (
@@ -592,7 +631,7 @@ export default function ParentModeDashboard({
             <button type="button" className="home-hanzi-btn ui-pressable" onClick={onBack} aria-label="Retour Landing">
               文
             </button>
-          ) : activeModule === MODULE_IDS.LESSONS_EDITOR ? (
+          ) : activeModule === MODULE_IDS.LESSONS_CREATOR ? (
             <TokenButton variant="ghost" onClick={() => setActiveModule(MODULE_IDS.LESSONS)}>Back to Lecons</TokenButton>
           ) : (
             <TokenButton variant="ghost" onClick={() => setActiveModule(MODULE_IDS.DASHBOARD)}>Back to Dashboard</TokenButton>
