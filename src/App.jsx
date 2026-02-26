@@ -377,6 +377,12 @@ export default function App() {
 
   const openLessonTextView = (targetLessonId) => {
     if (!targetLessonId) return;
+    setShowDailyRituel(false);
+    setReturnToLessonText(false);
+    setLessonJourneyQueue([]);
+    setLessonJourneyPosition(0);
+    setStandaloneView(STANDALONE_VIEW.NONE);
+    setEnteredApp(false);
     setActiveLesson(targetLessonId);
     setLessonTextLessonId(targetLessonId);
     const nextPath = `/lesson/${encodeURIComponent(targetLessonId)}/text`;
@@ -609,8 +615,15 @@ export default function App() {
       return (
         <LessonTextView
           lesson={lessonForText}
+          lessons={lessonOptions}
           profile={activeProfile}
           progressMap={currentStarsMap}
+          onSelectLesson={(lessonId) => {
+            if (!lessonId) return;
+            setActiveLesson(lessonId);
+            setCardIndex(0);
+            openLessonTextView(lessonId);
+          }}
           onPracticeCharacter={openCharacterPracticeFromLessonText}
           onBack={closeLessonTextView}
           onStartPractice={startJourneyFromLessonText}
@@ -624,6 +637,7 @@ export default function App() {
       <WritingOnlyPage
         profile={activeProfile}
         activeLesson={activeLesson}
+        lessons={lessonOptions}
         cardIndex={cardIndex}
         onPrev={goPrev}
         onNext={goNext}
@@ -631,7 +645,15 @@ export default function App() {
           setStandaloneView(STANDALONE_VIEW.NONE);
           setEnteredApp(false);
         }}
-        onOpenLessonText={() => activeLesson?.id && openLessonTextView(activeLesson.id)}
+        onOpenLessonText={(lessonId) => {
+          const targetId = lessonId || activeLesson?.id;
+          if (targetId) openLessonTextView(targetId);
+        }}
+        onSelectLesson={(lessonId) => {
+          if (!lessonId) return;
+          setActiveLesson(lessonId);
+          setCardIndex(0);
+        }}
         onSwitchModule={(module) => {
           if (module === MODULES.FLASHCARDS) {
             openStandaloneModule(STANDALONE_VIEW.FLASHCARDS, MODULES.FLASHCARDS);
@@ -657,6 +679,7 @@ export default function App() {
       <FlashcardOnlyPage
         profile={activeProfile}
         activeLesson={activeLesson}
+        lessons={lessonOptions}
         cardIndex={cardIndex}
         earnedStars={earnedStars}
         onPrev={goPrev}
@@ -665,7 +688,15 @@ export default function App() {
           setStandaloneView(STANDALONE_VIEW.NONE);
           setEnteredApp(false);
         }}
-        onOpenLessonText={() => activeLesson?.id && openLessonTextView(activeLesson.id)}
+        onOpenLessonText={(lessonId) => {
+          const targetId = lessonId || activeLesson?.id;
+          if (targetId) openLessonTextView(targetId);
+        }}
+        onSelectLesson={(lessonId) => {
+          if (!lessonId) return;
+          setActiveLesson(lessonId);
+          setCardIndex(0);
+        }}
         onSwitchModule={(module) => {
           if (module === MODULES.WRITING) {
             openStandaloneModule(STANDALONE_VIEW.WRITING, MODULES.WRITING);
@@ -691,6 +722,7 @@ export default function App() {
         profile={activeProfile}
         mode={mode}
         activeLesson={activeLesson}
+        lessons={lessonOptions}
         cardIndex={cardIndex}
         cardKey={currentCardKey}
         onPrev={goPrev}
@@ -699,7 +731,15 @@ export default function App() {
           setStandaloneView(STANDALONE_VIEW.NONE);
           setEnteredApp(false);
         }}
-        onOpenLessonText={() => activeLesson?.id && openLessonTextView(activeLesson.id)}
+        onOpenLessonText={(lessonId) => {
+          const targetId = lessonId || activeLesson?.id;
+          if (targetId) openLessonTextView(targetId);
+        }}
+        onSelectLesson={(lessonId) => {
+          if (!lessonId) return;
+          setActiveLesson(lessonId);
+          setCardIndex(0);
+        }}
         onSwitchModule={(module) => {
           if (module === MODULES.WRITING) {
             openStandaloneModule(STANDALONE_VIEW.WRITING, MODULES.WRITING);
@@ -743,6 +783,7 @@ export default function App() {
         <UnifiedLearningFlow
           profile={activeProfile}
           lesson={activeLesson}
+          lessons={lessonOptions}
           cardIndex={cardIndex}
           initialStepIndex={unifiedFlowStepIndex}
           onStepIndexChange={setUnifiedFlowStepIndex}
@@ -751,7 +792,15 @@ export default function App() {
           journeyMode={returnToLessonText}
           journeyPosition={lessonJourneyPosition}
           journeyTotal={lessonJourneyQueue.length || totalCards}
-          onOpenLessonText={() => activeLesson?.id && openLessonTextView(activeLesson.id)}
+          onOpenLessonText={(lessonId) => {
+            const targetId = lessonId || activeLesson?.id;
+            if (targetId) openLessonTextView(targetId);
+          }}
+          onSelectLesson={(lessonId) => {
+            if (!lessonId) return;
+            setActiveLesson(lessonId);
+            setCardIndex(0);
+          }}
           onBackHome={() => {
             if (returnToLessonText && lessonTextLessonId) {
               setStandaloneView(STANDALONE_VIEW.NONE);
@@ -1104,14 +1153,24 @@ export default function App() {
             <section className="module-pane">
               <FlashcardStandaloneUI
                 profile={activeProfile}
+                lessonId={activeLesson?.id}
                 lessonTitle={activeLesson?.title}
+                lessons={lessonOptions}
                 card={currentCard}
                 cardIndex={cardIndex}
                 totalCards={totalCards}
                 earnedStars={earnedStars}
                 onPrev={goPrev}
                 onNext={goNext}
-                onOpenLessonText={() => activeLesson?.id && openLessonTextView(activeLesson.id)}
+                onOpenLessonText={(lessonId) => {
+                  const targetId = lessonId || activeLesson?.id;
+                  if (targetId) openLessonTextView(targetId);
+                }}
+                onSelectLesson={(lessonId) => {
+                  if (!lessonId) return;
+                  setActiveLesson(lessonId);
+                  setCardIndex(0);
+                }}
                 onSwitchModule={setActiveModule}
                 onBack={goToLanding}
               />
@@ -1122,7 +1181,9 @@ export default function App() {
             <section className="module-pane">
               <AudioStandaloneUI
                 profile={activeProfile}
+                lessonId={activeLesson?.id}
                 lessonTitle={activeLesson?.title}
+                lessons={lessonOptions}
                 card={currentCard}
                 cardIndex={cardIndex}
                 totalCards={totalCards}
@@ -1130,7 +1191,15 @@ export default function App() {
                 cardKey={currentCardKey}
                 onPrev={goPrev}
                 onNext={goNext}
-                onOpenLessonText={() => activeLesson?.id && openLessonTextView(activeLesson.id)}
+                onOpenLessonText={(lessonId) => {
+                  const targetId = lessonId || activeLesson?.id;
+                  if (targetId) openLessonTextView(targetId);
+                }}
+                onSelectLesson={(lessonId) => {
+                  if (!lessonId) return;
+                  setActiveLesson(lessonId);
+                  setCardIndex(0);
+                }}
                 onSwitchModule={setActiveModule}
                 onBack={goToLanding}
               />
@@ -1142,13 +1211,23 @@ export default function App() {
               <WritingPractice
                 hanzi={currentCard.hanzi}
                 card={currentCard}
+                lessonId={activeLesson?.id}
                 lessonTitle={activeLesson?.title}
+                lessons={lessonOptions}
                 profile={activeProfile}
                 cardIndex={cardIndex}
                 totalCards={totalCards}
                 onPrev={goPrev}
                 onNext={goNext}
-                onOpenLessonText={() => activeLesson?.id && openLessonTextView(activeLesson.id)}
+                onOpenLessonText={(lessonId) => {
+                  const targetId = lessonId || activeLesson?.id;
+                  if (targetId) openLessonTextView(targetId);
+                }}
+                onSelectLesson={(lessonId) => {
+                  if (!lessonId) return;
+                  setActiveLesson(lessonId);
+                  setCardIndex(0);
+                }}
                 onSwitchModule={setActiveModule}
                 onSuccess={handleWritingSuccess}
               />
@@ -1160,12 +1239,21 @@ export default function App() {
               <UnifiedLearningFlow
                 profile={activeProfile}
                 lesson={activeLesson}
+                lessons={lessonOptions}
                 cardIndex={cardIndex}
                 initialStepIndex={unifiedFlowStepIndex}
                 onStepIndexChange={setUnifiedFlowStepIndex}
                 onPrevCard={goPrev}
                 onNextCard={goNext}
-                onOpenLessonText={() => activeLesson?.id && openLessonTextView(activeLesson.id)}
+                onOpenLessonText={(lessonId) => {
+                  const targetId = lessonId || activeLesson?.id;
+                  if (targetId) openLessonTextView(targetId);
+                }}
+                onSelectLesson={(lessonId) => {
+                  if (!lessonId) return;
+                  setActiveLesson(lessonId);
+                  setCardIndex(0);
+                }}
                 onBackHome={goToLanding}
                 onSwitchModule={setActiveModule}
                 onWritingSuccess={handleWritingSuccess}

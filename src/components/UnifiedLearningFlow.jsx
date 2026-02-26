@@ -124,11 +124,13 @@ function WriteStep({
 export default function UnifiedLearningFlow({
   profile,
   lesson,
+  lessons = [],
   cardIndex = 0,
   onPrevCard,
   onNextCard,
   onBackHome,
   onOpenLessonText,
+  onSelectLesson,
   onWritingSuccess,
   onSwitchModule,
   initialStepIndex = 0,
@@ -139,9 +141,11 @@ export default function UnifiedLearningFlow({
 }) {
   const sounds = useUiSounds();
   const [stepIndex, setStepIndex] = useState(initialStepIndex);
+  const [showLessonPicker, setShowLessonPicker] = useState(false);
   const card = lesson?.cards?.[cardIndex] || null;
   const totalCards = lesson?.cards?.length || 0;
   const audioRef = useRef(null);
+  const availableLessons = lessons.length ? lessons : (lesson ? [lesson] : []);
 
   useEffect(() => {
     setStepIndex(0);
@@ -197,6 +201,13 @@ export default function UnifiedLearningFlow({
     audioRef.current.play();
   };
 
+  const openLessonFromPicker = (lessonId) => {
+    if (!lessonId) return;
+    sounds.playTap();
+    setShowLessonPicker(false);
+    onSelectLesson?.(lessonId);
+  };
+
   return (
     <section className="writing-screen module-screen" aria-label="Parcours complet">
       <div className="writing-top-banner">
@@ -212,7 +223,11 @@ export default function UnifiedLearningFlow({
             <span>{profile?.role === 'parent' ? 'Parent' : 'Kid'}</span>
           </div>
         </div>
-        <button type="button" className="writing-lesson-selector" disabled>
+        <button
+          type="button"
+          className="writing-lesson-selector ui-pressable"
+          onClick={() => setShowLessonPicker((prev) => !prev)}
+        >
           {lesson.title}
         </button>
         <button
@@ -220,13 +235,29 @@ export default function UnifiedLearningFlow({
           className="writing-read-lesson-btn ui-pressable"
           onClick={() => {
             sounds.playTap();
-            onOpenLessonText?.();
+            onOpenLessonText?.(lesson.id);
           }}
           disabled={!onOpenLessonText}
         >
           Lire la lecon
         </button>
       </div>
+
+      {showLessonPicker ? (
+        <div className="writing-lesson-picker">
+          {availableLessons.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              className={`writing-lesson-picker-item ui-pressable ${item.id === lesson.id ? 'active' : ''}`}
+              onClick={() => openLessonFromPicker(item.id)}
+            >
+              <strong>{item.title || 'Lecon'}</strong>
+              <span>{item.cards?.length || 0} cartes</span>
+            </button>
+          ))}
+        </div>
+      ) : null}
 
       <div className="writing-card-info">
         <div className="writing-pinyin">{card.pinyinEnabled === false ? '' : formatPinyinDisplay(card.pinyin || '')}</div>

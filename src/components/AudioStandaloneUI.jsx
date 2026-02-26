@@ -3,7 +3,9 @@ import AudioPracticePanel from './AudioPracticePanel.jsx';
 
 export default function AudioStandaloneUI({
   profile,
+  lessonId,
   lessonTitle,
+  lessons = [],
   card,
   cardIndex,
   totalCards,
@@ -12,6 +14,7 @@ export default function AudioStandaloneUI({
   onPrev,
   onNext,
   onOpenLessonText,
+  onSelectLesson,
   onSwitchModule,
   onBack,
 }) {
@@ -22,13 +25,16 @@ export default function AudioStandaloneUI({
   return (
     <ModuleFrame
       profile={profile}
+      lessonId={lessonId}
       lessonTitle={lessonTitle}
+      lessons={lessons}
       card={card}
       cardIndex={cardIndex}
       totalCards={totalCards}
       activeModule="audio"
       onBack={onBack}
       onOpenLessonText={onOpenLessonText}
+      onSelectLesson={onSelectLesson}
       onPrev={onPrev}
       onNext={onNext}
       onSwitchModule={onSwitchModule}

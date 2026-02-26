@@ -3,11 +3,13 @@ import WritingPractice from './WritingPractice.jsx';
 export default function WritingOnlyPage({
   profile,
   activeLesson,
+  lessons = [],
   cardIndex,
   onPrev,
   onNext,
   onBack,
   onOpenLessonText,
+  onSelectLesson,
   onSwitchModule,
   onSuccess,
 }) {
@@ -30,13 +32,16 @@ export default function WritingOnlyPage({
       <WritingPractice
         hanzi={currentCard.hanzi}
         card={currentCard}
+        lessonId={activeLesson.id}
         lessonTitle={activeLesson.title}
+        lessons={lessons}
         profile={profile}
         cardIndex={cardIndex}
         totalCards={totalCards}
         onPrev={onPrev}
         onNext={onNext}
         onOpenLessonText={onOpenLessonText}
+        onSelectLesson={onSelectLesson}
         onSwitchModule={onSwitchModule}
         onBack={onBack}
         standalone

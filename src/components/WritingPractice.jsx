@@ -8,13 +8,16 @@ import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
 export default function WritingPractice({
   hanzi,
   card,
+  lessonId = '',
   lessonTitle,
+  lessons = [],
   profile,
   cardIndex = 0,
   totalCards = 0,
   onPrev,
   onNext,
   onOpenLessonText,
+  onSelectLesson,
   onSwitchModule,
   onBack,
   standalone = false,
@@ -30,6 +33,7 @@ export default function WritingPractice({
   const [renderKey, setRenderKey] = useState(0);
   const [quizActive, setQuizActive] = useState(false);
   const [showModel, setShowModel] = useState(true);
+  const [showLessonPicker, setShowLessonPicker] = useState(false);
   const [feedback, setFeedback] = useState('Trace directement sur le modele gris.');
   const [successTick, setSuccessTick] = useState(0);
   const [canvasSize, setCanvasSize] = useState(500);
@@ -191,6 +195,7 @@ export default function WritingPractice({
   };
 
   const profileLabel = profile?.role === 'parent' ? 'Parent' : 'Kid';
+  const availableLessons = lessons.length ? lessons : [{ id: lessonId || 'current', title: lessonTitle || 'Lecon', cards: [] }];
 
   return (
     <section className={`writing-screen ${embedded ? 'writing-screen-embedded' : ''}`} aria-label="Atelier d ecriture tablette">
@@ -217,14 +222,48 @@ export default function WritingPractice({
             </div>
           </div>
 
-          <button type="button" className="writing-lesson-selector" disabled>
+          <button
+            type="button"
+            className="writing-lesson-selector ui-pressable"
+            onClick={() => {
+              sounds.playTap();
+              setShowLessonPicker((prev) => !prev);
+            }}
+          >
             {lessonTitle || 'Lecon'}
           </button>
           {onOpenLessonText ? (
-            <button type="button" className="writing-read-lesson-btn ui-pressable" onClick={onOpenLessonText}>
+            <button
+              type="button"
+              className="writing-read-lesson-btn ui-pressable"
+              onClick={() => {
+                sounds.playTap();
+                onOpenLessonText(lessonId);
+              }}
+            >
               Lire la lecon
             </button>
           ) : null}
+        </div>
+      ) : null}
+
+      {!embedded && showLessonPicker ? (
+        <div className="writing-lesson-picker">
+          {availableLessons.map((lesson) => (
+            <button
+              key={lesson.id}
+              type="button"
+              className={`writing-lesson-picker-item ui-pressable ${lesson.id === lessonId ? 'active' : ''}`}
+              onClick={() => {
+                sounds.playTap();
+                setShowLessonPicker(false);
+                onSelectLesson?.(lesson.id);
+              }}
+            >
+              <strong>{lesson.title || 'Lecon'}</strong>
+              <span>{lesson.cards?.length || 0} cartes</span>
+            </button>
+          ))}
         </div>
       ) : null}
 

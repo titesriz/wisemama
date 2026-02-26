@@ -97,8 +97,10 @@ function getCharacterStatus(lessonId, card, progressMap) {
 
 export default function LessonTextView({
   lesson,
+  lessons = [],
   profile,
   progressMap = {},
+  onSelectLesson,
   onPracticeCharacter,
   onBack,
   onStartPractice,
@@ -106,6 +108,8 @@ export default function LessonTextView({
   const [pinyinMode, setPinyinMode] = useState('all');
   const [manuallyToggledIds, setManuallyToggledIds] = useState(() => new Set());
   const [playingSentenceIndex, setPlayingSentenceIndex] = useState(-1);
+  const [showLessonPicker, setShowLessonPicker] = useState(false);
+  const availableLessons = lessons.length ? lessons : (lesson ? [lesson] : []);
 
   useEffect(() => {
     if (pinyinMode !== 'none') {
@@ -203,10 +207,33 @@ export default function LessonTextView({
               <span>{profile?.role === 'parent' ? 'Parent' : 'Kid'}</span>
             </div>
           </div>
-          <button type="button" className="writing-lesson-selector" disabled>
+          <button
+            type="button"
+            className="writing-lesson-selector ui-pressable"
+            onClick={() => setShowLessonPicker((prev) => !prev)}
+          >
             {lesson?.title || 'Lecon'}
           </button>
         </div>
+
+        {showLessonPicker ? (
+          <div className="writing-lesson-picker">
+            {availableLessons.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                className={`writing-lesson-picker-item ui-pressable ${item.id === lesson?.id ? 'active' : ''}`}
+                onClick={() => {
+                  setShowLessonPicker(false);
+                  onSelectLesson?.(item.id);
+                }}
+              >
+                <strong>{item.title || 'Lecon'}</strong>
+                <span>{item.cards?.length || 0} cartes</span>
+              </button>
+            ))}
+          </div>
+        ) : null}
 
         <div className="lesson-text-content">
           <div className="lesson-header">

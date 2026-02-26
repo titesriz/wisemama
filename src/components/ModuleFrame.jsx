@@ -1,4 +1,4 @@
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import AvatarRenderer from './AvatarRenderer.jsx';
 import { useUiSounds } from '../hooks/useUiSounds.js';
 import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
@@ -6,12 +6,15 @@ import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
 export default function ModuleFrame({
   profile,
   lessonTitle,
+  lessonId = '',
+  lessons = [],
   card,
   cardIndex = 0,
   totalCards = 0,
   activeModule = 'flashcards',
   onBack,
   onOpenLessonText,
+  onSelectLesson,
   onPrev,
   onNext,
   onSwitchModule,
@@ -19,8 +22,10 @@ export default function ModuleFrame({
 }) {
   const sounds = useUiSounds();
   const audioRef = useRef(null);
+  const [showLessonPicker, setShowLessonPicker] = useState(false);
   const targetChar = useMemo(() => Array.from(card?.hanzi || '')[0] || '', [card?.hanzi]);
   const profileLabel = profile?.role === 'parent' ? 'Parent' : 'Kid';
+  const availableLessons = lessons.length ? lessons : [{ id: lessonId || 'current', title: lessonTitle || 'Lecon', cards: [] }];
 
   const playCardAudio = () => {
     sounds.playTap();
@@ -53,7 +58,14 @@ export default function ModuleFrame({
           </div>
         </div>
 
-        <button type="button" className="writing-lesson-selector" disabled>
+        <button
+          type="button"
+          className="writing-lesson-selector ui-pressable"
+          onClick={() => {
+            sounds.playTap();
+            setShowLessonPicker((prev) => !prev);
+          }}
+        >
           {lessonTitle || 'Lecon'}
         </button>
         {onOpenLessonText ? (
@@ -62,13 +74,33 @@ export default function ModuleFrame({
             className="writing-read-lesson-btn ui-pressable"
             onClick={() => {
               sounds.playTap();
-              onOpenLessonText();
+              onOpenLessonText(lessonId);
             }}
           >
             Lire la lecon
           </button>
         ) : null}
       </div>
+
+      {showLessonPicker ? (
+        <div className="writing-lesson-picker">
+          {availableLessons.map((lesson) => (
+            <button
+              key={lesson.id}
+              type="button"
+              className={`writing-lesson-picker-item ui-pressable ${lesson.id === lessonId ? 'active' : ''}`}
+              onClick={() => {
+                sounds.playTap();
+                setShowLessonPicker(false);
+                onSelectLesson?.(lesson.id);
+              }}
+            >
+              <strong>{lesson.title || 'Lecon'}</strong>
+              <span>{lesson.cards?.length || 0} cartes</span>
+            </button>
+          ))}
+        </div>
+      ) : null}
 
       <div className="writing-card-info">
         <div className="writing-pinyin">{card?.pinyinEnabled === false ? '' : formatPinyinDisplay(card?.pinyin || '')}</div>

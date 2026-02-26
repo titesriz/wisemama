@@ -3,12 +3,14 @@ import FlashcardStandaloneUI from './FlashcardStandaloneUI.jsx';
 export default function FlashcardOnlyPage({
   profile,
   activeLesson,
+  lessons = [],
   cardIndex,
   earnedStars,
   onPrev,
   onNext,
   onBack,
   onOpenLessonText,
+  onSelectLesson,
   onSwitchModule,
 }) {
   const currentCard = activeLesson?.cards?.[cardIndex] || null;
@@ -29,7 +31,9 @@ export default function FlashcardOnlyPage({
     <section className="writing-only-page">
       <FlashcardStandaloneUI
         profile={profile}
+        lessonId={activeLesson.id}
         lessonTitle={activeLesson.title}
+        lessons={lessons}
         card={currentCard}
         cardIndex={cardIndex}
         totalCards={totalCards}
@@ -37,6 +41,7 @@ export default function FlashcardOnlyPage({
         onPrev={onPrev}
         onNext={onNext}
         onOpenLessonText={onOpenLessonText}
+        onSelectLesson={onSelectLesson}
         onSwitchModule={onSwitchModule}
         onBack={onBack}
       />

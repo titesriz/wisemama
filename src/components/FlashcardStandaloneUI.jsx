@@ -6,7 +6,9 @@ import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
 
 export default function FlashcardStandaloneUI({
   profile,
+  lessonId,
   lessonTitle,
+  lessons = [],
   card,
   cardIndex,
   totalCards,
@@ -14,6 +16,7 @@ export default function FlashcardStandaloneUI({
   onPrev,
   onNext,
   onOpenLessonText,
+  onSelectLesson,
   onSwitchModule,
   onBack,
 }) {
@@ -34,13 +37,16 @@ export default function FlashcardStandaloneUI({
   return (
     <ModuleFrame
       profile={profile}
+      lessonId={lessonId}
       lessonTitle={lessonTitle}
+      lessons={lessons}
       card={card}
       cardIndex={cardIndex}
       totalCards={totalCards}
       activeModule="flashcards"
       onBack={onBack}
       onOpenLessonText={onOpenLessonText}
+      onSelectLesson={onSelectLesson}
       onPrev={onPrev}
       onNext={onNext}
       onSwitchModule={onSwitchModule}

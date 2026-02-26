@@ -4,12 +4,14 @@ export default function AudioOnlyPage({
   profile,
   mode,
   activeLesson,
+  lessons = [],
   cardIndex,
   cardKey,
   onPrev,
   onNext,
   onBack,
   onOpenLessonText,
+  onSelectLesson,
   onSwitchModule,
 }) {
   const currentCard = activeLesson?.cards?.[cardIndex] || null;
@@ -30,7 +32,9 @@ export default function AudioOnlyPage({
     <section className="writing-only-page">
       <AudioStandaloneUI
         profile={profile}
+        lessonId={activeLesson.id}
         lessonTitle={activeLesson.title}
+        lessons={lessons}
         card={currentCard}
         cardIndex={cardIndex}
         totalCards={totalCards}
@@ -39,6 +43,7 @@ export default function AudioOnlyPage({
         onPrev={onPrev}
         onNext={onNext}
         onOpenLessonText={onOpenLessonText}
+        onSelectLesson={onSelectLesson}
         onSwitchModule={onSwitchModule}
         onBack={onBack}
       />
