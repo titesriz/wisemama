@@ -135,10 +135,13 @@ function extractUniqueCharacters(rawText = '') {
 
 export function normalizeLessonInput(rawText = '') {
   return String(rawText || '')
-    .replace(/[，、；：]/g, ' ')
+    .replace(/\r\n?/g, '\n')
     .replace(/[。！？]/g, '\n')
-    .replace(/\s+/g, ' ')
-    .replace(/\n\s+/g, '\n')
+    .replace(/[，、；：]/g, ' ')
+    .split('\n')
+    .map((line) => line.replace(/\s+/g, ' ').trim())
+    .join('\n')
+    .replace(/\n{3,}/g, '\n\n')
     .trim();
 }
 

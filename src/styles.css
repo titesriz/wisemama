@@ -3161,3 +3161,178 @@ body {
     width: 100%;
   }
 }
+
+/* Lesson Creator Pro (3 panels) */
+.lesson-pro-page {
+  gap: 12px;
+}
+
+.lesson-pro-header {
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.lesson-pro-header-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.lesson-pro-columns {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr 0.9fr;
+  gap: 12px;
+  min-height: 0;
+  align-items: start;
+}
+
+.lesson-pro-col {
+  min-height: 0;
+  max-height: calc(100dvh - 170px);
+  overflow: auto;
+}
+
+.source-col .source-textarea {
+  min-height: 260px;
+  white-space: pre-wrap;
+  font-family: 'SF Mono', Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  line-height: 1.6;
+}
+
+.text-stats {
+  color: var(--text-soft);
+  font-size: 13px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+.lesson-preview-surface {
+  border: 1px dashed #cfd6e3;
+  border-radius: 12px;
+  background: #fbfcff;
+  padding: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.lesson-preview-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0;
+}
+
+.lesson-preview-phrase {
+  display: inline-flex;
+  gap: 2px;
+  flex-wrap: wrap;
+  line-height: 1.9;
+}
+
+.lesson-preview-char {
+  position: relative;
+  min-width: 24px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 0 2px;
+}
+
+.lesson-preview-char.new {
+  color: #ff6b6b;
+  font-weight: 800;
+}
+
+.lesson-preview-char.learned {
+  color: #2d3436;
+}
+
+.lesson-preview-char.muted {
+  opacity: 0.35;
+}
+
+.lesson-preview-pinyin {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -15px;
+  font-size: 11px;
+  color: #636e72;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.lesson-preview-vocab h4 {
+  margin: 0;
+}
+
+.lesson-preview-vocab-list {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.lesson-text-vocab-chip.active {
+  border-color: #ff6b6b;
+  background: #fff2ee;
+}
+
+.preview-note {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-soft);
+  font-weight: 700;
+}
+
+.card-edit-focus {
+  gap: 10px;
+}
+
+.card-edit-display {
+  border: 1px solid var(--pill-border);
+  border-radius: 14px;
+  padding: 8px 10px;
+  background: #fff;
+}
+
+.input-inline-action {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.input-inline-action input {
+  flex: 1;
+}
+
+.lesson-field-inline {
+  min-width: 170px;
+}
+
+.ocr-progress-line {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-soft);
+  margin-top: 2px;
+}
+
+.ocr-mode-chip {
+  border: 1px solid var(--pill-border);
+  border-radius: var(--wm-radius-pill);
+  background: #f7f9fc;
+  color: var(--text-soft);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 10px;
+}
+
+@media (max-width: 1280px) {
+  .lesson-pro-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .lesson-pro-col {
+    max-height: none;
+  }
+}

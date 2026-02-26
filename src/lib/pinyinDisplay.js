@@ -1,10 +1,10 @@
 const TONE_MARKS = {
-  a: ['a', 'a', 'á', 'ǎ', 'à'],
-  e: ['e', 'e', 'é', 'ě', 'è'],
-  i: ['i', 'i', 'í', 'ǐ', 'ì'],
-  o: ['o', 'o', 'ó', 'ǒ', 'ò'],
-  u: ['u', 'u', 'ú', 'ǔ', 'ù'],
-  ü: ['ü', 'ü', 'ǘ', 'ǚ', 'ǜ'],
+  a: ['a', 'ā', 'á', 'ǎ', 'à'],
+  e: ['e', 'ē', 'é', 'ě', 'è'],
+  i: ['i', 'ī', 'í', 'ǐ', 'ì'],
+  o: ['o', 'ō', 'ó', 'ǒ', 'ò'],
+  u: ['u', 'ū', 'ú', 'ǔ', 'ù'],
+  ü: ['ü', 'ǖ', 'ǘ', 'ǚ', 'ǜ'],
 };
 
 function hasToneMark(text = '') {
@@ -48,7 +48,7 @@ function applyToneToSyllable(syllableRaw, toneNumberRaw) {
   const markSet = TONE_MARKS[target.toLowerCase()];
   if (!markSet) return syllable;
 
-  let marked = markSet[toneNumber - 1];
+  let marked = markSet[toneNumber];
   if (target === target.toUpperCase()) marked = marked.toUpperCase();
   chars[targetIndex] = marked;
   return chars.join('');
@@ -59,4 +59,3 @@ export function formatPinyinDisplay(value = '') {
   if (hasToneMark(value)) return value;
   return value.replace(/([A-Za-züÜvV:]+)([1-5])/g, (_, syllable, tone) => applyToneToSyllable(syllable, tone));
 }
-
