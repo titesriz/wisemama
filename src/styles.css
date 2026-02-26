@@ -2354,6 +2354,232 @@ body {
   gap: 18px;
 }
 
+.lesson-header h1 {
+  margin: 0;
+  font-size: 28px;
+  color: #2d3436;
+}
+
+.lesson-header p {
+  margin: 4px 0 0;
+  color: #636e72;
+  font-weight: 600;
+}
+
+.text-source-section h2,
+.vocabulary-section h2 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  color: #2d3436;
+}
+
+.text-display {
+  background: #f9fafb;
+  border: 2px solid #e0e0e0;
+  border-radius: 16px;
+  padding: 18px;
+}
+
+.sentence-line {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.sentence-line:last-child {
+  margin-bottom: 0;
+}
+
+.sentence-audio {
+  justify-self: end;
+  align-self: start;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: none;
+  background: #4ecdc4;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.sentence-audio.playing {
+  background: #44b3aa;
+}
+
+.sentence-content {
+  flex: 1;
+  font-size: 30px;
+  line-height: 1.2;
+  font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  row-gap: 14px;
+  column-gap: 2px;
+}
+
+.char {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 72px;
+  padding: 4px 8px 2px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.char:hover {
+  background: rgba(78, 205, 196, 0.12);
+}
+
+.char.new {
+  color: #2d3436;
+  font-weight: 700;
+}
+
+.char.learning {
+  color: #b98900;
+  font-weight: 700;
+}
+
+.char.learned {
+  color: #00b894;
+  font-weight: 700;
+}
+
+.punctuation {
+  color: #2d3436;
+  min-height: 72px;
+  display: inline-flex;
+  align-items: flex-end;
+  padding: 4px 4px 2px;
+}
+
+.char-pinyin-slot {
+  min-height: 24px;
+  font-size: 17px;
+  line-height: 1.1;
+  font-weight: 700;
+  color: #636e72;
+  white-space: pre;
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-bottom: 3px;
+}
+
+.char-hanzi {
+  line-height: 1;
+}
+
+.pinyin-controls {
+  margin-top: -2px;
+}
+
+.pinyin-toggle {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 12px;
+  background: white;
+  border-radius: 12px;
+  border: 2px solid #e0e0e0;
+}
+
+.toggle-option {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.toggle-option input {
+  display: none;
+}
+
+.radio-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #2d3436;
+}
+
+.toggle-option:has(input:checked) {
+  background: #4ecdc4;
+}
+
+.toggle-option:has(input:checked) .radio-label {
+  color: #fff;
+}
+
+.vocabulary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+  gap: 10px;
+}
+
+.vocab-card {
+  position: relative;
+  aspect-ratio: 1;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  background: #fff;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.vocab-card.new {
+  border-color: #ff6b6b;
+  background: #fff5f5;
+}
+
+.vocab-card.learning {
+  border-color: #ffe66d;
+  background: #fffef5;
+}
+
+.vocab-card.learned {
+  border-color: #00b894;
+  background: #f0fff8;
+}
+
+.vocab-hanzi {
+  font-size: 32px;
+  line-height: 1;
+  color: #2d3436;
+  font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+
+.vocab-status {
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.vocab-pinyin-hint {
+  position: absolute;
+  bottom: -20px;
+  font-size: 11px;
+  color: #636e72;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.vocab-card:hover .vocab-pinyin-hint {
+  opacity: 1;
+}
+
 .lesson-text-controls {
   display: flex;
   flex-wrap: wrap;

@@ -101,6 +101,8 @@ export default function App() {
   const [standaloneView, setStandaloneView] = useState(STANDALONE_VIEW.NONE);
   const [lessonTextLessonId, setLessonTextLessonId] = useState(() => getLessonTextRouteId(window.location.pathname));
   const [returnToLessonText, setReturnToLessonText] = useState(false);
+  const [lessonJourneyQueue, setLessonJourneyQueue] = useState([]);
+  const [lessonJourneyPosition, setLessonJourneyPosition] = useState(0);
   const [unifiedFlowStepIndex, setUnifiedFlowStepIndex] = useState(0);
   const [showLandingAvatarEditor, setShowLandingAvatarEditor] = useState(false);
   const [activeModule, setActiveModule] = useState(MODULES.LESSONS);
@@ -360,6 +362,9 @@ export default function App() {
     setShowDailyRituel(false);
     setShowLandingAvatarEditor(false);
     setEnteredApp(false);
+    setReturnToLessonText(false);
+    setLessonJourneyQueue([]);
+    setLessonJourneyPosition(0);
     setActiveModule(moduleId);
   };
 
@@ -388,6 +393,8 @@ export default function App() {
   const closeLessonTextView = () => {
     setLessonTextLessonId('');
     setReturnToLessonText(false);
+    setLessonJourneyQueue([]);
+    setLessonJourneyPosition(0);
     if (getLessonTextRouteId(window.location.pathname)) {
       window.history.pushState({}, '', '/');
     }
@@ -396,10 +403,13 @@ export default function App() {
   const openCharacterPracticeFromLessonText = (char) => {
     const targetLesson = lessonOptions.find((lesson) => lesson.id === lessonTextLessonId);
     if (!targetLesson || !char) return;
+    const queue = targetLesson.cards.map((_, idx) => idx);
     const targetCardIndex = targetLesson.cards.findIndex((card) => (card?.hanzi || '').includes(char));
     if (targetCardIndex < 0) return;
     setActiveLesson(targetLesson.id);
     setCardIndex(targetCardIndex);
+    setLessonJourneyQueue(queue);
+    setLessonJourneyPosition(targetCardIndex);
     setUnifiedFlowStepIndex(0);
     setReturnToLessonText(true);
     setStandaloneView(STANDALONE_VIEW.LEARNING_FLOW);
@@ -418,6 +428,52 @@ export default function App() {
     if (targetLessonId) {
       openLessonTextView(targetLessonId);
     }
+  };
+
+  const startJourneyFromLessonText = (char) => {
+    const targetLesson = lessonOptions.find((lesson) => lesson.id === lessonTextLessonId);
+    if (!targetLesson) return;
+    const queue = targetLesson.cards.map((_, idx) => idx);
+    let startIndex = 0;
+    if (char) {
+      const idx = targetLesson.cards.findIndex((card) => (card?.hanzi || '').includes(char));
+      if (idx >= 0) startIndex = idx;
+    }
+    setActiveLesson(targetLesson.id);
+    setCardIndex(startIndex);
+    setLessonJourneyQueue(queue);
+    setLessonJourneyPosition(startIndex);
+    setUnifiedFlowStepIndex(0);
+    setReturnToLessonText(true);
+    setStandaloneView(STANDALONE_VIEW.LEARNING_FLOW);
+  };
+
+  const goNextInLessonJourney = () => {
+    if (!lessonJourneyQueue.length) {
+      goNext();
+      return;
+    }
+    const nextPos = lessonJourneyPosition + 1;
+    if (nextPos >= lessonJourneyQueue.length) {
+      setStandaloneView(STANDALONE_VIEW.NONE);
+      setReturnToLessonText(false);
+      return;
+    }
+    const nextCardIndex = lessonJourneyQueue[nextPos];
+    setLessonJourneyPosition(nextPos);
+    setCardIndex(nextCardIndex);
+  };
+
+  const goPrevInLessonJourney = () => {
+    if (!lessonJourneyQueue.length) {
+      goPrev();
+      return;
+    }
+    const prevPos = lessonJourneyPosition - 1;
+    if (prevPos < 0) return;
+    const prevCardIndex = lessonJourneyQueue[prevPos];
+    setLessonJourneyPosition(prevPos);
+    setCardIndex(prevCardIndex);
   };
 
   const openLessonSelectionFromLanding = () => {
@@ -558,7 +614,7 @@ export default function App() {
           progressMap={currentStarsMap}
           onPracticeCharacter={openCharacterPracticeFromLessonText}
           onBack={closeLessonTextView}
-          onStartPractice={closeLessonTextView}
+          onStartPractice={startJourneyFromLessonText}
         />
       );
     }
@@ -691,12 +747,14 @@ export default function App() {
           cardIndex={cardIndex}
           initialStepIndex={unifiedFlowStepIndex}
           onStepIndexChange={setUnifiedFlowStepIndex}
-          onPrevCard={goPrev}
-          onNextCard={goNext}
+          onPrevCard={returnToLessonText ? goPrevInLessonJourney : goPrev}
+          onNextCard={returnToLessonText ? goNextInLessonJourney : goNext}
+          journeyMode={returnToLessonText}
+          journeyPosition={lessonJourneyPosition}
+          journeyTotal={lessonJourneyQueue.length || totalCards}
           onBackHome={() => {
             if (returnToLessonText && lessonTextLessonId) {
               setStandaloneView(STANDALONE_VIEW.NONE);
-              setReturnToLessonText(false);
               return;
             }
             setStandaloneView(STANDALONE_VIEW.NONE);

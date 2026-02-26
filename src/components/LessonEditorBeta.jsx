@@ -313,6 +313,24 @@ export default function LessonEditorBeta({ onBack, onSelectLesson }) {
     else sounds.playError();
   };
 
+  const resetDraftLesson = () => {
+    setSelectedLessonId('');
+    setTitle('');
+    setDescription('');
+    setSourceText('');
+    setRawOcrText('');
+    setCardsDraft([]);
+    setCurrentCardIndex(0);
+    setStatus('');
+    setStatusType('success');
+    onSelectLesson?.('');
+  };
+
+  useEffect(() => {
+    resetDraftLesson();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const loadLesson = (lessonId) => {
     setSelectedLessonId(lessonId);
     onSelectLesson?.(lessonId);
@@ -883,6 +901,9 @@ export default function LessonEditorBeta({ onBack, onSelectLesson }) {
               </div>
 
               <div className="lesson-beta-actions">
+                <button type="button" className="button ui-pressable" onClick={saveLesson}>
+                  💾 Sauvegarder fiche
+                </button>
                 <button type="button" className="button secondary ui-pressable" onClick={duplicateCurrentCard}>📋 Dupliquer fiche</button>
                 <button type="button" className="button secondary ui-pressable" onClick={deleteCurrentCard}>🗑️ Supprimer fiche</button>
               </div>

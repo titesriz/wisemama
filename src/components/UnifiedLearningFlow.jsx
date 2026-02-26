@@ -131,6 +131,9 @@ export default function UnifiedLearningFlow({
   onSwitchModule,
   initialStepIndex = 0,
   onStepIndexChange,
+  journeyMode = false,
+  journeyPosition = 0,
+  journeyTotal = 0,
 }) {
   const [stepIndex, setStepIndex] = useState(initialStepIndex);
   const card = lesson?.cards?.[cardIndex] || null;
@@ -153,6 +156,9 @@ export default function UnifiedLearningFlow({
 
   const canGoPrevStep = stepIndex > 0;
   const isLastStep = stepIndex === STEP_ORDER.length - 1;
+  const inJourney = journeyMode && journeyTotal > 0;
+  const displayIndex = inJourney ? journeyPosition + 1 : cardIndex + 1;
+  const displayTotal = inJourney ? journeyTotal : totalCards;
 
   const headerLeft = (
     <button type="button" className="wm-btn wm-btn-ghost" onClick={onBackHome}>
@@ -184,7 +190,7 @@ export default function UnifiedLearningFlow({
     <LayoutShell
       headerLeft={headerLeft}
       headerTitle={lesson.title}
-      headerSubtitle={`Carte ${cardIndex + 1}/${totalCards}`}
+      headerSubtitle={inJourney ? `Caractere ${displayIndex}/${displayTotal}` : `Carte ${displayIndex}/${displayTotal}`}
       headerRight={headerRight}
       actionLeft={
         <button
@@ -215,7 +221,7 @@ export default function UnifiedLearningFlow({
           }}
           data-coach="continue"
         >
-          {isLastStep ? 'Carte suivante' : 'Continuer'}
+          {isLastStep ? (inJourney ? 'Caractere suivant' : 'Carte suivante') : 'Continuer'}
         </button>
       }
     >
