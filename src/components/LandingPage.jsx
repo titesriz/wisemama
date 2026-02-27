@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import AvatarRenderer from './AvatarRenderer.jsx';
+import { getLessonsByOrder } from '../utils/lessons/lessonOrder.js';
 
 export default function LandingPage({
   profiles,
@@ -16,6 +17,7 @@ export default function LandingPage({
   onOpenWritingUi,
 }) {
   const [showLessonPicker, setShowLessonPicker] = useState(false);
+  const sortedLessons = getLessonsByOrder(lessons);
   const childProfile = profiles.find((profile) => profile.role === 'child') || profiles[0] || null;
   const parentProfile = profiles.find((profile) => profile.role === 'parent') || profiles[0] || null;
   const lessonCompletedCount = activeLesson
@@ -135,7 +137,7 @@ export default function LandingPage({
               </div>
               {showLessonPicker ? (
                 <div className="lesson-picker-dropdown">
-                  {lessons.map((lesson) => (
+                  {sortedLessons.map((lesson) => (
                     <button
                       key={lesson.id}
                       type="button"
@@ -147,7 +149,7 @@ export default function LandingPage({
                     >
                       <div className="option-preview">{lesson.coverImage ? <img src={lesson.coverImage} alt="" /> : <span>📘</span>}</div>
                       <div className="option-info">
-                        <strong>{lesson.title}</strong>
+                        <strong>{lesson.order ? `${lesson.order}. ` : ''}{lesson.title}</strong>
                         <span className="option-meta">{lesson.cards.length} cartes</span>
                       </div>
                       {lesson.id === activeLessonId ? <span className="checkmark">✓</span> : null}

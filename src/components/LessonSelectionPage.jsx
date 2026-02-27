@@ -1,9 +1,13 @@
+import { getLessonsByOrder } from '../utils/lessons/lessonOrder.js';
+
 export default function LessonSelectionPage({
   lessons = [],
   activeLessonId = '',
   onSelectLesson,
   onBack,
 }) {
+  const sortedLessons = getLessonsByOrder(lessons);
+
   return (
     <section className="lesson-select-page">
       <div className="lesson-select-shell">
@@ -15,22 +19,21 @@ export default function LessonSelectionPage({
         </header>
 
         <div className="lesson-select-list">
-          {lessons.map((lesson) => (
+          {sortedLessons.map((lesson) => (
             <button
               key={lesson.id}
               type="button"
               className={`lesson-select-card ui-pressable ${activeLessonId === lesson.id ? 'active' : ''}`}
               onClick={() => onSelectLesson?.(lesson.id)}
             >
-              <strong>{lesson.title || 'Leçon sans titre'}</strong>
+              <strong>{lesson.order ? `${lesson.order}. ` : ''}{lesson.title || 'Leçon sans titre'}</strong>
               <span>{lesson.cards?.length || 0} fiches</span>
               <small>{lesson.updatedAt ? `Mis à jour: ${new Date(lesson.updatedAt).toLocaleDateString('fr-FR')}` : 'Date non disponible'}</small>
             </button>
           ))}
-          {!lessons.length ? <p className="parent-empty">Aucune leçon disponible.</p> : null}
+          {!sortedLessons.length ? <p className="parent-empty">Aucune leçon disponible.</p> : null}
         </div>
       </div>
     </section>
   );
 }
-

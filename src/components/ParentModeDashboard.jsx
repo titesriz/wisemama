@@ -7,6 +7,7 @@ import SuccessBurst from './SuccessBurst.jsx';
 import TokenButton from './ui/TokenButton.jsx';
 import AvatarEditor from './AvatarEditor.jsx';
 import { buildWiseMamaLocalExportPayload, downloadJsonFile } from '../lib/localDataExport.js';
+import { getLessonsByOrder } from '../utils/lessons/lessonOrder.js';
 import '../styles/parent-mode.css';
 
 const MODULE_IDS = {
@@ -49,6 +50,7 @@ function LessonsModule({
   const [jsonText, setJsonText] = useState('');
   const [confirmDeleteId, setConfirmDeleteId] = useState('');
   const [removingId, setRemovingId] = useState('');
+  const orderedLessons = useMemo(() => getLessonsByOrder(lessons), [lessons]);
 
   const parseCardsFromJson = (raw) => {
     const text = String(raw || '').trim();
@@ -107,7 +109,7 @@ function LessonsModule({
     }
 
     if (editingId) {
-      const lesson = lessons.find((item) => item.id === editingId);
+      const lesson = orderedLessons.find((item) => item.id === editingId);
       if (!lesson) return;
       const patch = { title: cleanTitle, description: cleanDescription };
       if (importedCards) patch.cards = importedCards;
@@ -117,7 +119,7 @@ function LessonsModule({
       return;
     }
 
-    const template = lessons.find((item) => item.id === templateLessonId);
+    const template = orderedLessons.find((item) => item.id === templateLessonId);
     const sourceCards = importedCards || template?.cards || [
       {
         id: `card-${Date.now()}-0`,
@@ -141,6 +143,24 @@ function LessonsModule({
   const duplicate = (lessonId) => {
     onDuplicateLesson?.(lessonId);
     applyStatus('Lecon dupliquee.', 'success');
+  };
+
+  const moveLesson = (lessonId, direction) => {
+    const currentIndex = orderedLessons.findIndex((lesson) => lesson.id === lessonId);
+    if (currentIndex < 0) return;
+    const targetIndex = direction === 'up' ? currentIndex - 1 : currentIndex + 1;
+    if (targetIndex < 0 || targetIndex >= orderedLessons.length) return;
+
+    const next = [...orderedLessons];
+    const [item] = next.splice(currentIndex, 1);
+    next.splice(targetIndex, 0, item);
+    next.forEach((lesson, index) => {
+      const nextOrder = index + 1;
+      if (lesson.order !== nextOrder) {
+        onUpdateLesson?.(lesson.id, { order: nextOrder });
+      }
+    });
+    applyStatus('Ordre des lecons mis a jour.', 'success');
   };
 
   const openFullEditor = (lesson) => {
@@ -204,18 +224,34 @@ function LessonsModule({
       ) : null}
 
       <div className="parent-lesson-list">
-        {lessons.length ? (
-          lessons.map((lesson) => (
+        {orderedLessons.length ? (
+          orderedLessons.map((lesson, index) => (
             <article
               key={lesson.id}
               className={`parent-list-item lesson-row ${removingId === lesson.id ? 'is-removing' : ''}`}
             >
               <div className="lesson-main">
-                <strong>{lesson.title}</strong>
+                <strong>{lesson.order}. {lesson.title}</strong>
                 <p>{lesson.cards?.length || 0} fiches · Modifie: {formatEdited(lesson.updatedAt)}</p>
                 {lesson.description ? <small>{lesson.description}</small> : null}
               </div>
               <div className="parent-list-actions">
+                <TokenButton
+                  variant="ghost"
+                  className="wm-btn-compact ui-pressable"
+                  onClick={() => moveLesson(lesson.id, 'up')}
+                  disabled={index === 0}
+                >
+                  ↑
+                </TokenButton>
+                <TokenButton
+                  variant="ghost"
+                  className="wm-btn-compact ui-pressable"
+                  onClick={() => moveLesson(lesson.id, 'down')}
+                  disabled={index === orderedLessons.length - 1}
+                >
+                  ↓
+                </TokenButton>
                 <TokenButton variant="secondary" className="wm-btn-compact ui-pressable" onClick={() => openFullEditor(lesson)}>
                   Editeur complet
                 </TokenButton>
@@ -279,9 +315,9 @@ function LessonsModule({
                 <span>Template (optionnel)</span>
                 <select value={templateLessonId} onChange={(e) => setTemplateLessonId(e.target.value)}>
                   <option value="">Aucun template</option>
-                  {lessons.map((lesson) => (
+                  {orderedLessons.map((lesson) => (
                     <option key={lesson.id} value={lesson.id}>
-                      {lesson.title}
+                      {lesson.order}. {lesson.title}
                     </option>
                   ))}
                 </select>

@@ -1,38 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import AvatarRenderer from './AvatarRenderer.jsx';
 import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
-
-function splitLessonSentences(sourceText = '') {
-  const normalized = String(sourceText || '').trim();
-  if (!normalized) return [];
-  const lines = normalized.split(/\n+/).map((line) => line.trim()).filter(Boolean);
-  const merged = [];
-  let buffer = '';
-
-  lines.forEach((line) => {
-    const compactLine = line.replace(/\s+/g, '');
-    if (!compactLine) return;
-    buffer += compactLine;
-    if (/[。！？!?]$/.test(compactLine)) {
-      merged.push(buffer);
-      buffer = '';
-    }
-  });
-
-  if (buffer) merged.push(buffer);
-
-  const out = [];
-  merged.forEach((line) => {
-    const chunks = line.match(/[^。！？!?]+[。！？!?]?/g);
-    if (!chunks) {
-      out.push(line);
-      return;
-    }
-    chunks.map((item) => item.trim()).filter(Boolean).forEach((item) => out.push(item));
-  });
-
-  return out;
-}
+import { segmentLessonText } from '../lib/lessonTextSegmentation.js';
+import { getAllSeenCharsBefore, getLessonsByOrder } from '../utils/lessons/lessonOrder.js';
 
 function isChineseChar(char) {
   return /[\u3400-\u9fff]/.test(char);
@@ -88,10 +58,12 @@ function getCardProgressStars(lessonId, cardId, progressMap) {
   return Number(progressMap?.[key] || 0);
 }
 
-function getCharacterStatus(lessonId, card, progressMap) {
+function getCharacterStatus(lessonId, card, progressMap, seenCharsBeforeSet = new Set()) {
   const stars = getCardProgressStars(lessonId, card.id, progressMap);
   if (stars >= 2) return 'learned';
   if (stars >= 1) return 'learning';
+  const hasSeenBefore = Array.from(String(card?.hanzi || '')).some((char) => seenCharsBeforeSet.has(char));
+  if (hasSeenBefore) return 'learning';
   return 'new';
 }
 
@@ -109,7 +81,14 @@ export default function LessonTextView({
   const [manuallyToggledIds, setManuallyToggledIds] = useState(() => new Set());
   const [playingSentenceIndex, setPlayingSentenceIndex] = useState(-1);
   const [showLessonPicker, setShowLessonPicker] = useState(false);
-  const availableLessons = lessons.length ? lessons : (lesson ? [lesson] : []);
+  const availableLessons = useMemo(() => {
+    if (lessons.length) return getLessonsByOrder(lessons);
+    return lesson ? [lesson] : [];
+  }, [lesson, lessons]);
+  const seenCharsBeforeSet = useMemo(
+    () => new Set(getAllSeenCharsBefore(lesson?.id, lessons)),
+    [lesson?.id, lessons],
+  );
 
   useEffect(() => {
     if (pinyinMode !== 'none') {
@@ -132,7 +111,7 @@ export default function LessonTextView({
   const sentences = useMemo(() => {
     const fallback = (lesson?.cards || []).map((card) => card.hanzi).join('。');
     const baseText = lesson?.sourceText || fallback;
-    return splitLessonSentences(baseText);
+    return segmentLessonText(baseText);
   }, [lesson?.cards, lesson?.sourceText]);
 
   const vocabulary = useMemo(() => {
@@ -143,10 +122,10 @@ export default function LessonTextView({
       pinyin: card.pinyin || '',
       french: card.french || '',
       english: card.english || '',
-      status: getCharacterStatus(lesson.id, card, progressMap),
+      status: getCharacterStatus(lesson.id, card, progressMap, seenCharsBeforeSet),
       stars: getCardProgressStars(lesson.id, card.id, progressMap),
     }));
-  }, [lesson?.cards, lesson?.id, progressMap]);
+  }, [lesson?.cards, lesson?.id, progressMap, seenCharsBeforeSet]);
 
   const journeyStartIndex = useMemo(() => {
     const firstNew = vocabulary.find((item) => item.status !== 'learned');
@@ -228,7 +207,7 @@ export default function LessonTextView({
                   onSelectLesson?.(item.id);
                 }}
               >
-                <strong>{item.title || 'Lecon'}</strong>
+                <strong>{item.order ? `${item.order}. ` : ''}{item.title || 'Lecon'}</strong>
                 <span>{item.cards?.length || 0} cartes</span>
               </button>
             ))}
@@ -263,7 +242,7 @@ export default function LessonTextView({
                         return <span key={key}>{char}</span>;
                       }
 
-                      const status = getCharacterStatus(lesson.id, card, progressMap);
+                      const status = getCharacterStatus(lesson.id, card, progressMap, seenCharsBeforeSet);
                       const showPinyin = shouldShowPinyin(card, status);
                       const tooltip = [card?.french, card?.english].filter(Boolean).join(' · ');
 
