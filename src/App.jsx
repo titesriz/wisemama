@@ -3,6 +3,7 @@ import AudioStandaloneUI from './components/AudioStandaloneUI.jsx';
 import AvatarEditor from './components/AvatarEditor.jsx';
 import BigSmileTester from './components/BigSmileTester.jsx';
 import CoachMark from './components/CoachMark.jsx';
+import ChineseFontTestPage from './components/ChineseFontTestPage.jsx';
 import DailyRituelFlow from './components/DailyRituelFlow.jsx';
 import EmotionalDuoSystem from './components/EmotionalDuoSystem.jsx';
 import AudioOnlyPage from './components/AudioOnlyPage.jsx';
@@ -52,6 +53,7 @@ const STANDALONE_VIEW = {
   LEARNING_FLOW: 'learning-flow',
   LESSON_BETA: 'lesson-beta',
   LESSON_SELECT: 'lesson-select',
+  FONT_TEST: 'font-test',
 };
 
 function getCardKey(lessonId, cardId) {
@@ -506,6 +508,12 @@ export default function App() {
     openStandaloneModule(STANDALONE_VIEW.WRITING, MODULES.WRITING);
   };
 
+  const openFontTestFromLanding = () => {
+    setShowDailyRituel(false);
+    setStandaloneView(STANDALONE_VIEW.FONT_TEST);
+    setEnteredApp(false);
+  };
+
   const createAndSwitchProfile = () => {
     const newId = createProfile({ role: 'child', name: 'Nouveau profil' });
     switchProfile(newId);
@@ -852,6 +860,17 @@ export default function App() {
           setStandaloneView(STANDALONE_VIEW.NONE);
         }}
         onBack={() => setStandaloneView(STANDALONE_VIEW.NONE)}
+      />
+    );
+  }
+
+  if (standaloneView === STANDALONE_VIEW.FONT_TEST) {
+    return (
+      <ChineseFontTestPage
+        onBack={() => {
+          setStandaloneView(STANDALONE_VIEW.NONE);
+          setEnteredApp(false);
+        }}
       />
     );
   }

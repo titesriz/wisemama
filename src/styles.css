@@ -151,6 +151,126 @@ body {
   align-items: stretch;
 }
 
+.font-test-page {
+  min-height: 100dvh;
+  background: #fff;
+  padding: 14px;
+}
+
+.font-test-shell {
+  width: min(1100px, 100%);
+  margin: 0 auto;
+  display: grid;
+  gap: 12px;
+}
+
+.font-test-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: center;
+  border: 1px solid var(--wm-color-border);
+  border-radius: var(--wm-radius-md);
+  background: #fff;
+  padding: 12px;
+}
+
+.font-test-head h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #2d3436;
+}
+
+.font-test-head p {
+  margin: 4px 0 0;
+  color: #636e72;
+  font-weight: 600;
+}
+
+.font-test-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 320px) 1fr;
+  gap: 12px;
+}
+
+.font-test-list {
+  border: 1px solid var(--wm-color-border);
+  border-radius: var(--wm-radius-md);
+  background: #fff;
+  padding: 10px;
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
+
+.font-test-item {
+  border: 1px solid var(--wm-color-border);
+  border-radius: var(--wm-radius-sm);
+  background: var(--wm-color-surface-soft);
+  padding: 10px;
+  text-align: left;
+  display: grid;
+  gap: 3px;
+  cursor: pointer;
+}
+
+.font-test-item.active {
+  border-color: var(--wm-color-accent);
+  background: #ecfffb;
+}
+
+.font-test-item strong {
+  font-size: 14px;
+  color: #2d3436;
+}
+
+.font-test-item small {
+  font-size: 11px;
+  color: #636e72;
+}
+
+.font-test-preview {
+  border: 1px solid var(--wm-color-border);
+  border-radius: var(--wm-radius-md);
+  background: #fff;
+  padding: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.font-test-preview h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.font-test-sample-card {
+  border: 1px dashed var(--wm-color-border);
+  border-radius: var(--wm-radius-sm);
+  background: #f9fafb;
+  padding: 16px;
+  display: grid;
+  gap: 10px;
+  font-size: clamp(28px, 4.3vw, 46px);
+  line-height: 1.5;
+  color: #2d3436;
+}
+
+.font-test-sample-card p {
+  margin: 0;
+}
+
+.font-test-meta {
+  margin: 0;
+  color: #636e72;
+  font-size: 13px;
+}
+
+@media (max-width: 920px) {
+  .font-test-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
 .kid-module-btn {
   border: 1px solid var(--wm-color-border);
   border-radius: var(--wm-radius-md);
@@ -261,6 +381,12 @@ body {
   font-weight: 700;
   border: none;
   cursor: pointer;
+}
+
+.parent-tools-row {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
 }
 
 .manage-button:disabled {
@@ -2217,7 +2343,7 @@ body {
   line-height: 1;
   color: #2d3436;
   font-weight: 800;
-  font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: var(--wm-font-hanzi);
 }
 
 .writing-translation {
@@ -2532,7 +2658,7 @@ body {
   flex: 1;
   font-size: 30px;
   line-height: 1.2;
-  font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: var(--wm-font-hanzi);
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
@@ -2677,7 +2803,7 @@ body {
   font-size: 32px;
   line-height: 1;
   color: #2d3436;
-  font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: var(--wm-font-hanzi);
 }
 
 .vocab-status {
@@ -2745,7 +2871,7 @@ body {
 }
 
 .lesson-text-line {
-  font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: var(--wm-font-hanzi);
   font-size: 28px;
   line-height: 2;
 }
@@ -2813,7 +2939,7 @@ body {
   color: #2d3436;
   padding: 0 14px;
   font-size: 22px;
-  font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: var(--wm-font-hanzi);
   cursor: pointer;
 }
 
@@ -2866,7 +2992,7 @@ body {
   line-height: 0.95;
   color: #2d3436;
   font-weight: 800;
-  font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: var(--wm-font-hanzi);
 }
 
 .module-pinyin-large {

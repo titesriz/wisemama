@@ -30,7 +30,7 @@
   --wm-shadow-focus: 0 0 0 3px rgba(78, 205, 196, 0.25);
 
   --wm-font-base: Inter, 'Baloo 2', 'Segoe UI', sans-serif;
-  --wm-font-hanzi: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --wm-font-hanzi: 'Kaiti SC', 'Songti SC', 'Noto Serif SC', serif;
 
   --wm-motion-fast: 120ms;
   --wm-motion-normal: 220ms;
