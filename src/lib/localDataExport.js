@@ -4,7 +4,7 @@ const AUDIO_PARENT_STORE = 'cardAudioModels';
 const AUDIO_CHILD_STORE = 'childAudioAttempts';
 
 function isWiseMamaLocalKey(key) {
-  return String(key || '').startsWith('wisemama-');
+  return String(key || '').startsWith('wisemama-') || key === 'character-database' || key === 'lessons-v2';
 }
 
 function maybeJsonParse(value) {
@@ -115,11 +115,11 @@ export async function buildWiseMamaLocalExportPayload() {
   const [audioData] = await Promise.all([readAudioData()]);
 
   return {
-    schema: 'wisemama.local-export.v1',
+    schema: 'wisemama.local-export.v2',
     exportedAt: new Date().toISOString(),
     app: {
       name: 'WiseMama',
-      formatVersion: 1,
+      formatVersion: 2,
     },
     localStorage: readLocalStorageData(),
     indexedDb: {
