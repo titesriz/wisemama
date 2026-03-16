@@ -7,6 +7,9 @@ import SuccessBurst from './SuccessBurst.jsx';
 import TokenButton from './ui/TokenButton.jsx';
 import AvatarEditor from './AvatarEditor.jsx';
 import { buildWiseMamaLocalExportPayload, downloadJsonFile } from '../lib/localDataExport.js';
+import { useAudioRecorder } from '../hooks/useAudioRecorder.js';
+import { saveParentModel } from '../lib/audioStore.js';
+import { addAudioRecording } from '../utils/database/characterDB.js';
 import { getLessonsByOrder } from '../utils/lessons/lessonOrder.js';
 import '../styles/parent-mode.css';
 
@@ -363,16 +366,70 @@ function LessonsModule({
   );
 }
 
-function AudioModule({ lessons = [] }) {
+function AudioModule({ lessons = [], parentProfile }) {
   const rows = lessons.flatMap((lesson) =>
     (lesson.cards || []).map((card) => ({
       id: `${lesson.id}-${card.id}`,
+      lessonId: lesson.id,
       lessonTitle: lesson.title,
       cardId: card.id,
       hanzi: card.hanzi,
+      pinyin: card.pinyin,
+      french: card.french,
       hasAudio: Boolean(card.audioUrl),
     })),
   );
+
+  const characterList = useMemo(() => {
+    const map = new Map();
+    rows.forEach((row) => {
+      if (!row.hanzi) return;
+      if (!map.has(row.hanzi)) {
+        map.set(row.hanzi, {
+          hanzi: row.hanzi,
+          pinyin: row.pinyin,
+          french: row.french,
+          lessonId: row.lessonId,
+          cardId: row.cardId,
+        });
+      }
+    });
+    return Array.from(map.values());
+  }, [rows]);
+
+  const recorder = useAudioRecorder();
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [recordedBy, setRecordedBy] = useState('maman');
+  const [recordedByOther, setRecordedByOther] = useState('');
+  const [saveStatus, setSaveStatus] = useState('');
+  const currentChar = characterList[currentIndex] || null;
+
+  const actualRecordedBy = recordedBy === 'autre' ? recordedByOther.trim() || 'autre' : recordedBy;
+
+  const saveCurrentRecording = async () => {
+    if (!currentChar || !recorder.recordedBlob) return;
+    const cardKey = `${currentChar.lessonId}:${currentChar.cardId}`;
+    try {
+      await saveParentModel({
+        cardKey,
+        blob: recorder.recordedBlob,
+        mimeType: recorder.recordedBlob.type || recorder.mimeType || 'audio/webm',
+        durationMs: recorder.durationMs,
+      });
+      addAudioRecording(currentChar.hanzi, {
+        url: `indexeddb://parent-model/${cardKey}`,
+        recordedBy: actualRecordedBy,
+        recordedByProfile: parentProfile?.id || '',
+        duration: Math.round((recorder.durationMs || 0) / 1000),
+        quality: 'good',
+      });
+      setSaveStatus(`Audio sauvegarde pour ${currentChar.hanzi}.`);
+      recorder.clear();
+      setCurrentIndex((prev) => Math.min(prev + 1, characterList.length - 1));
+    } catch {
+      setSaveStatus('Echec sauvegarde audio.');
+    }
+  };
 
   return (
     <section className="parent-panel" aria-label="Gestion Audio">
@@ -384,6 +441,75 @@ function AudioModule({ lessons = [] }) {
         </div>
       </div>
       <p className="parent-panel-subtitle">Enregistrement bulk des modeles parent pour toutes les cartes.</p>
+
+      <div className="parent-audio-bulk">
+        <div className="recorder-selection">
+          <label>
+            <span>Enregistre par</span>
+            <select value={recordedBy} onChange={(event) => setRecordedBy(event.target.value)}>
+              <option value="maman">Maman</option>
+              <option value="papa">Papa</option>
+              <option value="mamie">Mamie</option>
+              <option value="papy">Papy</option>
+              <option value="autre">Autre</option>
+            </select>
+          </label>
+          {recordedBy === 'autre' ? (
+            <label>
+              <span>Nom</span>
+              <input value={recordedByOther} onChange={(event) => setRecordedByOther(event.target.value)} placeholder="Nom" />
+            </label>
+          ) : null}
+        </div>
+
+        {currentChar ? (
+          <div className="bulk-recorder-card">
+            <div className="char-display">
+              <h1>{currentChar.hanzi}</h1>
+              <p className="pinyin">{currentChar.pinyin || '—'}</p>
+              <p className="translation">{currentChar.french || '—'}</p>
+            </div>
+            <div className="bulk-recorder-controls">
+              <TokenButton
+                variant="secondary"
+                className="ui-pressable"
+                onClick={() => (recorder.isRecording ? recorder.stop() : recorder.start())}
+              >
+                {recorder.isRecording ? 'Stop' : 'Enregistrer'}
+              </TokenButton>
+              <TokenButton
+                className="ui-pressable"
+                onClick={saveCurrentRecording}
+                disabled={!recorder.recordedBlob}
+              >
+                Sauvegarder & Suivant
+              </TokenButton>
+              <TokenButton
+                variant="ghost"
+                className="ui-pressable"
+                onClick={() => setCurrentIndex((prev) => Math.max(0, prev - 1))}
+                disabled={currentIndex <= 0}
+              >
+                Precedent
+              </TokenButton>
+              <TokenButton
+                variant="ghost"
+                className="ui-pressable"
+                onClick={() => setCurrentIndex((prev) => Math.min(prev + 1, characterList.length - 1))}
+                disabled={currentIndex >= characterList.length - 1}
+              >
+                Suivant
+              </TokenButton>
+            </div>
+            <div className="bulk-recorder-progress">
+              {currentIndex + 1} / {characterList.length}
+            </div>
+            {saveStatus ? <p className="wm-ok-line">{saveStatus}</p> : null}
+          </div>
+        ) : (
+          <p className="parent-empty">Aucun caractere disponible pour l enregistrement.</p>
+        )}
+      </div>
 
       <div className="parent-audio-table" role="table" aria-label="Table bulk audio">
         <div className="parent-audio-row parent-audio-head" role="row">
@@ -620,7 +746,7 @@ export default function ParentModeDashboard({
         />
       );
     }
-    if (activeModule === MODULE_IDS.AUDIO) return <AudioModule lessons={lessons} />;
+    if (activeModule === MODULE_IDS.AUDIO) return <AudioModule lessons={lessons} parentProfile={parentProfile} />;
     if (activeModule === MODULE_IDS.PROGRESS) return <ProgressModule />;
     if (activeModule === MODULE_IDS.FAMILY) return <FamilyModule profiles={profiles} />;
     return (

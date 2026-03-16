@@ -1,7 +1,8 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import AvatarRenderer from './AvatarRenderer.jsx';
 import { useUiSounds } from '../hooks/useUiSounds.js';
 import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
+import { getParentModel } from '../lib/audioStore.js';
 
 export default function ModuleFrame({
   profile,
@@ -22,6 +23,7 @@ export default function ModuleFrame({
 }) {
   const sounds = useUiSounds();
   const audioRef = useRef(null);
+  const [audioSrc, setAudioSrc] = useState('');
   const [showLessonPicker, setShowLessonPicker] = useState(false);
   const targetChar = useMemo(() => Array.from(card?.hanzi || '')[0] || '', [card?.hanzi]);
   const profileLabel = profile?.role === 'parent' ? 'Parent' : 'Kid';
@@ -33,6 +35,37 @@ export default function ModuleFrame({
     audioRef.current.currentTime = 0;
     audioRef.current.play();
   };
+
+  useEffect(() => {
+    let isMounted = true;
+    let objectUrl = '';
+
+    const resolveAudio = async () => {
+      if (!lessonId || !card?.id) {
+        if (isMounted) setAudioSrc(card?.audioUrl || '');
+        return;
+      }
+      const cardKey = `${lessonId}:${card.id}`;
+      try {
+        const parentModel = await getParentModel(cardKey);
+        if (parentModel?.blob) {
+          objectUrl = URL.createObjectURL(parentModel.blob);
+          if (isMounted) setAudioSrc(objectUrl);
+          return;
+        }
+      } catch {
+        // fallthrough
+      }
+      if (isMounted) setAudioSrc(card?.audioUrl || '');
+    };
+
+    resolveAudio();
+
+    return () => {
+      isMounted = false;
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+    };
+  }, [lessonId, card?.id, card?.audioUrl]);
 
   return (
     <section className="writing-screen module-screen" aria-label="Module harmonise">
@@ -113,11 +146,11 @@ export default function ModuleFrame({
           type="button"
           className="writing-sound-btn ui-pressable"
           onClick={playCardAudio}
-          disabled={!card?.audioUrl}
+          disabled={!audioSrc}
         >
           Son
         </button>
-        {card?.audioUrl ? <audio ref={audioRef} src={card.audioUrl} preload="auto" /> : null}
+        {audioSrc ? <audio ref={audioRef} src={audioSrc} preload="auto" /> : null}
       </div>
 
       <div className="module-content-area">{children}</div>

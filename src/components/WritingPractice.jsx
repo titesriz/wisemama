@@ -4,6 +4,7 @@ import AvatarRenderer from './AvatarRenderer.jsx';
 import SuccessBurst from './SuccessBurst.jsx';
 import { useUiSounds } from '../hooks/useUiSounds.js';
 import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
+import { getParentModel } from '../lib/audioStore.js';
 
 export default function WritingPractice({
   hanzi,
@@ -37,6 +38,7 @@ export default function WritingPractice({
   const [feedback, setFeedback] = useState('Trace directement sur le modele gris.');
   const [successTick, setSuccessTick] = useState(0);
   const [canvasSize, setCanvasSize] = useState(500);
+  const [audioSrc, setAudioSrc] = useState('');
   const sounds = useUiSounds();
   const targetChar = useMemo(() => {
     const first = Array.from(hanzi || '')[0];
@@ -194,6 +196,38 @@ export default function WritingPractice({
     audioRef.current.play();
   };
 
+  useEffect(() => {
+    let isMounted = true;
+    let objectUrl = '';
+
+    const resolveAudio = async () => {
+      if (!lessonId || !card?.id) {
+        if (isMounted) setAudioSrc(card?.audioUrl || '');
+        return;
+      }
+      const cardKey = `${lessonId}:${card.id}`;
+      try {
+        const parentModel = await getParentModel(cardKey);
+        if (parentModel?.blob) {
+          objectUrl = URL.createObjectURL(parentModel.blob);
+          if (isMounted) setAudioSrc(objectUrl);
+          return;
+        }
+      } catch {
+        // fallthrough to card audio
+      }
+      const fallback = card?.audioUrl || '';
+      if (isMounted) setAudioSrc(fallback);
+    };
+
+    resolveAudio();
+
+    return () => {
+      isMounted = false;
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+    };
+  }, [lessonId, card?.id, card?.audioUrl]);
+
   const profileLabel = profile?.role === 'parent' ? 'Parent' : 'Kid';
   const availableLessons = lessons.length ? lessons : [{ id: lessonId || 'current', title: lessonTitle || 'Lecon', cards: [] }];
 
@@ -279,11 +313,11 @@ export default function WritingPractice({
             type="button"
             className="writing-sound-btn ui-pressable"
             onClick={playCardAudio}
-            disabled={!card?.audioUrl}
+            disabled={!audioSrc}
           >
             Son
           </button>
-          {card?.audioUrl ? <audio ref={audioRef} src={card.audioUrl} preload="auto" /> : null}
+          {audioSrc ? <audio ref={audioRef} src={audioSrc} preload="auto" /> : null}
         </div>
       ) : null}
 
