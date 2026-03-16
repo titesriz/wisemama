@@ -557,3 +557,115 @@
     min-height: 38px;
   }
 }
+
+.lesson-editor-shell {
+  display: grid;
+  grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.lesson-editor-list {
+  border: 1px solid var(--parent-border);
+  border-radius: var(--wm-radius-md);
+  background: var(--wm-color-surface);
+  padding: 12px;
+  display: grid;
+  gap: 10px;
+  max-height: min(72vh, 780px);
+  overflow: auto;
+}
+
+.lesson-editor-list-head {
+  font-weight: 700;
+  color: var(--parent-text-strong);
+}
+
+.lesson-editor-list-body {
+  display: grid;
+  gap: 8px;
+}
+
+.lesson-editor-item {
+  text-align: left;
+  border-radius: var(--wm-radius-sm);
+  border: 1px solid var(--parent-border);
+  background: var(--wm-color-surface-soft);
+  padding: 10px;
+  display: grid;
+  gap: 6px;
+  transition: border-color var(--wm-motion-fast) var(--wm-ease-standard),
+    box-shadow var(--wm-motion-fast) var(--wm-ease-standard);
+}
+
+.lesson-editor-item strong {
+  display: block;
+  color: var(--parent-text-strong);
+}
+
+.lesson-editor-item small {
+  color: var(--parent-text-soft);
+  font-size: 12px;
+}
+
+.lesson-editor-item.active {
+  border-color: #8ba4c3;
+  box-shadow: 0 10px 24px rgba(31, 49, 75, 0.16);
+}
+
+.lesson-editor-item-actions {
+  display: inline-flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.lesson-editor-main {
+  display: grid;
+  gap: 12px;
+}
+
+.lesson-editor-tabs {
+  display: inline-flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.lesson-editor-tab {
+  border: 1px solid var(--parent-border);
+  background: var(--wm-color-surface);
+  color: var(--parent-text-strong);
+  border-radius: var(--wm-radius-pill);
+  padding: 8px 14px;
+  font-weight: 700;
+}
+
+.lesson-editor-tab.active {
+  background: #2f6db3;
+  border-color: #2f6db3;
+  color: #fff;
+}
+
+.lesson-pro-view-source .preview-col,
+.lesson-pro-view-source .editor-col {
+  display: none;
+}
+
+.lesson-pro-view-preview .source-col,
+.lesson-pro-view-preview .editor-col {
+  display: none;
+}
+
+.lesson-pro-view-cards .source-col,
+.lesson-pro-view-cards .preview-col {
+  display: none;
+}
+
+@media (max-width: 980px) {
+  .lesson-editor-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .lesson-editor-list {
+    max-height: none;
+  }
+}

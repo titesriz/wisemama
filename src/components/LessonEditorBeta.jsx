@@ -213,7 +213,7 @@ function splitCanvasIntoLineBlocks(canvas) {
   return blocks.slice(0, 24);
 }
 
-export default function LessonEditorBeta({ onBack, onSelectLesson }) {
+export default function LessonEditorBeta({ onBack, onSelectLesson, initialLessonId = '', viewMode = 'all' }) {
   const { lessons, createLesson, updateLesson, duplicateLesson, removeLesson, replaceLessons } = useLessons();
   const sounds = useUiSounds();
 
@@ -353,6 +353,16 @@ export default function LessonEditorBeta({ onBack, onSelectLesson }) {
     setCardsDraft(lesson.cards || []);
     setCurrentCardIndex(0);
   };
+
+  useEffect(() => {
+    if (!initialLessonId) {
+      loadLesson('');
+      return;
+    }
+    if (initialLessonId !== selectedLessonId) {
+      loadLesson(initialLessonId);
+    }
+  }, [initialLessonId, lessons]);
 
   const runOcrFromFiles = async (files) => {
     if (!files?.length) return;
@@ -641,7 +651,7 @@ export default function LessonEditorBeta({ onBack, onSelectLesson }) {
   };
 
   return (
-    <section className="lesson-beta-page lesson-pro-page">
+    <section className={`lesson-beta-page lesson-pro-page lesson-pro-view-${viewMode}`}>
       <header className="lesson-beta-top lesson-pro-header">
         {onBack ? (
           <button type="button" className="home-hanzi-btn ui-pressable" onClick={onBack} aria-label="Retour landing">

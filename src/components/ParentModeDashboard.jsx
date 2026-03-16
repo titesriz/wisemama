@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import AvatarRenderer from './AvatarRenderer.jsx';
 import LayoutShell from './LayoutShell.jsx';
-import LessonEditorBeta from './LessonEditorBeta.jsx';
+import UnifiedLessonEditor from './UnifiedLessonEditor.jsx';
 import OcrLessonBuilder from './OcrLessonBuilder.jsx';
 import SuccessBurst from './SuccessBurst.jsx';
 import TokenButton from './ui/TokenButton.jsx';
@@ -13,7 +13,6 @@ import '../styles/parent-mode.css';
 const MODULE_IDS = {
   DASHBOARD: 'dashboard',
   LESSONS: 'lessons',
-  LESSONS_CREATOR: 'lessons-creator',
   AUDIO: 'audio',
   PROGRESS: 'progress',
   FAMILY: 'family',
@@ -22,7 +21,6 @@ const MODULE_IDS = {
 
 const MODULE_LABELS = {
   [MODULE_IDS.LESSONS]: 'Lecons',
-  [MODULE_IDS.LESSONS_CREATOR]: 'Lesson Creator Pro',
   [MODULE_IDS.AUDIO]: 'Gestion Audio',
   [MODULE_IDS.PROGRESS]: 'Progres Enfant',
   [MODULE_IDS.FAMILY]: 'Contenu Famille',
@@ -531,8 +529,7 @@ function SettingsModule({
 
 function DashboardHub({ onOpenModule }) {
   const cards = [
-    { id: MODULE_IDS.LESSONS, title: 'Lecons', subtitle: 'Creer et editer le contenu', badge: '5 packs' },
-    { id: MODULE_IDS.LESSONS_CREATOR, title: 'Lesson Creator Pro', subtitle: 'Texte source et generation cartes', badge: 'Pro' },
+    { id: MODULE_IDS.LESSONS, title: 'Lecons', subtitle: 'Creer et editer le contenu', badge: 'Pro' },
     { id: MODULE_IDS.AUDIO, title: 'Gestion Audio', subtitle: 'Enregistrement bulk des modeles', badge: 'Bulk' },
     { id: MODULE_IDS.PROGRESS, title: 'Progres Enfant', subtitle: 'Analytics et visualisation', badge: 'Live' },
     { id: MODULE_IDS.FAMILY, title: 'Contenu Famille', subtitle: 'Bibliotheque partagee', badge: 'Partage' },
@@ -579,7 +576,6 @@ export default function ParentModeDashboard({
   onResetAllData,
 }) {
   const [activeModule, setActiveModule] = useState(MODULE_IDS.DASHBOARD);
-  const [editorContext, setEditorContext] = useState({ lessonId: '', cardId: '' });
   const [exportStatus, setExportStatus] = useState('');
   const [exportTick, setExportTick] = useState(0);
   const [isExporting, setIsExporting] = useState(false);
@@ -614,36 +610,14 @@ export default function ParentModeDashboard({
     }
     if (activeModule === MODULE_IDS.LESSONS) {
       return (
-        <LessonsModule
+        <UnifiedLessonEditor
           lessons={lessons}
           onCreateLesson={onCreateLesson}
           onUpdateLesson={onUpdateLesson}
           onDeleteLesson={onDeleteLesson}
           onDuplicateLesson={onDuplicateLesson}
-          onOpenFullEditor={(lessonId, cardId) => {
-            setEditorContext({ lessonId, cardId });
-            setActiveModule(MODULE_IDS.LESSONS_CREATOR);
-          }}
+          onSelectLesson={onSelectLesson}
         />
-      );
-    }
-    if (activeModule === MODULE_IDS.LESSONS_CREATOR) {
-      return (
-        <section className="parent-panel" aria-label="Lesson Creator Pro">
-          <div className="parent-panel-head">
-            <h3>Lesson Creator Pro</h3>
-            <TokenButton variant="secondary" className="ui-pressable" onClick={() => setActiveModule(MODULE_IDS.LESSONS)}>
-              Retour CRUD
-            </TokenButton>
-          </div>
-          <p className="parent-panel-subtitle">Edition texte source, generation cartes, enrichissement et correction.</p>
-          <LessonEditorBeta
-            onSelectLesson={(lessonId) => {
-              setEditorContext((prev) => ({ ...prev, lessonId }));
-              onSelectLesson?.(lessonId);
-            }}
-          />
-        </section>
       );
     }
     if (activeModule === MODULE_IDS.AUDIO) return <AudioModule lessons={lessons} />;
@@ -667,8 +641,6 @@ export default function ParentModeDashboard({
             <button type="button" className="home-hanzi-btn ui-pressable" onClick={onBack} aria-label="Retour Landing">
               文
             </button>
-          ) : activeModule === MODULE_IDS.LESSONS_CREATOR ? (
-            <TokenButton variant="ghost" onClick={() => setActiveModule(MODULE_IDS.LESSONS)}>Back to Lecons</TokenButton>
           ) : (
             <TokenButton variant="ghost" onClick={() => setActiveModule(MODULE_IDS.DASHBOARD)}>Back to Dashboard</TokenButton>
           )
