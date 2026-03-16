@@ -59,9 +59,13 @@ export function getLesson(lessonId) {
 export function createLesson(data = {}) {
   const lessons = getAllLessons();
 
+  const providedId = typeof data.id === 'string' && data.id ? data.id : '';
+  const providedGlobalId =
+    typeof data.globalLessonId === 'string' && data.globalLessonId ? data.globalLessonId : '';
+
   const newLesson = {
-    id: `lesson-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
-    globalLessonId: crypto.randomUUID(),
+    id: providedId || `lesson-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
+    globalLessonId: providedGlobalId || crypto.randomUUID(),
     order: data.order || lessons.length + 1,
     title: data.title || 'Nouvelle lecon',
     description: data.description || '',
@@ -69,6 +73,7 @@ export function createLesson(data = {}) {
     characterRefs: data.characterRefs || [],
     sentenceAudios: data.sentenceAudios || [],
     notes: data.notes || '',
+    cardMap: data.cardMap || {},
     createdDate: new Date().toISOString(),
     lastUpdated: new Date().toISOString(),
   };
@@ -135,6 +140,8 @@ export function duplicateLesson(lessonId) {
 
   return createLesson({
     ...original,
+    id: '',
+    globalLessonId: '',
     title: `${original.title} (copie)`,
     order: getAllLessons().length + 1,
   });
@@ -145,6 +152,11 @@ export function duplicateLesson(lessonId) {
  */
 function saveLessons(lessons) {
   localStorage.setItem('lessons-v2', JSON.stringify(lessons));
+}
+
+export function setAllLessons(lessons) {
+  if (!Array.isArray(lessons)) return;
+  saveLessons(lessons);
 }
 
 /**

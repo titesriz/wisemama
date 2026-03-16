@@ -1,9 +1,21 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import defaultLessons from '../data/lessons.json';
 import { getLessonsByOrder, normalizeLessonOrder } from '../utils/lessons/lessonOrder.js';
+import {
+  getAllLessons as getAllLessonsV2,
+  createLesson as createLessonV2,
+  updateLesson as updateLessonV2,
+  deleteLesson as deleteLessonV2,
+  duplicateLesson as duplicateLessonV2,
+} from '../utils/database/lessonDB.js';
+import {
+  getCharacter,
+  upsertCharacter,
+} from '../utils/database/characterDB.js';
+import { migrateFromLocalStorageV1, migrateLessonsV1ToV2 } from '../utils/database/migration.js';
 
-const lessonsStorageKey = 'wisemama-lessons-v1';
-const lessonsStorageVersion = '2026-02-19-sync-v1';
+const lessonsStorageKey = 'wisemama-lessons-ui-v2';
+const lessonsStorageVersion = '2026-03-11-v2-ui';
 const LessonsContext = createContext(null);
 
 function safeString(value, fallback = '') {
@@ -95,34 +107,144 @@ function normalizeLessons(input) {
   return getLessonsByOrder(input.map((lesson, index) => normalizeLesson(lesson, index)));
 }
 
-function mergeBundledLessons(storedLessons, bundledLessons) {
-  const normalizedStored = normalizeLessons(storedLessons);
-  const normalizedBundled = normalizeLessons(bundledLessons);
-  const storedById = new Map(normalizedStored.map((lesson) => [lesson.id, lesson]));
-  const merged = [...normalizedStored];
+function getPrimaryAudioUrl(char) {
+  if (!char?.audioRecordings?.length) return null;
+  const primary = char.audioRecordings.find((item) => item.isPrimary);
+  return primary?.url || char.audioRecordings[0]?.url || null;
+}
 
-  for (const bundledLesson of normalizedBundled) {
-    const current = storedById.get(bundledLesson.id);
-    if (!current) {
-      merged.push(bundledLesson);
-      storedById.set(bundledLesson.id, bundledLesson);
-      continue;
-    }
+function getPrimaryImageUrl(char) {
+  if (!char?.images?.length) return null;
+  return char.images[0]?.url || null;
+}
 
-    const currentCardIds = new Set(current.cards.map((card) => card.id));
-    const missingCards = bundledLesson.cards.filter((card) => !currentCardIds.has(card.id));
-    if (missingCards.length === 0) continue;
+function expandLessonFromV2(lesson) {
+  const cardMap = lesson?.cardMap && typeof lesson.cardMap === 'object' ? lesson.cardMap : {};
+  const characterRefs = Array.isArray(lesson?.characterRefs) ? lesson.characterRefs : [];
+  const cards = characterRefs.map((hanzi, index) => {
+    const char = getCharacter(hanzi) || {};
+    const id = cardMap[hanzi] || `card-${lesson.id}-${index}`;
+    const translationEn = safeString(char?.english, safeString(char?.translation?.en, ''));
+    const translationFr = safeString(char?.french, safeString(char?.translation?.fr, ''));
+    const relatedWords = Array.isArray(char?.relatedWords)
+      ? char.relatedWords.map((item) => ({
+        hanzi: safeString(item?.word),
+        pinyin: safeString(item?.pinyin),
+        en: safeString(item?.definition),
+      }))
+      : [];
+    return normalizeCard(
+      {
+        id,
+        lessonId: lesson.id,
+        hanzi,
+        pinyin: safeString(char?.pinyin, ''),
+        french: translationFr,
+        english: translationEn,
+        translation: { en: translationEn, fr: translationFr },
+        relatedWords,
+        audioUrl: getPrimaryAudioUrl(char),
+        imageUrl: getPrimaryImageUrl(char),
+      },
+      index,
+    );
+  });
+  return normalizeLesson(
+    {
+      ...lesson,
+      cards,
+      updatedAt: lesson?.lastUpdated || lesson?.updatedAt || '',
+    },
+    0,
+  );
+}
 
-    const updated = {
-      ...current,
-      cards: [...current.cards, ...missingCards],
-    };
-    const index = merged.findIndex((lesson) => lesson.id === current.id);
-    if (index >= 0) merged[index] = updated;
-    storedById.set(updated.id, updated);
+function extractUniqueChars(text = '') {
+  const seen = new Set();
+  const ordered = [];
+  for (const char of Array.from(String(text || ''))) {
+    if (!/[\u3400-\u9fff\uf900-\ufaff]/u.test(char)) continue;
+    if (seen.has(char)) continue;
+    seen.add(char);
+    ordered.push(char);
   }
+  return ordered;
+}
 
-  return merged;
+function buildCharacterRefsFromCards(cards = []) {
+  const ordered = [];
+  cards.forEach((card) => {
+    const hanzi = String(card?.hanzi || '');
+    if (!hanzi) return;
+    extractUniqueChars(hanzi).forEach((char) => {
+      if (!ordered.includes(char)) ordered.push(char);
+    });
+  });
+  return ordered;
+}
+
+function buildCardMapFromCards(cards = []) {
+  const map = {};
+  cards.forEach((card) => {
+    const hanzi = String(card?.hanzi || '');
+    if (!hanzi || !card?.id) return;
+    extractUniqueChars(hanzi).forEach((char) => {
+      if (!map[char]) map[char] = String(card.id);
+    });
+  });
+  return map;
+}
+
+function upsertCharacterFromCard(card, lessonId) {
+  const hanzi = String(card?.hanzi || '');
+  if (!hanzi) return;
+  const chars = extractUniqueChars(hanzi);
+  chars.forEach((char) => {
+    const existing = getCharacter(char);
+    const appears = new Set(existing?.appearsInLessons || []);
+    appears.add(lessonId);
+    const updates = {
+      pinyin: safeString(card?.pinyin, existing?.pinyin || ''),
+      pinyinNumbered: safeString(card?.pinyin, existing?.pinyinNumbered || ''),
+      french: safeString(card?.french || card?.translation?.fr, existing?.french || ''),
+      english: safeString(card?.english || card?.translation?.en, existing?.english || ''),
+      appearsInLessons: Array.from(appears),
+      firstSeenLesson: existing?.firstSeenLesson || lessonId,
+      firstSeenDate: existing?.firstSeenDate || new Date().toISOString(),
+      relatedWords: Array.isArray(card?.relatedWords)
+        ? card.relatedWords.map((item) => ({
+          word: safeString(item?.hanzi),
+          pinyin: safeString(item?.pinyin),
+          definition: safeString(item?.en),
+        }))
+        : existing?.relatedWords || [],
+    };
+    if (card?.audioUrl) {
+      updates.audioRecordings = [
+        {
+          id: `audio-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+          url: card.audioUrl,
+          recordedBy: 'import',
+          recordedByProfile: '',
+          recordedDate: new Date().toISOString(),
+          duration: 0,
+          isPrimary: true,
+          quality: 'good',
+        },
+      ];
+    }
+    if (card?.imageUrl) {
+      updates.images = [
+        {
+          id: `img-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+          url: card.imageUrl,
+          source: 'upload',
+          uploadedDate: new Date().toISOString(),
+        },
+      ];
+    }
+    upsertCharacter(char, updates);
+  });
 }
 
 function makeLessonId() {
@@ -189,38 +311,38 @@ function getNextLessonOrder(lessons = []) {
 }
 
 export function LessonsProvider({ children }) {
-  const [lessons, setLessons] = useState(() => normalizeLessons(defaultLessons));
+  const [lessons, setLessons] = useState(() => []);
   const [activeLessonId, setActiveLessonId] = useState(null);
 
   useEffect(() => {
+    const initializeFromV2 = () => {
+      const v2Lessons = getAllLessonsV2();
+      if (!v2Lessons.length) {
+        const migrated = migrateFromLocalStorageV1({ reset: true });
+        if (!migrated?.ok) {
+          migrateLessonsV1ToV2(defaultLessons, { reset: true });
+        }
+      }
+      const refreshed = getAllLessonsV2().map((lesson) => expandLessonFromV2(lesson));
+      setLessons(getLessonsByOrder(refreshed));
+    };
+
     try {
       const stored = localStorage.getItem(lessonsStorageKey);
-      if (!stored) {
-        const normalized = normalizeLessons(defaultLessons);
-        setLessons(normalized);
-        setActiveLessonId(normalized[0]?.id || null);
-        return;
-      }
-      const parsed = JSON.parse(stored);
-      const storedLessons = Array.isArray(parsed) ? parsed : parsed?.lessons;
-      const normalizedStored = normalizeLessons(storedLessons);
-      const merged = mergeBundledLessons(normalizedStored, defaultLessons);
-      if (merged.length > 0) {
-        setLessons(merged);
-        const storedActiveLessonId = typeof parsed?.activeLessonId === 'string' ? parsed.activeLessonId : '';
-        const validActiveLessonId = merged.some((lesson) => lesson.id === storedActiveLessonId)
-          ? storedActiveLessonId
-          : merged[0]?.id || null;
-        setActiveLessonId(validActiveLessonId);
+      const parsed = stored ? JSON.parse(stored) : null;
+      initializeFromV2();
+      const storedActiveLessonId = typeof parsed?.activeLessonId === 'string' ? parsed.activeLessonId : '';
+      if (storedActiveLessonId) {
+        setActiveLessonId(storedActiveLessonId);
       } else {
-        const normalized = normalizeLessons(defaultLessons);
-        setLessons(normalized);
-        setActiveLessonId(normalized[0]?.id || null);
+        const initial = getAllLessonsV2()[0];
+        setActiveLessonId(initial?.id || null);
       }
     } catch {
-      const normalized = normalizeLessons(defaultLessons);
-      setLessons(normalized);
-      setActiveLessonId(normalized[0]?.id || null);
+      migrateLessonsV1ToV2(defaultLessons, { reset: true });
+      const refreshed = getAllLessonsV2().map((lesson) => expandLessonFromV2(lesson));
+      setLessons(getLessonsByOrder(refreshed));
+      setActiveLessonId(refreshed[0]?.id || null);
     }
   }, []);
 
@@ -241,7 +363,6 @@ export function LessonsProvider({ children }) {
         lessonsStorageKey,
         JSON.stringify({
           version: lessonsStorageVersion,
-          lessons,
           activeLessonId,
         }),
       );
@@ -252,28 +373,28 @@ export function LessonsProvider({ children }) {
 
   const addLesson = () => {
     const nextOrder = getNextLessonOrder(lessons);
-    const newLesson = {
-      id: makeLessonId(),
-      globalLessonId: makeGlobalLessonId(),
+    const lesson = createLessonV2({
       title: 'Nouvelle lecon',
       order: nextOrder,
-      description: '',
-      updatedAt: stampNow(),
-      cards: [defaultCard()],
-    };
-    setLessons((prev) => getLessonsByOrder([...prev, newLesson]));
-    setActiveLessonId(newLesson.id);
-    return newLesson.id;
+      characterRefs: [],
+      notes: '',
+    });
+    const expanded = expandLessonFromV2(lesson);
+    setLessons((prev) => getLessonsByOrder([...prev, expanded]));
+    setActiveLessonId(lesson.id);
+    return lesson.id;
   };
 
   const removeLesson = (lessonId) => {
-    setLessons((prev) => prev.filter((lesson) => lesson.id !== lessonId));
+    deleteLessonV2(lessonId);
+    const refreshed = getAllLessonsV2().map((lesson) => expandLessonFromV2(lesson));
+    setLessons(getLessonsByOrder(refreshed));
   };
 
   const updateLessonTitle = (lessonId, title) => {
-    setLessons((prev) =>
-      prev.map((lesson) => (lesson.id === lessonId ? { ...lesson, title, updatedAt: stampNow() } : lesson)),
-    );
+    updateLessonV2(lessonId, { title, lastUpdated: stampNow() });
+    const refreshed = getAllLessonsV2().map((lesson) => expandLessonFromV2(lesson));
+    setLessons(getLessonsByOrder(refreshed));
   };
 
   const addCard = (lessonId) => {
@@ -339,85 +460,70 @@ export function LessonsProvider({ children }) {
     autoGenerated = false,
   } = {}) => {
     const nextOrder = normalizeLessonOrder(order, getNextLessonOrder(lessons));
-    const lesson = normalizeLesson(
-      {
-        id: makeLessonId(),
-        globalLessonId: makeGlobalLessonId(),
-        title,
-        order: nextOrder,
-        description,
-        sourceText,
-        notes,
-        pinyinToggles,
-        autoGenerated,
-        updatedAt: stampNow(),
-        cards,
-      },
-      0,
-    );
-    lesson.cards = lesson.cards.map((card) => ({ ...card, lessonId: lesson.id }));
-    setLessons((prev) => getLessonsByOrder([...prev, lesson]));
+    const cardMap = buildCardMapFromCards(cards);
+    const characterRefs = buildCharacterRefsFromCards(cards);
+    const lesson = createLessonV2({
+      title,
+      order: nextOrder,
+      description,
+      sourceText,
+      notes,
+      characterRefs,
+      cardMap,
+      pinyinToggles,
+      autoGenerated,
+    });
+    cards.forEach((card) => upsertCharacterFromCard(card, lesson.id));
+    const refreshed = getAllLessonsV2().map((item) => expandLessonFromV2(item));
+    setLessons(getLessonsByOrder(refreshed));
     setActiveLessonId(lesson.id);
-    return lesson;
+    return expandLessonFromV2(lesson);
   };
 
   const updateLesson = (lessonId, patch = {}) => {
-    setLessons((prev) =>
-      getLessonsByOrder(prev.map((lesson) => {
-        if (lesson.id !== lessonId) return lesson;
-        const merged = { ...lesson, ...patch, updatedAt: stampNow() };
-        merged.order = normalizeLessonOrder(merged.order, lesson.order || 1);
-        if (Array.isArray(merged.cards)) {
-          merged.cards = merged.cards.map((card, idx) =>
-            normalizeCard({ ...card, lessonId: lessonId }, idx),
-          );
-        }
-        return merged;
-      })),
-    );
+    const nextOrder = normalizeLessonOrder(patch?.order, undefined);
+    const cards = Array.isArray(patch?.cards) ? patch.cards : null;
+    const cardMap = cards ? buildCardMapFromCards(cards) : undefined;
+    const characterRefs = cards ? buildCharacterRefsFromCards(cards) : undefined;
+    const updates = {
+      ...patch,
+      ...(nextOrder ? { order: nextOrder } : {}),
+      ...(characterRefs ? { characterRefs } : {}),
+      ...(cardMap ? { cardMap } : {}),
+      lastUpdated: stampNow(),
+    };
+    updateLessonV2(lessonId, updates);
+    if (cards) {
+      cards.forEach((card) => upsertCharacterFromCard(card, lessonId));
+    }
+    const refreshed = getAllLessonsV2().map((lesson) => expandLessonFromV2(lesson));
+    setLessons(getLessonsByOrder(refreshed));
   };
 
   const duplicateLesson = (lessonId) => {
-    let duplicated = null;
-    setLessons((prev) => {
-      const source = prev.find((lesson) => lesson.id === lessonId);
-      if (!source) return prev;
-      const nextOrder = getNextLessonOrder(prev);
-      duplicated = normalizeLesson(
-        {
-          ...source,
-          id: makeLessonId(),
-          globalLessonId: makeGlobalLessonId(),
-          order: nextOrder,
-          title: `${source.title} (Copy)`,
-          updatedAt: stampNow(),
-          cards: source.cards.map((card) => ({
-            ...card,
-            id: makeCardId(),
-          })),
-        },
-        0,
-      );
-      duplicated.cards = duplicated.cards.map((card) => ({ ...card, lessonId: duplicated.id }));
-      return getLessonsByOrder([...prev, duplicated]);
-    });
-    if (duplicated?.id) setActiveLessonId(duplicated.id);
-    return duplicated;
+    const duplicated = duplicateLessonV2(lessonId);
+    if (!duplicated) return null;
+    const refreshed = getAllLessonsV2().map((lesson) => expandLessonFromV2(lesson));
+    setLessons(getLessonsByOrder(refreshed));
+    setActiveLessonId(duplicated.id);
+    return expandLessonFromV2(duplicated);
   };
 
   const replaceLessons = (payload) => {
-    const normalized = normalizeLessons(payload);
-    if (normalized.length === 0) {
+    if (!Array.isArray(payload) || payload.length === 0) {
       throw new Error('invalid_lessons');
     }
-    setLessons(normalized);
-    setActiveLessonId((prev) => (normalized.some((lesson) => lesson.id === prev) ? prev : normalized[0]?.id || null));
+    migrateLessonsV1ToV2(payload, { reset: true });
+    const refreshed = getAllLessonsV2().map((lesson) => expandLessonFromV2(lesson));
+    setLessons(getLessonsByOrder(refreshed));
+    setActiveLessonId((prev) => (refreshed.some((lesson) => lesson.id === prev) ? prev : refreshed[0]?.id || null));
   };
 
   const resetLessonsToDefault = () => {
-    const normalized = normalizeLessons(defaultLessons);
-    setLessons(normalized);
-    setActiveLessonId(normalized[0]?.id || null);
+    migrateLessonsV1ToV2(defaultLessons, { reset: true });
+    const refreshed = getAllLessonsV2().map((lesson) => expandLessonFromV2(lesson));
+    setLessons(getLessonsByOrder(refreshed));
+    setActiveLessonId(refreshed[0]?.id || null);
   };
 
   const setActiveLesson = (lessonId) => {

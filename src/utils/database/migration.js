@@ -2,15 +2,8 @@
  * Migration helpers for DB v2
  */
 
-import {
-  getAllCharacters,
-  resetCharacterDB,
-  upsertCharacter,
-} from './characterDB.js';
-import {
-  getAllLessons,
-  createLesson,
-} from './lessonDB.js';
+import { getAllCharacters, upsertCharacter } from './characterDB.js';
+import { getAllLessons, setAllLessons } from './lessonDB.js';
 
 const CJK_CHAR_RE = /[\u3400-\u9fff\uf900-\ufaff]/u;
 
@@ -52,13 +45,14 @@ export function migrateLessonsV1ToV2(lessonsV1 = [], options = {}) {
   }
 
   if (reset) {
-    resetCharacterDB();
+    localStorage.removeItem('character-database');
     localStorage.removeItem('lessons-v2');
   }
 
   const existingChars = getAllCharacters();
-  const createdLessons = [];
   const seenChars = new Set(Object.keys(existingChars));
+
+  const nextLessons = [];
 
   lessonsV1.forEach((lesson, index) => {
     const order = normalizeOrder(lesson?.order, index + 1);
@@ -68,9 +62,23 @@ export function migrateLessonsV1ToV2(lessonsV1 = [], options = {}) {
     const notes = String(lesson?.notes || '');
     const cards = Array.isArray(lesson?.cards) ? lesson.cards : [];
 
-    const cardChars = cards.flatMap((card) => extractUniqueChars(card?.hanzi || ''));
+    const cardCharsOrdered = [];
+    const cardMap = {};
+    cards.forEach((card) => {
+      const hanzi = String(card?.hanzi || '');
+      if (!hanzi) return;
+      const chars = extractUniqueChars(hanzi);
+      chars.forEach((char) => {
+        if (!cardCharsOrdered.includes(char)) {
+          cardCharsOrdered.push(char);
+        }
+        if (!cardMap[char]) {
+          cardMap[char] = String(card?.id || '');
+        }
+      });
+    });
     const sourceChars = extractUniqueChars(sourceText);
-    const characterRefs = Array.from(new Set([...cardChars, ...sourceChars]));
+    const characterRefs = Array.from(new Set([...cardCharsOrdered, ...sourceChars]));
 
     characterRefs.forEach((hanzi) => {
       const card = cards.find((c) => String(c?.hanzi || '').includes(hanzi)) || null;
@@ -80,39 +88,11 @@ export function migrateLessonsV1ToV2(lessonsV1 = [], options = {}) {
       const audioUrl = card?.audioUrl || null;
       const imageUrl = card?.imageUrl || null;
 
-      const audioRecordings = audioUrl
-        ? [
-            {
-              id: `audio-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-              url: audioUrl,
-              recordedBy: 'import',
-              recordedByProfile: '',
-              recordedDate: nowIso(),
-              duration: 0,
-              isPrimary: true,
-              quality: 'good',
-            },
-          ]
-        : [];
-
-      const images = imageUrl
-        ? [
-            {
-              id: `img-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-              url: imageUrl,
-              source: 'upload',
-              uploadedDate: nowIso(),
-            },
-          ]
-        : [];
-
-      upsertCharacter(hanzi, {
+      const updates = {
         pinyin,
         pinyinNumbered: pinyin,
         french,
         english,
-        audioRecordings,
-        images,
         firstSeenLesson: lesson?.id || null,
         firstSeenDate: nowIso(),
         appearsInLessons: [lesson?.id || `${lessonIdPrefix}-${order}`],
@@ -135,12 +115,42 @@ export function migrateLessonsV1ToV2(lessonsV1 = [], options = {}) {
               },
             }
           : undefined,
-      });
+      };
+
+      if (audioUrl) {
+        updates.audioRecordings = [
+          {
+            id: `audio-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+            url: audioUrl,
+            recordedBy: 'import',
+            recordedByProfile: '',
+            recordedDate: nowIso(),
+            duration: 0,
+            isPrimary: true,
+            quality: 'good',
+          },
+        ];
+      }
+
+      if (imageUrl) {
+        updates.images = [
+          {
+            id: `img-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+            url: imageUrl,
+            source: 'upload',
+            uploadedDate: nowIso(),
+          },
+        ];
+      }
+
+      upsertCharacter(hanzi, updates);
 
       seenChars.add(hanzi);
     });
 
-    const newLesson = createLesson({
+    const newLesson = {
+      id: String(lesson?.id || ''),
+      globalLessonId: String(lesson?.globalLessonId || ''),
       order,
       title,
       description,
@@ -148,13 +158,19 @@ export function migrateLessonsV1ToV2(lessonsV1 = [], options = {}) {
       characterRefs,
       notes,
       sentenceAudios: [],
-    });
-    createdLessons.push(newLesson);
+      cardMap,
+      createdDate: lesson?.createdDate || nowIso(),
+      lastUpdated: lesson?.updatedAt || nowIso(),
+    };
+    nextLessons.push(newLesson);
   });
+
+  setAllLessons(nextLessons);
+  const createdLessonsFinal = getAllLessons();
 
   return {
     ok: true,
-    lessons: createdLessons.length,
+    lessons: createdLessonsFinal.length,
     characters: Array.from(seenChars).length,
   };
 }
