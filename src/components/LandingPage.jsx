@@ -11,6 +11,7 @@ export default function LandingPage({
   onStartProfile,
   onSelectLesson,
   onOpenDailyRituel,
+  onOpenAvatarEditor,
   onOpenLessonTextUi,
   onOpenFlashcardsUi,
   onOpenAudioUi,
@@ -20,12 +21,6 @@ export default function LandingPage({
   const sortedLessons = getLessonsByOrder(lessons);
   const childProfile = profiles.find((profile) => profile.role === 'child') || profiles[0] || null;
   const parentProfile = profiles.find((profile) => profile.role === 'parent') || profiles[0] || null;
-  const lessonCompletedCount = activeLesson
-    ? activeLesson.cards.filter((card) => (lessonProgressMap[`${activeLesson.id}:${card.id}`] || 0) > 0).length
-    : 0;
-  const lessonStars = activeLesson
-    ? activeLesson.cards.reduce((sum, card) => sum + Number(lessonProgressMap[`${activeLesson.id}:${card.id}`] || 0), 0)
-    : 0;
   const kidActions = [
     {
       id: 'lesson',
@@ -65,34 +60,54 @@ export default function LandingPage({
     <section className="landing" aria-label="Page d accueil">
       <div className="landing-new-shell">
         <div className="logo-area">
-          <div className="app-logo">文</div>
+          <button
+            type="button"
+            className="app-logo ui-pressable"
+            aria-label="Retour landing"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          >
+            文
+          </button>
           <div className="logo-copy">
             <div className="app-subtitle">Apprenons le chinois ensemble</div>
           </div>
         </div>
 
         <article className="profile-card-kid">
-          <div className="kid-header">
-            <div className="profile-avatar-large">
-              {childProfile ? (
-                <AvatarRenderer
-                  config={childProfile.avatar}
-                  size={88}
-                  className="landing-avatar-circle"
-                  alt={`Avatar ${childProfile.name || 'Enfant'}`}
-                  loading="eager"
-                />
-              ) : null}
-            </div>
-            <div className="kid-header-copy">
-              <h2 className="profile-greeting">
-                Bonjour {childProfile?.name || 'Enfant'}
-              </h2>
-            </div>
-          </div>
           {activeLesson ? (
-            <div className="current-lesson-card">
-              <div className="lesson-header">
+            <div
+              className="current-lesson-card ui-pressable"
+              onClick={onOpenLessonTextUi}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  onOpenLessonTextUi?.();
+                }
+              }}
+              role="button"
+              tabIndex={0}
+              aria-label="Ouvrir la lecon"
+            >
+              <div className="lesson-header lesson-header-with-avatar">
+                <button
+                  type="button"
+                  className="lesson-avatar ui-pressable"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    onOpenAvatarEditor?.();
+                  }}
+                  aria-label="Modifier avatar"
+                >
+                  {childProfile ? (
+                    <AvatarRenderer
+                      config={childProfile.avatar}
+                      size={56}
+                      className="landing-avatar-circle"
+                      alt={`Avatar ${childProfile.name || 'Enfant'}`}
+                      loading="eager"
+                    />
+                  ) : null}
+                </button>
                 {activeLesson.coverImage ? (
                   <img src={activeLesson.coverImage} alt={activeLesson.title} className="lesson-cover" />
                 ) : (
@@ -106,34 +121,19 @@ export default function LandingPage({
                     <p className="lesson-description">{activeLesson.description}</p>
                   ) : null}
                 </div>
-              </div>
-              <div className="lesson-stats">
-                <div className="stat">
-                  <span className="stat-icon">🃏</span>
-                  <span className="stat-value">{activeLesson.cards.length}</span>
-                  <span className="stat-label">cartes</span>
+                <div className="lesson-actions">
+                  <button
+                    type="button"
+                    className="change-lesson-btn icon-only ui-pressable"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      setShowLessonPicker((prev) => !prev);
+                    }}
+                    aria-label="Changer de lecon"
+                  >
+                    🗂️
+                  </button>
                 </div>
-                <div className="stat">
-                  <span className="stat-icon">⭐</span>
-                  <span className="stat-value">{lessonStars}</span>
-                  <span className="stat-label">etoiles</span>
-                </div>
-                <div className="stat">
-                  <span className="stat-icon">✓</span>
-                  <span className="stat-value">
-                    {lessonCompletedCount}/{activeLesson.cards.length}
-                  </span>
-                  <span className="stat-label">complete</span>
-                </div>
-              </div>
-              <div className="lesson-actions">
-                <button
-                  type="button"
-                  className="change-lesson-btn ui-pressable"
-                  onClick={() => setShowLessonPicker((prev) => !prev)}
-                >
-                  🔄 Changer de lecon
-                </button>
               </div>
               {showLessonPicker ? (
                 <div className="lesson-picker-dropdown">
@@ -142,11 +142,11 @@ export default function LandingPage({
                       key={lesson.id}
                       type="button"
                       className={`lesson-option ui-pressable ${lesson.id === activeLessonId ? 'active' : ''}`}
-                      onClick={() => {
-                        onSelectLesson?.(lesson.id);
-                        setShowLessonPicker(false);
-                      }}
-                    >
+                        onClick={() => {
+                          onSelectLesson?.(lesson.id);
+                          setShowLessonPicker(false);
+                        }}
+                      >
                       <div className="option-preview">{lesson.coverImage ? <img src={lesson.coverImage} alt="" /> : <span>📘</span>}</div>
                       <div className="option-info">
                         <strong>{lesson.order ? `${lesson.order}. ` : ''}{lesson.title}</strong>
