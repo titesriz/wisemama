@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import defaultLessons from '../data/lessons.json';
+import bundledLessonsV2 from '../data/lessons-v2.json';
+import bundledCharacterDb from '../data/character-database.json';
 import { getLessonsByOrder, normalizeLessonOrder } from '../utils/lessons/lessonOrder.js';
 import {
   getAllLessons as getAllLessonsV2,
@@ -316,14 +318,22 @@ export function LessonsProvider({ children }) {
 
   useEffect(() => {
     const initializeFromV2 = () => {
-      const v2Lessons = getAllLessonsV2();
+      let v2Lessons = getAllLessonsV2();
       if (!v2Lessons.length) {
         const migrated = migrateFromLocalStorageV1({ reset: true });
         if (!migrated?.ok) {
-          migrateLessonsV1ToV2(defaultLessons, { reset: true });
+          if (Array.isArray(bundledLessonsV2) && bundledLessonsV2.length) {
+            localStorage.setItem('lessons-v2', JSON.stringify(bundledLessonsV2));
+            if (bundledCharacterDb && typeof bundledCharacterDb === 'object') {
+              localStorage.setItem('character-database', JSON.stringify(bundledCharacterDb));
+            }
+          } else {
+            migrateLessonsV1ToV2(defaultLessons, { reset: true });
+          }
         }
+        v2Lessons = getAllLessonsV2();
       }
-      const refreshed = getAllLessonsV2().map((lesson) => expandLessonFromV2(lesson));
+      const refreshed = v2Lessons.map((lesson) => expandLessonFromV2(lesson));
       setLessons(getLessonsByOrder(refreshed));
     };
 

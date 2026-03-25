@@ -1,0 +1,939 @@
+[
+  {
+    "id": "lesson-1772113797148-y9pq",
+    "globalLessonId": "1900b2c5-4352-431a-9fab-90781f352306",
+    "order": 1,
+    "title": "Leçon 1 - Les chiffres",
+    "description": "",
+    "sourceText": "一、二、三, 三、二、一，。\n一、二、三、四、五、六、七。\n八、九、十，十、八、九，。\n大家都来数一数。",
+    "characterRefs": [
+      "一",
+      "二",
+      "三",
+      "四",
+      "五",
+      "六",
+      "七",
+      "八",
+      "九",
+      "十",
+      "大",
+      "家",
+      "都",
+      "来",
+      "数"
+    ],
+    "notes": "",
+    "sentenceAudios": [],
+    "cardMap": {
+      "一": "card-1772113662640-0-zse1",
+      "二": "card-1772113662640-1-wzzp",
+      "三": "card-1772113662640-2-9oyd",
+      "四": "card-1772113662640-3-x6kf",
+      "五": "card-1772113662640-4-ufe5",
+      "六": "card-1772113662640-5-se9u",
+      "七": "card-1772113662640-6-tn31",
+      "八": "card-1772113662640-7-3wqy",
+      "九": "card-1772113662640-8-smyl",
+      "十": "card-1772113662640-9-495k",
+      "大": "card-1772113662642-10-xa6i",
+      "家": "card-1772113662642-11-efwn",
+      "都": "card-1772113662642-12-vaey",
+      "来": "card-1772113662642-13-6r9p",
+      "数": "card-1772113662643-14-mhtr"
+    },
+    "createdDate": "2026-03-16T15:38:51.262Z",
+    "lastUpdated": "2026-02-27T11:27:33.092Z"
+  },
+  {
+    "id": "lesson-1770786071099-zy4z",
+    "globalLessonId": "9ea63d24-4daf-4804-9da6-56fe3c862de1",
+    "order": 2,
+    "title": "Leçon 2 - Love language",
+    "description": "",
+    "sourceText": "我，你，他，她\n我爱你！ ",
+    "characterRefs": [
+      "我",
+      "你",
+      "他",
+      "她",
+      "爱"
+    ],
+    "notes": "",
+    "sentenceAudios": [],
+    "cardMap": {
+      "我": "card-1770786554949-dzrj",
+      "你": "card-1770786610243-ixe5",
+      "他": "card-1770786628762-mivv",
+      "她": "card-1770786651713-7sj5",
+      "爱": "card-1770786071099-8f5y"
+    },
+    "createdDate": "2026-03-16T15:38:51.263Z",
+    "lastUpdated": "2026-02-26T14:39:40.006Z"
+  },
+  {
+    "id": "lesson-1771504726854-cyhe",
+    "globalLessonId": "fd9ccd4a-5eae-4564-9271-f6be9938f0d1",
+    "order": 3,
+    "title": "Lecon 3 - Bonjour",
+    "description": "Texte de la lecon 3",
+    "sourceText": "老师您早!\n您早!\n老师您好!\n您好!\n老师再见!\n再见!\n同学你早!\n你早!\n同学你好!\n你好!\n同学再见!\n再见!",
+    "characterRefs": [
+      "老",
+      "师",
+      "您",
+      "早",
+      "好",
+      "再",
+      "见",
+      "同",
+      "学",
+      "你"
+    ],
+    "notes": "",
+    "sentenceAudios": [],
+    "cardMap": {
+      "老": "card-1771504726853-dh3v",
+      "师": "card-1771504726853-wqnt",
+      "您": "card-1771504726853-s3ob",
+      "早": "card-1771504726853-c4pz",
+      "好": "card-1771504726853-hyxv",
+      "再": "card-1771504726853-qbok",
+      "见": "card-1771968190359-6-f1sn",
+      "同": "card-1771504726853-tk85",
+      "学": "card-1771504726853-jcjy",
+      "你": "card-1771504726854-5jc5"
+    },
+    "createdDate": "2026-03-16T15:38:51.269Z",
+    "lastUpdated": "2026-02-27T11:40:19.976Z"
+  },
+  {
+    "id": "lesson-1772116323479-krfe",
+    "globalLessonId": "62083a61-63d8-468b-bc88-6c9972212479",
+    "order": 4,
+    "title": "Leçon 4 - La politesse",
+    "description": "",
+    "sourceText": "小朋友们有礼貌，。\n时时刻刻要记牢。\n对不起，没关系。\n多谢，不用谢。\n谢谢你，不客气。",
+    "characterRefs": [
+      "小",
+      "朋",
+      "友",
+      "们",
+      "有",
+      "礼",
+      "貌",
+      "时",
+      "刻",
+      "要",
+      "记",
+      "牢",
+      "对",
+      "不",
+      "起",
+      "没",
+      "关",
+      "系",
+      "多",
+      "谢",
+      "用",
+      "你",
+      "客",
+      "气"
+    ],
+    "notes": "",
+    "sentenceAudios": [],
+    "cardMap": {
+      "小": "card-1772116008289-0-we84",
+      "朋": "card-1772116008289-1-vuda",
+      "友": "card-1772116008290-2-tp1j",
+      "们": "card-1772116008290-3-hsb7",
+      "有": "card-1772116008290-4-tut1",
+      "礼": "card-1772116008290-5-ou8f",
+      "貌": "card-1772116008290-6-bg7y",
+      "时": "card-1772116008290-7-nh02",
+      "刻": "card-1772116008292-8-9pth",
+      "要": "card-1772116008292-9-q6np",
+      "记": "card-1772116008292-10-033l",
+      "牢": "card-1772116008292-11-6xvs",
+      "对": "card-1772116008292-12-zwnj",
+      "不": "card-1772116008292-13-0fzh",
+      "起": "card-1772116008292-14-tjx3",
+      "没": "card-1772116008292-15-dbrn",
+      "关": "card-1772116008292-16-1sj5",
+      "系": "card-1772116008292-17-mdf5",
+      "多": "card-1772116008293-18-ujur",
+      "谢": "card-1772116008293-19-7zb2",
+      "用": "card-1772116008293-20-48x1",
+      "你": "card-1772116008293-21-t5s6",
+      "客": "card-1772116008293-22-jj99",
+      "气": "card-1772116008293-23-ixc3"
+    },
+    "createdDate": "2026-03-16T15:38:51.277Z",
+    "lastUpdated": "2026-02-27T11:40:14.126Z"
+  },
+  {
+    "id": "lesson-ask-name",
+    "globalLessonId": "ca33ed2c-d99b-46a6-8cf4-9b678ff4d662",
+    "order": 5,
+    "title": "Leçon 5 - Se présenter",
+    "description": "",
+    "sourceText": "老师：你姓什么？\n王天一：我姓王。\n老师：你叫么名字？\n王天一：我叫天一。",
+    "characterRefs": [
+      "老",
+      "师",
+      "你",
+      "姓",
+      "什",
+      "么",
+      "王",
+      "天",
+      "一",
+      "我",
+      "叫",
+      "名",
+      "字"
+    ],
+    "notes": "",
+    "sentenceAudios": [],
+    "cardMap": {
+      "老": "card-1772116499289-0-mjoq",
+      "师": "card-1772116499290-1-v0jn",
+      "你": "ni",
+      "姓": "xing",
+      "什": "shen",
+      "么": "me",
+      "王": "wang",
+      "天": "tian",
+      "一": "card-1772116499290-8-9498",
+      "我": "wo",
+      "叫": "jiao",
+      "名": "ming",
+      "字": "zi"
+    },
+    "createdDate": "2026-03-16T15:38:51.283Z",
+    "lastUpdated": "2026-03-11T09:53:33.415Z"
+  },
+  {
+    "id": "lesson-1773670967675-4jyt",
+    "globalLessonId": "7215aa9d-2e6e-4f07-bdfe-e09e7004e565",
+    "order": 6,
+    "title": "Lecon 6 - La famille",
+    "description": "",
+    "sourceText": "老师: 你家有几口人?\n王天一: 四口人。\n老师: 你家有谁?\n王天一: 爸爸、妈妈、妹妹和我。",
+    "characterRefs": [
+      "老",
+      "师",
+      "你",
+      "家",
+      "有",
+      "几",
+      "口",
+      "人",
+      "王",
+      "天",
+      "一",
+      "四",
+      "谁",
+      "爸",
+      "妈",
+      "妹",
+      "和",
+      "我"
+    ],
+    "notes": "",
+    "sentenceAudios": [],
+    "cardMap": {
+      "老": "card-1773670930881-0-kmua",
+      "师": "card-1773670930881-1-8adq",
+      "你": "card-1773670930881-2-ssqt",
+      "家": "card-1773670930881-3-uzj2",
+      "有": "card-1773670930881-4-4ljz",
+      "几": "card-1773670930882-5-ivxl",
+      "口": "card-1773670930882-6-vhl9",
+      "人": "card-1773670930882-7-m21d",
+      "王": "card-1773670930882-8-mxda",
+      "天": "card-1773670930882-9-g7s1",
+      "一": "card-1773670930882-10-o0dt",
+      "四": "card-1773670930882-11-0gcg",
+      "谁": "card-1773670930882-12-0sfd",
+      "爸": "card-1773670930882-13-j4lm",
+      "妈": "card-1773670930882-14-n1p5",
+      "妹": "card-1773670930882-15-ub25",
+      "和": "card-1773670930882-16-3rh5",
+      "我": "card-1773670930882-17-p8vg"
+    },
+    "createdDate": "2026-03-16T15:38:51.289Z",
+    "lastUpdated": "2026-03-17T14:31:28.883Z",
+    "pinyinToggles": {
+      "老": true,
+      "师": true,
+      "你": true,
+      "家": true,
+      "有": true,
+      "几": true,
+      "口": true,
+      "人": true,
+      "王": true,
+      "天": true,
+      "一": true,
+      "四": true,
+      "谁": true,
+      "爸": true,
+      "妈": true,
+      "妹": true,
+      "和": true,
+      "我": true
+    },
+    "autoGenerated": true,
+    "cards": [
+      {
+        "id": "card-1773670930881-0-kmua",
+        "lessonId": "lesson-1773670967675-4jyt",
+        "hanzi": "老",
+        "pinyinEnabled": true,
+        "pinyin": "lao3",
+        "translation": {
+          "en": "",
+          "fr": ""
+        },
+        "french": "",
+        "english": "",
+        "meanings": [],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "notes": "",
+        "relatedWords": [
+          {
+            "hanzi": "老师",
+            "pinyin": "lao3 shi1",
+            "en": "teacher"
+          }
+        ],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
+        "imageUrl": null,
+        "audioUrl": "indexeddb://parent-model/lesson-1771504726854-cyhe:card-1771504726853-dh3v"
+      },
+      {
+        "id": "card-1773670930881-1-8adq",
+        "lessonId": "lesson-1773670967675-4jyt",
+        "hanzi": "师",
+        "pinyinEnabled": true,
+        "pinyin": "shi1",
+        "translation": {
+          "en": "",
+          "fr": ""
+        },
+        "french": "",
+        "english": "",
+        "meanings": [],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "notes": "",
+        "relatedWords": [
+          {
+            "hanzi": "老师",
+            "pinyin": "lao3 shi1",
+            "en": "teacher"
+          }
+        ],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
+        "imageUrl": null,
+        "audioUrl": "indexeddb://parent-model/lesson-1771504726854-cyhe:card-1771504726853-wqnt"
+      },
+      {
+        "id": "card-1773670930881-2-ssqt",
+        "lessonId": "lesson-1773670967675-4jyt",
+        "hanzi": "你",
+        "pinyinEnabled": true,
+        "pinyin": "ni3",
+        "translation": {
+          "en": "you",
+          "fr": "tu; toi"
+        },
+        "french": "tu; toi",
+        "english": "you",
+        "meanings": [],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "notes": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
+        "imageUrl": null,
+        "audioUrl": "indexeddb://parent-model/lesson-1770786071099-zy4z:card-1770786610243-ixe5"
+      },
+      {
+        "id": "card-1773670930881-3-uzj2",
+        "lessonId": "lesson-1773670967675-4jyt",
+        "hanzi": "家",
+        "pinyinEnabled": true,
+        "pinyin": "jia1",
+        "translation": {
+          "en": "home",
+          "fr": "maison; famille"
+        },
+        "french": "maison; famille",
+        "english": "home",
+        "meanings": [],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "notes": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
+        "imageUrl": null,
+        "audioUrl": "indexeddb://parent-model/lesson-1772113797148-y9pq:card-1772113662642-11-efwn"
+      },
+      {
+        "id": "card-1773670930881-4-4ljz",
+        "lessonId": "lesson-1773670967675-4jyt",
+        "hanzi": "有",
+        "pinyinEnabled": true,
+        "pinyin": "you3",
+        "translation": {
+          "en": "to have",
+          "fr": "avoir"
+        },
+        "french": "avoir",
+        "english": "to have",
+        "meanings": [],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "notes": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
+        "imageUrl": null,
+        "audioUrl": "indexeddb://parent-model/lesson-1772116323479-krfe:card-1772116008290-4-tut1"
+      },
+      {
+        "id": "card-1773670930882-5-ivxl",
+        "lessonId": "lesson-1773670967675-4jyt",
+        "hanzi": "几",
+        "pinyinEnabled": true,
+        "pinyin": "ji3",
+        "translation": {
+          "en": "",
+          "fr": ""
+        },
+        "french": "",
+        "english": "",
+        "meanings": [],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "notes": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
+        "imageUrl": null,
+        "audioUrl": "indexeddb://parent-model/lesson-1773670967675-4jyt:card-1773670930882-5-ivxl"
+      },
+      {
+        "id": "card-1773670930882-6-vhl9",
+        "lessonId": "lesson-1773670967675-4jyt",
+        "hanzi": "口",
+        "pinyinEnabled": true,
+        "pinyin": "kou3",
+        "translation": {
+          "en": "",
+          "fr": ""
+        },
+        "french": "",
+        "english": "",
+        "meanings": [],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "notes": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
+        "imageUrl": null,
+        "audioUrl": "indexeddb://parent-model/lesson-1773670967675-4jyt:card-1773670930882-6-vhl9"
+      },
+      {
+        "id": "card-1773670930882-7-m21d",
+        "lessonId": "lesson-1773670967675-4jyt",
+        "hanzi": "人",
+        "pinyinEnabled": true,
+        "pinyin": "ren2",
+        "translation": {
+          "en": "",
+          "fr": ""
+        },
+        "french": "",
+        "english": "",
+        "meanings": [],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "notes": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
+        "imageUrl": null,
+        "audioUrl": "indexeddb://parent-model/lesson-1773670967675-4jyt:card-1773670930882-7-m21d"
+      },
+      {
+        "id": "card-1773670930882-8-mxda",
+        "lessonId": "lesson-1773670967675-4jyt",
+        "hanzi": "王",
+        "pinyinEnabled": true,
+        "pinyin": "wang2",
+        "translation": {
+          "en": "",
+          "fr": ""
+        },
+        "french": "",
+        "english": "",
+        "meanings": [],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "notes": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
+        "imageUrl": null,
+        "audioUrl": "indexeddb://parent-model/lesson-ask-name:wang"
+      },
+      {
+        "id": "card-1773670930882-9-g7s1",
+        "lessonId": "lesson-1773670967675-4jyt",
+        "hanzi": "天",
+        "pinyinEnabled": true,
+        "pinyin": "tian1",
+        "translation": {
+          "en": "",
+          "fr": ""
+        },
+        "french": "",
+        "english": "",
+        "meanings": [],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "notes": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
+        "imageUrl": null,
+        "audioUrl": "indexeddb://parent-model/lesson-ask-name:tian"
+      },
+      {
+        "id": "card-1773670930882-10-o0dt",
+        "lessonId": "lesson-1773670967675-4jyt",
+        "hanzi": "一",
+        "pinyinEnabled": true,
+        "pinyin": "yi1",
+        "translation": {
+          "en": "one",
+          "fr": "un"
+        },
+        "french": "un",
+        "english": "one",
+        "meanings": [],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "notes": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
+        "imageUrl": null,
+        "audioUrl": "indexeddb://parent-model/lesson-1772113797148-y9pq:card-1772113662640-0-zse1"
+      },
+      {
+        "id": "card-1773670930882-11-0gcg",
+        "lessonId": "lesson-1773670967675-4jyt",
+        "hanzi": "四",
+        "pinyinEnabled": true,
+        "pinyin": "si4",
+        "translation": {
+          "en": "four",
+          "fr": "quatre"
+        },
+        "french": "quatre",
+        "english": "four",
+        "meanings": [],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "notes": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
+        "imageUrl": null,
+        "audioUrl": "indexeddb://parent-model/lesson-1772113797148-y9pq:card-1772113662640-3-x6kf"
+      },
+      {
+        "id": "card-1773670930882-12-0sfd",
+        "lessonId": "lesson-1773670967675-4jyt",
+        "hanzi": "谁",
+        "pinyinEnabled": true,
+        "pinyin": "shui2",
+        "translation": {
+          "en": "who",
+          "fr": "qui"
+        },
+        "french": "qui",
+        "english": "who",
+        "meanings": [],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "notes": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
+        "imageUrl": null,
+        "audioUrl": "indexeddb://parent-model/lesson-1773670967675-4jyt:card-1773670930882-12-0sfd"
+      },
+      {
+        "id": "card-1773670930882-13-j4lm",
+        "lessonId": "lesson-1773670967675-4jyt",
+        "hanzi": "爸",
+        "pinyinEnabled": true,
+        "pinyin": "ba4",
+        "translation": {
+          "en": "father",
+          "fr": "papa"
+        },
+        "french": "papa",
+        "english": "father",
+        "meanings": [],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "notes": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
+        "imageUrl": null,
+        "audioUrl": "indexeddb://parent-model/lesson-1773670967675-4jyt:card-1773670930882-13-j4lm"
+      },
+      {
+        "id": "card-1773670930882-14-n1p5",
+        "lessonId": "lesson-1773670967675-4jyt",
+        "hanzi": "妈",
+        "pinyinEnabled": true,
+        "pinyin": "ma1",
+        "translation": {
+          "en": "mother",
+          "fr": "maman"
+        },
+        "french": "maman",
+        "english": "mother",
+        "meanings": [],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "notes": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
+        "imageUrl": null,
+        "audioUrl": "indexeddb://parent-model/lesson-1773670967675-4jyt:card-1773670930882-14-n1p5"
+      },
+      {
+        "id": "card-1773670930882-15-ub25",
+        "lessonId": "lesson-1773670967675-4jyt",
+        "hanzi": "妹",
+        "pinyinEnabled": true,
+        "pinyin": "mei4",
+        "translation": {
+          "en": "",
+          "fr": ""
+        },
+        "french": "",
+        "english": "",
+        "meanings": [],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "notes": "",
+        "relatedWords": [
+          {
+            "hanzi": "妹妹",
+            "pinyin": "mei4 mei",
+            "en": "younger sister"
+          }
+        ],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
+        "imageUrl": null,
+        "audioUrl": "indexeddb://parent-model/lesson-1773670967675-4jyt:card-1773670930882-15-ub25"
+      },
+      {
+        "id": "card-1773670930882-16-3rh5",
+        "lessonId": "lesson-1773670967675-4jyt",
+        "hanzi": "和",
+        "pinyinEnabled": true,
+        "pinyin": "he2",
+        "translation": {
+          "en": "",
+          "fr": ""
+        },
+        "french": "",
+        "english": "",
+        "meanings": [],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "notes": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
+        "imageUrl": null,
+        "audioUrl": "indexeddb://parent-model/lesson-1773670967675-4jyt:card-1773670930882-16-3rh5"
+      },
+      {
+        "id": "card-1773670930882-17-p8vg",
+        "lessonId": "lesson-1773670967675-4jyt",
+        "hanzi": "我",
+        "pinyinEnabled": true,
+        "pinyin": "wo3",
+        "translation": {
+          "en": "I",
+          "fr": "je; moi"
+        },
+        "french": "je; moi",
+        "english": "I",
+        "meanings": [],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "notes": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
+        "imageUrl": null,
+        "audioUrl": "indexeddb://parent-model/lesson-1770786071099-zy4z:card-1770786554949-dzrj"
+      }
+    ]
+  },
+  {
+    "id": "lesson-1",
+    "globalLessonId": "7f0a3483-c9bd-46c7-9ffa-b338252f62eb",
+    "order": 8,
+    "title": "Test 1 - Animaux de base",
+    "description": "",
+    "sourceText": "猫。\n狗。\n鸟。",
+    "characterRefs": [
+      "猫",
+      "狗",
+      "鸟"
+    ],
+    "notes": "",
+    "sentenceAudios": [],
+    "cardMap": {
+      "猫": "mao",
+      "狗": "gou",
+      "鸟": "niao"
+    },
+    "createdDate": "2026-03-16T15:38:51.290Z",
+    "lastUpdated": "2026-02-27T11:40:31.393Z"
+  },
+  {
+    "id": "lesson-1774430690827-wzys",
+    "globalLessonId": "f446890b-9f57-4eaa-b357-54d4c9a6d381",
+    "order": 9,
+    "title": "Nouvelle lecon",
+    "description": "",
+    "sourceText": "",
+    "characterRefs": [],
+    "sentenceAudios": [],
+    "notes": "",
+    "cardMap": {},
+    "createdDate": "2026-03-25T09:24:50.827Z",
+    "lastUpdated": "2026-03-25T09:24:50.829Z"
+  }
+]

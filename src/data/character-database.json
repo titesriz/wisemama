@@ -1,0 +1,3417 @@
+{
+  "一": {
+    "hanzi": "一",
+    "pinyin": "yi1",
+    "pinyinNumbered": "yi1",
+    "french": "un",
+    "english": "one",
+    "audioRecordings": [
+      {
+        "id": "audio-1773757888894-zeiud4",
+        "url": "indexeddb://parent-model/lesson-1772113797148-y9pq:card-1772113662640-0-zse1",
+        "recordedBy": "import",
+        "recordedByProfile": "",
+        "recordedDate": "2026-03-17T14:31:28.894Z",
+        "duration": 0,
+        "isPrimary": true,
+        "quality": "good"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1773670967675-4jyt",
+    "firstSeenDate": "2026-03-16T15:38:51.286Z",
+    "appearsInLessons": [
+      "lesson-1773670967675-4jyt"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-03-16T15:38:51.260Z",
+    "lastUpdated": "2026-03-17T14:31:28.894Z"
+  },
+  "二": {
+    "hanzi": "二",
+    "pinyin": "er4",
+    "pinyinNumbered": "er4",
+    "french": "deux",
+    "english": "two",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677797378-j76okpcbs",
+        "recordedDate": "2026-03-16T16:16:37.378Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772113797148-y9pq:card-1772113662640-1-wzzp",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772113797148-y9pq",
+    "firstSeenDate": "2026-03-16T15:38:51.260Z",
+    "appearsInLessons": [
+      "lesson-1772113797148-y9pq"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.260Z",
+    "lastUpdated": "2026-03-16T16:16:37.378Z"
+  },
+  "三": {
+    "hanzi": "三",
+    "pinyin": "san1",
+    "pinyinNumbered": "san1",
+    "french": "trois",
+    "english": "three",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677801316-za46jqfu9",
+        "recordedDate": "2026-03-16T16:16:41.316Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772113797148-y9pq:card-1772113662640-2-9oyd",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772113797148-y9pq",
+    "firstSeenDate": "2026-03-16T15:38:51.260Z",
+    "appearsInLessons": [
+      "lesson-1772113797148-y9pq"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.260Z",
+    "lastUpdated": "2026-03-16T16:16:41.316Z"
+  },
+  "四": {
+    "hanzi": "四",
+    "pinyin": "si4",
+    "pinyinNumbered": "si4",
+    "french": "quatre",
+    "english": "four",
+    "audioRecordings": [
+      {
+        "id": "audio-1773757888896-db0cue",
+        "url": "indexeddb://parent-model/lesson-1772113797148-y9pq:card-1772113662640-3-x6kf",
+        "recordedBy": "import",
+        "recordedByProfile": "",
+        "recordedDate": "2026-03-17T14:31:28.896Z",
+        "duration": 0,
+        "isPrimary": true,
+        "quality": "good"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1773670967675-4jyt",
+    "firstSeenDate": "2026-03-16T15:38:51.287Z",
+    "appearsInLessons": [
+      "lesson-1773670967675-4jyt"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-03-16T15:38:51.260Z",
+    "lastUpdated": "2026-03-17T14:31:28.896Z"
+  },
+  "五": {
+    "hanzi": "五",
+    "pinyin": "wu3",
+    "pinyinNumbered": "wu3",
+    "french": "cinq",
+    "english": "five",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677808964-iebjo84r7",
+        "recordedDate": "2026-03-16T16:16:48.964Z",
+        "isPrimary": true,
+        "duration": 2,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772113797148-y9pq:card-1772113662640-4-ufe5",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772113797148-y9pq",
+    "firstSeenDate": "2026-03-16T15:38:51.260Z",
+    "appearsInLessons": [
+      "lesson-1772113797148-y9pq"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.260Z",
+    "lastUpdated": "2026-03-16T16:16:48.965Z"
+  },
+  "六": {
+    "hanzi": "六",
+    "pinyin": "liu4",
+    "pinyinNumbered": "liu4",
+    "french": "six",
+    "english": "six",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677812097-pogdboonf",
+        "recordedDate": "2026-03-16T16:16:52.097Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772113797148-y9pq:card-1772113662640-5-se9u",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772113797148-y9pq",
+    "firstSeenDate": "2026-03-16T15:38:51.260Z",
+    "appearsInLessons": [
+      "lesson-1772113797148-y9pq"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.260Z",
+    "lastUpdated": "2026-03-16T16:16:52.097Z"
+  },
+  "七": {
+    "hanzi": "七",
+    "pinyin": "qi1",
+    "pinyinNumbered": "qi1",
+    "french": "sept",
+    "english": "seven",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677814764-93fb47gqh",
+        "recordedDate": "2026-03-16T16:16:54.764Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772113797148-y9pq:card-1772113662640-6-tn31",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772113797148-y9pq",
+    "firstSeenDate": "2026-03-16T15:38:51.260Z",
+    "appearsInLessons": [
+      "lesson-1772113797148-y9pq"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.261Z",
+    "lastUpdated": "2026-03-16T16:16:54.765Z"
+  },
+  "八": {
+    "hanzi": "八",
+    "pinyin": "ba1",
+    "pinyinNumbered": "ba1",
+    "french": "huit",
+    "english": "eight",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677817682-h4k4r5nff",
+        "recordedDate": "2026-03-16T16:16:57.682Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772113797148-y9pq:card-1772113662640-7-3wqy",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772113797148-y9pq",
+    "firstSeenDate": "2026-03-16T15:38:51.261Z",
+    "appearsInLessons": [
+      "lesson-1772113797148-y9pq"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.261Z",
+    "lastUpdated": "2026-03-16T16:16:57.682Z"
+  },
+  "九": {
+    "hanzi": "九",
+    "pinyin": "jiu3",
+    "pinyinNumbered": "jiu3",
+    "french": "neuf",
+    "english": "nine",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677820859-9hx0l1xtx",
+        "recordedDate": "2026-03-16T16:17:00.859Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772113797148-y9pq:card-1772113662640-8-smyl",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772113797148-y9pq",
+    "firstSeenDate": "2026-03-16T15:38:51.261Z",
+    "appearsInLessons": [
+      "lesson-1772113797148-y9pq"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.261Z",
+    "lastUpdated": "2026-03-16T16:17:00.859Z"
+  },
+  "十": {
+    "hanzi": "十",
+    "pinyin": "shi2",
+    "pinyinNumbered": "shi2",
+    "french": "dix",
+    "english": "ten",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677823845-qmikohq2i",
+        "recordedDate": "2026-03-16T16:17:03.845Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772113797148-y9pq:card-1772113662640-9-495k",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772113797148-y9pq",
+    "firstSeenDate": "2026-03-16T15:38:51.261Z",
+    "appearsInLessons": [
+      "lesson-1772113797148-y9pq"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.261Z",
+    "lastUpdated": "2026-03-16T16:17:03.845Z"
+  },
+  "大": {
+    "hanzi": "大",
+    "pinyin": "da4",
+    "pinyinNumbered": "da4",
+    "french": "Grand",
+    "english": "Big",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677828296-5mi9o629y",
+        "recordedDate": "2026-03-16T16:17:08.296Z",
+        "isPrimary": true,
+        "duration": 3,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772113797148-y9pq:card-1772113662642-10-xa6i",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772113797148-y9pq",
+    "firstSeenDate": "2026-03-16T15:38:51.261Z",
+    "appearsInLessons": [
+      "lesson-1772113797148-y9pq"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.261Z",
+    "lastUpdated": "2026-03-16T16:17:08.296Z"
+  },
+  "家": {
+    "hanzi": "家",
+    "pinyin": "jia1",
+    "pinyinNumbered": "jia1",
+    "french": "maison; famille",
+    "english": "home",
+    "audioRecordings": [
+      {
+        "id": "audio-1773757888889-g91r19",
+        "url": "indexeddb://parent-model/lesson-1772113797148-y9pq:card-1772113662642-11-efwn",
+        "recordedBy": "import",
+        "recordedByProfile": "",
+        "recordedDate": "2026-03-17T14:31:28.889Z",
+        "duration": 0,
+        "isPrimary": true,
+        "quality": "good"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1773670967675-4jyt",
+    "firstSeenDate": "2026-03-16T15:38:51.284Z",
+    "appearsInLessons": [
+      "lesson-1773670967675-4jyt"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-03-16T15:38:51.261Z",
+    "lastUpdated": "2026-03-17T14:31:28.889Z"
+  },
+  "都": {
+    "hanzi": "都",
+    "pinyin": "dou1",
+    "pinyinNumbered": "dou1",
+    "french": "tous",
+    "english": "all",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677838752-lmugwski5",
+        "recordedDate": "2026-03-16T16:17:18.752Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772113797148-y9pq:card-1772113662642-12-vaey",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772113797148-y9pq",
+    "firstSeenDate": "2026-03-16T15:38:51.262Z",
+    "appearsInLessons": [
+      "lesson-1772113797148-y9pq"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.262Z",
+    "lastUpdated": "2026-03-16T16:17:18.753Z"
+  },
+  "来": {
+    "hanzi": "来",
+    "pinyin": "lai2",
+    "pinyinNumbered": "lai2",
+    "french": "venir",
+    "english": "to come",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677841526-k2d9v7wz6",
+        "recordedDate": "2026-03-16T16:17:21.526Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772113797148-y9pq:card-1772113662642-13-6r9p",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772113797148-y9pq",
+    "firstSeenDate": "2026-03-16T15:38:51.262Z",
+    "appearsInLessons": [
+      "lesson-1772113797148-y9pq"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.262Z",
+    "lastUpdated": "2026-03-16T16:17:21.526Z"
+  },
+  "数": {
+    "hanzi": "数",
+    "pinyin": "shu3",
+    "pinyinNumbered": "shu3",
+    "french": "Compter",
+    "english": "Count",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677844444-brmyrmdgz",
+        "recordedDate": "2026-03-16T16:17:24.444Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772113797148-y9pq:card-1772113662643-14-mhtr",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772113797148-y9pq",
+    "firstSeenDate": "2026-03-16T15:38:51.262Z",
+    "appearsInLessons": [
+      "lesson-1772113797148-y9pq"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.262Z",
+    "lastUpdated": "2026-03-16T16:17:24.444Z"
+  },
+  "我": {
+    "hanzi": "我",
+    "pinyin": "wo3",
+    "pinyinNumbered": "wo3",
+    "french": "je; moi",
+    "english": "I",
+    "audioRecordings": [
+      {
+        "id": "audio-1773757888902-9g1wqf",
+        "url": "indexeddb://parent-model/lesson-1770786071099-zy4z:card-1770786554949-dzrj",
+        "recordedBy": "import",
+        "recordedByProfile": "",
+        "recordedDate": "2026-03-17T14:31:28.902Z",
+        "duration": 0,
+        "isPrimary": true,
+        "quality": "good"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1773670967675-4jyt",
+    "firstSeenDate": "2026-03-16T15:38:51.289Z",
+    "appearsInLessons": [
+      "lesson-1773670967675-4jyt"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-03-16T15:38:51.262Z",
+    "lastUpdated": "2026-03-17T14:31:28.903Z"
+  },
+  "你": {
+    "hanzi": "你",
+    "pinyin": "ni3",
+    "pinyinNumbered": "ni3",
+    "french": "tu; toi",
+    "english": "you",
+    "audioRecordings": [
+      {
+        "id": "audio-1773757888887-ci8k7q",
+        "url": "indexeddb://parent-model/lesson-1770786071099-zy4z:card-1770786610243-ixe5",
+        "recordedBy": "import",
+        "recordedByProfile": "",
+        "recordedDate": "2026-03-17T14:31:28.887Z",
+        "duration": 0,
+        "isPrimary": true,
+        "quality": "good"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1773670967675-4jyt",
+    "firstSeenDate": "2026-03-16T15:38:51.283Z",
+    "appearsInLessons": [
+      "lesson-1773670967675-4jyt"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-03-16T15:38:51.262Z",
+    "lastUpdated": "2026-03-17T14:31:28.887Z"
+  },
+  "他": {
+    "hanzi": "他",
+    "pinyin": "ta1",
+    "pinyinNumbered": "ta1",
+    "french": "il",
+    "english": "he",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677853095-7oyztsmm8",
+        "recordedDate": "2026-03-16T16:17:33.095Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1770786071099-zy4z:card-1770786628762-mivv",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1770786071099-zy4z",
+    "firstSeenDate": "2026-03-16T15:38:51.262Z",
+    "appearsInLessons": [
+      "lesson-1770786071099-zy4z"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.263Z",
+    "lastUpdated": "2026-03-16T16:17:33.095Z"
+  },
+  "她": {
+    "hanzi": "她",
+    "pinyin": "ta1",
+    "pinyinNumbered": "ta1",
+    "french": "elle",
+    "english": "she",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677855616-jn2v7ffbr",
+        "recordedDate": "2026-03-16T16:17:35.616Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1770786071099-zy4z:card-1770786651713-7sj5",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1770786071099-zy4z",
+    "firstSeenDate": "2026-03-16T15:38:51.263Z",
+    "appearsInLessons": [
+      "lesson-1770786071099-zy4z"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.263Z",
+    "lastUpdated": "2026-03-16T16:17:35.616Z"
+  },
+  "爱": {
+    "hanzi": "爱",
+    "pinyin": "ai1",
+    "pinyinNumbered": "ai1",
+    "french": "",
+    "english": "",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677858396-0lotd66jw",
+        "recordedDate": "2026-03-16T16:17:38.396Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1770786071099-zy4z:card-1770786071099-8f5y",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1770786071099-zy4z",
+    "firstSeenDate": "2026-03-16T15:38:51.263Z",
+    "appearsInLessons": [
+      "lesson-1770786071099-zy4z"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.263Z",
+    "lastUpdated": "2026-03-16T16:17:38.396Z"
+  },
+  "老": {
+    "hanzi": "老",
+    "pinyin": "lao3",
+    "pinyinNumbered": "lao3",
+    "french": "",
+    "english": "",
+    "audioRecordings": [
+      {
+        "id": "audio-1773757888885-ct8369",
+        "url": "indexeddb://parent-model/lesson-1771504726854-cyhe:card-1771504726853-dh3v",
+        "recordedBy": "import",
+        "recordedByProfile": "",
+        "recordedDate": "2026-03-17T14:31:28.885Z",
+        "duration": 0,
+        "isPrimary": true,
+        "quality": "good"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1773670967675-4jyt",
+    "firstSeenDate": "2026-03-16T15:38:51.283Z",
+    "appearsInLessons": [
+      "lesson-1773670967675-4jyt"
+    ],
+    "relatedWords": [
+      {
+        "word": "老师",
+        "pinyin": "lao3 shi1",
+        "definition": "teacher"
+      }
+    ],
+    "createdDate": "2026-03-16T15:38:51.263Z",
+    "lastUpdated": "2026-03-17T14:31:28.886Z"
+  },
+  "师": {
+    "hanzi": "师",
+    "pinyin": "shi1",
+    "pinyinNumbered": "shi1",
+    "french": "",
+    "english": "",
+    "audioRecordings": [
+      {
+        "id": "audio-1773757888886-4q1jsb",
+        "url": "indexeddb://parent-model/lesson-1771504726854-cyhe:card-1771504726853-wqnt",
+        "recordedBy": "import",
+        "recordedByProfile": "",
+        "recordedDate": "2026-03-17T14:31:28.886Z",
+        "duration": 0,
+        "isPrimary": true,
+        "quality": "good"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1773670967675-4jyt",
+    "firstSeenDate": "2026-03-16T15:38:51.283Z",
+    "appearsInLessons": [
+      "lesson-1773670967675-4jyt"
+    ],
+    "relatedWords": [
+      {
+        "word": "老师",
+        "pinyin": "lao3 shi1",
+        "definition": "teacher"
+      }
+    ],
+    "createdDate": "2026-03-16T15:38:51.264Z",
+    "lastUpdated": "2026-03-17T14:31:28.887Z"
+  },
+  "您": {
+    "hanzi": "您",
+    "pinyin": "nin2",
+    "pinyinNumbered": "nin2",
+    "french": "vous",
+    "english": "you",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677867147-6m45sbawm",
+        "recordedDate": "2026-03-16T16:17:47.147Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1771504726854-cyhe:card-1771504726853-s3ob",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1771504726854-cyhe",
+    "firstSeenDate": "2026-03-16T15:38:51.264Z",
+    "appearsInLessons": [
+      "lesson-1771504726854-cyhe"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.264Z",
+    "lastUpdated": "2026-03-16T16:17:47.147Z"
+  },
+  "早": {
+    "hanzi": "早",
+    "pinyin": "zao3",
+    "pinyinNumbered": "zao3",
+    "french": "tôt le matin",
+    "english": "early morning",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677869831-dniq3cjqy",
+        "recordedDate": "2026-03-16T16:17:49.831Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1771504726854-cyhe:card-1771504726853-c4pz",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1771504726854-cyhe",
+    "firstSeenDate": "2026-03-16T15:38:51.264Z",
+    "appearsInLessons": [
+      "lesson-1771504726854-cyhe"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.264Z",
+    "lastUpdated": "2026-03-16T16:17:49.831Z"
+  },
+  "好": {
+    "hanzi": "好",
+    "pinyin": "hao3",
+    "pinyinNumbered": "hao3",
+    "french": "bon; bien",
+    "english": "good; well",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677873571-fwqwuqev4",
+        "recordedDate": "2026-03-16T16:17:53.571Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1771504726854-cyhe:card-1771504726853-hyxv",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1771504726854-cyhe",
+    "firstSeenDate": "2026-03-16T15:38:51.264Z",
+    "appearsInLessons": [
+      "lesson-1771504726854-cyhe"
+    ],
+    "relatedWords": [
+      {
+        "word": "你好",
+        "pinyin": "ni3 hao3",
+        "definition": "hello"
+      }
+    ],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.264Z",
+    "lastUpdated": "2026-03-16T16:17:53.572Z"
+  },
+  "再": {
+    "hanzi": "再",
+    "pinyin": "zai4",
+    "pinyinNumbered": "zai4",
+    "french": "encore",
+    "english": "again",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677875959-mg30pozcs",
+        "recordedDate": "2026-03-16T16:17:55.959Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1771504726854-cyhe:card-1771504726853-qbok",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1771504726854-cyhe",
+    "firstSeenDate": "2026-03-16T15:38:51.264Z",
+    "appearsInLessons": [
+      "lesson-1771504726854-cyhe"
+    ],
+    "relatedWords": [
+      {
+        "word": "再见",
+        "pinyin": "zai4 jian4",
+        "definition": "goodbye"
+      }
+    ],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.264Z",
+    "lastUpdated": "2026-03-16T16:17:55.959Z"
+  },
+  "见": {
+    "hanzi": "见",
+    "pinyin": "jian4",
+    "pinyinNumbered": "jian4",
+    "french": "rencontrer",
+    "english": "meet",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677878388-uzrno0yjl",
+        "recordedDate": "2026-03-16T16:17:58.388Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1771504726854-cyhe:card-1771968190359-6-f1sn",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1771504726854-cyhe",
+    "firstSeenDate": "2026-03-16T15:38:51.265Z",
+    "appearsInLessons": [
+      "lesson-1771504726854-cyhe"
+    ],
+    "relatedWords": [
+      {
+        "word": "再见",
+        "pinyin": "zai4 jian4",
+        "definition": "goodbye"
+      }
+    ],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.265Z",
+    "lastUpdated": "2026-03-16T16:17:58.388Z"
+  },
+  "同": {
+    "hanzi": "同",
+    "pinyin": "tong2",
+    "pinyinNumbered": "tong2",
+    "french": "pareil",
+    "english": "same",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677881062-7nabeel0r",
+        "recordedDate": "2026-03-16T16:18:01.062Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1771504726854-cyhe:card-1771504726853-tk85",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1771504726854-cyhe",
+    "firstSeenDate": "2026-03-16T15:38:51.265Z",
+    "appearsInLessons": [
+      "lesson-1771504726854-cyhe"
+    ],
+    "relatedWords": [
+      {
+        "word": "同学",
+        "pinyin": "tong2 xue2",
+        "definition": "classmate"
+      }
+    ],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.265Z",
+    "lastUpdated": "2026-03-16T16:18:01.063Z"
+  },
+  "学": {
+    "hanzi": "学",
+    "pinyin": "xue2",
+    "pinyinNumbered": "xue2",
+    "french": "apprendre",
+    "english": "learn",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677883649-wohbs65x1",
+        "recordedDate": "2026-03-16T16:18:03.649Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1771504726854-cyhe:card-1771504726853-jcjy",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1771504726854-cyhe",
+    "firstSeenDate": "2026-03-16T15:38:51.268Z",
+    "appearsInLessons": [
+      "lesson-1771504726854-cyhe"
+    ],
+    "relatedWords": [
+      {
+        "word": "同学",
+        "pinyin": "tong2 xue2",
+        "definition": "classmate"
+      }
+    ],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.268Z",
+    "lastUpdated": "2026-03-16T16:18:03.649Z"
+  },
+  "小": {
+    "hanzi": "小",
+    "pinyin": "xiao3",
+    "pinyinNumbered": "xiao3",
+    "french": "Petit",
+    "english": "Small",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677889671-k80isan4t",
+        "recordedDate": "2026-03-16T16:18:09.671Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772116323479-krfe:card-1772116008289-0-we84",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772116323479-krfe",
+    "firstSeenDate": "2026-03-16T15:38:51.269Z",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.269Z",
+    "lastUpdated": "2026-03-16T16:18:09.671Z"
+  },
+  "朋": {
+    "hanzi": "朋",
+    "pinyin": "peng2",
+    "pinyinNumbered": "peng2",
+    "french": "Ami",
+    "english": "Friend",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677892512-5ij3p4q5n",
+        "recordedDate": "2026-03-16T16:18:12.512Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772116323479-krfe:card-1772116008289-1-vuda",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772116323479-krfe",
+    "firstSeenDate": "2026-03-16T15:38:51.269Z",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "relatedWords": [
+      {
+        "word": "朋友",
+        "pinyin": "peng2 you3",
+        "definition": "friend"
+      }
+    ],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.269Z",
+    "lastUpdated": "2026-03-16T16:18:12.513Z"
+  },
+  "友": {
+    "hanzi": "友",
+    "pinyin": "you3",
+    "pinyinNumbered": "you3",
+    "french": "Ami",
+    "english": "Friend",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677895009-9h9qp4odp",
+        "recordedDate": "2026-03-16T16:18:15.009Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772116323479-krfe:card-1772116008290-2-tp1j",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772116323479-krfe",
+    "firstSeenDate": "2026-03-16T15:38:51.269Z",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "relatedWords": [
+      {
+        "word": "朋友",
+        "pinyin": "peng2 you3",
+        "definition": "friend"
+      }
+    ],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.269Z",
+    "lastUpdated": "2026-03-16T16:18:15.009Z"
+  },
+  "们": {
+    "hanzi": "们",
+    "pinyin": "men0",
+    "pinyinNumbered": "men0",
+    "french": "pronom pluriel",
+    "english": "pronoum plural ",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677897456-fmlistbpd",
+        "recordedDate": "2026-03-16T16:18:17.456Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772116323479-krfe:card-1772116008290-3-hsb7",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772116323479-krfe",
+    "firstSeenDate": "2026-03-16T15:38:51.269Z",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.270Z",
+    "lastUpdated": "2026-03-16T16:18:17.456Z"
+  },
+  "有": {
+    "hanzi": "有",
+    "pinyin": "you3",
+    "pinyinNumbered": "you3",
+    "french": "avoir",
+    "english": "to have",
+    "audioRecordings": [
+      {
+        "id": "audio-1773757888889-2maqqd",
+        "url": "indexeddb://parent-model/lesson-1772116323479-krfe:card-1772116008290-4-tut1",
+        "recordedBy": "import",
+        "recordedByProfile": "",
+        "recordedDate": "2026-03-17T14:31:28.889Z",
+        "duration": 0,
+        "isPrimary": true,
+        "quality": "good"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1773670967675-4jyt",
+    "firstSeenDate": "2026-03-16T15:38:51.284Z",
+    "appearsInLessons": [
+      "lesson-1773670967675-4jyt"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-03-16T15:38:51.270Z",
+    "lastUpdated": "2026-03-17T14:31:28.889Z"
+  },
+  "礼": {
+    "hanzi": "礼",
+    "pinyin": "li3",
+    "pinyinNumbered": "li3",
+    "french": "politesse",
+    "english": "manners",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677902540-0qphx6x2i",
+        "recordedDate": "2026-03-16T16:18:22.540Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772116323479-krfe:card-1772116008290-5-ou8f",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772116323479-krfe",
+    "firstSeenDate": "2026-03-16T15:38:51.270Z",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.270Z",
+    "lastUpdated": "2026-03-16T16:18:22.540Z"
+  },
+  "貌": {
+    "hanzi": "貌",
+    "pinyin": "mao4",
+    "pinyinNumbered": "mao4",
+    "french": "apparence, politesse",
+    "english": "manners",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677905080-4qpe97nck",
+        "recordedDate": "2026-03-16T16:18:25.080Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772116323479-krfe:card-1772116008290-6-bg7y",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772116323479-krfe",
+    "firstSeenDate": "2026-03-16T15:38:51.271Z",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.271Z",
+    "lastUpdated": "2026-03-16T16:18:25.081Z"
+  },
+  "时": {
+    "hanzi": "时",
+    "pinyin": "shi2",
+    "pinyinNumbered": "shi2",
+    "french": "heure, temps",
+    "english": "hour, time ",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677907380-j5j0dxh45",
+        "recordedDate": "2026-03-16T16:18:27.380Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772116323479-krfe:card-1772116008290-7-nh02",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772116323479-krfe",
+    "firstSeenDate": "2026-03-16T15:38:51.271Z",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.271Z",
+    "lastUpdated": "2026-03-16T16:18:27.380Z"
+  },
+  "刻": {
+    "hanzi": "刻",
+    "pinyin": "ke4",
+    "pinyinNumbered": "ke4",
+    "french": "seconde",
+    "english": "seconds",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677909867-ykx1uds7g",
+        "recordedDate": "2026-03-16T16:18:29.867Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772116323479-krfe:card-1772116008292-8-9pth",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772116323479-krfe",
+    "firstSeenDate": "2026-03-16T15:38:51.271Z",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.271Z",
+    "lastUpdated": "2026-03-16T16:18:29.867Z"
+  },
+  "要": {
+    "hanzi": "要",
+    "pinyin": "yao4",
+    "pinyinNumbered": "yao4",
+    "french": "vouloir",
+    "english": "want",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677912982-ok8ngv6jo",
+        "recordedDate": "2026-03-16T16:18:32.982Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772116323479-krfe:card-1772116008292-9-q6np",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772116323479-krfe",
+    "firstSeenDate": "2026-03-16T15:38:51.272Z",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.272Z",
+    "lastUpdated": "2026-03-16T16:18:32.982Z"
+  },
+  "记": {
+    "hanzi": "记",
+    "pinyin": "ji4",
+    "pinyinNumbered": "ji4",
+    "french": "retenir",
+    "english": "remember",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677915267-7ooexdk6l",
+        "recordedDate": "2026-03-16T16:18:35.267Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772116323479-krfe:card-1772116008292-10-033l",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772116323479-krfe",
+    "firstSeenDate": "2026-03-16T15:38:51.272Z",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.272Z",
+    "lastUpdated": "2026-03-16T16:18:35.268Z"
+  },
+  "牢": {
+    "hanzi": "牢",
+    "pinyin": "lao2",
+    "pinyinNumbered": "lao2",
+    "french": "bien retenir ",
+    "english": "remember well",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677917528-97sn871lj",
+        "recordedDate": "2026-03-16T16:18:37.528Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772116323479-krfe:card-1772116008292-11-6xvs",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772116323479-krfe",
+    "firstSeenDate": "2026-03-16T15:38:51.273Z",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.273Z",
+    "lastUpdated": "2026-03-16T16:18:37.528Z"
+  },
+  "对": {
+    "hanzi": "对",
+    "pinyin": "dui4",
+    "pinyinNumbered": "dui4",
+    "french": "correct",
+    "english": "corect",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677919997-9ptcw5a2d",
+        "recordedDate": "2026-03-16T16:18:39.997Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772116323479-krfe:card-1772116008292-12-zwnj",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772116323479-krfe",
+    "firstSeenDate": "2026-03-16T15:38:51.273Z",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.273Z",
+    "lastUpdated": "2026-03-16T16:18:39.997Z"
+  },
+  "不": {
+    "hanzi": "不",
+    "pinyin": "bu4",
+    "pinyinNumbered": "bu4",
+    "french": "ne pas; non",
+    "english": "not",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677922464-ghxnp24er",
+        "recordedDate": "2026-03-16T16:18:42.464Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772116323479-krfe:card-1772116008292-13-0fzh",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772116323479-krfe",
+    "firstSeenDate": "2026-03-16T15:38:51.273Z",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.273Z",
+    "lastUpdated": "2026-03-16T16:18:42.464Z"
+  },
+  "起": {
+    "hanzi": "起",
+    "pinyin": "qi3",
+    "pinyinNumbered": "qi3",
+    "french": "monter, se lever",
+    "english": "rise ",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677925212-bqogu21ff",
+        "recordedDate": "2026-03-16T16:18:45.212Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772116323479-krfe:card-1772116008292-14-tjx3",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772116323479-krfe",
+    "firstSeenDate": "2026-03-16T15:38:51.273Z",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.274Z",
+    "lastUpdated": "2026-03-16T16:18:45.212Z"
+  },
+  "没": {
+    "hanzi": "没",
+    "pinyin": "mei2",
+    "pinyinNumbered": "mei2",
+    "french": "il n'y a pas",
+    "english": "not have",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677927583-6hco5qwgg",
+        "recordedDate": "2026-03-16T16:18:47.583Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772116323479-krfe:card-1772116008292-15-dbrn",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772116323479-krfe",
+    "firstSeenDate": "2026-03-16T15:38:51.274Z",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.274Z",
+    "lastUpdated": "2026-03-16T16:18:47.583Z"
+  },
+  "关": {
+    "hanzi": "关",
+    "pinyin": "guan1",
+    "pinyinNumbered": "guan1",
+    "french": "fermer",
+    "english": "to close",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677930242-umqxbh1zm",
+        "recordedDate": "2026-03-16T16:18:50.242Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772116323479-krfe:card-1772116008292-16-1sj5",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772116323479-krfe",
+    "firstSeenDate": "2026-03-16T15:38:51.274Z",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.274Z",
+    "lastUpdated": "2026-03-16T16:18:50.243Z"
+  },
+  "系": {
+    "hanzi": "系",
+    "pinyin": "xi4",
+    "pinyinNumbered": "xi4",
+    "french": "lien",
+    "english": "link ",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677932927-yc1tewhtn",
+        "recordedDate": "2026-03-16T16:18:52.927Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772116323479-krfe:card-1772116008292-17-mdf5",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772116323479-krfe",
+    "firstSeenDate": "2026-03-16T15:38:51.274Z",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.275Z",
+    "lastUpdated": "2026-03-16T16:18:52.927Z"
+  },
+  "多": {
+    "hanzi": "多",
+    "pinyin": "duo1",
+    "pinyinNumbered": "duo1",
+    "french": "beaucoup",
+    "english": "many",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677935458-viccrcihe",
+        "recordedDate": "2026-03-16T16:18:55.458Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772116323479-krfe:card-1772116008293-18-ujur",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772116323479-krfe",
+    "firstSeenDate": "2026-03-16T15:38:51.275Z",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.275Z",
+    "lastUpdated": "2026-03-16T16:18:55.459Z"
+  },
+  "谢": {
+    "hanzi": "谢",
+    "pinyin": "xie4",
+    "pinyinNumbered": "xie4",
+    "french": "merci",
+    "english": "thanks",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677938247-th3pnyemo",
+        "recordedDate": "2026-03-16T16:18:58.247Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772116323479-krfe:card-1772116008293-19-7zb2",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772116323479-krfe",
+    "firstSeenDate": "2026-03-16T15:38:51.276Z",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "relatedWords": [
+      {
+        "word": "谢谢",
+        "pinyin": "xie4 xie",
+        "definition": "thanks"
+      }
+    ],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.276Z",
+    "lastUpdated": "2026-03-16T16:18:58.247Z"
+  },
+  "用": {
+    "hanzi": "用",
+    "pinyin": "yong4",
+    "pinyinNumbered": "yong4",
+    "french": "utiliser",
+    "english": "use",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677940977-lqiqobi4p",
+        "recordedDate": "2026-03-16T16:19:00.977Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772116323479-krfe:card-1772116008293-20-48x1",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772116323479-krfe",
+    "firstSeenDate": "2026-03-16T15:38:51.276Z",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.276Z",
+    "lastUpdated": "2026-03-16T16:19:00.977Z"
+  },
+  "客": {
+    "hanzi": "客",
+    "pinyin": "ke4",
+    "pinyinNumbered": "ke4",
+    "french": "invité",
+    "english": "guest",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677943676-rr2x6kq9p",
+        "recordedDate": "2026-03-16T16:19:03.676Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772116323479-krfe:card-1772116008293-22-jj99",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772116323479-krfe",
+    "firstSeenDate": "2026-03-16T15:38:51.277Z",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.277Z",
+    "lastUpdated": "2026-03-16T16:19:03.676Z"
+  },
+  "气": {
+    "hanzi": "气",
+    "pinyin": "qi4",
+    "pinyinNumbered": "qi4",
+    "french": "air",
+    "english": "air",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677946345-4cei7axn7",
+        "recordedDate": "2026-03-16T16:19:06.345Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1772116323479-krfe:card-1772116008293-23-ixc3",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1772116323479-krfe",
+    "firstSeenDate": "2026-03-16T15:38:51.277Z",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.277Z",
+    "lastUpdated": "2026-03-16T16:19:06.345Z"
+  },
+  "姓": {
+    "hanzi": "姓",
+    "pinyin": "xing4",
+    "pinyinNumbered": "xing4",
+    "french": "nom de famille",
+    "english": "",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677949137-a1143clfp",
+        "recordedDate": "2026-03-16T16:19:09.137Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-ask-name:xing",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-ask-name",
+    "firstSeenDate": "2026-03-16T15:38:51.278Z",
+    "appearsInLessons": [
+      "lesson-ask-name"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.278Z",
+    "lastUpdated": "2026-03-16T16:19:09.137Z"
+  },
+  "什": {
+    "hanzi": "什",
+    "pinyin": "shen2",
+    "pinyinNumbered": "shen2",
+    "french": "quoi",
+    "english": "",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677951941-w5rwawahm",
+        "recordedDate": "2026-03-16T16:19:11.941Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-ask-name:shen",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-ask-name",
+    "firstSeenDate": "2026-03-16T15:38:51.279Z",
+    "appearsInLessons": [
+      "lesson-ask-name"
+    ],
+    "relatedWords": [
+      {
+        "word": "什么",
+        "pinyin": "shen2 me5",
+        "definition": "what"
+      }
+    ],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.279Z",
+    "lastUpdated": "2026-03-16T16:19:11.942Z"
+  },
+  "么": {
+    "hanzi": "么",
+    "pinyin": "me5",
+    "pinyinNumbered": "me5",
+    "french": "quoi",
+    "english": "",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677954342-ya53rjxq1",
+        "recordedDate": "2026-03-16T16:19:14.342Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-ask-name:me",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-ask-name",
+    "firstSeenDate": "2026-03-16T15:38:51.279Z",
+    "appearsInLessons": [
+      "lesson-ask-name"
+    ],
+    "relatedWords": [
+      {
+        "word": "什么",
+        "pinyin": "shen2 me5",
+        "definition": "what"
+      }
+    ],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.279Z",
+    "lastUpdated": "2026-03-16T16:19:14.342Z"
+  },
+  "王": {
+    "hanzi": "王",
+    "pinyin": "wang2",
+    "pinyinNumbered": "wang2",
+    "french": "",
+    "english": "",
+    "audioRecordings": [
+      {
+        "id": "audio-1773757888892-432dpm",
+        "url": "indexeddb://parent-model/lesson-ask-name:wang",
+        "recordedBy": "import",
+        "recordedByProfile": "",
+        "recordedDate": "2026-03-17T14:31:28.892Z",
+        "duration": 0,
+        "isPrimary": true,
+        "quality": "good"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1773670967675-4jyt",
+    "firstSeenDate": "2026-03-16T15:38:51.286Z",
+    "appearsInLessons": [
+      "lesson-1773670967675-4jyt"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-03-16T15:38:51.280Z",
+    "lastUpdated": "2026-03-17T14:31:28.893Z"
+  },
+  "天": {
+    "hanzi": "天",
+    "pinyin": "tian1",
+    "pinyinNumbered": "tian1",
+    "french": "",
+    "english": "",
+    "audioRecordings": [
+      {
+        "id": "audio-1773757888893-aytzdu",
+        "url": "indexeddb://parent-model/lesson-ask-name:tian",
+        "recordedBy": "import",
+        "recordedByProfile": "",
+        "recordedDate": "2026-03-17T14:31:28.893Z",
+        "duration": 0,
+        "isPrimary": true,
+        "quality": "good"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1773670967675-4jyt",
+    "firstSeenDate": "2026-03-16T15:38:51.286Z",
+    "appearsInLessons": [
+      "lesson-1773670967675-4jyt"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-03-16T15:38:51.280Z",
+    "lastUpdated": "2026-03-17T14:31:28.893Z"
+  },
+  "叫": {
+    "hanzi": "叫",
+    "pinyin": "jiao4",
+    "pinyinNumbered": "jiao4",
+    "french": "appeler",
+    "english": "",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677963197-aer9howsh",
+        "recordedDate": "2026-03-16T16:19:23.197Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-ask-name:jiao",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-ask-name",
+    "firstSeenDate": "2026-03-16T15:38:51.281Z",
+    "appearsInLessons": [
+      "lesson-ask-name"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.282Z",
+    "lastUpdated": "2026-03-16T16:19:23.198Z"
+  },
+  "名": {
+    "hanzi": "名",
+    "pinyin": "ming2",
+    "pinyinNumbered": "ming2",
+    "french": "nom",
+    "english": "",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677965543-pp4qy9rp4",
+        "recordedDate": "2026-03-16T16:19:25.543Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-ask-name:ming",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-ask-name",
+    "firstSeenDate": "2026-03-16T15:38:51.282Z",
+    "appearsInLessons": [
+      "lesson-ask-name"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.282Z",
+    "lastUpdated": "2026-03-16T16:19:25.543Z"
+  },
+  "字": {
+    "hanzi": "字",
+    "pinyin": "zi4",
+    "pinyinNumbered": "zi4",
+    "french": "caractère chinois",
+    "english": "",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677967953-6agcd40hq",
+        "recordedDate": "2026-03-16T16:19:27.953Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-ask-name:zi",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-ask-name",
+    "firstSeenDate": "2026-03-16T15:38:51.282Z",
+    "appearsInLessons": [
+      "lesson-ask-name"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.283Z",
+    "lastUpdated": "2026-03-16T16:19:27.953Z"
+  },
+  "几": {
+    "hanzi": "几",
+    "pinyin": "ji3",
+    "pinyinNumbered": "ji3",
+    "french": "",
+    "english": "",
+    "audioRecordings": [
+      {
+        "id": "audio-1773757888890-tz7zx7",
+        "url": "indexeddb://parent-model/lesson-1773670967675-4jyt:card-1773670930882-5-ivxl",
+        "recordedBy": "import",
+        "recordedByProfile": "",
+        "recordedDate": "2026-03-17T14:31:28.890Z",
+        "duration": 0,
+        "isPrimary": true,
+        "quality": "good"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1773670967675-4jyt",
+    "firstSeenDate": "2026-03-16T15:38:51.285Z",
+    "appearsInLessons": [
+      "lesson-1773670967675-4jyt"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.285Z",
+    "lastUpdated": "2026-03-17T14:31:28.890Z"
+  },
+  "口": {
+    "hanzi": "口",
+    "pinyin": "kou3",
+    "pinyinNumbered": "kou3",
+    "french": "",
+    "english": "",
+    "audioRecordings": [
+      {
+        "id": "audio-1773757888891-pconxt",
+        "url": "indexeddb://parent-model/lesson-1773670967675-4jyt:card-1773670930882-6-vhl9",
+        "recordedBy": "import",
+        "recordedByProfile": "",
+        "recordedDate": "2026-03-17T14:31:28.891Z",
+        "duration": 0,
+        "isPrimary": true,
+        "quality": "good"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1773670967675-4jyt",
+    "firstSeenDate": "2026-03-16T15:38:51.285Z",
+    "appearsInLessons": [
+      "lesson-1773670967675-4jyt"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.285Z",
+    "lastUpdated": "2026-03-17T14:31:28.891Z"
+  },
+  "人": {
+    "hanzi": "人",
+    "pinyin": "ren2",
+    "pinyinNumbered": "ren2",
+    "french": "",
+    "english": "",
+    "audioRecordings": [
+      {
+        "id": "audio-1773757888892-jelppb",
+        "url": "indexeddb://parent-model/lesson-1773670967675-4jyt:card-1773670930882-7-m21d",
+        "recordedBy": "import",
+        "recordedByProfile": "",
+        "recordedDate": "2026-03-17T14:31:28.892Z",
+        "duration": 0,
+        "isPrimary": true,
+        "quality": "good"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1773670967675-4jyt",
+    "firstSeenDate": "2026-03-16T15:38:51.285Z",
+    "appearsInLessons": [
+      "lesson-1773670967675-4jyt"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.285Z",
+    "lastUpdated": "2026-03-17T14:31:28.892Z"
+  },
+  "谁": {
+    "hanzi": "谁",
+    "pinyin": "shui2",
+    "pinyinNumbered": "shui2",
+    "french": "qui",
+    "english": "who",
+    "audioRecordings": [
+      {
+        "id": "audio-1773757888897-liqome",
+        "url": "indexeddb://parent-model/lesson-1773670967675-4jyt:card-1773670930882-12-0sfd",
+        "recordedBy": "import",
+        "recordedByProfile": "",
+        "recordedDate": "2026-03-17T14:31:28.897Z",
+        "duration": 0,
+        "isPrimary": true,
+        "quality": "good"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1773670967675-4jyt",
+    "firstSeenDate": "2026-03-16T15:38:51.287Z",
+    "appearsInLessons": [
+      "lesson-1773670967675-4jyt"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.287Z",
+    "lastUpdated": "2026-03-17T14:31:28.898Z"
+  },
+  "爸": {
+    "hanzi": "爸",
+    "pinyin": "ba4",
+    "pinyinNumbered": "ba4",
+    "french": "papa",
+    "english": "father",
+    "audioRecordings": [
+      {
+        "id": "audio-1773757888898-yz0cvq",
+        "url": "indexeddb://parent-model/lesson-1773670967675-4jyt:card-1773670930882-13-j4lm",
+        "recordedBy": "import",
+        "recordedByProfile": "",
+        "recordedDate": "2026-03-17T14:31:28.898Z",
+        "duration": 0,
+        "isPrimary": true,
+        "quality": "good"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1773670967675-4jyt",
+    "firstSeenDate": "2026-03-16T15:38:51.287Z",
+    "appearsInLessons": [
+      "lesson-1773670967675-4jyt"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.287Z",
+    "lastUpdated": "2026-03-17T14:31:28.899Z"
+  },
+  "妈": {
+    "hanzi": "妈",
+    "pinyin": "ma1",
+    "pinyinNumbered": "ma1",
+    "french": "maman",
+    "english": "mother",
+    "audioRecordings": [
+      {
+        "id": "audio-1773757888900-dvmxqb",
+        "url": "indexeddb://parent-model/lesson-1773670967675-4jyt:card-1773670930882-14-n1p5",
+        "recordedBy": "import",
+        "recordedByProfile": "",
+        "recordedDate": "2026-03-17T14:31:28.900Z",
+        "duration": 0,
+        "isPrimary": true,
+        "quality": "good"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1773670967675-4jyt",
+    "firstSeenDate": "2026-03-16T15:38:51.288Z",
+    "appearsInLessons": [
+      "lesson-1773670967675-4jyt"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.288Z",
+    "lastUpdated": "2026-03-17T14:31:28.900Z"
+  },
+  "妹": {
+    "hanzi": "妹",
+    "pinyin": "mei4",
+    "pinyinNumbered": "mei4",
+    "french": "",
+    "english": "",
+    "audioRecordings": [
+      {
+        "id": "audio-1773757888901-jdomnb",
+        "url": "indexeddb://parent-model/lesson-1773670967675-4jyt:card-1773670930882-15-ub25",
+        "recordedBy": "import",
+        "recordedByProfile": "",
+        "recordedDate": "2026-03-17T14:31:28.901Z",
+        "duration": 0,
+        "isPrimary": true,
+        "quality": "good"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1773670967675-4jyt",
+    "firstSeenDate": "2026-03-16T15:38:51.288Z",
+    "appearsInLessons": [
+      "lesson-1773670967675-4jyt"
+    ],
+    "relatedWords": [
+      {
+        "word": "妹妹",
+        "pinyin": "mei4 mei",
+        "definition": "younger sister"
+      }
+    ],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.288Z",
+    "lastUpdated": "2026-03-17T14:31:28.901Z"
+  },
+  "和": {
+    "hanzi": "和",
+    "pinyin": "he2",
+    "pinyinNumbered": "he2",
+    "french": "",
+    "english": "",
+    "audioRecordings": [
+      {
+        "id": "audio-1773757888902-yen473",
+        "url": "indexeddb://parent-model/lesson-1773670967675-4jyt:card-1773670930882-16-3rh5",
+        "recordedBy": "import",
+        "recordedByProfile": "",
+        "recordedDate": "2026-03-17T14:31:28.902Z",
+        "duration": 0,
+        "isPrimary": true,
+        "quality": "good"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1773670967675-4jyt",
+    "firstSeenDate": "2026-03-16T15:38:51.288Z",
+    "appearsInLessons": [
+      "lesson-1773670967675-4jyt"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.288Z",
+    "lastUpdated": "2026-03-17T14:31:28.902Z"
+  },
+  "猫": {
+    "hanzi": "猫",
+    "pinyin": "māo",
+    "pinyinNumbered": "māo",
+    "french": "chat",
+    "english": "cat",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677991195-kb8xeqkxr",
+        "recordedDate": "2026-03-16T16:19:51.195Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1:mao",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [
+      {
+        "id": "img-1773675531289-wyp72m",
+        "url": "/images/chat.svg",
+        "source": "upload",
+        "uploadedDate": "2026-03-16T15:38:51.289Z"
+      }
+    ],
+    "firstSeenLesson": "lesson-1",
+    "firstSeenDate": "2026-03-16T15:38:51.289Z",
+    "appearsInLessons": [
+      "lesson-1"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.289Z",
+    "lastUpdated": "2026-03-16T16:19:51.195Z"
+  },
+  "狗": {
+    "hanzi": "狗",
+    "pinyin": "gǒu",
+    "pinyinNumbered": "gǒu",
+    "french": "chien",
+    "english": "dog",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677993666-gtku7wcvx",
+        "recordedDate": "2026-03-16T16:19:53.666Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1:gou",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1",
+    "firstSeenDate": "2026-03-16T15:38:51.289Z",
+    "appearsInLessons": [
+      "lesson-1"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.290Z",
+    "lastUpdated": "2026-03-16T16:19:53.666Z"
+  },
+  "鸟": {
+    "hanzi": "鸟",
+    "pinyin": "niǎo",
+    "pinyinNumbered": "niǎo",
+    "french": "oiseau",
+    "english": "bird",
+    "audioRecordings": [
+      {
+        "id": "audio-1773677996682-10fvfwguw",
+        "recordedDate": "2026-03-16T16:19:56.682Z",
+        "isPrimary": true,
+        "duration": 1,
+        "quality": "good",
+        "url": "indexeddb://parent-model/lesson-1:niao",
+        "recordedBy": "maman",
+        "recordedByProfile": "parent-default"
+      }
+    ],
+    "images": [],
+    "firstSeenLesson": "lesson-1",
+    "firstSeenDate": "2026-03-16T15:38:51.290Z",
+    "appearsInLessons": [
+      "lesson-1"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-16T15:38:51.290Z",
+    "lastUpdated": "2026-03-16T16:19:56.682Z"
+  }
+}
