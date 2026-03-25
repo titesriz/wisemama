@@ -749,3 +749,41 @@
   font-weight: 700;
   color: var(--parent-text-soft);
 }
+
+.parent-settings-font {
+  margin: 18px 0 24px;
+  padding: 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid #e5eaf1;
+}
+
+.parent-font-select {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.parent-font-select label {
+  font-weight: 600;
+}
+
+.parent-font-select select {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #d8dee9;
+  background: #fff;
+  font-weight: 600;
+}
+
+.parent-font-preview {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px dashed #d8dee9;
+  font-family: var(--wm-font-hanzi);
+  font-size: 20px;
+}

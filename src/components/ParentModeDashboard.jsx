@@ -11,6 +11,7 @@ import { useAudioRecorder } from '../hooks/useAudioRecorder.js';
 import { saveParentModel } from '../lib/audioStore.js';
 import { addAudioRecording } from '../utils/database/characterDB.js';
 import { getLessonsByOrder } from '../utils/lessons/lessonOrder.js';
+import { applyHanziFontPreference, getHanziFontPreference, HANZI_FONT_OPTIONS } from '../lib/hanziFont.js';
 import '../styles/parent-mode.css';
 
 const MODULE_IDS = {
@@ -603,6 +604,14 @@ function SettingsModule({
   onRestartTutorial,
   onResetAllData,
 }) {
+  const [fontChoice, setFontChoice] = useState(getHanziFontPreference());
+
+  const handleFontChange = (event) => {
+    const nextValue = event.target.value;
+    setFontChoice(nextValue);
+    applyHanziFontPreference(nextValue);
+  };
+
   return (
     <section className="parent-panel" aria-label="Parametres">
       <div className="parent-panel-head">
@@ -624,6 +633,19 @@ function SettingsModule({
       <section className="parent-settings-avatar">
         <h4>Profils et avatars</h4>
         <AvatarEditor />
+      </section>
+
+      <section className="parent-settings-font">
+        <h4>Police chinoise</h4>
+        <div className="parent-font-select">
+          <label htmlFor="hanzi-font-select">Police Hanzi</label>
+          <select id="hanzi-font-select" value={fontChoice} onChange={handleFontChange}>
+            {HANZI_FONT_OPTIONS.map((option) => (
+              <option key={option.id} value={option.id}>{option.label}</option>
+            ))}
+          </select>
+        </div>
+        <p className="parent-font-preview">我们一起学中文。欢迎！</p>
       </section>
 
       <div className="parent-settings-list">

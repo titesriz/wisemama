@@ -28,6 +28,7 @@ import {
   resetAllWiseMamaData,
   saveFtueState,
 } from './lib/ftueStorage.js';
+import { applyHanziFontPreference, getHanziFontPreference } from './lib/hanziFont.js';
 
 const appTitle = 'WiseMama - Apprendre le chinois';
 const progressStorageKey = 'wisemama-progress-v1';
@@ -116,10 +117,12 @@ export default function App() {
   const [showDailyRituel, setShowDailyRituel] = useState(false);
   const [showTutorial, setShowTutorial] = useState(() => {
     try {
-      const parsed = JSON.parse(localStorage.getItem(tutorialStorageKey) || '{}');
+      const raw = localStorage.getItem(tutorialStorageKey);
+      if (!raw) return false;
+      const parsed = JSON.parse(raw || '{}');
       return !parsed.completed;
     } catch {
-      return true;
+      return false;
     }
   });
   const [tutorialStep, setTutorialStep] = useState(0);
@@ -157,6 +160,31 @@ export default function App() {
     ],
     [],
   );
+
+  useEffect(() => {
+    applyHanziFontPreference(getHanziFontPreference());
+  }, []);
+
+  useEffect(() => {
+    try {
+      const ftueRaw = localStorage.getItem('wisemama-ftue-v1');
+      if (!ftueRaw) {
+        localStorage.setItem(
+          'wisemama-ftue-v1',
+          JSON.stringify({ completed: true, childName: 'Eli', updatedAt: new Date().toISOString() }),
+        );
+        setFtueState((prev) => ({ ...prev, completed: true, childName: 'Eli' }));
+        setShowFtue(false);
+      }
+      const tutorialRaw = localStorage.getItem(tutorialStorageKey);
+      if (!tutorialRaw) {
+        localStorage.setItem(tutorialStorageKey, JSON.stringify({ completed: true }));
+        setShowTutorial(false);
+      }
+    } catch {
+      // no-op
+    }
+  }, []);
 
   useEffect(() => {
     ensureActiveLesson();

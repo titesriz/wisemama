@@ -4,6 +4,7 @@ import {
   randomAvatarConfig,
   sanitizeAvatarConfig,
 } from '../lib/avatarConfig.js';
+import bundledAvatarConfig from '../data/avatar-config.json';
 
 const avatarStorageKey = 'wisemama-avatar-config-v1';
 
@@ -18,6 +19,9 @@ function normalizeRole(role) {
 }
 
 function createDefaultProfiles() {
+  if (bundledAvatarConfig && Array.isArray(bundledAvatarConfig.profiles) && bundledAvatarConfig.profiles.length) {
+    return normalizeProfiles(bundledAvatarConfig.profiles);
+  }
   return [
     {
       id: 'child-default',
@@ -97,7 +101,11 @@ function migrateLegacyPayload(parsed) {
 
 export function AvatarProvider({ children }) {
   const [profiles, setProfiles] = useState(createDefaultProfiles);
-  const [activeProfileId, setActiveProfileId] = useState('child-default');
+  const [activeProfileId, setActiveProfileId] = useState(() => {
+    const bundledActive = bundledAvatarConfig?.activeProfileId;
+    if (typeof bundledActive === 'string' && bundledActive) return bundledActive;
+    return 'child-default';
+  });
 
   useEffect(() => {
     try {
@@ -113,7 +121,9 @@ export function AvatarProvider({ children }) {
     } catch {
       const defaults = createDefaultProfiles();
       setProfiles(defaults);
-      setActiveProfileId(defaults[0].id);
+      const bundledActive = bundledAvatarConfig?.activeProfileId;
+      const exists = defaults.some((p) => p.id === bundledActive);
+      setActiveProfileId(exists ? bundledActive : defaults[0].id);
     }
   }, []);
 

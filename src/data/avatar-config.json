@@ -1,0 +1,55 @@
+{
+  "profiles": [
+    {
+      "id": "child-default",
+      "name": "Eli",
+      "role": "child",
+      "avatar": {
+        "style": "toon-head",
+        "seed": "child-3k2rhwd3",
+        "beard": "none",
+        "clothes": "openJacket",
+        "clothesColor": "ec4899",
+        "hair": "bun",
+        "hairColor": "2c1b18",
+        "hairProbability": 100,
+        "eyes": "happy",
+        "mouth": "laugh",
+        "rearHair": "none",
+        "rearHairProbability": 50,
+        "skinColor": "f1c3a5",
+        "eyebrows": "neutral",
+        "head": "head",
+        "backgroundColor": "c0aede",
+        "accessories": "none",
+        "face": "head"
+      }
+    },
+    {
+      "id": "parent-default",
+      "name": "Maman",
+      "role": "parent",
+      "avatar": {
+        "style": "toon-head",
+        "seed": "parent-numh2glz",
+        "beard": "none",
+        "clothes": "tShirt",
+        "clothesColor": "b11f1f",
+        "hair": "sideComed",
+        "hairColor": "2c1b18",
+        "hairProbability": 100,
+        "eyes": "happy",
+        "mouth": "laugh",
+        "rearHair": "longWavy",
+        "rearHairProbability": 50,
+        "skinColor": "f1c3a5",
+        "eyebrows": "neutral",
+        "head": "head",
+        "backgroundColor": "e8f3a7",
+        "accessories": "none",
+        "face": "head"
+      }
+    }
+  ],
+  "activeProfileId": "parent-default"
+}

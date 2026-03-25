@@ -4,6 +4,12 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'WisemamaHanziUkai';
+  src: url('/fonts/ukai.ttc') format('truetype');
+  font-display: swap;
+}
+
 :root {
   --wm-color-primary: #ff6b6b;
   --wm-color-primary-hover: #ff5a5a;
