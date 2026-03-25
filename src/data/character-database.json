@@ -513,11 +513,11 @@
     "english": "home",
     "audioRecordings": [
       {
-        "id": "audio-1773757888889-g91r19",
+        "id": "audio-1774442669929-6dcmed",
         "url": "indexeddb://parent-model/lesson-1772113797148-y9pq:card-1772113662642-11-efwn",
         "recordedBy": "import",
         "recordedByProfile": "",
-        "recordedDate": "2026-03-17T14:31:28.889Z",
+        "recordedDate": "2026-03-25T12:44:29.929Z",
         "duration": 0,
         "isPrimary": true,
         "quality": "good"
@@ -532,7 +532,7 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-03-16T15:38:51.261Z",
-    "lastUpdated": "2026-03-25T00:00:00.000Z"
+    "lastUpdated": "2026-03-25T12:44:29.947Z"
   },
   "都": {
     "hanzi": "都",
@@ -692,11 +692,11 @@
     "english": "I",
     "audioRecordings": [
       {
-        "id": "audio-1773757888902-9g1wqf",
+        "id": "audio-1774442669928-p8twu0",
         "url": "indexeddb://parent-model/lesson-1770786071099-zy4z:card-1770786554949-dzrj",
         "recordedBy": "import",
         "recordedByProfile": "",
-        "recordedDate": "2026-03-17T14:31:28.902Z",
+        "recordedDate": "2026-03-25T12:44:29.928Z",
         "duration": 0,
         "isPrimary": true,
         "quality": "good"
@@ -711,7 +711,7 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-03-16T15:38:51.262Z",
-    "lastUpdated": "2026-03-25T00:00:00.000Z"
+    "lastUpdated": "2026-03-25T12:44:29.946Z"
   },
   "你": {
     "hanzi": "你",
@@ -721,11 +721,11 @@
     "english": "you",
     "audioRecordings": [
       {
-        "id": "audio-1773757888887-ci8k7q",
+        "id": "audio-1774442669944-5u5xxj",
         "url": "indexeddb://parent-model/lesson-1770786071099-zy4z:card-1770786610243-ixe5",
         "recordedBy": "import",
         "recordedByProfile": "",
-        "recordedDate": "2026-03-17T14:31:28.887Z",
+        "recordedDate": "2026-03-25T12:44:29.944Z",
         "duration": 0,
         "isPrimary": true,
         "quality": "good"
@@ -740,7 +740,7 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-03-16T15:38:51.262Z",
-    "lastUpdated": "2026-03-25T00:00:00.000Z"
+    "lastUpdated": "2026-03-25T12:44:29.950Z"
   },
   "他": {
     "hanzi": "他",
@@ -1560,11 +1560,11 @@
     "english": "to have",
     "audioRecordings": [
       {
-        "id": "audio-1773757888889-2maqqd",
+        "id": "audio-1774442669931-8x9hz2",
         "url": "indexeddb://parent-model/lesson-1772116323479-krfe:card-1772116008290-4-tut1",
         "recordedBy": "import",
         "recordedByProfile": "",
-        "recordedDate": "2026-03-17T14:31:28.889Z",
+        "recordedDate": "2026-03-25T12:44:29.931Z",
         "duration": 0,
         "isPrimary": true,
         "quality": "good"
@@ -1579,7 +1579,7 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-03-16T15:38:51.270Z",
-    "lastUpdated": "2026-03-25T00:00:00.000Z"
+    "lastUpdated": "2026-03-25T12:44:29.947Z"
   },
   "礼": {
     "hanzi": "礼",
@@ -3063,11 +3063,11 @@
     "english": "father",
     "audioRecordings": [
       {
-        "id": "audio-1773757888898-yz0cvq",
+        "id": "audio-1774442669943-scqkff",
         "url": "indexeddb://parent-model/lesson-1773670967675-4jyt:card-1773670930882-13-j4lm",
         "recordedBy": "import",
         "recordedByProfile": "",
-        "recordedDate": "2026-03-17T14:31:28.898Z",
+        "recordedDate": "2026-03-25T12:44:29.943Z",
         "duration": 0,
         "isPrimary": true,
         "quality": "good"
@@ -3104,7 +3104,7 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.287Z",
-    "lastUpdated": "2026-03-25T00:00:00.000Z"
+    "lastUpdated": "2026-03-25T12:44:29.950Z"
   },
   "妈": {
     "hanzi": "妈",
@@ -3114,11 +3114,11 @@
     "english": "mother",
     "audioRecordings": [
       {
-        "id": "audio-1773757888900-dvmxqb",
+        "id": "audio-1774442669941-acxis2",
         "url": "indexeddb://parent-model/lesson-1773670967675-4jyt:card-1773670930882-14-n1p5",
         "recordedBy": "import",
         "recordedByProfile": "",
-        "recordedDate": "2026-03-17T14:31:28.900Z",
+        "recordedDate": "2026-03-25T12:44:29.941Z",
         "duration": 0,
         "isPrimary": true,
         "quality": "good"
@@ -3155,7 +3155,7 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.288Z",
-    "lastUpdated": "2026-03-25T00:00:00.000Z"
+    "lastUpdated": "2026-03-25T12:44:29.948Z"
   },
   "妹": {
     "hanzi": "妹",
@@ -3217,15 +3217,15 @@
     "hanzi": "和",
     "pinyin": "he2",
     "pinyinNumbered": "he2",
-    "french": "",
-    "english": "",
+    "french": "et, avec",
+    "english": "and, with ",
     "audioRecordings": [
       {
-        "id": "audio-1773757888902-yen473",
+        "id": "audio-1774442669942-0jczos",
         "url": "indexeddb://parent-model/lesson-1773670967675-4jyt:card-1773670930882-16-3rh5",
         "recordedBy": "import",
         "recordedByProfile": "",
-        "recordedDate": "2026-03-17T14:31:28.902Z",
+        "recordedDate": "2026-03-25T12:44:29.942Z",
         "duration": 0,
         "isPrimary": true,
         "quality": "good"
@@ -3262,7 +3262,7 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.288Z",
-    "lastUpdated": "2026-03-25T00:00:00.000Z"
+    "lastUpdated": "2026-03-25T12:44:29.949Z"
   },
   "猫": {
     "hanzi": "猫",
@@ -3423,10 +3423,10 @@
   },
   "弟": {
     "hanzi": "弟",
-    "pinyin": "",
-    "pinyinNumbered": "",
-    "french": "",
-    "english": "",
+    "pinyin": "di4",
+    "pinyinNumbered": "di4",
+    "french": "petit frère",
+    "english": "little brother",
     "audioRecordings": [],
     "images": [],
     "firstSeenLesson": "lesson-1774430690827-wzys",
@@ -3434,7 +3434,13 @@
     "appearsInLessons": [
       "lesson-1774430690827-wzys"
     ],
-    "relatedWords": [],
+    "relatedWords": [
+      {
+        "word": "弟弟",
+        "pinyin": "di4 di",
+        "definition": "younger brother"
+      }
+    ],
     "progress": {
       "status": "new",
       "confidence": 0,
@@ -3458,14 +3464,14 @@
       }
     },
     "createdDate": "2026-03-25T00:00:00.000Z",
-    "lastUpdated": "2026-03-25T00:00:00.000Z"
+    "lastUpdated": "2026-03-25T12:44:29.948Z"
   },
   "哥": {
     "hanzi": "哥",
-    "pinyin": "",
-    "pinyinNumbered": "",
-    "french": "",
-    "english": "",
+    "pinyin": "ge1",
+    "pinyinNumbered": "ge1",
+    "french": "grand frère",
+    "english": "big brother",
     "audioRecordings": [],
     "images": [],
     "firstSeenLesson": "lesson-1774430690827-wzys",
@@ -3473,7 +3479,13 @@
     "appearsInLessons": [
       "lesson-1774430690827-wzys"
     ],
-    "relatedWords": [],
+    "relatedWords": [
+      {
+        "word": "哥哥",
+        "pinyin": "ge1 ge",
+        "definition": "older brother"
+      }
+    ],
     "progress": {
       "status": "new",
       "confidence": 0,
@@ -3497,14 +3509,14 @@
       }
     },
     "createdDate": "2026-03-25T00:00:00.000Z",
-    "lastUpdated": "2026-03-25T00:00:00.000Z"
+    "lastUpdated": "2026-03-25T12:44:29.951Z"
   },
   "姐": {
     "hanzi": "姐",
-    "pinyin": "",
-    "pinyinNumbered": "",
-    "french": "",
-    "english": "",
+    "pinyin": "jie3",
+    "pinyinNumbered": "jie3",
+    "french": "grande soeur",
+    "english": "big sister ",
     "audioRecordings": [],
     "images": [],
     "firstSeenLesson": "lesson-1774430690827-wzys",
@@ -3512,7 +3524,13 @@
     "appearsInLessons": [
       "lesson-1774430690827-wzys"
     ],
-    "relatedWords": [],
+    "relatedWords": [
+      {
+        "word": "姐姐",
+        "pinyin": "jie3 jie",
+        "definition": "older sister"
+      }
+    ],
     "progress": {
       "status": "new",
       "confidence": 0,
@@ -3536,6 +3554,6 @@
       }
     },
     "createdDate": "2026-03-25T00:00:00.000Z",
-    "lastUpdated": "2026-03-25T00:00:00.000Z"
+    "lastUpdated": "2026-03-25T12:44:29.952Z"
   }
 }
