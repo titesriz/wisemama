@@ -527,11 +527,12 @@
     "firstSeenLesson": "lesson-1773670967675-4jyt",
     "firstSeenDate": "2026-03-16T15:38:51.284Z",
     "appearsInLessons": [
-      "lesson-1773670967675-4jyt"
+      "lesson-1773670967675-4jyt",
+      "lesson-1774430690827-wzys"
     ],
     "relatedWords": [],
     "createdDate": "2026-03-16T15:38:51.261Z",
-    "lastUpdated": "2026-03-17T14:31:28.889Z"
+    "lastUpdated": "2026-03-25T00:00:00.000Z"
   },
   "都": {
     "hanzi": "都",
@@ -705,11 +706,12 @@
     "firstSeenLesson": "lesson-1773670967675-4jyt",
     "firstSeenDate": "2026-03-16T15:38:51.289Z",
     "appearsInLessons": [
-      "lesson-1773670967675-4jyt"
+      "lesson-1773670967675-4jyt",
+      "lesson-1774430690827-wzys"
     ],
     "relatedWords": [],
     "createdDate": "2026-03-16T15:38:51.262Z",
-    "lastUpdated": "2026-03-17T14:31:28.903Z"
+    "lastUpdated": "2026-03-25T00:00:00.000Z"
   },
   "你": {
     "hanzi": "你",
@@ -733,11 +735,12 @@
     "firstSeenLesson": "lesson-1773670967675-4jyt",
     "firstSeenDate": "2026-03-16T15:38:51.283Z",
     "appearsInLessons": [
-      "lesson-1773670967675-4jyt"
+      "lesson-1773670967675-4jyt",
+      "lesson-1774430690827-wzys"
     ],
     "relatedWords": [],
     "createdDate": "2026-03-16T15:38:51.262Z",
-    "lastUpdated": "2026-03-17T14:31:28.887Z"
+    "lastUpdated": "2026-03-25T00:00:00.000Z"
   },
   "他": {
     "hanzi": "他",
@@ -1571,11 +1574,12 @@
     "firstSeenLesson": "lesson-1773670967675-4jyt",
     "firstSeenDate": "2026-03-16T15:38:51.284Z",
     "appearsInLessons": [
-      "lesson-1773670967675-4jyt"
+      "lesson-1773670967675-4jyt",
+      "lesson-1774430690827-wzys"
     ],
     "relatedWords": [],
     "createdDate": "2026-03-16T15:38:51.270Z",
-    "lastUpdated": "2026-03-17T14:31:28.889Z"
+    "lastUpdated": "2026-03-25T00:00:00.000Z"
   },
   "礼": {
     "hanzi": "礼",
@@ -3073,7 +3077,8 @@
     "firstSeenLesson": "lesson-1773670967675-4jyt",
     "firstSeenDate": "2026-03-16T15:38:51.287Z",
     "appearsInLessons": [
-      "lesson-1773670967675-4jyt"
+      "lesson-1773670967675-4jyt",
+      "lesson-1774430690827-wzys"
     ],
     "relatedWords": [],
     "progress": {
@@ -3099,7 +3104,7 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.287Z",
-    "lastUpdated": "2026-03-17T14:31:28.899Z"
+    "lastUpdated": "2026-03-25T00:00:00.000Z"
   },
   "妈": {
     "hanzi": "妈",
@@ -3123,7 +3128,8 @@
     "firstSeenLesson": "lesson-1773670967675-4jyt",
     "firstSeenDate": "2026-03-16T15:38:51.288Z",
     "appearsInLessons": [
-      "lesson-1773670967675-4jyt"
+      "lesson-1773670967675-4jyt",
+      "lesson-1774430690827-wzys"
     ],
     "relatedWords": [],
     "progress": {
@@ -3149,7 +3155,7 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.288Z",
-    "lastUpdated": "2026-03-17T14:31:28.900Z"
+    "lastUpdated": "2026-03-25T00:00:00.000Z"
   },
   "妹": {
     "hanzi": "妹",
@@ -3229,7 +3235,8 @@
     "firstSeenLesson": "lesson-1773670967675-4jyt",
     "firstSeenDate": "2026-03-16T15:38:51.288Z",
     "appearsInLessons": [
-      "lesson-1773670967675-4jyt"
+      "lesson-1773670967675-4jyt",
+      "lesson-1774430690827-wzys"
     ],
     "relatedWords": [],
     "progress": {
@@ -3255,7 +3262,7 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.288Z",
-    "lastUpdated": "2026-03-17T14:31:28.902Z"
+    "lastUpdated": "2026-03-25T00:00:00.000Z"
   },
   "猫": {
     "hanzi": "猫",
@@ -3413,5 +3420,122 @@
     },
     "createdDate": "2026-03-16T15:38:51.290Z",
     "lastUpdated": "2026-03-16T16:19:56.682Z"
+  },
+  "弟": {
+    "hanzi": "弟",
+    "pinyin": "",
+    "pinyinNumbered": "",
+    "french": "",
+    "english": "",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1774430690827-wzys",
+    "firstSeenDate": "2026-03-25T00:00:00.000Z",
+    "appearsInLessons": [
+      "lesson-1774430690827-wzys"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-25T00:00:00.000Z",
+    "lastUpdated": "2026-03-25T00:00:00.000Z"
+  },
+  "哥": {
+    "hanzi": "哥",
+    "pinyin": "",
+    "pinyinNumbered": "",
+    "french": "",
+    "english": "",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1774430690827-wzys",
+    "firstSeenDate": "2026-03-25T00:00:00.000Z",
+    "appearsInLessons": [
+      "lesson-1774430690827-wzys"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-25T00:00:00.000Z",
+    "lastUpdated": "2026-03-25T00:00:00.000Z"
+  },
+  "姐": {
+    "hanzi": "姐",
+    "pinyin": "",
+    "pinyinNumbered": "",
+    "french": "",
+    "english": "",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1774430690827-wzys",
+    "firstSeenDate": "2026-03-25T00:00:00.000Z",
+    "appearsInLessons": [
+      "lesson-1774430690827-wzys"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-03-25T00:00:00.000Z",
+    "lastUpdated": "2026-03-25T00:00:00.000Z"
   }
 }

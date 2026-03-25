@@ -926,14 +926,25 @@
     "id": "lesson-1774430690827-wzys",
     "globalLessonId": "f446890b-9f57-4eaa-b357-54d4c9a6d381",
     "order": 9,
-    "title": "Nouvelle lecon",
-    "description": "",
-    "sourceText": "",
-    "characterRefs": [],
+    "title": "Leçon 9 - Ma famille, ta famille",
+    "description": "Texte court sur la famille",
+    "sourceText": "我家有我，弟弟，妈妈和爸爸。\n你家有哥哥和姐姐。",
+    "characterRefs": [
+      "我",
+      "家",
+      "有",
+      "弟",
+      "妈",
+      "和",
+      "爸",
+      "你",
+      "哥",
+      "姐"
+    ],
     "sentenceAudios": [],
     "notes": "",
     "cardMap": {},
     "createdDate": "2026-03-25T09:24:50.827Z",
-    "lastUpdated": "2026-03-25T09:24:50.829Z"
+    "lastUpdated": "2026-03-25T00:00:00.000Z"
   }
 ]
