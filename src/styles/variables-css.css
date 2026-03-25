@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'WisemamaHanzi';
+  src: url('/fonts/LXGWWenKaiGB-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+
 :root {
   --wm-color-primary: #ff6b6b;
   --wm-color-primary-hover: #ff5a5a;
@@ -30,7 +36,7 @@
   --wm-shadow-focus: 0 0 0 3px rgba(78, 205, 196, 0.25);
 
   --wm-font-base: Inter, 'Baloo 2', 'Segoe UI', sans-serif;
-  --wm-font-hanzi: 'Kaiti SC', 'Songti SC', 'Noto Serif SC', serif;
+  --wm-font-hanzi: 'WisemamaHanzi', serif;
 
   --wm-motion-fast: 120ms;
   --wm-motion-normal: 220ms;
