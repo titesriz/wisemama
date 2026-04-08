@@ -301,7 +301,6 @@ export default function LessonTextView({
                           className={`char ${status}`}
                           title={tooltip || 'Traduction non disponible'}
                           onClick={() => toggleCharPinyin(card.id)}
-                          onDoubleClick={() => onPracticeCharacter?.(char)}
                         >
                           <span className="char-pinyin-slot">
                             {showPinyin ? formatPinyinDisplay(card.pinyin || '') : '\u00A0'}
@@ -343,17 +342,15 @@ export default function LessonTextView({
             <h2>📚 Caractères à apprendre ({vocabulary.length} caractères)</h2>
             <div className="vocabulary-grid lesson-text-vocab-list">
               {vocabulary.map((item) => (
-                <button
+                <div
                   key={item.id}
-                  type="button"
-                  className={`vocab-card ${item.status} ui-pressable`}
-                  onClick={() => onPracticeCharacter?.(item.hanzi)}
+                  className={`vocab-card ${item.status}`}
                   title={`${item.hanzi} (${formatPinyinDisplay(item.pinyin)}) - ${item.french || item.english || ''}`}
                 >
                   <div className="vocab-hanzi">{item.hanzi}</div>
                   <div className="vocab-status">{item.status === 'learned' ? '✓' : item.status === 'learning' ? '▶' : '○'}</div>
                   <div className="vocab-pinyin-hint">{formatPinyinDisplay(item.pinyin)}</div>
-                </button>
+                </div>
               ))}
             </div>
           </section>
