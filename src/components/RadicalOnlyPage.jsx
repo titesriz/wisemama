@@ -1,29 +1,21 @@
 import WritingPractice from './WritingPractice.jsx';
 
-export default function WritingOnlyPage({
+export default function RadicalOnlyPage({
   profile,
   parentProfile,
   activeLesson,
   lessons = [],
   cardIndex,
-  journeyMode = false,
-  journeyQueue = [],
-  journeyPosition = 0,
   onPrev,
   onNext,
   onBack,
   onOpenLessonText,
   onSelectLesson,
-  onSwitchModule,
-  onOpenRadical,
+  onOpenWriting,
   onSuccess,
 }) {
-  const effectiveIndex = journeyMode && journeyQueue.length
-    ? journeyQueue[journeyPosition] ?? journeyQueue[0] ?? 0
-    : cardIndex;
-  const currentCard = activeLesson?.cards?.[effectiveIndex] || null;
-  const totalCards = journeyMode && journeyQueue.length ? journeyQueue.length : activeLesson?.cards?.length || 0;
-  const displayIndex = journeyMode && journeyQueue.length ? journeyPosition : cardIndex;
+  const currentCard = activeLesson?.cards?.[cardIndex] || null;
+  const totalCards = activeLesson?.cards?.length || 0;
 
   if (!activeLesson || !currentCard) {
     return (
@@ -39,6 +31,7 @@ export default function WritingOnlyPage({
   return (
     <section className="writing-only-page">
       <WritingPractice
+        variant="radical"
         hanzi={currentCard.hanzi}
         card={currentCard}
         lessonId={activeLesson.id}
@@ -46,15 +39,14 @@ export default function WritingOnlyPage({
         lessons={lessons}
         profile={profile}
         parentProfile={parentProfile}
-        cardIndex={displayIndex}
+        cardIndex={cardIndex}
         totalCards={totalCards}
         onPrev={onPrev}
         onNext={onNext}
         onOpenLessonText={onOpenLessonText}
         onSelectLesson={onSelectLesson}
-        onSwitchModule={onSwitchModule}
-        onOpenRadical={onOpenRadical}
         onBack={onBack}
+        onOpenWriting={onOpenWriting}
         standalone
         onSuccess={onSuccess}
       />

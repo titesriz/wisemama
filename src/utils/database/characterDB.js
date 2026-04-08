@@ -22,6 +22,11 @@
  * @property {string} firstSeenDate - Date ISO premiere apparition
  * @property {string[]} appearsInLessons - IDs lecons contenant ce caractere
  * @property {RelatedWord[]} relatedWords - Vocabulaire lie
+ * @property {string} [radical] - Radical principal
+ * @property {string} [decomposition] - Decomposition ideographique
+ * @property {string[]} [components] - Composants extraits
+ * @property {Array<number[] | null>} [componentMatches] - Mapping traits/composants
+ * @property {Object|null} [etymology] - Indices etymologiques
  * @property {Progress} progress - Progression apprentissage
  * @property {string} createdDate - Date ISO creation
  * @property {string} lastUpdated - Date ISO derniere modification
@@ -122,6 +127,12 @@ export function createCharacter(hanzi, data = {}) {
     firstSeenDate: data.firstSeenDate || new Date().toISOString(),
     appearsInLessons: data.appearsInLessons || [],
     relatedWords: data.relatedWords || [],
+    radical: data.radical || '',
+    decomposition: data.decomposition || '',
+    components: data.components || [],
+    componentMatches: data.componentMatches || [],
+    etymology: data.etymology || null,
+    metadataSource: data.metadataSource || '',
     progress: data.progress || {
       status: 'new',
       confidence: 0,
@@ -449,6 +460,12 @@ function createPlaceholderCharacter(hanzi) {
     firstSeenDate: null,
     appearsInLessons: [],
     relatedWords: [],
+    radical: '',
+    decomposition: '',
+    components: [],
+    componentMatches: [],
+    etymology: null,
+    metadataSource: '',
     progress: {
       status: 'new',
       confidence: 0,

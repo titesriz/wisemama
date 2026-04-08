@@ -18,6 +18,7 @@ import ModeAvatar from './components/ModeAvatar.jsx';
 import ParentModeDashboard from './components/ParentModeDashboard.jsx';
 import ToonHeadTester from './components/ToonHeadTester.jsx';
 import UnifiedLearningFlow from './components/UnifiedLearningFlow.jsx';
+import RadicalOnlyPage from './components/RadicalOnlyPage.jsx';
 import WritingPractice from './components/WritingPractice.jsx';
 import WritingOnlyPage from './components/WritingOnlyPage.jsx';
 import { useAvatar } from './context/AvatarContext.jsx';
@@ -40,6 +41,7 @@ const MODULES = {
   FLASHCARDS: 'flashcards',
   AUDIO: 'audio',
   WRITING: 'writing',
+  RADICAL: 'radical',
   LEARNING_FLOW: 'learning-flow',
   EMOTIONAL_DUO: 'emotional-duo',
   BIG_SMILE: 'big-smile',
@@ -49,6 +51,7 @@ const MODULES = {
 const STANDALONE_VIEW = {
   NONE: 'none',
   WRITING: 'writing',
+  RADICAL: 'radical',
   FLASHCARDS: 'flashcards',
   AUDIO: 'audio',
   LEARNING_FLOW: 'learning-flow',
@@ -458,18 +461,26 @@ export default function App() {
     }
   };
 
-  const startJourneyFromLessonText = (char) => {
+  const startJourneyFromLessonText = (selection = []) => {
     const targetLesson = lessonOptions.find((lesson) => lesson.id === lessonTextLessonId);
     if (!targetLesson) return;
-    let startIndex = 0;
-    if (char) {
-      const idx = targetLesson.cards.findIndex((card) => (card?.hanzi || '').includes(char));
-      if (idx >= 0) startIndex = idx;
-    }
+    const selectedIds = Array.isArray(selection) ? selection.filter(Boolean) : [];
+    const queue = selectedIds.length
+      ? targetLesson.cards
+          .map((card, index) => ({ id: card?.id, index }))
+          .filter((item) => selectedIds.includes(item.id))
+          .map((item) => item.index)
+      : targetLesson.cards.map((_, index) => index);
+    const startIndex = queue[0] ?? 0;
     setActiveLesson(targetLesson.id);
+    setLessonJourneyQueue(queue);
+    setLessonJourneyPosition(0);
     setCardIndex(startIndex);
-    setReturnToLessonText(false);
-    openStandaloneModule(STANDALONE_VIEW.WRITING, MODULES.WRITING);
+    setReturnToLessonText(true);
+    setStandaloneView(STANDALONE_VIEW.WRITING);
+    setShowDailyRituel(false);
+    setEnteredApp(false);
+    setActiveModule(MODULES.WRITING);
   };
 
   const goNextInLessonJourney = () => {
@@ -673,9 +684,14 @@ export default function App() {
         activeLesson={activeLesson}
         lessons={lessonOptions}
         cardIndex={cardIndex}
-        onPrev={goPrev}
-        onNext={goNext}
+        journeyMode={returnToLessonText}
+        journeyQueue={lessonJourneyQueue}
+        journeyPosition={lessonJourneyPosition}
         onBack={() => {
+          if (returnToLessonText && lessonTextLessonId) {
+            setStandaloneView(STANDALONE_VIEW.NONE);
+            return;
+          }
           setStandaloneView(STANDALONE_VIEW.NONE);
           setEnteredApp(false);
         }}
@@ -683,9 +699,16 @@ export default function App() {
           const targetId = lessonId || activeLesson?.id;
           if (targetId) openLessonTextView(targetId);
         }}
+        onOpenRadical={() => {
+          setStandaloneView(STANDALONE_VIEW.RADICAL);
+          setEnteredApp(false);
+        }}
         onSelectLesson={(lessonId) => {
           if (!lessonId) return;
           setActiveLesson(lessonId);
+          setLessonJourneyQueue([]);
+          setLessonJourneyPosition(0);
+          setReturnToLessonText(false);
           setCardIndex(0);
         }}
         onSwitchModule={(module) => {
@@ -702,6 +725,41 @@ export default function App() {
             return;
           }
           setActiveModule(MODULES.WRITING);
+        }}
+        onPrev={returnToLessonText ? goPrevInLessonJourney : goPrev}
+        onNext={returnToLessonText ? goNextInLessonJourney : goNext}
+        onSuccess={handleWritingSuccess}
+      />
+    );
+  }
+
+  if (standaloneView === STANDALONE_VIEW.RADICAL) {
+    const parentProfile = profiles.find((profile) => profile.role === 'parent') || null;
+    return (
+      <RadicalOnlyPage
+        profile={activeProfile}
+        parentProfile={parentProfile}
+        activeLesson={activeLesson}
+        lessons={lessonOptions}
+        cardIndex={cardIndex}
+        onPrev={goPrev}
+        onNext={goNext}
+        onBack={() => {
+          setStandaloneView(STANDALONE_VIEW.NONE);
+          setEnteredApp(false);
+        }}
+        onOpenLessonText={(lessonId) => {
+          const targetId = lessonId || activeLesson?.id;
+          if (targetId) openLessonTextView(targetId);
+        }}
+        onOpenWriting={() => {
+          setStandaloneView(STANDALONE_VIEW.WRITING);
+          setEnteredApp(false);
+        }}
+        onSelectLesson={(lessonId) => {
+          if (!lessonId) return;
+          setActiveLesson(lessonId);
+          setCardIndex(0);
         }}
         onSuccess={handleWritingSuccess}
       />
