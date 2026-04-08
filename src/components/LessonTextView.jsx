@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import AvatarRenderer from './AvatarRenderer.jsx';
 import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
 import { segmentLessonText } from '../lib/lessonTextSegmentation.js';
@@ -82,6 +82,7 @@ export default function LessonTextView({
   const [manuallyToggledIds, setManuallyToggledIds] = useState(() => new Set());
   const [playingSentenceIndex, setPlayingSentenceIndex] = useState(-1);
   const [showLessonPicker, setShowLessonPicker] = useState(false);
+  const lessonPickerRef = useRef(null);
   const availableLessons = useMemo(() => {
     if (lessons.length) return getLessonsByOrder(lessons);
     return lesson ? [lesson] : [];
@@ -96,6 +97,24 @@ export default function LessonTextView({
       setManuallyToggledIds(new Set());
     }
   }, [pinyinMode]);
+
+  useEffect(() => {
+    if (!showLessonPicker) return undefined;
+
+    const handlePointerDown = (event) => {
+      if (!lessonPickerRef.current?.contains(event.target)) {
+        setShowLessonPicker(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handlePointerDown);
+    document.addEventListener('touchstart', handlePointerDown);
+
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown);
+      document.removeEventListener('touchstart', handlePointerDown);
+    };
+  }, [showLessonPicker]);
 
   const cardByHanzi = useMemo(() => {
     const map = new Map();
@@ -167,17 +186,16 @@ export default function LessonTextView({
     if (!card || card.pinyinEnabled === false) return false;
     if (manuallyToggledIds.has(card.id)) return true;
     if (pinyinMode === 'all') return true;
-    if (pinyinMode === 'new') return status === 'new';
     return false;
   };
 
   return (
     <section className="lesson-text-page">
       <div className="landing-new-shell lesson-text-shell">
-        <article className="profile-card-kid lesson-text-frame">
+        <article ref={lessonPickerRef} className="profile-card-kid lesson-text-frame">
           <div className="current-lesson-card lesson-text-current-card">
-            <div className="lesson-header lesson-header-with-avatar">
-              <button type="button" className="lesson-avatar lesson-home-logo ui-pressable" onClick={onBack} aria-label="Retour landing">
+            <div className="lesson-header lesson-header-with-avatar lesson-text-topbar">
+              <button type="button" className="lesson-home-logo app-logo ui-pressable" onClick={onBack} aria-label="Retour landing">
                 文
               </button>
               <div className="lesson-avatar lesson-avatar-single" aria-label="Profil enfant">
@@ -198,11 +216,11 @@ export default function LessonTextView({
                   loading="eager"
                 />
               </div>
-              <div className="lesson-info">
-                <h3 className="lesson-title">{lesson?.title || 'Lecon'}</h3>
-                {lesson?.description ? <p className="lesson-description">{lesson.description}</p> : null}
+              <div className="lesson-info lesson-text-title-block">
+                <h3 className="lesson-title lesson-text-card-title">{lesson?.title || 'Lecon'}</h3>
+                {lesson?.description ? <p className="lesson-description lesson-text-card-description">{lesson.description}</p> : null}
               </div>
-              <div className="lesson-actions">
+              <div className="lesson-actions lesson-text-topbar-actions">
                 <button
                   type="button"
                   className="change-lesson-btn icon-only ui-pressable"
@@ -216,13 +234,18 @@ export default function LessonTextView({
           </div>
 
           {showLessonPicker ? (
-            <div className="lesson-picker-dropdown">
+            <div
+              className="lesson-picker-dropdown"
+              onClick={(event) => event.stopPropagation()}
+              onKeyDown={(event) => event.stopPropagation()}
+            >
               {availableLessons.map((item) => (
                 <button
                   key={item.id}
                   type="button"
                   className={`lesson-option ui-pressable ${item.id === lesson?.id ? 'active' : ''}`}
-                  onClick={() => {
+                  onClick={(event) => {
+                    event.stopPropagation();
                     setShowLessonPicker(false);
                     onSelectLesson?.(item.id);
                   }}
@@ -308,10 +331,6 @@ export default function LessonTextView({
               <label className="toggle-option">
                 <input type="radio" name="pinyinMode" value="all" checked={pinyinMode === 'all'} onChange={() => setPinyinMode('all')} />
                 <span className="radio-label"><span className="radio-icon">🟢</span>Tous les pinyin</span>
-              </label>
-              <label className="toggle-option">
-                <input type="radio" name="pinyinMode" value="new" checked={pinyinMode === 'new'} onChange={() => setPinyinMode('new')} />
-                <span className="radio-label"><span className="radio-icon">🟡</span>Nouveaux uniquement</span>
               </label>
               <label className="toggle-option">
                 <input type="radio" name="pinyinMode" value="none" checked={pinyinMode === 'none'} onChange={() => setPinyinMode('none')} />

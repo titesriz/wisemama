@@ -2,6 +2,7 @@ import WritingPractice from './WritingPractice.jsx';
 
 export default function WritingOnlyPage({
   profile,
+  parentProfile,
   activeLesson,
   lessons = [],
   cardIndex,
@@ -36,6 +37,7 @@ export default function WritingOnlyPage({
         lessonTitle={activeLesson.title}
         lessons={lessons}
         profile={profile}
+        parentProfile={parentProfile}
         cardIndex={cardIndex}
         totalCards={totalCards}
         onPrev={onPrev}

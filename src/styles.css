@@ -70,7 +70,82 @@ body {
   border-radius: 24px;
   box-shadow: 0 8px 24px rgba(255, 230, 109, 0.3);
   padding: 20px 20px 18px;
-  text-align: left;
+  text-align: center;
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+}
+
+.child-greeting {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.1;
+  color: #2d3436;
+}
+
+.child-avatar {
+  display: grid;
+  place-items: center;
+}
+
+.child-lesson-card {
+  width: 100%;
+  max-width: 520px;
+  margin: 0;
+  position: relative;
+}
+
+.child-lesson-logo {
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  font-size: 34px;
+  flex: 0 0 58px;
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.25);
+}
+
+.child-lesson-main {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.current-lesson-card.child-lesson-card .child-lesson-header-fixed {
+  display: block;
+  position: relative;
+  min-height: 74px;
+  padding: 6px 64px 6px 12px;
+}
+
+.current-lesson-card.child-lesson-card .child-lesson-main {
+  width: 100%;
+}
+
+.current-lesson-card.child-lesson-card .child-lesson-info {
+  width: 100%;
+  max-width: none;
+  text-align: center;
+}
+
+.current-lesson-card.child-lesson-card .child-lesson-title {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.2;
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+.current-lesson-card.child-lesson-card .child-lesson-description {
+  margin: 6px 0 0;
+  text-align: center;
+}
+
+.current-lesson-card.child-lesson-card .child-lesson-actions {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
 }
 
 .landing-avatar-circle {
@@ -2313,6 +2388,47 @@ body {
   background: #fff;
 }
 
+.writing-char-reveal {
+  min-width: 132px;
+  min-height: 74px;
+  border-radius: 16px;
+  border: 2px solid #e6d7ad;
+  background: #fffdf7;
+  color: #2d3436;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 2px;
+  padding: 10px 12px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.writing-char-reveal-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.writing-char-reveal-label {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.writing-char-reveal-pinyin {
+  font-size: 16px;
+  color: #636e72;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.writing-char-reveal-hanzi {
+  font-size: 40px;
+  line-height: 1;
+  color: #2d3436;
+  font-weight: 800;
+  font-family: var(--wm-font-hanzi);
+}
+
 .writing-pinyin {
   font-size: 20px;
   color: #636e72;
@@ -2330,6 +2446,12 @@ body {
 .writing-translation {
   display: grid;
   gap: 2px;
+}
+
+.writing-translation-centered {
+  flex: 1 1 auto;
+  text-align: center;
+  justify-items: center;
 }
 
 .writing-translation span {
@@ -2582,25 +2704,60 @@ body {
   margin-bottom: 0;
 }
 
-.lesson-text-current-card .lesson-header {
-  grid-template-columns: 58px 58px 58px minmax(0, 1fr) 44px;
+.current-lesson-card.lesson-text-current-card .lesson-text-topbar,
+.current-lesson-card.writing-header-card .lesson-text-topbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
 }
 
 .lesson-home-logo {
-  border: none;
-  background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
-  color: #fff;
-  font-size: 28px;
-  font-weight: 900;
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  font-size: 34px;
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.25);
+  flex: 0 0 58px;
 }
 
 .lesson-avatar-single {
   padding: 0;
   overflow: hidden;
+  flex: 0 0 58px;
 }
 
 .lesson-parent-avatar {
   background: linear-gradient(135deg, #4ecdc4 0%, #44a3a0 100%);
+}
+
+.current-lesson-card.lesson-text-current-card .lesson-text-title-block,
+.current-lesson-card.writing-header-card .lesson-text-title-block {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.current-lesson-card.lesson-text-current-card .lesson-text-card-title,
+.current-lesson-card.writing-header-card .lesson-text-card-title {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.15;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-align: left;
+}
+
+.current-lesson-card.lesson-text-current-card .lesson-text-card-description,
+.current-lesson-card.writing-header-card .lesson-text-card-description {
+  margin: 3px 0 0;
+  line-height: 1.3;
+  text-align: left;
+}
+
+.current-lesson-card.lesson-text-current-card .lesson-text-topbar-actions,
+.current-lesson-card.writing-header-card .lesson-text-topbar-actions {
+  flex: 0 0 auto;
+  margin-left: auto;
 }
 
 .lesson-text-content {
@@ -2608,6 +2765,11 @@ body {
   overflow: visible;
   display: grid;
   gap: 18px;
+}
+
+.writing-header-shell {
+  display: grid;
+  gap: 14px;
 }
 
 .lesson-header h1 {
@@ -3493,6 +3655,11 @@ body {
     gap: 10px;
   }
 
+  .writing-translation-centered {
+    order: 2;
+    width: 100%;
+  }
+
   .writing-sound-btn {
     margin-left: 0;
   }
@@ -3849,6 +4016,21 @@ body {
 }
 
 @media (max-width: 760px) {
+  .child-greeting {
+    font-size: 24px;
+  }
+
+  .current-lesson-card.child-lesson-card .child-lesson-header-fixed {
+    padding-right: 60px;
+  }
+
+  .child-lesson-logo {
+    width: 52px;
+    height: 52px;
+    flex-basis: 52px;
+    font-size: 28px;
+  }
+
   .ftue-avatar-layout {
     grid-template-columns: 1fr;
   }
@@ -3857,8 +4039,26 @@ body {
     grid-template-columns: 1fr;
   }
 
-  .lesson-text-current-card .lesson-header {
-    grid-template-columns: 52px 52px 52px minmax(0, 1fr) 44px;
+  .current-lesson-card.lesson-text-current-card .lesson-text-topbar,
+  .current-lesson-card.writing-header-card .lesson-text-topbar {
+    gap: 8px;
+  }
+
+  .lesson-home-logo,
+  .lesson-text-current-card .lesson-avatar-single {
+    width: 52px;
+    height: 52px;
+    flex-basis: 52px;
+  }
+
+  .current-lesson-card.lesson-text-current-card .lesson-text-card-title,
+  .current-lesson-card.writing-header-card .lesson-text-card-title {
+    font-size: 17px;
+  }
+
+  .current-lesson-card.lesson-text-current-card .lesson-text-card-description,
+  .current-lesson-card.writing-header-card .lesson-text-card-description {
+    font-size: 12px;
   }
 }
 
@@ -3992,6 +4192,9 @@ body {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   max-height: 280px;
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
   display: grid;
   gap: 6px;
   padding: 8px;

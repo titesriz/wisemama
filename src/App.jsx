@@ -192,12 +192,13 @@ export default function App() {
 
   useEffect(() => {
     if (!lessonTextLessonId) return;
+    if (standaloneView !== STANDALONE_VIEW.NONE) return;
     const exists = lessonOptions.some((lesson) => lesson.id === lessonTextLessonId);
     if (exists && activeLessonId !== lessonTextLessonId) {
       setActiveLesson(lessonTextLessonId);
       setCardIndex(0);
     }
-  }, [activeLessonId, lessonOptions, lessonTextLessonId, setActiveLesson]);
+  }, [activeLessonId, lessonOptions, lessonTextLessonId, setActiveLesson, standaloneView]);
 
   useEffect(() => {
     setCardIndex(0);
@@ -663,9 +664,11 @@ export default function App() {
   }
 
   if (standaloneView === STANDALONE_VIEW.WRITING) {
+    const parentProfile = profiles.find((profile) => profile.role === 'parent') || null;
     return (
       <WritingOnlyPage
         profile={activeProfile}
+        parentProfile={parentProfile}
         activeLesson={activeLesson}
         lessons={lessonOptions}
         cardIndex={cardIndex}
@@ -1257,6 +1260,7 @@ export default function App() {
                 lessonTitle={activeLesson?.title}
                 lessons={lessonOptions}
                 profile={activeProfile}
+                parentProfile={profiles.find((profile) => profile.role === 'parent') || null}
                 cardIndex={cardIndex}
                 totalCards={totalCards}
                 onPrev={goPrev}

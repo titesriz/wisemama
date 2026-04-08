@@ -846,8 +846,8 @@
     "hanzi": "爱",
     "pinyin": "ai1",
     "pinyinNumbered": "ai1",
-    "french": "",
-    "english": "",
+    "french": "amour",
+    "english": "love",
     "audioRecordings": [
       {
         "id": "audio-1773677858396-0lotd66jw",
@@ -896,8 +896,8 @@
     "hanzi": "老",
     "pinyin": "lao3",
     "pinyinNumbered": "lao3",
-    "french": "",
-    "english": "",
+    "french": "vieux",
+    "english": "old",
     "audioRecordings": [
       {
         "id": "audio-1773757888885-ct8369",
@@ -930,8 +930,8 @@
     "hanzi": "师",
     "pinyin": "shi1",
     "pinyinNumbered": "shi1",
-    "french": "",
-    "english": "",
+    "french": "professeur",
+    "english": "professor",
     "audioRecordings": [
       {
         "id": "audio-1773757888886-4q1jsb",
@@ -2492,7 +2492,7 @@
     "pinyin": "xing4",
     "pinyinNumbered": "xing4",
     "french": "nom de famille",
-    "english": "",
+    "english": "surname",
     "audioRecordings": [
       {
         "id": "audio-1773677949137-a1143clfp",
@@ -2542,7 +2542,7 @@
     "pinyin": "shen2",
     "pinyinNumbered": "shen2",
     "french": "quoi",
-    "english": "",
+    "english": "what",
     "audioRecordings": [
       {
         "id": "audio-1773677951941-w5rwawahm",
@@ -2598,7 +2598,7 @@
     "pinyin": "me5",
     "pinyinNumbered": "me5",
     "french": "quoi",
-    "english": "",
+    "english": "what",
     "audioRecordings": [
       {
         "id": "audio-1773677954342-ya53rjxq1",
@@ -2649,12 +2649,90 @@
     "createdDate": "2026-03-16T15:38:51.279Z",
     "lastUpdated": "2026-03-16T16:19:14.342Z"
   },
+  "个": {
+    "hanzi": "个",
+    "pinyin": "ge4",
+    "pinyinNumbered": "ge4",
+    "french": "classificateur",
+    "english": "measure word",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-age",
+    "firstSeenDate": "2026-04-08T00:00:00.000Z",
+    "appearsInLessons": [
+      "lesson-age"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-04-08T00:00:00.000Z",
+    "lastUpdated": "2026-04-08T00:00:00.000Z"
+  },
+  "吗": {
+    "hanzi": "吗",
+    "pinyin": "ma5",
+    "pinyinNumbered": "ma5",
+    "french": "particule interrogative",
+    "english": "question particle",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-age",
+    "firstSeenDate": "2026-04-08T00:00:00.000Z",
+    "appearsInLessons": [
+      "lesson-age"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-04-08T00:00:00.000Z",
+    "lastUpdated": "2026-04-08T00:00:00.000Z"
+  },
   "王": {
     "hanzi": "王",
     "pinyin": "wang2",
     "pinyinNumbered": "wang2",
-    "french": "",
-    "english": "",
+    "french": "roi",
+    "english": "king",
     "audioRecordings": [
       {
         "id": "audio-1773757888892-432dpm",
@@ -2681,8 +2759,8 @@
     "hanzi": "天",
     "pinyin": "tian1",
     "pinyinNumbered": "tian1",
-    "french": "",
-    "english": "",
+    "french": "ciel",
+    "english": "sky",
     "audioRecordings": [
       {
         "id": "audio-1773757888893-aytzdu",
@@ -2710,7 +2788,7 @@
     "pinyin": "jiao4",
     "pinyinNumbered": "jiao4",
     "french": "appeler",
-    "english": "",
+    "english": "call",
     "audioRecordings": [
       {
         "id": "audio-1773677963197-aer9howsh",
@@ -2760,7 +2838,7 @@
     "pinyin": "ming2",
     "pinyinNumbered": "ming2",
     "french": "nom",
-    "english": "",
+    "english": "name",
     "audioRecordings": [
       {
         "id": "audio-1773677965543-pp4qy9rp4",
@@ -2810,7 +2888,7 @@
     "pinyin": "zi4",
     "pinyinNumbered": "zi4",
     "french": "caractère chinois",
-    "english": "",
+    "english": "chinese character",
     "audioRecordings": [
       {
         "id": "audio-1773677967953-6agcd40hq",
@@ -2855,12 +2933,51 @@
     "createdDate": "2026-03-16T15:38:51.283Z",
     "lastUpdated": "2026-03-16T16:19:27.953Z"
   },
+  "岁": {
+    "hanzi": "岁",
+    "pinyin": "sui4",
+    "pinyinNumbered": "sui4",
+    "french": "ans",
+    "english": "years old",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-age",
+    "firstSeenDate": "2026-04-08T00:00:00.000Z",
+    "appearsInLessons": [
+      "lesson-age"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-04-08T00:00:00.000Z",
+    "lastUpdated": "2026-04-08T00:00:00.000Z"
+  },
   "几": {
     "hanzi": "几",
     "pinyin": "ji3",
     "pinyinNumbered": "ji3",
-    "french": "",
-    "english": "",
+    "french": "combien",
+    "english": "how many",
     "audioRecordings": [
       {
         "id": "audio-1773757888890-tz7zx7",
@@ -2909,8 +3026,8 @@
     "hanzi": "口",
     "pinyin": "kou3",
     "pinyinNumbered": "kou3",
-    "french": "",
-    "english": "",
+    "french": "bouche",
+    "english": "mouth",
     "audioRecordings": [
       {
         "id": "audio-1773757888891-pconxt",
@@ -2959,8 +3076,8 @@
     "hanzi": "人",
     "pinyin": "ren2",
     "pinyinNumbered": "ren2",
-    "french": "",
-    "english": "",
+    "french": "personne",
+    "english": "people",
     "audioRecordings": [
       {
         "id": "audio-1773757888892-jelppb",
@@ -3161,8 +3278,8 @@
     "hanzi": "妹",
     "pinyin": "mei4",
     "pinyinNumbered": "mei4",
-    "french": "",
-    "english": "",
+    "french": "petite soeur",
+    "english": "little sister",
     "audioRecordings": [
       {
         "id": "audio-1773757888901-jdomnb",
@@ -3555,5 +3672,313 @@
     },
     "createdDate": "2026-03-25T00:00:00.000Z",
     "lastUpdated": "2026-03-25T12:44:29.952Z"
+  },
+  "的": {
+    "hanzi": "的",
+    "pinyin": "de5",
+    "pinyinNumbered": "de5",
+    "french": "particule possessive",
+    "english": "possessive particle",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1774430690827-wzys",
+    "firstSeenDate": "2026-04-08T00:00:00.000Z",
+    "appearsInLessons": [
+      "lesson-1774430690827-wzys"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-04-08T00:00:00.000Z",
+    "lastUpdated": "2026-04-08T00:00:00.000Z"
+  },
+  "是": {
+    "hanzi": "是",
+    "pinyin": "shi4",
+    "pinyinNumbered": "shi4",
+    "french": "être",
+    "english": "to be",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1774430690827-wzys",
+    "firstSeenDate": "2026-04-08T00:00:00.000Z",
+    "appearsInLessons": [
+      "lesson-1774430690827-wzys"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-04-08T00:00:00.000Z",
+    "lastUpdated": "2026-04-08T00:00:00.000Z"
+  },
+  "外": {
+    "hanzi": "外",
+    "pinyin": "wai4",
+    "pinyinNumbered": "wai4",
+    "french": "extérieur",
+    "english": "outside",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1774430690827-wzys",
+    "firstSeenDate": "2026-04-08T00:00:00.000Z",
+    "appearsInLessons": [
+      "lesson-1774430690827-wzys"
+    ],
+    "relatedWords": [
+      {
+        "word": "外婆",
+        "pinyin": "wai4 po2",
+        "definition": "maternal grandmother"
+      },
+      {
+        "word": "外公",
+        "pinyin": "wai4 gong1",
+        "definition": "maternal grandfather"
+      }
+    ],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-04-08T00:00:00.000Z",
+    "lastUpdated": "2026-04-08T00:00:00.000Z"
+  },
+  "婆": {
+    "hanzi": "婆",
+    "pinyin": "po2",
+    "pinyinNumbered": "po2",
+    "french": "grand-mère",
+    "english": "grandmother",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1774430690827-wzys",
+    "firstSeenDate": "2026-04-08T00:00:00.000Z",
+    "appearsInLessons": [
+      "lesson-1774430690827-wzys"
+    ],
+    "relatedWords": [
+      {
+        "word": "外婆",
+        "pinyin": "wai4 po2",
+        "definition": "maternal grandmother"
+      }
+    ],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-04-08T00:00:00.000Z",
+    "lastUpdated": "2026-04-08T00:00:00.000Z"
+  },
+  "公": {
+    "hanzi": "公",
+    "pinyin": "gong1",
+    "pinyinNumbered": "gong1",
+    "french": "grand-père",
+    "english": "grandfather",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1774430690827-wzys",
+    "firstSeenDate": "2026-04-08T00:00:00.000Z",
+    "appearsInLessons": [
+      "lesson-1774430690827-wzys"
+    ],
+    "relatedWords": [
+      {
+        "word": "外公",
+        "pinyin": "wai4 gong1",
+        "definition": "maternal grandfather"
+      }
+    ],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-04-08T00:00:00.000Z",
+    "lastUpdated": "2026-04-08T00:00:00.000Z"
+  },
+  "奶": {
+    "hanzi": "奶",
+    "pinyin": "nai3",
+    "pinyinNumbered": "nai3",
+    "french": "grand-mère",
+    "english": "grandmother",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1774430690827-wzys",
+    "firstSeenDate": "2026-04-08T00:00:00.000Z",
+    "appearsInLessons": [
+      "lesson-1774430690827-wzys"
+    ],
+    "relatedWords": [
+      {
+        "word": "奶奶",
+        "pinyin": "nai3 nai",
+        "definition": "paternal grandmother"
+      }
+    ],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-04-08T00:00:00.000Z",
+    "lastUpdated": "2026-04-08T00:00:00.000Z"
+  },
+  "爷": {
+    "hanzi": "爷",
+    "pinyin": "ye2",
+    "pinyinNumbered": "ye2",
+    "french": "grand-père",
+    "english": "grandfather",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1774430690827-wzys",
+    "firstSeenDate": "2026-04-08T00:00:00.000Z",
+    "appearsInLessons": [
+      "lesson-1774430690827-wzys"
+    ],
+    "relatedWords": [
+      {
+        "word": "爷爷",
+        "pinyin": "ye2 ye",
+        "definition": "paternal grandfather"
+      }
+    ],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-04-08T00:00:00.000Z",
+    "lastUpdated": "2026-04-08T00:00:00.000Z"
   }
 }

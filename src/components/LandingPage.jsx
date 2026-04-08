@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import AvatarRenderer from './AvatarRenderer.jsx';
 import { getLessonsByOrder } from '../utils/lessons/lessonOrder.js';
 
@@ -18,43 +18,27 @@ export default function LandingPage({
   onOpenWritingUi,
 }) {
   const [showLessonPicker, setShowLessonPicker] = useState(false);
+  const lessonPickerRef = useRef(null);
   const sortedLessons = getLessonsByOrder(lessons);
   const childProfile = profiles.find((profile) => profile.role === 'child') || profiles[0] || null;
   const parentProfile = profiles.find((profile) => profile.role === 'parent') || profiles[0] || null;
-  const kidActions = [
-    {
-      id: 'lesson',
-      label: 'Lecon',
-      subtitle: 'Lire le texte de lecon',
-      iconSrc: '/assets/kid/new.png',
-      fallback: '💡',
-      onClick: onOpenLessonTextUi,
-    },
-    {
-      id: 'read',
-      label: 'Lire',
-      subtitle: 'Pratique lecture',
-      iconSrc: '/assets/kid/read.png',
-      fallback: '📖',
-      onClick: onOpenFlashcardsUi,
-    },
-    {
-      id: 'speak',
-      label: 'Parler',
-      subtitle: 'Pratique orale',
-      iconSrc: '/assets/kid/speak.png',
-      fallback: '🎤',
-      onClick: onOpenAudioUi,
-    },
-    {
-      id: 'write',
-      label: 'Ecrire',
-      subtitle: 'Pratique ecriture',
-      iconSrc: '/assets/kid/write.png',
-      fallback: '✏️',
-      onClick: onOpenWritingUi,
-    },
-  ];
+  useEffect(() => {
+    if (!showLessonPicker) return undefined;
+
+    const handlePointerDown = (event) => {
+      if (!lessonPickerRef.current?.contains(event.target)) {
+        setShowLessonPicker(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handlePointerDown);
+    document.addEventListener('touchstart', handlePointerDown);
+
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown);
+      document.removeEventListener('touchstart', handlePointerDown);
+    };
+  }, [showLessonPicker]);
 
   return (
     <section className="landing" aria-label="Page d accueil">
@@ -73,91 +57,59 @@ export default function LandingPage({
           </div>
         </div>
 
-        <article className="profile-card-kid">
+        <article ref={lessonPickerRef} className="profile-card-kid">
           {activeLesson ? (
-            <div
-              className="current-lesson-card ui-pressable"
-              onClick={onOpenLessonTextUi}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter' || event.key === ' ') {
-                  event.preventDefault();
-                  onOpenLessonTextUi?.();
-                }
-              }}
-              role="button"
-              tabIndex={0}
-              aria-label="Ouvrir la lecon"
-            >
-              <div className="lesson-header lesson-header-with-avatar">
-                <button
-                  type="button"
-                  className="lesson-avatar ui-pressable"
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    onOpenAvatarEditor?.();
-                  }}
-                  aria-label="Modifier avatar"
-                >
-                  {childProfile ? (
-                    <AvatarRenderer
-                      config={childProfile.avatar}
-                      size={56}
-                      className="landing-avatar-circle"
-                      alt={`Avatar ${childProfile.name || 'Enfant'}`}
-                      loading="eager"
-                    />
-                  ) : null}
-                </button>
-                {activeLesson.coverImage ? (
-                  <img src={activeLesson.coverImage} alt={activeLesson.title} className="lesson-cover" />
-                ) : (
-                  <div className="lesson-cover-placeholder">
-                    <span className="lesson-icon">📚</span>
+            <>
+              <h3 className="child-greeting">Bonjour {childProfile?.name || 'Eli'}</h3>
+              <div className="child-avatar">
+                {childProfile ? (
+                  <AvatarRenderer
+                    config={childProfile.avatar}
+                    size={92}
+                    className="landing-avatar-circle"
+                    alt={`Avatar ${childProfile.name || 'Enfant'}`}
+                    loading="eager"
+                  />
+                ) : null}
+              </div>
+              <div
+                className="current-lesson-card child-lesson-card ui-pressable"
+                onClick={onOpenLessonTextUi}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    onOpenLessonTextUi?.();
+                  }
+                }}
+                role="button"
+                tabIndex={0}
+                aria-label="Ouvrir la lecon"
+              >
+                <div className="lesson-header child-lesson-header child-lesson-header-fixed">
+                  <div className="child-lesson-main">
+                    <div className="lesson-info child-lesson-info">
+                      <h3 className="lesson-title child-lesson-title">{activeLesson.title}</h3>
+                      {activeLesson.description ? (
+                        <p className="lesson-description child-lesson-description">{activeLesson.description}</p>
+                      ) : null}
+                    </div>
                   </div>
-                )}
-                <div className="lesson-info">
-                  <h3 className="lesson-title">{activeLesson.title}</h3>
-                  {activeLesson.description ? (
-                    <p className="lesson-description">{activeLesson.description}</p>
-                  ) : null}
-                </div>
-                <div className="lesson-actions">
-                  <button
-                    type="button"
-                    className="change-lesson-btn icon-only ui-pressable"
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      setShowLessonPicker((prev) => !prev);
-                    }}
-                    aria-label="Changer de lecon"
-                  >
-                    🗂️
-                  </button>
+                  <div className="lesson-actions child-lesson-actions">
+                    <button
+                      type="button"
+                      className="change-lesson-btn icon-only ui-pressable"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        setShowLessonPicker((prev) => !prev);
+                      }}
+                      aria-label="Changer de lecon"
+                    >
+                      🗂️
+                    </button>
+                  </div>
                 </div>
               </div>
-              {showLessonPicker ? (
-                <div className="lesson-picker-dropdown">
-                  {sortedLessons.map((lesson) => (
-                    <button
-                      key={lesson.id}
-                      type="button"
-                      className={`lesson-option ui-pressable ${lesson.id === activeLessonId ? 'active' : ''}`}
-                        onClick={() => {
-                          onSelectLesson?.(lesson.id);
-                          setShowLessonPicker(false);
-                        }}
-                      >
-                      <div className="option-preview">{lesson.coverImage ? <img src={lesson.coverImage} alt="" /> : <span>📘</span>}</div>
-                      <div className="option-info">
-                        <strong>{lesson.order ? `${lesson.order}. ` : ''}{lesson.title}</strong>
-                        <span className="option-meta">{lesson.cards.length} cartes</span>
-                      </div>
-                      {lesson.id === activeLessonId ? <span className="checkmark">✓</span> : null}
-                    </button>
-                  ))}
-                </div>
-              ) : null}
-            </div>
+            </>
           ) : (
             <div className="landing-active-lesson">
               <span className="landing-active-lesson-title">Aucune lecon disponible</span>
@@ -170,35 +122,33 @@ export default function LandingPage({
               </button>
             </div>
           )}
-          <div className="kid-module-grid" role="group" aria-label="Modules apprentissage enfant">
-            {kidActions.map((action) => (
-              <button
-                key={action.id}
-                type="button"
-                className="kid-module-btn ui-pressable"
-                onClick={action.onClick}
-                disabled={!childProfile}
-                aria-label={action.subtitle}
-                title={action.subtitle}
-              >
-                <span className="kid-module-icon-wrap">
-                  <img
-                    src={action.iconSrc}
-                    alt={action.label}
-                    className="kid-module-icon"
-                    onError={(event) => {
-                      event.currentTarget.style.display = 'none';
-                      event.currentTarget.nextElementSibling.style.display = 'grid';
-                    }}
-                  />
-                  <span className="kid-module-icon-fallback" aria-hidden="true">
-                    {action.fallback}
-                  </span>
-                </span>
-                <span className="kid-module-label">{action.label}</span>
-              </button>
-            ))}
-          </div>
+          {activeLesson && showLessonPicker ? (
+            <div
+              className="lesson-picker-dropdown"
+              onClick={(event) => event.stopPropagation()}
+              onKeyDown={(event) => event.stopPropagation()}
+            >
+              {sortedLessons.map((lesson) => (
+                <button
+                  key={lesson.id}
+                  type="button"
+                  className={`lesson-option ui-pressable ${lesson.id === activeLessonId ? 'active' : ''}`}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    onSelectLesson?.(lesson.id);
+                    setShowLessonPicker(false);
+                  }}
+                >
+                  <div className="option-preview">{lesson.coverImage ? <img src={lesson.coverImage} alt="" /> : <span>📘</span>}</div>
+                  <div className="option-info">
+                    <strong>{lesson.order ? `${lesson.order}. ` : ''}{lesson.title}</strong>
+                    <span className="option-meta">{lesson.cards.length} cartes</span>
+                  </div>
+                  {lesson.id === activeLessonId ? <span className="checkmark">✓</span> : null}
+                </button>
+              ))}
+            </div>
+          ) : null}
         </article>
 
         <article className="profile-card-parent">

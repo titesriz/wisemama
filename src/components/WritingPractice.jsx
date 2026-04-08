@@ -13,6 +13,7 @@ export default function WritingPractice({
   lessonTitle,
   lessons = [],
   profile,
+  parentProfile,
   cardIndex = 0,
   totalCards = 0,
   onPrev,
@@ -31,10 +32,12 @@ export default function WritingPractice({
   const writerRef = useRef(null);
   const ghostWriterRef = useRef(null);
   const audioRef = useRef(null);
+  const lessonPickerRef = useRef(null);
   const [renderKey, setRenderKey] = useState(0);
   const [quizActive, setQuizActive] = useState(false);
   const [showModel, setShowModel] = useState(true);
   const [showLessonPicker, setShowLessonPicker] = useState(false);
+  const [showCharInfo, setShowCharInfo] = useState(false);
   const [feedback, setFeedback] = useState('Trace directement sur le modele gris.');
   const [successTick, setSuccessTick] = useState(0);
   const [canvasSize, setCanvasSize] = useState(500);
@@ -228,84 +231,141 @@ export default function WritingPractice({
     };
   }, [lessonId, card?.id, card?.audioUrl]);
 
+  useEffect(() => {
+    setShowCharInfo(false);
+  }, [lessonId, card?.id, hanzi]);
+
   const profileLabel = profile?.role === 'parent' ? 'Parent' : 'Kid';
   const availableLessons = lessons.length ? lessons : [{ id: lessonId || 'current', title: lessonTitle || 'Lecon', cards: [] }];
+
+  useEffect(() => {
+    if (!showLessonPicker) return undefined;
+
+    const handlePointerDown = (event) => {
+      if (!lessonPickerRef.current?.contains(event.target)) {
+        setShowLessonPicker(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handlePointerDown);
+    document.addEventListener('touchstart', handlePointerDown);
+
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown);
+      document.removeEventListener('touchstart', handlePointerDown);
+    };
+  }, [showLessonPicker]);
 
   return (
     <section className={`writing-screen ${embedded ? 'writing-screen-embedded' : ''}`} aria-label="Atelier d ecriture tablette">
       {!embedded ? (
-        <div className="writing-top-banner">
-          <button
-            type="button"
-            className="writing-logo ui-pressable"
-            onClick={() => {
-              if (onBack) onBack();
-              else onSwitchModule?.('flashcards');
-            }}
-          >
-            文
-          </button>
-
-          <div className="writing-profile-section">
-            <div className="writing-avatar-tile">
-              <AvatarRenderer config={profile?.avatar} size={52} alt="Avatar profil" loading="eager" />
-            </div>
-            <div className="writing-profile-name">
-              <strong>{profile?.name || 'Profil'}</strong>
-              <span>{profileLabel}</span>
+        <section ref={lessonPickerRef} className="writing-header-shell">
+          <div className="current-lesson-card writing-header-card">
+            <div className="lesson-header lesson-header-with-avatar lesson-text-topbar">
+              <button
+                type="button"
+                className="lesson-home-logo app-logo ui-pressable"
+                onClick={() => {
+                  if (onBack) onBack();
+                  else onSwitchModule?.('flashcards');
+                }}
+                aria-label="Retour landing"
+              >
+                文
+              </button>
+              <div className="lesson-avatar lesson-avatar-single" aria-label="Profil enfant">
+                <AvatarRenderer
+                  config={profile?.avatar}
+                  size={56}
+                  className="landing-avatar-circle"
+                  alt={`Avatar ${profile?.name || profileLabel}`}
+                  loading="eager"
+                />
+              </div>
+              <div className="lesson-avatar lesson-avatar-single lesson-parent-avatar" aria-label="Profil parent">
+                <AvatarRenderer
+                  config={parentProfile?.avatar}
+                  size={56}
+                  className="landing-avatar-circle"
+                  alt={`Avatar ${parentProfile?.name || 'Parent'}`}
+                  loading="eager"
+                />
+              </div>
+              <div className="lesson-info lesson-text-title-block">
+                <h3 className="lesson-title lesson-text-card-title">{lessonTitle || 'Lecon'}</h3>
+                {onOpenLessonText ? <p className="lesson-description lesson-text-card-description">Atelier d ecriture</p> : null}
+              </div>
+              <div className="lesson-actions lesson-text-topbar-actions">
+                <button
+                  type="button"
+                  className="change-lesson-btn icon-only ui-pressable"
+                  onClick={() => {
+                    sounds.playTap();
+                    setShowLessonPicker((prev) => !prev);
+                  }}
+                  aria-label="Changer de lecon"
+                >
+                  🗂️
+                </button>
+              </div>
             </div>
           </div>
 
-          <button
-            type="button"
-            className="writing-lesson-selector ui-pressable"
-            onClick={() => {
-              sounds.playTap();
-              setShowLessonPicker((prev) => !prev);
-            }}
-          >
-            {lessonTitle || 'Lecon'}
-          </button>
-          {onOpenLessonText ? (
-            <button
-              type="button"
-              className="writing-read-lesson-btn ui-pressable"
-              onClick={() => {
-                sounds.playTap();
-                onOpenLessonText(lessonId);
-              }}
+          {showLessonPicker ? (
+            <div
+              className="lesson-picker-dropdown"
+              onClick={(event) => event.stopPropagation()}
+              onKeyDown={(event) => event.stopPropagation()}
             >
-              Lire la lecon
-            </button>
+              {availableLessons.map((lesson) => (
+                <button
+                  key={lesson.id}
+                  type="button"
+                  className={`lesson-option ui-pressable ${lesson.id === lessonId ? 'active' : ''}`}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    sounds.playTap();
+                    setShowLessonPicker(false);
+                    onSelectLesson?.(lesson.id);
+                  }}
+                >
+                  <div className="option-preview">{lesson.coverImage ? <img src={lesson.coverImage} alt="" /> : <span>📘</span>}</div>
+                  <div className="option-info">
+                    <strong>{lesson.order ? `${lesson.order}. ` : ''}{lesson.title || 'Lecon'}</strong>
+                    <span className="option-meta">{lesson.cards?.length || 0} cartes</span>
+                  </div>
+                  {lesson.id === lessonId ? <span className="checkmark">✓</span> : null}
+                </button>
+              ))}
+            </div>
           ) : null}
-        </div>
-      ) : null}
-
-      {!embedded && showLessonPicker ? (
-        <div className="writing-lesson-picker">
-          {availableLessons.map((lesson) => (
-            <button
-              key={lesson.id}
-              type="button"
-              className={`writing-lesson-picker-item ui-pressable ${lesson.id === lessonId ? 'active' : ''}`}
-              onClick={() => {
-                sounds.playTap();
-                setShowLessonPicker(false);
-                onSelectLesson?.(lesson.id);
-              }}
-            >
-              <strong>{lesson.title || 'Lecon'}</strong>
-              <span>{lesson.cards?.length || 0} cartes</span>
-            </button>
-          ))}
-        </div>
+        </section>
       ) : null}
 
       {!embedded ? (
         <div className="writing-card-info">
-          <div className="writing-pinyin">{card?.pinyinEnabled === false ? '' : formatPinyinDisplay(card?.pinyin || '')}</div>
-          <div className="writing-char-small">{targetChar}</div>
-          <div className="writing-translation">
+          <button
+            type="button"
+            className="writing-char-reveal ui-pressable"
+            onClick={() => {
+              sounds.playTap();
+              setShowCharInfo((prev) => !prev);
+            }}
+          >
+            <span className="writing-char-reveal-pinyin">
+              {card?.pinyinEnabled === false ? '' : formatPinyinDisplay(card?.pinyin || '')}
+            </span>
+            {showCharInfo ? (
+              <>
+                <span className="writing-char-reveal-hanzi">{targetChar}</span>
+              </>
+            ) : (
+              <>
+                <span className="writing-char-reveal-label">Voir le caractere</span>
+              </>
+            )}
+          </button>
+          <div className="writing-translation writing-translation-centered">
             <span>{card?.french || ''}</span>
             <small>{card?.english || ''}</small>
           </div>
@@ -382,26 +442,6 @@ export default function WritingPractice({
             </div>
             <button type="button" className="writing-nav-btn ui-pressable" onClick={onNext}>
               Suiv ►
-            </button>
-          </div>
-
-          <div className="writing-mode-selector">
-            <button
-              type="button"
-              className="writing-mode-btn ui-pressable"
-              onClick={() => onSwitchModule?.('flashcards')}
-            >
-              Lire
-            </button>
-            <button
-              type="button"
-              className="writing-mode-btn ui-pressable"
-              onClick={() => onSwitchModule?.('audio')}
-            >
-              Parler
-            </button>
-            <button type="button" className="writing-mode-btn active" disabled>
-              Ecrire
             </button>
           </div>
         </>
