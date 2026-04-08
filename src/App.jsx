@@ -92,6 +92,7 @@ export default function App() {
     activeLessonId,
     setActiveLesson,
     ensureActiveLesson,
+    refreshBundledLessons,
     createLesson,
     updateLesson,
     removeLesson,
@@ -930,6 +931,7 @@ export default function App() {
         onOpenWritingUi={openWritingFromLanding}
         onOpenAvatarEditor={() => setShowAvatarEditorModal(true)}
         onStartProfile={startWithProfile}
+        onRefreshLessons={refreshBundledLessons}
       />
     );
   }

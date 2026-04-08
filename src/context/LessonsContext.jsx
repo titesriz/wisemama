@@ -565,6 +565,20 @@ export function LessonsProvider({ children }) {
     setActiveLessonId(refreshed[0]?.id || null);
   };
 
+  const refreshBundledLessons = () => {
+    if (Array.isArray(bundledLessonsV2) && bundledLessonsV2.length) {
+      localStorage.setItem('lessons-v2', JSON.stringify(bundledLessonsV2));
+      if (bundledCharacterDb && typeof bundledCharacterDb === 'object') {
+        localStorage.setItem('character-database', JSON.stringify(bundledCharacterDb));
+      }
+      const refreshed = bundledLessonsV2.map((lesson) => expandLessonFromV2(lesson));
+      setLessons(getLessonsByOrder(refreshed));
+      setActiveLessonId((prev) => (refreshed.some((lesson) => lesson.id === prev) ? prev : refreshed[0]?.id || null));
+      return true;
+    }
+    return false;
+  };
+
   const setActiveLesson = (lessonId) => {
     const nextId = typeof lessonId === 'string' ? lessonId : '';
     if (!nextId) return;
@@ -598,6 +612,7 @@ export function LessonsProvider({ children }) {
       updateCard,
       replaceLessons,
       resetLessonsToDefault,
+      refreshBundledLessons,
       setActiveLesson,
       getActiveLesson,
       ensureActiveLesson,

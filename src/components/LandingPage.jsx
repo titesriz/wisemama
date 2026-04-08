@@ -12,12 +12,14 @@ export default function LandingPage({
   onSelectLesson,
   onOpenDailyRituel,
   onOpenAvatarEditor,
+  onRefreshLessons,
   onOpenLessonTextUi,
   onOpenFlashcardsUi,
   onOpenAudioUi,
   onOpenWritingUi,
 }) {
   const [showLessonPicker, setShowLessonPicker] = useState(false);
+  const [refreshStatus, setRefreshStatus] = useState('');
   const lessonPickerRef = useRef(null);
   const sortedLessons = getLessonsByOrder(lessons);
   const childProfile = profiles.find((profile) => profile.role === 'child') || profiles[0] || null;
@@ -39,6 +41,12 @@ export default function LandingPage({
       document.removeEventListener('touchstart', handlePointerDown);
     };
   }, [showLessonPicker]);
+
+  useEffect(() => {
+    if (!refreshStatus) return undefined;
+    const timeout = window.setTimeout(() => setRefreshStatus(''), 2600);
+    return () => window.clearTimeout(timeout);
+  }, [refreshStatus]);
 
   return (
     <section className="landing" aria-label="Page d accueil">
@@ -171,6 +179,19 @@ export default function LandingPage({
           >
             Gérer
           </button>
+          <div className="parent-tools-row">
+            <button
+              type="button"
+              className="manage-button manage-button-secondary"
+              onClick={() => {
+                const ok = onRefreshLessons?.();
+                setRefreshStatus(ok ? 'Leçons mises à jour.' : 'Mise à jour indisponible.');
+              }}
+            >
+              Mettre à jour
+            </button>
+          </div>
+          {refreshStatus ? <p className="parent-refresh-status">{refreshStatus}</p> : null}
         </article>
       </div>
     </section>

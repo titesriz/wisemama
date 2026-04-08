@@ -418,10 +418,23 @@ body {
   cursor: pointer;
 }
 
+.manage-button-secondary {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.55);
+}
+
 .parent-tools-row {
   margin-top: 10px;
   display: flex;
   justify-content: center;
+}
+
+.parent-refresh-status {
+  margin: 10px 0 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #f4fffe;
 }
 
 .manage-button:disabled {
