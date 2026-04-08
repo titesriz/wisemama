@@ -71,6 +71,7 @@ export default function LessonTextView({
   lesson,
   lessons = [],
   profile,
+  parentProfile,
   progressMap = {},
   onSelectLesson,
   onPracticeCharacter,
@@ -172,49 +173,74 @@ export default function LessonTextView({
 
   return (
     <section className="lesson-text-page">
-      <div className="lesson-text-shell">
-        <div className="writing-top-banner">
-          <button type="button" className="writing-logo ui-pressable" onClick={onBack}>
-            文
-          </button>
-          <div className="writing-profile-section">
-            <div className="writing-avatar-tile">
-              <AvatarRenderer config={profile?.avatar} size={52} alt="Avatar profil" loading="eager" />
-            </div>
-            <div className="writing-profile-name">
-              <strong>{profile?.name || 'Profil'}</strong>
-              <span>{profile?.role === 'parent' ? 'Parent' : 'Kid'}</span>
-            </div>
-          </div>
-          <button
-            type="button"
-            className="writing-lesson-selector ui-pressable"
-            onClick={() => setShowLessonPicker((prev) => !prev)}
-          >
-            {lesson?.title || 'Lecon'}
-          </button>
-        </div>
-
-        {showLessonPicker ? (
-          <div className="writing-lesson-picker">
-            {availableLessons.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                className={`writing-lesson-picker-item ui-pressable ${item.id === lesson?.id ? 'active' : ''}`}
-                onClick={() => {
-                  setShowLessonPicker(false);
-                  onSelectLesson?.(item.id);
-                }}
-              >
-                <strong>{item.order ? `${item.order}. ` : ''}{item.title || 'Lecon'}</strong>
-                <span>{item.cards?.length || 0} cartes</span>
+      <div className="landing-new-shell lesson-text-shell">
+        <article className="profile-card-kid lesson-text-frame">
+          <div className="current-lesson-card lesson-text-current-card">
+            <div className="lesson-header lesson-header-with-avatar">
+              <button type="button" className="lesson-avatar lesson-home-logo ui-pressable" onClick={onBack} aria-label="Retour landing">
+                文
               </button>
-            ))}
+              <div className="lesson-avatar lesson-avatar-single" aria-label="Profil enfant">
+                <AvatarRenderer
+                  config={profile?.avatar}
+                  size={56}
+                  className="landing-avatar-circle"
+                  alt={`Avatar ${profile?.name || 'Enfant'}`}
+                  loading="eager"
+                />
+              </div>
+              <div className="lesson-avatar lesson-avatar-single lesson-parent-avatar" aria-label="Profil parent">
+                <AvatarRenderer
+                  config={parentProfile?.avatar}
+                  size={56}
+                  className="landing-avatar-circle"
+                  alt={`Avatar ${parentProfile?.name || 'Parent'}`}
+                  loading="eager"
+                />
+              </div>
+              <div className="lesson-info">
+                <h3 className="lesson-title">{lesson?.title || 'Lecon'}</h3>
+                {lesson?.description ? <p className="lesson-description">{lesson.description}</p> : null}
+              </div>
+              <div className="lesson-actions">
+                <button
+                  type="button"
+                  className="change-lesson-btn icon-only ui-pressable"
+                  onClick={() => setShowLessonPicker((prev) => !prev)}
+                  aria-label="Changer de lecon"
+                >
+                  🗂️
+                </button>
+              </div>
+            </div>
           </div>
-        ) : null}
 
-        <div className="lesson-text-content">
+          {showLessonPicker ? (
+            <div className="lesson-picker-dropdown">
+              {availableLessons.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={`lesson-option ui-pressable ${item.id === lesson?.id ? 'active' : ''}`}
+                  onClick={() => {
+                    setShowLessonPicker(false);
+                    onSelectLesson?.(item.id);
+                  }}
+                >
+                  <div className="option-preview">
+                    {item.coverImage ? <img src={item.coverImage} alt="" /> : <span>📘</span>}
+                  </div>
+                  <div className="option-info">
+                    <strong>{item.order ? `${item.order}. ` : ''}{item.title || 'Lecon'}</strong>
+                    <span className="option-meta">{item.cards?.length || 0} cartes</span>
+                  </div>
+                  {item.id === lesson?.id ? <span className="checkmark">✓</span> : null}
+                </button>
+              ))}
+            </div>
+          ) : null}
+
+          <div className="lesson-text-content">
           <div className="lesson-header">
             <h1>{lesson?.title || 'Lecon'}</h1>
             {lesson?.description ? <p>{lesson.description}</p> : null}
@@ -280,16 +306,16 @@ export default function LessonTextView({
           <div className="pinyin-controls">
             <div className="pinyin-toggle" role="radiogroup" aria-label="Mode pinyin">
               <label className="toggle-option">
-                <input type="radio" name="pinyinMode" value="none" checked={pinyinMode === 'none'} onChange={() => setPinyinMode('none')} />
-                <span className="radio-label"><span className="radio-icon">⚪</span>Aucun pinyin</span>
+                <input type="radio" name="pinyinMode" value="all" checked={pinyinMode === 'all'} onChange={() => setPinyinMode('all')} />
+                <span className="radio-label"><span className="radio-icon">🟢</span>Tous les pinyin</span>
               </label>
               <label className="toggle-option">
                 <input type="radio" name="pinyinMode" value="new" checked={pinyinMode === 'new'} onChange={() => setPinyinMode('new')} />
                 <span className="radio-label"><span className="radio-icon">🟡</span>Nouveaux uniquement</span>
               </label>
               <label className="toggle-option">
-                <input type="radio" name="pinyinMode" value="all" checked={pinyinMode === 'all'} onChange={() => setPinyinMode('all')} />
-                <span className="radio-label"><span className="radio-icon">🟢</span>Tous les pinyin</span>
+                <input type="radio" name="pinyinMode" value="none" checked={pinyinMode === 'none'} onChange={() => setPinyinMode('none')} />
+                <span className="radio-label"><span className="radio-icon">⚪</span>Aucun pinyin</span>
               </label>
             </div>
           </div>
@@ -312,20 +338,19 @@ export default function LessonTextView({
               ))}
             </div>
           </section>
-        </div>
+          </div>
 
-        <footer className="lesson-text-footer lesson-action">
-          <button
-            type="button"
-            className="lesson-text-start ui-pressable"
-            onClick={() => onStartPractice?.(journeyStartCard?.hanzi || '')}
-            disabled={!journeyStartCard}
-          >
-            {journeyStartCard
-              ? `Commencer le parcours ${journeyStartCard.hanzi} (${journeyStartIndex + 1}/${Math.max(1, vocabulary.length)}) →`
-              : 'Reviser la lecon →'}
-          </button>
-        </footer>
+          <footer className="lesson-text-footer lesson-action">
+            <button
+              type="button"
+              className="lesson-text-start ui-pressable"
+              onClick={() => onStartPractice?.(journeyStartCard?.hanzi || '')}
+              disabled={!journeyStartCard}
+            >
+              Apprendre les caracteres →
+            </button>
+          </footer>
+        </article>
       </div>
     </section>
   );

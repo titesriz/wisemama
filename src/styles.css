@@ -2167,6 +2167,27 @@ body {
   padding: 0 18px;
 }
 
+.lesson-top-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.lesson-profile-duo {
+  gap: 16px;
+}
+
+.lesson-profile-block {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.parent-audio-avatar {
+  background: linear-gradient(135deg, #4ecdc4 0%, #44a3a0 100%);
+}
+
 .writing-logo {
   width: 80px;
   height: 80px;
@@ -2530,28 +2551,61 @@ body {
 
 .lesson-text-page {
   min-height: 100vh;
-  padding-top: max(14px, env(safe-area-inset-top));
-  padding-right: max(14px, env(safe-area-inset-right));
-  padding-bottom: max(14px, env(safe-area-inset-bottom));
-  padding-left: max(14px, env(safe-area-inset-left));
-  background: #f5f6f8;
+  padding-top: max(0px, env(safe-area-inset-top));
+  padding-right: max(0px, env(safe-area-inset-right));
+  padding-bottom: max(0px, env(safe-area-inset-bottom));
+  padding-left: max(0px, env(safe-area-inset-left));
+  background: #fff;
 }
 
 .lesson-text-shell {
-  width: min(834px, 100%);
+  width: min(900px, 100%);
   margin: 0 auto;
-  border: 1px solid #e0e0e0;
-  border-radius: 18px;
-  overflow: hidden;
-  background: #fff;
+  border: none;
+  border-radius: 0;
+  overflow: visible;
+  background: transparent;
   display: grid;
-  grid-template-rows: auto 1fr auto;
-  min-height: calc(100dvh - 28px);
+  gap: 20px;
+  min-height: 100vh;
+}
+
+.lesson-text-frame {
+  min-height: calc(100dvh - 140px);
+  display: grid;
+  align-content: start;
+  gap: 14px;
+}
+
+.lesson-text-current-card {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.lesson-text-current-card .lesson-header {
+  grid-template-columns: 58px 58px 58px minmax(0, 1fr) 44px;
+}
+
+.lesson-home-logo {
+  border: none;
+  background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+  color: #fff;
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.lesson-avatar-single {
+  padding: 0;
+  overflow: hidden;
+}
+
+.lesson-parent-avatar {
+  background: linear-gradient(135deg, #4ecdc4 0%, #44a3a0 100%);
 }
 
 .lesson-text-content {
-  padding: 18px;
-  overflow: auto;
+  padding: 6px 0 0;
+  overflow: visible;
   display: grid;
   gap: 18px;
 }
@@ -3801,6 +3855,10 @@ body {
 
   .ftue-field-row {
     grid-template-columns: 1fr;
+  }
+
+  .lesson-text-current-card .lesson-header {
+    grid-template-columns: 52px 52px 52px minmax(0, 1fr) 44px;
   }
 }
 

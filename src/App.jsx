@@ -434,16 +434,12 @@ export default function App() {
   const openCharacterPracticeFromLessonText = (char) => {
     const targetLesson = lessonOptions.find((lesson) => lesson.id === lessonTextLessonId);
     if (!targetLesson || !char) return;
-    const queue = targetLesson.cards.map((_, idx) => idx);
     const targetCardIndex = targetLesson.cards.findIndex((card) => (card?.hanzi || '').includes(char));
     if (targetCardIndex < 0) return;
     setActiveLesson(targetLesson.id);
     setCardIndex(targetCardIndex);
-    setLessonJourneyQueue(queue);
-    setLessonJourneyPosition(targetCardIndex);
-    setUnifiedFlowStepIndex(0);
-    setReturnToLessonText(true);
-    setStandaloneView(STANDALONE_VIEW.LEARNING_FLOW);
+    setReturnToLessonText(false);
+    openStandaloneModule(STANDALONE_VIEW.WRITING, MODULES.WRITING);
   };
 
   const openLessonTextFromLanding = () => {
@@ -463,7 +459,6 @@ export default function App() {
   const startJourneyFromLessonText = (char) => {
     const targetLesson = lessonOptions.find((lesson) => lesson.id === lessonTextLessonId);
     if (!targetLesson) return;
-    const queue = targetLesson.cards.map((_, idx) => idx);
     let startIndex = 0;
     if (char) {
       const idx = targetLesson.cards.findIndex((card) => (card?.hanzi || '').includes(char));
@@ -471,11 +466,8 @@ export default function App() {
     }
     setActiveLesson(targetLesson.id);
     setCardIndex(startIndex);
-    setLessonJourneyQueue(queue);
-    setLessonJourneyPosition(startIndex);
-    setUnifiedFlowStepIndex(0);
-    setReturnToLessonText(true);
-    setStandaloneView(STANDALONE_VIEW.LEARNING_FLOW);
+    setReturnToLessonText(false);
+    openStandaloneModule(STANDALONE_VIEW.WRITING, MODULES.WRITING);
   };
 
   const goNextInLessonJourney = () => {
@@ -647,12 +639,14 @@ export default function App() {
 
   if (!showFtue && lessonTextLessonId && standaloneView === STANDALONE_VIEW.NONE) {
     const lessonForText = lessonOptions.find((lesson) => lesson.id === lessonTextLessonId);
+    const parentProfile = profiles.find((profile) => profile.role === 'parent') || null;
     if (lessonForText) {
       return (
         <LessonTextView
           lesson={lessonForText}
           lessons={lessonOptions}
           profile={activeProfile}
+          parentProfile={parentProfile}
           progressMap={currentStarsMap}
           onSelectLesson={(lessonId) => {
             if (!lessonId) return;
