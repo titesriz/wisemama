@@ -143,6 +143,8 @@ export default function WritingPractice({
   const [fullCharData, setFullCharData] = useState(null);
   const [componentStepIndex, setComponentStepIndex] = useState(0);
   const [showStrokeArrows, setShowStrokeArrows] = useState(false);
+  const [showWorksheet, setShowWorksheet] = useState(false);
+  const [worksheetSize, setWorksheetSize] = useState('medium');
   const sounds = useUiSounds();
   const isRadicalMode = variant === 'radical';
   const targetChar = useMemo(() => {
@@ -161,6 +163,13 @@ export default function WritingPractice({
     [fullCharData, isRadicalMode, structure],
   );
   const activeComponentExercise = isRadicalMode ? componentExercises[componentStepIndex] || null : null;
+  const worksheetCells = useMemo(
+    () => Array.from({ length: 8 }, (_, index) => ({
+      id: index,
+      mode: index === 0 ? 'model' : index <= 2 ? 'trace' : 'blank',
+    })),
+    [],
+  );
 
   const handleQuizComplete = ({ totalMistakes = 0 } = {}) => {
     setQuizActive(false);
@@ -622,6 +631,16 @@ export default function WritingPractice({
           ) : null}
           <button
             type="button"
+            className="writing-meta-btn ui-pressable"
+            onClick={() => {
+              sounds.playTap();
+              setShowWorksheet(true);
+            }}
+          >
+            Fiche
+          </button>
+          <button
+            type="button"
             className="writing-sound-btn ui-pressable"
             onClick={playCardAudio}
             disabled={!audioSrc}
@@ -739,13 +758,13 @@ export default function WritingPractice({
                               markerHeight="3.2"
                               orient="auto-start-reverse"
                             >
-                              <path d="M 0 0 L 10 5 L 0 10 z" fill="#4a90e2" />
+                              <path d="M 0 0 L 10 5 L 0 10 z" fill="#111111" />
                             </marker>
                           </defs>
                           <polyline
                             points={buildMedianPolyline(step.latestMedian, strokePreviewTransform)}
                             fill="none"
-                            stroke="#4a90e2"
+                            stroke="#ff6b6b"
                             strokeWidth="1.6"
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -839,6 +858,68 @@ export default function WritingPractice({
             </button>
           </div>
         </>
+      ) : null}
+
+      {showWorksheet ? (
+        <div className="modal-overlay" onClick={() => setShowWorksheet(false)}>
+          <section
+            className="modal-card worksheet-modal"
+            onClick={(event) => event.stopPropagation()}
+            aria-label="Fiche d ecriture"
+          >
+            <div className="modal-head">
+              <div className="worksheet-head-copy">
+                <strong>Fiche d écriture</strong>
+                <span>{targetChar} · {formatPinyinDisplay(card?.pinyin || '')}</span>
+              </div>
+              <button
+                type="button"
+                className="lesson-text-control-btn ui-pressable"
+                onClick={() => setShowWorksheet(false)}
+              >
+                Fermer
+              </button>
+            </div>
+            <div className="worksheet-sheet">
+              <div className="worksheet-title-row">
+                <div className="worksheet-char-badge">{targetChar}</div>
+                <div className="worksheet-translation-copy">
+                  <strong>{card?.french || ''}</strong>
+                  <span>{card?.english || ''}</span>
+                </div>
+                <div className="worksheet-size-switch">
+                  <button
+                    type="button"
+                    className={`lesson-text-control-btn ui-pressable ${worksheetSize === 'medium' ? 'active' : ''}`}
+                    onClick={() => setWorksheetSize('medium')}
+                  >
+                    Moyen
+                  </button>
+                  <button
+                    type="button"
+                    className={`lesson-text-control-btn ui-pressable ${worksheetSize === 'small' ? 'active' : ''}`}
+                    onClick={() => setWorksheetSize('small')}
+                  >
+                    Petit
+                  </button>
+                </div>
+              </div>
+              <div className={`worksheet-grid worksheet-grid-${worksheetSize}`}>
+                {worksheetCells.map((cell) => (
+                  <div key={cell.id} className={`worksheet-cell worksheet-cell-${cell.mode}`}>
+                    <div className="worksheet-crosshair" aria-hidden="true">
+                      <span />
+                      <span />
+                    </div>
+                    {cell.mode !== 'blank' ? (
+                      <div className={`worksheet-char worksheet-char-${cell.mode}`}>{targetChar}</div>
+                    ) : null}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        </div>
       ) : null}
     </section>
   );
