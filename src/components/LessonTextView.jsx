@@ -73,6 +73,8 @@ export default function LessonTextView({
   profile,
   parentProfile,
   progressMap = {},
+  writingDifficulty = 1,
+  onChangeWritingDifficulty,
   onSelectLesson,
   onPracticeCharacter,
   onBack,
@@ -363,7 +365,7 @@ export default function LessonTextView({
           </div>
 
           <section className="vocabulary-section lesson-text-vocab">
-            <h2>📚 Caractères à apprendre ({vocabulary.length} caractères)</h2>
+            <h2>📚 Selectionne les caractères à apprendre</h2>
             <div className="vocabulary-grid lesson-text-vocab-list">
               {vocabulary.map((item) => (
                 <button
@@ -390,13 +392,34 @@ export default function LessonTextView({
             >
               {allSelected ? 'Aucun' : 'Tout'}
             </button>
+            <div className={`lesson-text-start lesson-text-start-legend ${selectedVocabulary.length === 0 ? 'disabled' : ''}`}>
+              {selectedVocabulary.length === 0
+                ? 'Selectionne au moins 1 caractère'
+                : `Apprendre les ${selectedVocabulary.length} caractères →`}
+            </div>
             <button
               type="button"
-              className="lesson-text-start ui-pressable"
-              onClick={() => onStartPractice?.(selectedVocabulary.map((item) => item.id))}
+              className={`lesson-difficulty-star ui-pressable ${writingDifficulty === 1 ? 'active' : ''}`}
+              onClick={() => {
+                onChangeWritingDifficulty?.(1);
+                onStartPractice?.(selectedVocabulary.map((item) => item.id));
+              }}
+              aria-label="Difficulte 1"
               disabled={!journeyStartCard || selectedVocabulary.length === 0}
             >
-              Apprendre les caracteres →
+              Facile
+            </button>
+            <button
+              type="button"
+              className={`lesson-difficulty-star ui-pressable ${writingDifficulty === 3 ? 'active' : ''}`}
+              onClick={() => {
+                onChangeWritingDifficulty?.(3);
+                onStartPractice?.(selectedVocabulary.map((item) => item.id));
+              }}
+              aria-label="Difficulte 3"
+              disabled={!journeyStartCard || selectedVocabulary.length === 0}
+            >
+              Difficile
             </button>
           </footer>
         </article>

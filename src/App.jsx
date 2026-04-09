@@ -111,6 +111,7 @@ export default function App() {
   const [lessonJourneyQueue, setLessonJourneyQueue] = useState([]);
   const [lessonJourneyPosition, setLessonJourneyPosition] = useState(0);
   const [unifiedFlowStepIndex, setUnifiedFlowStepIndex] = useState(0);
+  const [writingDifficulty, setWritingDifficulty] = useState(1);
   const [activeModule, setActiveModule] = useState(MODULES.LESSONS);
   const [showAvatarEditorModal, setShowAvatarEditorModal] = useState(false);
   const [showProfilePicker, setShowProfilePicker] = useState(false);
@@ -248,6 +249,12 @@ export default function App() {
       setActiveModule(MODULES.FLASHCARDS);
     }
   }, [activeModule, isParentMode]);
+
+  useEffect(() => {
+    if (writingDifficulty !== 1 && writingDifficulty !== 3) {
+      setWritingDifficulty(1);
+    }
+  }, [writingDifficulty]);
 
   useEffect(() => {
     if (!enteredApp || showFtue || isParentMode || standaloneView !== STANDALONE_VIEW.NONE) return;
@@ -661,6 +668,8 @@ export default function App() {
           profile={activeProfile}
           parentProfile={parentProfile}
           progressMap={currentStarsMap}
+          writingDifficulty={writingDifficulty}
+          onChangeWritingDifficulty={setWritingDifficulty}
           onSelectLesson={(lessonId) => {
             if (!lessonId) return;
             setActiveLesson(lessonId);
@@ -684,6 +693,7 @@ export default function App() {
         activeLesson={activeLesson}
         lessons={lessonOptions}
         cardIndex={cardIndex}
+        writingDifficulty={writingDifficulty}
         journeyMode={returnToLessonText}
         journeyQueue={lessonJourneyQueue}
         journeyPosition={lessonJourneyPosition}

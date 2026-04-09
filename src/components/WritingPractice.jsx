@@ -73,6 +73,31 @@ function getComponentRole(componentLabel = '', etymology = {}) {
   return '';
 }
 
+function buildStrokePreviewSteps(fullCharData) {
+  if (!fullCharData?.strokes?.length) return [];
+  return fullCharData.strokes.map((_, index) => ({
+    index,
+    strokes: fullCharData.strokes.slice(0, index + 1),
+    latestMedian: fullCharData.medians?.[index] || [],
+  }));
+}
+
+function buildMedianPolyline(median = [], transform) {
+  if (!Array.isArray(median) || median.length < 2 || !transform) return '';
+  const previewScale = 0.7;
+  const centerX = 512;
+  const centerY = 388;
+  return median
+    .map(([x, y]) => {
+      const scaledX = centerX + ((x - centerX) * previewScale);
+      const scaledY = centerY + ((y - centerY) * previewScale);
+      const sx = transform.x + (scaledX * transform.scale);
+      const sy = 92 - transform.y - (scaledY * transform.scale);
+      return `${sx},${sy}`;
+    })
+    .join(' ');
+}
+
 export default function WritingPractice({
   variant = 'writing',
   hanzi,
@@ -82,6 +107,7 @@ export default function WritingPractice({
   lessons = [],
   profile,
   parentProfile,
+  writingDifficulty = 1,
   cardIndex = 0,
   totalCards = 0,
   onPrev,
@@ -107,15 +133,16 @@ export default function WritingPractice({
   const lessonPickerRef = useRef(null);
   const [renderKey, setRenderKey] = useState(0);
   const [quizActive, setQuizActive] = useState(false);
-  const [showModel, setShowModel] = useState(true);
+  const [showModel, setShowModel] = useState(writingDifficulty === 1);
   const [showLessonPicker, setShowLessonPicker] = useState(false);
-  const [showCharInfo, setShowCharInfo] = useState(false);
+  const [showCharInfo, setShowCharInfo] = useState(writingDifficulty <= 2);
   const [feedback, setFeedback] = useState('Trace directement sur le modele gris.');
   const [successTick, setSuccessTick] = useState(0);
   const [canvasSize, setCanvasSize] = useState(500);
   const [audioSrc, setAudioSrc] = useState('');
   const [fullCharData, setFullCharData] = useState(null);
   const [componentStepIndex, setComponentStepIndex] = useState(0);
+  const [showStrokeArrows, setShowStrokeArrows] = useState(false);
   const sounds = useUiSounds();
   const isRadicalMode = variant === 'radical';
   const targetChar = useMemo(() => {
@@ -127,6 +154,8 @@ export default function WritingPractice({
   const etymology = structure?.etymology || {};
   const etymologyType = formatTypeLabel(etymology.type);
   const etymologyHint = structure?.etymology?.hint || '';
+  const strokePreviewSteps = useMemo(() => buildStrokePreviewSteps(fullCharData), [fullCharData]);
+  const strokePreviewTransform = useMemo(() => HanziWriter.getScalingTransform(92, 92, 10), []);
   const componentExercises = useMemo(
     () => (isRadicalMode ? buildComponentExercises(structure, fullCharData) : []),
     [fullCharData, isRadicalMode, structure],
@@ -220,6 +249,11 @@ export default function WritingPractice({
   useEffect(() => {
     setComponentStepIndex(0);
   }, [lessonId, card?.id, hanzi]);
+
+  useEffect(() => {
+    setShowModel(writingDifficulty === 1);
+    setShowCharInfo(writingDifficulty <= 2);
+  }, [lessonId, card?.id, hanzi, writingDifficulty]);
 
   useEffect(() => {
     if (!containerRef.current || !ghostContainerRef.current || !targetChar || !canvasSize) {
@@ -325,12 +359,23 @@ export default function WritingPractice({
 
   const showStrokeOrder = async () => {
     sounds.playTap();
+    if (isRadicalMode && fullGhostWriterRef.current) {
+      const previousShowModel = showModel;
+      setQuizActive(false);
+      setShowModel(true);
+      setFeedback('Observe l ordre des traits, un trait de plus a chaque etape.');
+      await fullGhostWriterRef.current.animateCharacter();
+      setShowModel(previousShowModel);
+      startQuiz();
+      return;
+    }
+
     if (!writerRef.current) {
       return;
     }
 
     setQuizActive(false);
-    setFeedback(isRadicalMode ? 'Observe le composant, puis trace-le.' : 'Observe bien les traits, puis essaie de tracer.');
+    setFeedback('Observe bien les traits, puis essaie de tracer.');
     await writerRef.current.animateCharacter();
     startQuiz();
   };
@@ -339,6 +384,16 @@ export default function WritingPractice({
     sounds.playTap();
     setFeedback('Canvas efface. Recommence calmement.');
     setRenderKey((prev) => prev + 1);
+  };
+
+  const showHint = () => {
+    sounds.playTap();
+    setShowModel(true);
+    setFeedback('Indice visible quelques instants.');
+    window.setTimeout(() => {
+      setShowModel(false);
+      setFeedback('A toi de tracer sans le modele.');
+    }, 1600);
   };
 
   const startQuiz = () => {
@@ -636,6 +691,74 @@ export default function WritingPractice({
               <p className="radical-etymology">{etymologyHint}</p>
             </div>
           ) : null}
+          {strokePreviewSteps.length ? (
+            <div className="radical-panel-block">
+              <div className="radical-stroke-header">
+                <span className="radical-panel-label">Ordre des traits</span>
+                <button
+                  type="button"
+                  className={`lesson-text-control-btn ui-pressable ${showStrokeArrows ? 'active' : ''}`}
+                  onClick={() => setShowStrokeArrows((prev) => !prev)}
+                >
+                  Flèches
+                </button>
+              </div>
+              <div className="radical-stroke-sequence">
+                {strokePreviewSteps.map((step) => (
+                  <div key={step.index} className="radical-stroke-step">
+                    <div className="radical-stroke-step-count">{step.index + 1}</div>
+                    <svg
+                      viewBox="0 0 92 92"
+                      className="radical-stroke-step-canvas"
+                      aria-label={`Trait ${step.index + 1}`}
+                    >
+                      <rect x="1" y="1" width="90" height="90" rx="14" fill="#fff" stroke="#e7ebf2" />
+                      <line x1="46" y1="8" x2="46" y2="84" stroke="#e7ebf2" strokeDasharray="4 4" />
+                      <line x1="8" y1="46" x2="84" y2="46" stroke="#e7ebf2" strokeDasharray="4 4" />
+                      <g transform={strokePreviewTransform.transform}>
+                        <g transform="translate(512 388) scale(0.7) translate(-512 -388)">
+                          {step.strokes.map((strokePath, strokeIndex) => (
+                            <path
+                              key={`${step.index}-${strokeIndex}`}
+                              d={strokePath}
+                              fill={strokeIndex === step.index ? '#ff6b6b' : '#111111'}
+                              stroke="none"
+                            />
+                          ))}
+                        </g>
+                      </g>
+                      {showStrokeArrows && step.latestMedian?.length >= 2 ? (
+                        <>
+                          <defs>
+                            <marker
+                              id={`stroke-arrow-${step.index}`}
+                              viewBox="0 0 10 10"
+                              refX="6.5"
+                              refY="5"
+                              markerWidth="3.2"
+                              markerHeight="3.2"
+                              orient="auto-start-reverse"
+                            >
+                              <path d="M 0 0 L 10 5 L 0 10 z" fill="#4a90e2" />
+                            </marker>
+                          </defs>
+                          <polyline
+                            points={buildMedianPolyline(step.latestMedian, strokePreviewTransform)}
+                            fill="none"
+                            stroke="#4a90e2"
+                            strokeWidth="1.6"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            markerEnd={`url(#stroke-arrow-${step.index})`}
+                          />
+                        </>
+                      ) : null}
+                    </svg>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : null}
         </section>
       ) : null}
 
@@ -670,6 +793,12 @@ export default function WritingPractice({
             <span>{showModel ? '🙈' : '👁'}</span>
             <small>{showModel ? 'Cacher' : 'Montrer'}</small>
           </button>
+          {writingDifficulty === 2 ? (
+            <button type="button" className="writing-action-btn ui-pressable" onClick={showHint}>
+              <span>💡</span>
+              <small>Hint</small>
+            </button>
+          ) : null}
           <button type="button" className="writing-action-btn ui-pressable" onClick={showStrokeOrder}>
             <span>Voir</span>
             <small>Modele</small>

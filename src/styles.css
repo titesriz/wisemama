@@ -2647,6 +2647,46 @@ body {
   color: #7a6a46;
 }
 
+.radical-stroke-sequence {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+  gap: 10px;
+}
+
+.radical-stroke-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.radical-stroke-step {
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+}
+
+.radical-stroke-step-count {
+  min-width: 28px;
+  min-height: 28px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #fff1d8;
+  color: #9a5b00;
+  font-size: 13px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.radical-stroke-step-canvas {
+  width: 92px;
+  height: 92px;
+  display: block;
+}
+
 .writing-area {
   background: #fff;
   display: grid;
@@ -3129,10 +3169,11 @@ body {
   border-radius: 12px;
   background: #fff;
   display: grid;
-  align-content: center;
+  place-content: center;
   justify-items: center;
   gap: 4px;
   cursor: pointer;
+  text-align: center;
 }
 
 .vocab-card.selected {
@@ -3205,6 +3246,24 @@ body {
   border-color: #4ecdc4;
   background: #ecfffb;
   color: #22665f;
+}
+
+.lesson-difficulty-star {
+  min-height: 40px;
+  border-radius: 999px;
+  border: 2px solid #d8deea;
+  background: #fff;
+  color: #8d98aa;
+  padding: 0 12px;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.lesson-difficulty-star.active {
+  border-color: #ffb347;
+  background: #fff3de;
+  color: #9a5b00;
 }
 
 .lesson-text-paragraph {
@@ -3306,9 +3365,14 @@ body {
   border-top: 1px solid #e7ebf2;
   padding: 14px 16px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   gap: 12px;
+  flex-wrap: wrap;
+}
+
+.lesson-text-start {
+  margin-right: auto;
 }
 
 .lesson-text-start {
@@ -3321,6 +3385,18 @@ body {
   font-size: 16px;
   font-weight: 800;
   cursor: pointer;
+}
+
+.lesson-text-start-legend {
+  border-color: #e7ebf2;
+  background: #f8fafc;
+  color: #6f7a87;
+  cursor: default;
+  box-shadow: none;
+}
+
+.lesson-text-start-legend.disabled {
+  opacity: 0.8;
 }
 
 .module-screen {
