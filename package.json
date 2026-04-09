@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "build:character-structure": "node scripts/build-character-structure.mjs",
     "build": "vite build",
     "preview": "vite preview"
   },

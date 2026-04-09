@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import defaultLessons from '../data/lessons.json';
 import bundledLessonsV2 from '../data/lessons-v2.json';
 import bundledCharacterDb from '../data/character-database.json';
+import { enrichCharacterDatabase, enrichCharacterRecord } from '../lib/characterStructure.js';
 import { getLessonsByOrder, normalizeLessonOrder } from '../utils/lessons/lessonOrder.js';
 import {
   getAllLessons as getAllLessonsV2,
@@ -124,7 +125,7 @@ function expandLessonFromV2(lesson) {
   const cardMap = lesson?.cardMap && typeof lesson.cardMap === 'object' ? lesson.cardMap : {};
   const characterRefs = Array.isArray(lesson?.characterRefs) ? lesson.characterRefs : [];
   const cards = characterRefs.map((hanzi, index) => {
-    const char = getCharacter(hanzi) || {};
+    const char = enrichCharacterRecord(hanzi, getCharacter(hanzi) || {});
     const id = cardMap[hanzi] || `card-${lesson.id}-${index}`;
     const translationEn = safeString(char?.english, safeString(char?.translation?.en, ''));
     const translationFr = safeString(char?.french, safeString(char?.translation?.fr, ''));
@@ -253,7 +254,7 @@ function upsertCharacterFromCard(card, lessonId) {
         },
       ];
     }
-    upsertCharacter(char, updates);
+    upsertCharacter(char, enrichCharacterRecord(char, updates));
   });
 }
 
@@ -267,7 +268,7 @@ function upsertCharacterFromSource(char, lessonId) {
     firstSeenLesson: existing?.firstSeenLesson || lessonId,
     firstSeenDate: existing?.firstSeenDate || new Date().toISOString(),
   };
-  upsertCharacter(char, updates);
+  upsertCharacter(char, enrichCharacterRecord(char, updates));
 }
 
 function makeLessonId() {
@@ -338,6 +339,17 @@ export function LessonsProvider({ children }) {
   const [activeLessonId, setActiveLessonId] = useState(null);
 
   useEffect(() => {
+    const hydrateStoredCharacters = () => {
+      const stored = localStorage.getItem('character-database');
+      if (!stored) return;
+      try {
+        const parsed = JSON.parse(stored);
+        localStorage.setItem('character-database', JSON.stringify(enrichCharacterDatabase(parsed)));
+      } catch {
+        // no-op
+      }
+    };
+
     const initializeFromV2 = () => {
       let v2Lessons = getAllLessonsV2();
       if (!v2Lessons.length) {
@@ -346,7 +358,7 @@ export function LessonsProvider({ children }) {
           if (Array.isArray(bundledLessonsV2) && bundledLessonsV2.length) {
             localStorage.setItem('lessons-v2', JSON.stringify(bundledLessonsV2));
             if (bundledCharacterDb && typeof bundledCharacterDb === 'object') {
-              localStorage.setItem('character-database', JSON.stringify(bundledCharacterDb));
+              localStorage.setItem('character-database', JSON.stringify(enrichCharacterDatabase(bundledCharacterDb)));
             }
           } else {
             migrateLessonsV1ToV2(defaultLessons, { reset: true });
@@ -354,6 +366,7 @@ export function LessonsProvider({ children }) {
         }
         v2Lessons = getAllLessonsV2();
       }
+      hydrateStoredCharacters();
       const refreshed = v2Lessons.map((lesson) => expandLessonFromV2(lesson));
       setLessons(getLessonsByOrder(refreshed));
     };
@@ -569,7 +582,7 @@ export function LessonsProvider({ children }) {
     if (Array.isArray(bundledLessonsV2) && bundledLessonsV2.length) {
       localStorage.setItem('lessons-v2', JSON.stringify(bundledLessonsV2));
       if (bundledCharacterDb && typeof bundledCharacterDb === 'object') {
-        localStorage.setItem('character-database', JSON.stringify(bundledCharacterDb));
+        localStorage.setItem('character-database', JSON.stringify(enrichCharacterDatabase(bundledCharacterDb)));
       }
       const refreshed = bundledLessonsV2.map((lesson) => expandLessonFromV2(lesson));
       setLessons(getLessonsByOrder(refreshed));

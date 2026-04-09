@@ -73,6 +73,8 @@ export default function LessonTextView({
   profile,
   parentProfile,
   progressMap = {},
+  writingDifficulty = 1,
+  onChangeWritingDifficulty,
   onSelectLesson,
   onPracticeCharacter,
   onBack,
@@ -82,6 +84,7 @@ export default function LessonTextView({
   const [manuallyToggledIds, setManuallyToggledIds] = useState(() => new Set());
   const [playingSentenceIndex, setPlayingSentenceIndex] = useState(-1);
   const [showLessonPicker, setShowLessonPicker] = useState(false);
+  const [selectedCardIds, setSelectedCardIds] = useState(() => new Set((lesson?.cards || []).map((card) => card.id)));
   const lessonPickerRef = useRef(null);
   const availableLessons = useMemo(() => {
     if (lessons.length) return getLessonsByOrder(lessons);
@@ -97,6 +100,10 @@ export default function LessonTextView({
       setManuallyToggledIds(new Set());
     }
   }, [pinyinMode]);
+
+  useEffect(() => {
+    setSelectedCardIds(new Set((lesson?.cards || []).map((card) => card.id)));
+  }, [lesson?.id, lesson?.cards]);
 
   useEffect(() => {
     if (!showLessonPicker) return undefined;
@@ -147,12 +154,31 @@ export default function LessonTextView({
     }));
   }, [lesson?.cards, lesson?.id, progressMap, seenCharsBeforeSet]);
 
+  const selectedVocabulary = useMemo(
+    () => vocabulary.filter((item) => selectedCardIds.has(item.id)),
+    [selectedCardIds, vocabulary],
+  );
+
   const journeyStartIndex = useMemo(() => {
-    const firstNew = vocabulary.find((item) => item.status !== 'learned');
+    const firstNew = selectedVocabulary.find((item) => item.status !== 'learned');
     return firstNew ? firstNew.index : 0;
-  }, [vocabulary]);
+  }, [selectedVocabulary]);
 
   const journeyStartCard = lesson?.cards?.[journeyStartIndex] || null;
+  const allSelected = vocabulary.length > 0 && selectedCardIds.size === vocabulary.length;
+
+  const toggleVocabularySelection = (cardId) => {
+    setSelectedCardIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(cardId)) next.delete(cardId);
+      else next.add(cardId);
+      return next;
+    });
+  };
+
+  const setAllVocabularySelection = (shouldSelect) => {
+    setSelectedCardIds(shouldSelect ? new Set(vocabulary.map((item) => item.id)) : new Set());
+  };
 
   const playSentence = async (sentence, sentenceIndex) => {
     if (!sentence || playingSentenceIndex >= 0) return;
@@ -339,18 +365,20 @@ export default function LessonTextView({
           </div>
 
           <section className="vocabulary-section lesson-text-vocab">
-            <h2>📚 Caractères à apprendre ({vocabulary.length} caractères)</h2>
+            <h2>📚 Selectionne les caractères à apprendre</h2>
             <div className="vocabulary-grid lesson-text-vocab-list">
               {vocabulary.map((item) => (
-                <div
+                <button
                   key={item.id}
-                  className={`vocab-card ${item.status}`}
+                  type="button"
+                  className={`vocab-card ${item.status} ${selectedCardIds.has(item.id) ? 'selected' : 'unselected'}`}
                   title={`${item.hanzi} (${formatPinyinDisplay(item.pinyin)}) - ${item.french || item.english || ''}`}
+                  onClick={() => toggleVocabularySelection(item.id)}
                 >
                   <div className="vocab-hanzi">{item.hanzi}</div>
-                  <div className="vocab-status">{item.status === 'learned' ? '✓' : item.status === 'learning' ? '▶' : '○'}</div>
+                  <div className="vocab-status">{selectedCardIds.has(item.id) ? '✓' : '○'}</div>
                   <div className="vocab-pinyin-hint">{formatPinyinDisplay(item.pinyin)}</div>
-                </div>
+                </button>
               ))}
             </div>
           </section>
@@ -359,11 +387,39 @@ export default function LessonTextView({
           <footer className="lesson-text-footer lesson-action">
             <button
               type="button"
-              className="lesson-text-start ui-pressable"
-              onClick={() => onStartPractice?.(journeyStartCard?.hanzi || '')}
-              disabled={!journeyStartCard}
+              className={`lesson-text-control-btn ui-pressable ${allSelected ? 'active' : ''}`}
+              onClick={() => setAllVocabularySelection(!allSelected)}
             >
-              Apprendre les caracteres →
+              {allSelected ? 'Aucun' : 'Tout'}
+            </button>
+            <div className={`lesson-text-start lesson-text-start-legend ${selectedVocabulary.length === 0 ? 'disabled' : ''}`}>
+              {selectedVocabulary.length === 0
+                ? 'Selectionne au moins 1 caractère'
+                : `Apprendre les ${selectedVocabulary.length} caractères →`}
+            </div>
+            <button
+              type="button"
+              className={`lesson-difficulty-star ui-pressable ${writingDifficulty === 1 ? 'active' : ''}`}
+              onClick={() => {
+                onChangeWritingDifficulty?.(1);
+                onStartPractice?.(selectedVocabulary.map((item) => item.id));
+              }}
+              aria-label="Difficulte 1"
+              disabled={!journeyStartCard || selectedVocabulary.length === 0}
+            >
+              Facile
+            </button>
+            <button
+              type="button"
+              className={`lesson-difficulty-star ui-pressable ${writingDifficulty === 3 ? 'active' : ''}`}
+              onClick={() => {
+                onChangeWritingDifficulty?.(3);
+                onStartPractice?.(selectedVocabulary.map((item) => item.id));
+              }}
+              aria-label="Difficulte 3"
+              disabled={!journeyStartCard || selectedVocabulary.length === 0}
+            >
+              Difficile
             </button>
           </footer>
         </article>

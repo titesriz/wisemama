@@ -2490,9 +2490,358 @@ body {
   cursor: pointer;
 }
 
+.writing-meta-btn {
+  min-width: 108px;
+  height: 48px;
+  border-radius: 12px;
+  border: 2px solid #4ecdc4;
+  background: #eefcfb;
+  color: #1f5f5c;
+  font-weight: 800;
+  cursor: pointer;
+}
+
 .writing-sound-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.radical-lesson-panel {
+  padding: 10px 18px 16px;
+  background: linear-gradient(180deg, #fffdf9 0%, #fff7e8 100%);
+  border-top: 1px solid #f1ead9;
+  display: grid;
+  gap: 12px;
+}
+
+.radical-panel-block {
+  display: grid;
+  gap: 8px;
+}
+
+.radical-panel-label {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #8b6f3d;
+}
+
+.radical-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.radical-component-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+  gap: 10px;
+}
+
+.radical-component-card {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 10px 8px;
+  border-radius: 16px;
+  border: 1px solid #f0e2bf;
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.radical-component-card-active {
+  border-color: #4ecdc4;
+  background: #f2fffd;
+}
+
+.radical-pill {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 14px;
+  border: 2px solid #e7dcb7;
+  background: #fff;
+  color: #2d3436;
+  display: inline-grid;
+  place-items: center;
+  font-size: 28px;
+  font-weight: 800;
+  font-family: var(--wm-font-hanzi);
+}
+
+.radical-pill-primary {
+  border-color: #ffb347;
+  background: #fff1d8;
+  color: #9a5b00;
+}
+
+.radical-pill-active {
+  border-color: #4ecdc4;
+  background: #eefcfb;
+  color: #1f5f5c;
+}
+
+.radical-decomposition {
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 2px solid #efe0b8;
+  background: #fff;
+  color: #2d3436;
+  font-size: 30px;
+  line-height: 1.2;
+  font-weight: 800;
+  font-family: var(--wm-font-hanzi);
+}
+
+.radical-etymology {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid #f0e2bf;
+  color: #66573a;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.radical-empty {
+  color: #7a7f85;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.radical-step-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 72px;
+  min-height: 40px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid #f0dab0;
+  background: #fff;
+  color: #8b6f3d;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.radical-type-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid #d7e7e5;
+  background: #f5fbfb;
+  color: #1f5f5c;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.radical-component-role {
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #7a6a46;
+}
+
+.radical-stroke-sequence {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+  gap: 10px;
+}
+
+.radical-stroke-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.radical-stroke-step {
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+}
+
+.radical-stroke-step-count {
+  min-width: 28px;
+  min-height: 28px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #fff1d8;
+  color: #9a5b00;
+  font-size: 13px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.radical-stroke-step-canvas {
+  width: 92px;
+  height: 92px;
+  display: block;
+}
+
+.worksheet-modal {
+  width: min(980px, 100%);
+  padding: 18px;
+  gap: 16px;
+}
+
+.worksheet-head-copy {
+  display: grid;
+  gap: 4px;
+}
+
+.worksheet-head-copy strong {
+  font-size: 22px;
+  color: #2d3436;
+}
+
+.worksheet-head-copy span {
+  font-size: 15px;
+  color: #6f7a87;
+  font-weight: 700;
+}
+
+.worksheet-sheet {
+  display: grid;
+  gap: 18px;
+  padding: 8px 6px 4px;
+}
+
+.worksheet-title-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.worksheet-char-badge {
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  background: #fff3de;
+  border: 2px solid #ffcf8c;
+  display: grid;
+  place-items: center;
+  font-family: var(--wm-font-hanzi);
+  font-size: 44px;
+  color: #ff6b6b;
+  font-weight: 800;
+  font-family: var(--wm-font-hanzi);
+}
+
+.worksheet-translation-copy {
+  display: grid;
+  gap: 4px;
+}
+
+.worksheet-translation-copy strong {
+  font-size: 18px;
+  color: #2d3436;
+}
+
+.worksheet-translation-copy span {
+  font-size: 14px;
+  color: #6f7a87;
+}
+
+.worksheet-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.worksheet-grid-medium {
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+}
+
+.worksheet-grid-small {
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.worksheet-cell {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 18px;
+  border: 2px solid #d9dee7;
+  background: #fff;
+  overflow: hidden;
+}
+
+.worksheet-grid-small .worksheet-cell {
+  border-radius: 14px;
+}
+
+.worksheet-crosshair {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.worksheet-crosshair span:first-child {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  border-left: 2px dashed #e2e7ef;
+}
+
+.worksheet-crosshair span:last-child {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  border-top: 2px dashed #e2e7ef;
+}
+
+.worksheet-char {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--wm-font-hanzi);
+  font-weight: 800;
+  font-feature-settings: 'liga' 0;
+  user-select: none;
+}
+
+.worksheet-char-model {
+  color: rgba(255, 107, 107, 0.82);
+  font-size: min(7vw, 76px);
+}
+
+.worksheet-char-trace {
+  color: rgba(45, 52, 54, 0.14);
+  font-size: min(7vw, 76px);
+}
+
+.worksheet-cell-blank {
+  background: #fffdfa;
+}
+
+.worksheet-grid-small .worksheet-char-model,
+.worksheet-grid-small .worksheet-char-trace {
+  font-size: min(5.8vw, 58px);
+}
+
+.worksheet-size-switch {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+@media (max-width: 720px) {
+  .worksheet-grid-medium,
+  .worksheet-grid-small {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .writing-area {
@@ -2534,9 +2883,18 @@ body {
   z-index: 3;
 }
 
+.writer-full-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
 .writer-box-large > svg,
+.writer-full-layer > svg,
 .writer-ghost-layer > svg,
 .writer-box-large canvas,
+.writer-full-layer canvas,
 .writer-ghost-layer canvas {
   width: 100% !important;
   height: 100% !important;
@@ -2730,6 +3088,7 @@ body {
   height: 58px;
   border-radius: 16px;
   font-size: 34px;
+  line-height: 1;
   box-shadow: 0 4px 12px rgba(255, 107, 107, 0.25);
   flex: 0 0 58px;
 }
@@ -2967,10 +3326,19 @@ body {
   border-radius: 12px;
   background: #fff;
   display: grid;
-  align-content: center;
+  place-content: center;
   justify-items: center;
   gap: 4px;
   cursor: pointer;
+  text-align: center;
+}
+
+.vocab-card.selected {
+  box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.22);
+}
+
+.vocab-card.unselected {
+  opacity: 0.55;
 }
 
 .vocab-card.new {
@@ -3035,6 +3403,24 @@ body {
   border-color: #4ecdc4;
   background: #ecfffb;
   color: #22665f;
+}
+
+.lesson-difficulty-star {
+  min-height: 40px;
+  border-radius: 999px;
+  border: 2px solid #d8deea;
+  background: #fff;
+  color: #8d98aa;
+  padding: 0 12px;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.lesson-difficulty-star.active {
+  border-color: #ffb347;
+  background: #fff3de;
+  color: #9a5b00;
 }
 
 .lesson-text-paragraph {
@@ -3136,7 +3522,14 @@ body {
   border-top: 1px solid #e7ebf2;
   padding: 14px 16px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.lesson-text-start {
+  margin-right: auto;
 }
 
 .lesson-text-start {
@@ -3149,6 +3542,18 @@ body {
   font-size: 16px;
   font-weight: 800;
   cursor: pointer;
+}
+
+.lesson-text-start-legend {
+  border-color: #e7ebf2;
+  background: #f8fafc;
+  color: #6f7a87;
+  cursor: default;
+  box-shadow: none;
+}
+
+.lesson-text-start-legend.disabled {
+  opacity: 0.8;
 }
 
 .module-screen {
@@ -3677,6 +4082,27 @@ body {
     margin-left: 0;
   }
 
+  .writing-meta-btn,
+  .writing-sound-btn {
+    min-width: 0;
+    flex: 1 1 calc(50% - 5px);
+  }
+
+  .radical-lesson-panel {
+    padding: 8px 12px 12px;
+    gap: 10px;
+  }
+
+  .radical-pill {
+    min-width: 40px;
+    min-height: 40px;
+    font-size: 24px;
+  }
+
+  .radical-decomposition {
+    font-size: 25px;
+  }
+
   .writing-area {
     grid-template-columns: 1fr;
     gap: 12px;
@@ -4062,6 +4488,11 @@ body {
     width: 52px;
     height: 52px;
     flex-basis: 52px;
+  }
+
+  .lesson-home-logo {
+    font-size: 28px;
+    line-height: 1;
   }
 
   .current-lesson-card.lesson-text-current-card .lesson-text-card-title,
