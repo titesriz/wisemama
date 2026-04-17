@@ -1,0 +1,316 @@
+.radical-discovery-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background: var(--wm-color-surface-soft);
+  padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+}
+
+/* ── Header ─────────────────────────────────────────── */
+
+.radical-discovery-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.radical-discovery-header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.radical-discovery-header h1 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--wm-color-text-main);
+  line-height: 1.2;
+}
+
+.radical-discovery-header p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--wm-color-text-soft);
+}
+
+.radical-back-btn {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  border: none;
+  border-radius: var(--wm-radius-sm);
+  background: var(--wm-color-border);
+  color: var(--wm-color-text-main);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--wm-motion-fast) var(--wm-ease-standard);
+}
+
+.radical-back-btn:hover {
+  background: #d0d0d0;
+}
+
+.radical-empty {
+  text-align: center;
+  color: var(--wm-color-text-soft);
+  margin-top: 40px;
+}
+
+/* ── Grid view ───────────────────────────────────────── */
+
+.radical-grid-shell {
+  flex: 1;
+}
+
+.radical-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 12px;
+}
+
+.radical-grid-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 8px 10px;
+  border: 2px solid var(--wm-color-border);
+  border-radius: var(--wm-radius-md);
+  background: var(--wm-color-surface);
+  cursor: pointer;
+  transition:
+    transform var(--wm-motion-fast) var(--wm-ease-standard),
+    border-color var(--wm-motion-fast) var(--wm-ease-standard),
+    box-shadow var(--wm-motion-fast) var(--wm-ease-standard);
+}
+
+.radical-grid-card:hover,
+.radical-grid-card:focus-visible {
+  border-color: var(--wm-color-accent);
+  box-shadow: var(--wm-shadow-card);
+  transform: translateY(-2px);
+}
+
+.radical-grid-card:active {
+  transform: scale(0.96);
+}
+
+.radical-grid-hanzi {
+  font-family: var(--wm-font-hanzi);
+  font-size: 32px;
+  line-height: 1;
+  color: var(--wm-color-text-main);
+}
+
+.radical-grid-fr {
+  font-size: 11px;
+  color: var(--wm-color-text-soft);
+  text-align: center;
+  line-height: 1.2;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.radical-grid-count {
+  font-size: 10px;
+  color: var(--wm-color-accent);
+  font-weight: 600;
+}
+
+/* ── Detail view ─────────────────────────────────────── */
+
+.radical-detail-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.radical-detail-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: var(--wm-color-surface);
+  border-radius: var(--wm-radius-lg);
+  padding: 28px 24px 20px;
+  box-shadow: var(--wm-shadow-card);
+}
+
+.radical-detail-hanzi {
+  font-family: var(--wm-font-hanzi);
+  font-size: 80px;
+  line-height: 1;
+  color: var(--wm-color-text-main);
+}
+
+.radical-detail-pinyin {
+  font-size: 20px;
+  color: var(--wm-color-accent);
+  font-weight: 600;
+}
+
+.radical-detail-meanings {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.radical-meaning-fr {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--wm-color-text-main);
+}
+
+.radical-meaning-en {
+  font-size: 15px;
+  color: var(--wm-color-text-soft);
+}
+
+.radical-detail-strokes {
+  font-size: 13px;
+  color: var(--wm-color-text-soft);
+  margin-top: 2px;
+}
+
+.radical-detail-hint {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #fffbe6;
+  border: 1px solid #ffe566;
+  border-radius: var(--wm-radius-md);
+  padding: 14px 16px;
+}
+
+.radical-hint-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.radical-detail-hint p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--wm-color-text-main);
+  line-height: 1.5;
+}
+
+.radical-detail-type,
+.radical-detail-position {
+  font-size: 13px;
+  color: var(--wm-color-text-soft);
+  padding: 0 4px;
+}
+
+.radical-detail-type strong,
+.radical-detail-position strong {
+  color: var(--wm-color-text-main);
+}
+
+.radical-detail-chars-section h2 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--wm-color-text-soft);
+  margin: 0 0 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.radical-detail-chars-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.radical-char-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  background: var(--wm-color-surface);
+  border: 2px solid var(--wm-color-border);
+  border-radius: var(--wm-radius-sm);
+  padding: 10px 14px 8px;
+  min-width: 52px;
+}
+
+.radical-char-hanzi {
+  font-family: var(--wm-font-hanzi);
+  font-size: 28px;
+  line-height: 1;
+  color: var(--wm-color-text-main);
+}
+
+.radical-char-fr {
+  font-size: 11px;
+  color: var(--wm-color-text-soft);
+  text-align: center;
+}
+
+/* ── Entry button (in LessonTextView) ────────────────── */
+
+.lesson-text-radical-discovery {
+  padding: 0 0 12px;
+}
+
+.radical-discovery-entry {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--wm-color-border);
+  border-radius: var(--wm-radius-md);
+  background: var(--wm-color-surface);
+  cursor: pointer;
+  text-align: left;
+  transition:
+    border-color var(--wm-motion-fast) var(--wm-ease-standard),
+    box-shadow var(--wm-motion-fast) var(--wm-ease-standard),
+    transform var(--wm-motion-fast) var(--wm-ease-standard);
+}
+
+.radical-discovery-entry:hover,
+.radical-discovery-entry:focus-visible {
+  border-color: var(--wm-color-accent);
+  box-shadow: var(--wm-shadow-card);
+}
+
+.radical-discovery-entry:active {
+  transform: scale(0.98);
+}
+
+.radical-discovery-entry-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+.radical-discovery-entry-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.radical-discovery-entry-text strong {
+  font-size: 15px;
+  color: var(--wm-color-text-main);
+}
+
+.radical-discovery-entry-text span {
+  font-size: 12px;
+  color: var(--wm-color-text-soft);
+}
+
+.radical-discovery-entry-arrow {
+  font-size: 22px;
+  color: var(--wm-color-text-soft);
+  flex-shrink: 0;
+}

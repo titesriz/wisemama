@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import AvatarRenderer from './AvatarRenderer.jsx';
+import '../styles/radical-discovery.css';
 import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
 import { segmentLessonText } from '../lib/lessonTextSegmentation.js';
 import { getAllSeenCharsBefore, getLessonsByOrder } from '../utils/lessons/lessonOrder.js';
@@ -79,6 +80,7 @@ export default function LessonTextView({
   onPracticeCharacter,
   onBack,
   onStartPractice,
+  onOpenRadicalDiscovery,
 }) {
   const [pinyinMode, setPinyinMode] = useState('all');
   const [manuallyToggledIds, setManuallyToggledIds] = useState(() => new Set());
@@ -383,6 +385,23 @@ export default function LessonTextView({
             </div>
           </section>
           </div>
+
+          {onOpenRadicalDiscovery ? (
+            <div className="lesson-text-radical-discovery">
+              <button
+                type="button"
+                className="radical-discovery-entry ui-pressable"
+                onClick={onOpenRadicalDiscovery}
+              >
+                <span className="radical-discovery-entry-icon">🧩</span>
+                <span className="radical-discovery-entry-text">
+                  <strong>Découvrir les radicaux</strong>
+                  <span>Apprends les petites parties des caractères</span>
+                </span>
+                <span className="radical-discovery-entry-arrow">›</span>
+              </button>
+            </div>
+          ) : null}
 
           <footer className="lesson-text-footer lesson-action">
             <button

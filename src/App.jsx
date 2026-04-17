@@ -18,6 +18,7 @@ import ModeAvatar from './components/ModeAvatar.jsx';
 import ParentModeDashboard from './components/ParentModeDashboard.jsx';
 import ToonHeadTester from './components/ToonHeadTester.jsx';
 import UnifiedLearningFlow from './components/UnifiedLearningFlow.jsx';
+import RadicalDiscoveryPage from './components/RadicalDiscoveryPage.jsx';
 import RadicalOnlyPage from './components/RadicalOnlyPage.jsx';
 import WritingPractice from './components/WritingPractice.jsx';
 import WritingOnlyPage from './components/WritingOnlyPage.jsx';
@@ -58,6 +59,7 @@ const STANDALONE_VIEW = {
   LESSON_BETA: 'lesson-beta',
   LESSON_SELECT: 'lesson-select',
   FONT_TEST: 'font-test',
+  RADICAL_DISCOVERY: 'radical-discovery',
 };
 
 function getCardKey(lessonId, cardId) {
@@ -679,9 +681,20 @@ export default function App() {
           onPracticeCharacter={openCharacterPracticeFromLessonText}
           onBack={closeLessonTextView}
           onStartPractice={startJourneyFromLessonText}
+          onOpenRadicalDiscovery={() => setStandaloneView(STANDALONE_VIEW.RADICAL_DISCOVERY)}
         />
       );
     }
+  }
+
+  if (standaloneView === STANDALONE_VIEW.RADICAL_DISCOVERY) {
+    const lessonForDiscovery = lessonOptions.find((l) => l.id === (lessonTextLessonId || activeLessonId)) || activeLesson;
+    return (
+      <RadicalDiscoveryPage
+        lesson={lessonForDiscovery}
+        onBack={() => setStandaloneView(STANDALONE_VIEW.NONE)}
+      />
+    );
   }
 
   if (standaloneView === STANDALONE_VIEW.WRITING) {
