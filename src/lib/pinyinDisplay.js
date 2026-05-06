@@ -54,6 +54,31 @@ function applyToneToSyllable(syllableRaw, toneNumberRaw) {
   return chars.join('');
 }
 
+const TONE_ACCENTS = ['¯', '´', 'ˇ', '`'];
+
+const TONE_MARK_TO_NUMBER = {
+  ā: 1, á: 2, ǎ: 3, à: 4,
+  ē: 1, é: 2, ě: 3, è: 4,
+  ī: 1, í: 2, ǐ: 3, ì: 4,
+  ō: 1, ó: 2, ǒ: 3, ò: 4,
+  ū: 1, ú: 2, ǔ: 3, ù: 4,
+  ǖ: 1, ǘ: 2, ǚ: 3, ǜ: 4,
+};
+
+export function extractToneAccent(value = '') {
+  if (!value) return '';
+  const numbered = value.match(/[1-5]/);
+  if (numbered) {
+    const n = Number(numbered[0]);
+    return n >= 1 && n <= 4 ? TONE_ACCENTS[n - 1] : '·';
+  }
+  for (const char of value) {
+    const tone = TONE_MARK_TO_NUMBER[char.toLowerCase()];
+    if (tone !== undefined) return TONE_ACCENTS[tone - 1];
+  }
+  return '·';
+}
+
 export function formatPinyinDisplay(value = '') {
   if (!value) return '';
   if (hasToneMark(value)) return value;

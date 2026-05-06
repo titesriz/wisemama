@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import AvatarRenderer from './AvatarRenderer.jsx';
 import '../styles/radical-discovery.css';
-import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
+import { formatPinyinDisplay, extractToneAccent } from '../lib/pinyinDisplay.js';
 import { segmentLessonText } from '../lib/lessonTextSegmentation.js';
 import { getAllSeenCharsBefore, getLessonsByOrder } from '../utils/lessons/lessonOrder.js';
 
@@ -98,7 +98,7 @@ export default function LessonTextView({
   );
 
   useEffect(() => {
-    if (pinyinMode !== 'none') {
+    if (pinyinMode === 'all' || pinyinMode === 'tone') {
       setManuallyToggledIds(new Set());
     }
   }, [pinyinMode]);
@@ -323,6 +323,13 @@ export default function LessonTextView({
                       const showPinyin = shouldShowPinyin(card, status);
                       const tooltip = [card?.french, card?.english].filter(Boolean).join(' · ');
 
+                      let pinyinSlot = '\u00A0';
+                      if (showPinyin) {
+                        pinyinSlot = formatPinyinDisplay(card.pinyin || '');
+                      } else if (pinyinMode === 'tone' && !manuallyToggledIds.has(card.id) && card.pinyinEnabled !== false) {
+                        pinyinSlot = extractToneAccent(card.pinyin || '');
+                      }
+
                       return (
                         <span
                           key={key}
@@ -331,7 +338,7 @@ export default function LessonTextView({
                           onClick={() => toggleCharPinyin(card.id)}
                         >
                           <span className="char-pinyin-slot">
-                            {showPinyin ? formatPinyinDisplay(card.pinyin || '') : '\u00A0'}
+                            {pinyinSlot}
                           </span>
                           <span className="char-hanzi">{char}</span>
                         </span>
@@ -358,6 +365,10 @@ export default function LessonTextView({
               <label className="toggle-option">
                 <input type="radio" name="pinyinMode" value="all" checked={pinyinMode === 'all'} onChange={() => setPinyinMode('all')} />
                 <span className="radio-label"><span className="radio-icon">🟢</span>Tous les pinyin</span>
+              </label>
+              <label className="toggle-option">
+                <input type="radio" name="pinyinMode" value="tone" checked={pinyinMode === 'tone'} onChange={() => setPinyinMode('tone')} />
+                <span className="radio-label"><span className="radio-icon">🎵</span>Aide tonalité</span>
               </label>
               <label className="toggle-option">
                 <input type="radio" name="pinyinMode" value="none" checked={pinyinMode === 'none'} onChange={() => setPinyinMode('none')} />

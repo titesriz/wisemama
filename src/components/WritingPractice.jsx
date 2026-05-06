@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import HanziWriter from 'hanzi-writer';
 import AvatarRenderer from './AvatarRenderer.jsx';
-import SuccessBurst from './SuccessBurst.jsx';
 import { useUiSounds } from '../hooks/useUiSounds.js';
 import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
 import { getParentModel } from '../lib/audioStore.js';
@@ -137,7 +136,6 @@ export default function WritingPractice({
   const [showLessonPicker, setShowLessonPicker] = useState(false);
   const [showCharInfo, setShowCharInfo] = useState(writingDifficulty <= 2);
   const [feedback, setFeedback] = useState('Trace directement sur le modele gris.');
-  const [successTick, setSuccessTick] = useState(0);
   const [canvasSize, setCanvasSize] = useState(500);
   const [audioSrc, setAudioSrc] = useState('');
   const [fullCharData, setFullCharData] = useState(null);
@@ -178,13 +176,11 @@ export default function WritingPractice({
         const isLastComponent = componentStepIndex >= componentExercises.length - 1;
         if (isLastComponent) {
           setFeedback('Bravo ! Structure terminee.');
-          setSuccessTick((prev) => prev + 1);
           sounds.playSuccess();
           onSuccess?.(totalMistakes);
         } else {
           const nextComponent = componentExercises[componentStepIndex + 1];
           setFeedback(`Bravo ! Passe au composant ${nextComponent?.label || 'suivant'}.`);
-          setSuccessTick((prev) => prev + 1);
           sounds.playSuccess();
           setComponentStepIndex((prev) => prev + 1);
         }
@@ -839,10 +835,6 @@ export default function WritingPractice({
         </div>
       </div>
 
-      <p className={`writing-feedback wm-ok-line ${feedback.includes('Bravo') ? 'wm-success-pulse' : ''}`}>
-        {feedback}
-        <SuccessBurst trigger={successTick} />
-      </p>
 
       {!embedded ? (
         <>
