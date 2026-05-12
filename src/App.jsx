@@ -31,6 +31,7 @@ import {
   saveFtueState,
 } from './lib/ftueStorage.js';
 import { applyHanziFontPreference, getHanziFontPreference } from './lib/hanziFont.js';
+import { isDevMode } from './config.js';
 
 const appTitle = 'WiseMama - Apprendre le chinois';
 const progressStorageKey = 'wisemama-progress-v1';
@@ -174,15 +175,6 @@ export default function App() {
 
   useEffect(() => {
     try {
-      const ftueRaw = localStorage.getItem('wisemama-ftue-v1');
-      if (!ftueRaw) {
-        localStorage.setItem(
-          'wisemama-ftue-v1',
-          JSON.stringify({ completed: true, childName: 'Eli', updatedAt: new Date().toISOString() }),
-        );
-        setFtueState((prev) => ({ ...prev, completed: true, childName: 'Eli' }));
-        setShowFtue(false);
-      }
       const tutorialRaw = localStorage.getItem(tutorialStorageKey);
       if (!tutorialRaw) {
         localStorage.setItem(tutorialStorageKey, JSON.stringify({ completed: true }));
@@ -561,43 +553,17 @@ export default function App() {
     switchProfile(newId);
   };
 
-  const handleFtueComplete = ({
-    childName,
-    childAvatarConfig,
-    companionAvatarConfig,
-    childAvatarPlaceholder,
-    companionPlaceholder,
-  }) => {
+  const handleFtueComplete = ({ childName, parentName }) => {
     const child = profiles.find((profile) => profile.role === 'child');
     const parent = profiles.find((profile) => profile.role === 'parent');
     if (child) {
       setProfileName(child.id, childName || 'Enfant');
       setActiveProfileId(child.id);
-      setProfileAvatar(
-        child.id,
-        childAvatarConfig || {
-          ...child.avatar,
-          style: 'big-smile',
-          seed: `child-${(childName || 'default-kid').toLowerCase().replace(/\s+/g, '-')}`,
-        },
-      );
     }
     if (parent) {
-      setProfileAvatar(
-        parent.id,
-        companionAvatarConfig || {
-          ...parent.avatar,
-          style: 'adventurer',
-          seed: `parent-${companionPlaceholder || 'default-adult'}`,
-        },
-      );
+      setProfileName(parent.id, parentName || 'Maman');
     }
-    const nextFtue = saveFtueState({
-      completed: true,
-      childName,
-      childAvatarPlaceholder,
-      companionPlaceholder,
-    });
+    const nextFtue = saveFtueState({ completed: true, childName });
     setFtueState(nextFtue);
     setShowFtue(false);
     switchToChild();
@@ -752,6 +718,10 @@ export default function App() {
         onPrev={returnToLessonText ? goPrevInLessonJourney : goPrev}
         onNext={returnToLessonText ? goNextInLessonJourney : goNext}
         onSuccess={handleWritingSuccess}
+        onJourneyRestart={() => {
+          setLessonJourneyPosition(0);
+          setCardIndex(lessonJourneyQueue[0] ?? 0);
+        }}
       />
     );
   }
@@ -944,6 +914,10 @@ export default function App() {
   }
 
   if (standaloneView === STANDALONE_VIEW.LESSON_BETA) {
+    if (!isDevMode) {
+      setStandaloneView(STANDALONE_VIEW.NONE);
+      return null;
+    }
     return (
       <LessonEditorBeta
         onBack={() => setStandaloneView(STANDALONE_VIEW.NONE)}
@@ -986,8 +960,6 @@ export default function App() {
     return (
       <FTUEFlow
         initialName={ftueState.childName}
-        initialChildAvatar={ftueState.childAvatarPlaceholder}
-        initialCompanion={ftueState.companionPlaceholder}
         onComplete={handleFtueComplete}
       />
     );
@@ -1033,7 +1005,7 @@ export default function App() {
     );
   }
 
-  if (enteredApp && isParentMode) {
+  if (enteredApp && isParentMode && isDevMode) {
     return (
       <section className="module-pane">
         <ParentModeDashboard
@@ -1120,20 +1092,24 @@ export default function App() {
               <div className="floating-profile-popover">
                 <strong>Changer de profil</strong>
                 <div className="floating-profile-list">
-                  {profiles.map((profile) => (
-                    <button
-                      key={profile.id}
-                      type="button"
-                      className={`pill ${activeProfileId === profile.id ? 'active' : ''}`}
-                      onClick={() => switchProfile(profile.id)}
-                    >
-                      {profile.name} ({profile.role === 'parent' ? 'Parent' : 'Kid'})
-                    </button>
-                  ))}
+                  {profiles
+                    .filter((profile) => isDevMode || profile.role !== 'parent')
+                    .map((profile) => (
+                      <button
+                        key={profile.id}
+                        type="button"
+                        className={`pill ${activeProfileId === profile.id ? 'active' : ''}`}
+                        onClick={() => switchProfile(profile.id)}
+                      >
+                        {profile.name} ({profile.role === 'parent' ? 'Parent' : 'Kid'})
+                      </button>
+                    ))}
                 </div>
-                <button type="button" className="button secondary button-sm" onClick={createAndSwitchProfile}>
-                  Nouveau profil
-                </button>
+                {isDevMode ? (
+                  <button type="button" className="button secondary button-sm" onClick={createAndSwitchProfile}>
+                    Nouveau profil
+                  </button>
+                ) : null}
               </div>
             ) : null}
           </div>

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import WritingPractice from './WritingPractice.jsx';
 
 export default function WritingOnlyPage({
@@ -18,13 +19,26 @@ export default function WritingOnlyPage({
   onSwitchModule,
   onOpenRadical,
   onSuccess,
+  onJourneyRestart,
 }) {
+  const [showEndScreen, setShowEndScreen] = useState(false);
+
   const effectiveIndex = journeyMode && journeyQueue.length
     ? journeyQueue[journeyPosition] ?? journeyQueue[0] ?? 0
     : cardIndex;
   const currentCard = activeLesson?.cards?.[effectiveIndex] || null;
   const totalCards = journeyMode && journeyQueue.length ? journeyQueue.length : activeLesson?.cards?.length || 0;
   const displayIndex = journeyMode && journeyQueue.length ? journeyPosition : cardIndex;
+
+  const isLastJourneyCard = journeyMode && journeyQueue.length > 0 && journeyPosition >= journeyQueue.length - 1;
+
+  const handleNext = () => {
+    if (isLastJourneyCard) {
+      setShowEndScreen(true);
+    } else {
+      onNext?.();
+    }
+  };
 
   if (!activeLesson || !currentCard) {
     return (
@@ -33,6 +47,32 @@ export default function WritingOnlyPage({
         <button type="button" className="button secondary" onClick={onBack}>
           Retour
         </button>
+      </section>
+    );
+  }
+
+  if (showEndScreen) {
+    return (
+      <section className="writing-only-page writing-end-screen">
+        <div className="writing-end-actions">
+          <button
+            type="button"
+            className="button"
+            onClick={() => {
+              setShowEndScreen(false);
+              onJourneyRestart?.();
+            }}
+          >
+            Recommencer
+          </button>
+          <button
+            type="button"
+            className="button secondary"
+            onClick={onBack}
+          >
+            Retour à la leçon
+          </button>
+        </div>
       </section>
     );
   }
@@ -51,7 +91,7 @@ export default function WritingOnlyPage({
         cardIndex={displayIndex}
         totalCards={totalCards}
         onPrev={onPrev}
-        onNext={onNext}
+        onNext={handleNext}
         onOpenLessonText={onOpenLessonText}
         onSelectLesson={onSelectLesson}
         onSwitchModule={onSwitchModule}

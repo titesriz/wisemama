@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import AvatarRenderer from './AvatarRenderer.jsx';
 import { getLessonsByOrder } from '../utils/lessons/lessonOrder.js';
+import { isDevMode } from '../config.js';
 
 export default function LandingPage({
   profiles,
@@ -120,14 +121,20 @@ export default function LandingPage({
             </>
           ) : (
             <div className="landing-active-lesson">
-              <span className="landing-active-lesson-title">Aucune lecon disponible</span>
-              <button
-                type="button"
-                className="button secondary button-sm"
-                onClick={() => parentProfile && onStartProfile(parentProfile.id)}
-              >
-                Gerer pour creer une lecon
-              </button>
+              <span className="landing-active-lesson-title">
+                {isDevMode
+                  ? 'Aucune lecon disponible'
+                  : 'Les lecons arrivent bientot. Appuie sur "Mettre a jour" ci-dessous.'}
+              </span>
+              {isDevMode ? (
+                <button
+                  type="button"
+                  className="button secondary button-sm"
+                  onClick={() => parentProfile && onStartProfile(parentProfile.id)}
+                >
+                  Gerer pour creer une lecon
+                </button>
+              ) : null}
             </div>
           )}
           {activeLesson && showLessonPicker ? (
@@ -160,25 +167,29 @@ export default function LandingPage({
         </article>
 
         <article className="profile-card-parent">
-          <h3 className="parent-title">Espace Parent</h3>
-          <div className="parent-avatar">
-            {parentProfile ? (
-              <AvatarRenderer
-                config={parentProfile.avatar}
-                size={56}
-                className="landing-avatar-circle"
-                alt={`Avatar ${parentProfile.name || 'Parent'}`}
-              />
-            ) : null}
-          </div>
-          <button
-            type="button"
-            className="manage-button"
-            onClick={() => parentProfile && onStartProfile(parentProfile.id)}
-            disabled={!parentProfile}
-          >
-            Gérer
-          </button>
+          {isDevMode ? (
+            <>
+              <h3 className="parent-title">Espace Parent</h3>
+              <div className="parent-avatar">
+                {parentProfile ? (
+                  <AvatarRenderer
+                    config={parentProfile.avatar}
+                    size={56}
+                    className="landing-avatar-circle"
+                    alt={`Avatar ${parentProfile.name || 'Parent'}`}
+                  />
+                ) : null}
+              </div>
+              <button
+                type="button"
+                className="manage-button"
+                onClick={() => parentProfile && onStartProfile(parentProfile.id)}
+                disabled={!parentProfile}
+              >
+                Gérer
+              </button>
+            </>
+          ) : null}
           <div className="parent-tools-row">
             <button
               type="button"
@@ -188,8 +199,9 @@ export default function LandingPage({
                 setRefreshStatus(ok ? 'Leçons mises à jour.' : 'Mise à jour indisponible.');
               }}
             >
-              Mettre à jour
+              Mettre à jour les leçons
             </button>
+            <p className="parent-refresh-hint">Appuie ici si le professeur a mis à jour le contenu.</p>
           </div>
           {refreshStatus ? <p className="parent-refresh-status">{refreshStatus}</p> : null}
         </article>

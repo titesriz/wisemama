@@ -66,17 +66,17 @@ const TONE_MARK_TO_NUMBER = {
 };
 
 export function extractToneAccent(value = '') {
-  if (!value) return '';
+  if (!value) return { accent: '', tone: 0 };
   const numbered = value.match(/[1-5]/);
   if (numbered) {
     const n = Number(numbered[0]);
-    return n >= 1 && n <= 4 ? TONE_ACCENTS[n - 1] : '·';
+    return n >= 1 && n <= 4 ? { accent: TONE_ACCENTS[n - 1], tone: n } : { accent: '·', tone: 0 };
   }
   for (const char of value) {
     const tone = TONE_MARK_TO_NUMBER[char.toLowerCase()];
-    if (tone !== undefined) return TONE_ACCENTS[tone - 1];
+    if (tone !== undefined) return { accent: TONE_ACCENTS[tone - 1], tone };
   }
-  return '·';
+  return { accent: '·', tone: 0 };
 }
 
 export function formatPinyinDisplay(value = '') {

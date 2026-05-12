@@ -3265,6 +3265,17 @@ body {
   margin-bottom: 3px;
 }
 
+.char-tone-only {
+  font-size: 32px;
+  min-height: 38px;
+  font-weight: 900;
+}
+.char-tone-1 { color: #2980b9; }
+.char-tone-2 { color: #f1c40f; }
+.char-tone-3 { color: #e67e22; }
+.char-tone-4 { color: #e74c3c; }
+.char-tone-0 { color: #4a4a4a; }
+
 .char-hanzi {
   line-height: 1;
 }

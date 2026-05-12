@@ -324,10 +324,13 @@ export default function LessonTextView({
                       const tooltip = [card?.french, card?.english].filter(Boolean).join(' · ');
 
                       let pinyinSlot = '\u00A0';
+                      let toneClass = '';
                       if (showPinyin) {
                         pinyinSlot = formatPinyinDisplay(card.pinyin || '');
                       } else if (pinyinMode === 'tone' && !manuallyToggledIds.has(card.id) && card.pinyinEnabled !== false) {
-                        pinyinSlot = extractToneAccent(card.pinyin || '');
+                        const { accent, tone } = extractToneAccent(card.pinyin || '');
+                        pinyinSlot = accent;
+                        toneClass = ` char-tone-only char-tone-${tone}`;
                       }
 
                       return (
@@ -337,7 +340,7 @@ export default function LessonTextView({
                           title={tooltip || 'Traduction non disponible'}
                           onClick={() => toggleCharPinyin(card.id)}
                         >
-                          <span className="char-pinyin-slot">
+                          <span className={`char-pinyin-slot${toneClass}`}>
                             {pinyinSlot}
                           </span>
                           <span className="char-hanzi">{char}</span>
@@ -345,16 +348,6 @@ export default function LessonTextView({
                       );
                     })}
                   </div>
-                  <button
-                    type="button"
-                    className={`sentence-audio ui-pressable ${playingSentenceIndex === sentenceIndex ? 'playing' : ''}`}
-                    onClick={() => playSentence(sentence, sentenceIndex)}
-                    disabled={playingSentenceIndex >= 0}
-                    aria-label={`Lire la phrase ${sentenceIndex + 1}`}
-                    title="Ecouter cette phrase"
-                  >
-                    🔊
-                  </button>
                 </div>
               ))}
             </div>
@@ -397,22 +390,6 @@ export default function LessonTextView({
           </section>
           </div>
 
-          {onOpenRadicalDiscovery ? (
-            <div className="lesson-text-radical-discovery">
-              <button
-                type="button"
-                className="radical-discovery-entry ui-pressable"
-                onClick={onOpenRadicalDiscovery}
-              >
-                <span className="radical-discovery-entry-icon">🧩</span>
-                <span className="radical-discovery-entry-text">
-                  <strong>Découvrir les radicaux</strong>
-                  <span>Apprends les petites parties des caractères</span>
-                </span>
-                <span className="radical-discovery-entry-arrow">›</span>
-              </button>
-            </div>
-          ) : null}
 
           <footer className="lesson-text-footer lesson-action">
             <button

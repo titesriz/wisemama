@@ -169,6 +169,9 @@ export default function WritingPractice({
     [],
   );
 
+  // TODO: manual tablet test needed before sharing — hanzi-writer leniency on last stroke behaves
+  // differently with stylus vs finger, especially in difficulty-3 (no hint) mode. Verify onComplete
+  // fires correctly and does not misfire on lift-off events on iPad/Android tablet.
   const handleQuizComplete = ({ totalMistakes = 0 } = {}) => {
     setQuizActive(false);
     if (isRadicalMode) {
@@ -338,7 +341,7 @@ export default function WritingPractice({
 
     writer.quiz({
       leniency: 1,
-      showHintAfterMisses: 2,
+      showHintAfterMisses: writingDifficulty === 1 ? 1 : false,
       onMistake: () => {
         setFeedback(isRadicalMode ? 'Continue, tu es presque sur ce composant.' : 'Continue, tu es presque.');
       },
@@ -412,7 +415,7 @@ export default function WritingPractice({
 
     writerRef.current.quiz({
       leniency: 1,
-      showHintAfterMisses: 2,
+      showHintAfterMisses: writingDifficulty === 1 ? 1 : false,
       onMistake: () => {
         setFeedback(isRadicalMode ? 'Continue, tu es presque sur ce composant.' : 'Continue, tu es presque.');
       },
