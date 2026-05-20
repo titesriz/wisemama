@@ -3980,5 +3980,294 @@
     },
     "createdDate": "2026-04-08T00:00:00.000Z",
     "lastUpdated": "2026-04-08T00:00:00.000Z"
+  },
+  "文": {
+    "hanzi": "文",
+    "pinyin": "wen2",
+    "pinyinNumbered": "wen2",
+    "french": "écrit, culture",
+    "english": "writing, culture",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1779277447371-sy2c",
+    "firstSeenDate": "2026-05-20T12:01:38.463Z",
+    "appearsInLessons": [
+      "lesson-1779277447371-sy2c"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-05-20T12:01:38.463Z",
+    "lastUpdated": "2026-05-20T12:01:38.463Z"
+  },
+  "喜": {
+    "hanzi": "喜",
+    "pinyin": "xi3",
+    "pinyinNumbered": "xi3",
+    "french": "aimer, bonheur",
+    "english": "to like, joy",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1779277447371-sy2c",
+    "firstSeenDate": "2026-05-20T12:01:38.463Z",
+    "appearsInLessons": [
+      "lesson-1779277447371-sy2c"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-05-20T12:01:38.463Z",
+    "lastUpdated": "2026-05-20T12:01:38.463Z"
+  },
+  "欢": {
+    "hanzi": "欢",
+    "pinyin": "huan1",
+    "pinyinNumbered": "huan1",
+    "french": "joie, aimer",
+    "english": "joy, to like",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1779277447371-sy2c",
+    "firstSeenDate": "2026-05-20T12:01:38.463Z",
+    "appearsInLessons": [
+      "lesson-1779277447371-sy2c"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-05-20T12:01:38.463Z",
+    "lastUpdated": "2026-05-20T12:01:38.463Z"
+  },
+  "颜": {
+    "hanzi": "颜",
+    "pinyin": "yan2",
+    "pinyinNumbered": "yan2",
+    "french": "couleur, visage",
+    "english": "color, face",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1779277447371-sy2c",
+    "firstSeenDate": "2026-05-20T12:01:38.463Z",
+    "appearsInLessons": [
+      "lesson-1779277447371-sy2c"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-05-20T12:01:38.463Z",
+    "lastUpdated": "2026-05-20T12:01:38.463Z"
+  },
+  "色": {
+    "hanzi": "色",
+    "pinyin": "se4",
+    "pinyinNumbered": "se4",
+    "french": "couleur",
+    "english": "color",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1779277447371-sy2c",
+    "firstSeenDate": "2026-05-20T12:01:38.463Z",
+    "appearsInLessons": [
+      "lesson-1779277447371-sy2c"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-05-20T12:01:38.463Z",
+    "lastUpdated": "2026-05-20T12:01:38.463Z"
+  },
+  "红": {
+    "hanzi": "红",
+    "pinyin": "hong2",
+    "pinyinNumbered": "hong2",
+    "french": "rouge",
+    "english": "red",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1779277447371-sy2c",
+    "firstSeenDate": "2026-05-20T12:01:38.463Z",
+    "appearsInLessons": [
+      "lesson-1779277447371-sy2c"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-05-20T12:01:38.463Z",
+    "lastUpdated": "2026-05-20T12:01:38.463Z"
+  },
+  "黄": {
+    "hanzi": "黄",
+    "pinyin": "huang2",
+    "pinyinNumbered": "huang2",
+    "french": "jaune",
+    "english": "yellow",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1779277447371-sy2c",
+    "firstSeenDate": "2026-05-20T12:01:38.463Z",
+    "appearsInLessons": [
+      "lesson-1779277447371-sy2c"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-05-20T12:01:38.463Z",
+    "lastUpdated": "2026-05-20T12:01:38.463Z"
+  },
+  "蓝": {
+    "hanzi": "蓝",
+    "pinyin": "lan2",
+    "pinyinNumbered": "lan2",
+    "french": "bleu",
+    "english": "blue",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1779277447371-sy2c",
+    "firstSeenDate": "2026-05-20T12:01:38.463Z",
+    "appearsInLessons": [
+      "lesson-1779277447371-sy2c"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-05-20T12:01:38.463Z",
+    "lastUpdated": "2026-05-20T12:01:38.463Z"
+  },
+  "白": {
+    "hanzi": "白",
+    "pinyin": "bai2",
+    "pinyinNumbered": "bai2",
+    "french": "blanc",
+    "english": "white",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1779277447371-sy2c",
+    "firstSeenDate": "2026-05-20T12:01:38.463Z",
+    "appearsInLessons": [
+      "lesson-1779277447371-sy2c"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-05-20T12:01:38.463Z",
+    "lastUpdated": "2026-05-20T12:01:38.463Z"
+  },
+  "黑": {
+    "hanzi": "黑",
+    "pinyin": "hei1",
+    "pinyinNumbered": "hei1",
+    "french": "noir",
+    "english": "black",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1779277447371-sy2c",
+    "firstSeenDate": "2026-05-20T12:01:38.463Z",
+    "appearsInLessons": [
+      "lesson-1779277447371-sy2c"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-05-20T12:01:38.463Z",
+    "lastUpdated": "2026-05-20T12:01:38.463Z"
+  },
+  "球": {
+    "hanzi": "球",
+    "pinyin": "qiu2",
+    "pinyinNumbered": "qiu2",
+    "french": "ballon, balle",
+    "english": "ball",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1779277447371-sy2c",
+    "firstSeenDate": "2026-05-20T12:01:38.463Z",
+    "appearsInLessons": [
+      "lesson-1779277447371-sy2c"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-05-20T12:01:38.463Z",
+    "lastUpdated": "2026-05-20T12:01:38.463Z"
+  },
+  "橙": {
+    "hanzi": "橙",
+    "pinyin": "cheng2",
+    "pinyinNumbered": "cheng2",
+    "french": "orange",
+    "english": "orange",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1779277447371-sy2c",
+    "firstSeenDate": "2026-05-20T12:01:38.463Z",
+    "appearsInLessons": [
+      "lesson-1779277447371-sy2c"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-05-20T12:01:38.463Z",
+    "lastUpdated": "2026-05-20T12:01:38.463Z"
+  },
+  "紫": {
+    "hanzi": "紫",
+    "pinyin": "zi3",
+    "pinyinNumbered": "zi3",
+    "french": "violet",
+    "english": "purple",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1779277447371-sy2c",
+    "firstSeenDate": "2026-05-20T12:01:38.463Z",
+    "appearsInLessons": [
+      "lesson-1779277447371-sy2c"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-05-20T12:01:38.463Z",
+    "lastUpdated": "2026-05-20T12:01:38.463Z"
+  },
+  "粉": {
+    "hanzi": "粉",
+    "pinyin": "fen3",
+    "pinyinNumbered": "fen3",
+    "french": "rose",
+    "english": "pink",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1779277447371-sy2c",
+    "firstSeenDate": "2026-05-20T12:01:38.463Z",
+    "appearsInLessons": [
+      "lesson-1779277447371-sy2c"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-05-20T12:01:38.463Z",
+    "lastUpdated": "2026-05-20T12:01:38.463Z"
+  },
+  "绿": {
+    "hanzi": "绿",
+    "pinyin": "lv4",
+    "pinyinNumbered": "lv4",
+    "french": "vert",
+    "english": "green",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1779277447371-sy2c",
+    "firstSeenDate": "2026-05-20T12:01:38.463Z",
+    "appearsInLessons": [
+      "lesson-1779277447371-sy2c"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-05-20T12:01:38.463Z",
+    "lastUpdated": "2026-05-20T12:01:38.463Z"
+  },
+  "灰": {
+    "hanzi": "灰",
+    "pinyin": "hui1",
+    "pinyinNumbered": "hui1",
+    "french": "gris",
+    "english": "gray",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1779277447371-sy2c",
+    "firstSeenDate": "2026-05-20T12:01:38.463Z",
+    "appearsInLessons": [
+      "lesson-1779277447371-sy2c"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-05-20T12:01:38.463Z",
+    "lastUpdated": "2026-05-20T12:01:38.463Z"
+  },
+  "棕": {
+    "hanzi": "棕",
+    "pinyin": "zong1",
+    "pinyinNumbered": "zong1",
+    "french": "brun, marron",
+    "english": "brown",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1779277447371-sy2c",
+    "firstSeenDate": "2026-05-20T12:01:38.463Z",
+    "appearsInLessons": [
+      "lesson-1779277447371-sy2c"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-05-20T12:01:38.463Z",
+    "lastUpdated": "2026-05-20T12:01:38.463Z"
   }
 }
