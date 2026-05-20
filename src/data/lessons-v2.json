@@ -1770,20 +1770,41 @@
         "hanzi": "老",
         "pinyinEnabled": true,
         "pinyin": "lao3",
-        "translation": { "en": "old", "fr": "vieux" },
+        "translation": {
+          "en": "old",
+          "fr": "vieux"
+        },
         "french": "vieux",
         "english": "old",
-        "meanings": ["old"],
+        "meanings": [
+          "old"
+        ],
         "classifiers": [],
         "partOfSpeech": "",
         "exampleSentence": "",
-        "relatedWords": [{ "hanzi": "老师", "pinyin": "lao3 shi1", "en": "teacher" }],
-        "relatedVocabulary": ["老师"],
+        "relatedWords": [
+          {
+            "hanzi": "老师",
+            "pinyin": "lao3 shi1",
+            "en": "teacher"
+          }
+        ],
+        "relatedVocabulary": [
+          "老师"
+        ],
         "relatedVocabularyText": "老师",
-        "meta": { "dictFound": true },
+        "meta": {
+          "dictFound": true
+        },
         "imageUrl": null,
         "audioUrl": null,
-        "manualOverrides": { "pinyin": false, "french": false, "english": false, "exampleSentence": false, "relatedVocabulary": false },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
         "notes": ""
       },
       {
@@ -1794,20 +1815,41 @@
         "hanzi": "师",
         "pinyinEnabled": true,
         "pinyin": "shi1",
-        "translation": { "en": "professor", "fr": "professeur" },
+        "translation": {
+          "en": "professor",
+          "fr": "professeur"
+        },
         "french": "professeur",
         "english": "professor",
-        "meanings": ["professor"],
+        "meanings": [
+          "professor"
+        ],
         "classifiers": [],
         "partOfSpeech": "",
         "exampleSentence": "",
-        "relatedWords": [{ "hanzi": "老师", "pinyin": "lao3 shi1", "en": "teacher" }],
-        "relatedVocabulary": ["老师"],
+        "relatedWords": [
+          {
+            "hanzi": "老师",
+            "pinyin": "lao3 shi1",
+            "en": "teacher"
+          }
+        ],
+        "relatedVocabulary": [
+          "老师"
+        ],
         "relatedVocabularyText": "老师",
-        "meta": { "dictFound": true },
+        "meta": {
+          "dictFound": true
+        },
         "imageUrl": null,
         "audioUrl": null,
-        "manualOverrides": { "pinyin": false, "french": false, "english": false, "exampleSentence": false, "relatedVocabulary": false },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
         "notes": ""
       },
       {
@@ -1818,20 +1860,33 @@
         "hanzi": "你",
         "pinyinEnabled": true,
         "pinyin": "ni3",
-        "translation": { "en": "you", "fr": "tu; toi" },
+        "translation": {
+          "en": "you",
+          "fr": "tu; toi"
+        },
         "french": "tu; toi",
         "english": "you",
-        "meanings": ["you"],
+        "meanings": [
+          "you"
+        ],
         "classifiers": [],
         "partOfSpeech": "",
         "exampleSentence": "",
         "relatedWords": [],
         "relatedVocabulary": [],
         "relatedVocabularyText": "",
-        "meta": { "dictFound": true },
+        "meta": {
+          "dictFound": true
+        },
         "imageUrl": null,
         "audioUrl": null,
-        "manualOverrides": { "pinyin": false, "french": false, "english": false, "exampleSentence": false, "relatedVocabulary": false },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
         "notes": ""
       },
       {
@@ -1842,20 +1897,33 @@
         "hanzi": "有",
         "pinyinEnabled": true,
         "pinyin": "you3",
-        "translation": { "en": "to have", "fr": "avoir" },
+        "translation": {
+          "en": "to have",
+          "fr": "avoir"
+        },
         "french": "avoir",
         "english": "to have",
-        "meanings": ["to have"],
+        "meanings": [
+          "to have"
+        ],
         "classifiers": [],
         "partOfSpeech": "verb",
         "exampleSentence": "",
         "relatedWords": [],
         "relatedVocabulary": [],
         "relatedVocabularyText": "",
-        "meta": { "dictFound": true },
+        "meta": {
+          "dictFound": true
+        },
         "imageUrl": null,
         "audioUrl": null,
-        "manualOverrides": { "pinyin": false, "french": false, "english": false, "exampleSentence": false, "relatedVocabulary": false },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
         "notes": ""
       },
       {
@@ -1866,20 +1934,39 @@
         "hanzi": "哥",
         "pinyinEnabled": true,
         "pinyin": "ge1",
-        "translation": { "en": "big brother", "fr": "grand frère" },
+        "translation": {
+          "en": "big brother",
+          "fr": "grand frère"
+        },
         "french": "grand frère",
         "english": "big brother",
         "meanings": [],
         "classifiers": [],
         "partOfSpeech": "",
         "exampleSentence": "",
-        "relatedWords": [{ "hanzi": "哥哥", "pinyin": "ge1 ge", "en": "older brother" }],
-        "relatedVocabulary": ["哥哥"],
+        "relatedWords": [
+          {
+            "hanzi": "哥哥",
+            "pinyin": "ge1 ge",
+            "en": "older brother"
+          }
+        ],
+        "relatedVocabulary": [
+          "哥哥"
+        ],
         "relatedVocabularyText": "哥哥",
-        "meta": { "dictFound": false },
+        "meta": {
+          "dictFound": false
+        },
         "imageUrl": null,
         "audioUrl": null,
-        "manualOverrides": { "pinyin": false, "french": true, "english": true, "exampleSentence": false, "relatedVocabulary": false },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": true,
+          "english": true,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
         "notes": ""
       },
       {
@@ -1890,20 +1977,33 @@
         "hanzi": "吗",
         "pinyinEnabled": true,
         "pinyin": "ma5",
-        "translation": { "en": "question particle", "fr": "particule interrogative" },
+        "translation": {
+          "en": "question particle",
+          "fr": "particule interrogative"
+        },
         "french": "particule interrogative",
         "english": "question particle",
-        "meanings": ["question particle"],
+        "meanings": [
+          "question particle"
+        ],
         "classifiers": [],
         "partOfSpeech": "",
         "exampleSentence": "",
         "relatedWords": [],
         "relatedVocabulary": [],
         "relatedVocabularyText": "",
-        "meta": { "dictFound": true },
+        "meta": {
+          "dictFound": true
+        },
         "imageUrl": null,
         "audioUrl": null,
-        "manualOverrides": { "pinyin": false, "french": true, "english": true, "exampleSentence": false, "relatedVocabulary": false },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": true,
+          "english": true,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
         "notes": ""
       },
       {
@@ -1914,20 +2014,33 @@
         "hanzi": "王",
         "pinyinEnabled": true,
         "pinyin": "wang2",
-        "translation": { "en": "king", "fr": "roi" },
+        "translation": {
+          "en": "king",
+          "fr": "roi"
+        },
         "french": "roi",
         "english": "king",
-        "meanings": ["king"],
+        "meanings": [
+          "king"
+        ],
         "classifiers": [],
         "partOfSpeech": "",
         "exampleSentence": "",
         "relatedWords": [],
         "relatedVocabulary": [],
         "relatedVocabularyText": "",
-        "meta": { "dictFound": true },
+        "meta": {
+          "dictFound": true
+        },
         "imageUrl": null,
         "audioUrl": null,
-        "manualOverrides": { "pinyin": false, "french": false, "english": false, "exampleSentence": false, "relatedVocabulary": false },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
         "notes": ""
       },
       {
@@ -1938,7 +2051,10 @@
         "hanzi": "和",
         "pinyinEnabled": true,
         "pinyin": "he2",
-        "translation": { "en": "and, with", "fr": "et, avec" },
+        "translation": {
+          "en": "and, with",
+          "fr": "et, avec"
+        },
         "french": "et, avec",
         "english": "and, with",
         "meanings": [],
@@ -1948,10 +2064,18 @@
         "relatedWords": [],
         "relatedVocabulary": [],
         "relatedVocabularyText": "",
-        "meta": { "dictFound": false },
+        "meta": {
+          "dictFound": false
+        },
         "imageUrl": null,
         "audioUrl": null,
-        "manualOverrides": { "pinyin": false, "french": true, "english": true, "exampleSentence": false, "relatedVocabulary": false },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": true,
+          "english": true,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
         "notes": ""
       },
       {
@@ -1962,20 +2086,34 @@
         "hanzi": "我",
         "pinyinEnabled": true,
         "pinyin": "wo3",
-        "translation": { "en": "I", "fr": "je; moi" },
+        "translation": {
+          "en": "I",
+          "fr": "je; moi"
+        },
         "french": "je; moi",
         "english": "I",
-        "meanings": ["I", "me"],
+        "meanings": [
+          "I",
+          "me"
+        ],
         "classifiers": [],
         "partOfSpeech": "",
         "exampleSentence": "",
         "relatedWords": [],
         "relatedVocabulary": [],
         "relatedVocabularyText": "",
-        "meta": { "dictFound": true },
+        "meta": {
+          "dictFound": true
+        },
         "imageUrl": null,
         "audioUrl": null,
-        "manualOverrides": { "pinyin": false, "french": false, "english": false, "exampleSentence": false, "relatedVocabulary": false },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
         "notes": ""
       },
       {
@@ -1986,20 +2124,33 @@
         "hanzi": "一",
         "pinyinEnabled": true,
         "pinyin": "yi1",
-        "translation": { "en": "one", "fr": "un" },
+        "translation": {
+          "en": "one",
+          "fr": "un"
+        },
         "french": "un",
         "english": "one",
-        "meanings": ["one"],
+        "meanings": [
+          "one"
+        ],
         "classifiers": [],
         "partOfSpeech": "",
         "exampleSentence": "",
         "relatedWords": [],
         "relatedVocabulary": [],
         "relatedVocabularyText": "",
-        "meta": { "dictFound": true },
+        "meta": {
+          "dictFound": true
+        },
         "imageUrl": null,
         "audioUrl": null,
-        "manualOverrides": { "pinyin": false, "french": false, "english": false, "exampleSentence": false, "relatedVocabulary": false },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
         "notes": ""
       },
       {
@@ -2010,20 +2161,33 @@
         "hanzi": "个",
         "pinyinEnabled": true,
         "pinyin": "ge4",
-        "translation": { "en": "measure word", "fr": "classificateur" },
+        "translation": {
+          "en": "measure word",
+          "fr": "classificateur"
+        },
         "french": "classificateur",
         "english": "measure word",
-        "meanings": ["measure word"],
+        "meanings": [
+          "measure word"
+        ],
         "classifiers": [],
         "partOfSpeech": "",
         "exampleSentence": "",
         "relatedWords": [],
         "relatedVocabulary": [],
         "relatedVocabularyText": "",
-        "meta": { "dictFound": true },
+        "meta": {
+          "dictFound": true
+        },
         "imageUrl": null,
         "audioUrl": null,
-        "manualOverrides": { "pinyin": false, "french": true, "english": true, "exampleSentence": false, "relatedVocabulary": false },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": true,
+          "english": true,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
         "notes": ""
       },
       {
@@ -2034,20 +2198,33 @@
         "hanzi": "他",
         "pinyinEnabled": true,
         "pinyin": "ta1",
-        "translation": { "en": "he", "fr": "il" },
+        "translation": {
+          "en": "he",
+          "fr": "il"
+        },
         "french": "il",
         "english": "he",
-        "meanings": ["he"],
+        "meanings": [
+          "he"
+        ],
         "classifiers": [],
         "partOfSpeech": "",
         "exampleSentence": "",
         "relatedWords": [],
         "relatedVocabulary": [],
         "relatedVocabularyText": "",
-        "meta": { "dictFound": true },
+        "meta": {
+          "dictFound": true
+        },
         "imageUrl": null,
         "audioUrl": null,
-        "manualOverrides": { "pinyin": false, "french": false, "english": false, "exampleSentence": false, "relatedVocabulary": false },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
         "notes": ""
       },
       {
@@ -2058,20 +2235,33 @@
         "hanzi": "几",
         "pinyinEnabled": true,
         "pinyin": "ji3",
-        "translation": { "en": "how many", "fr": "combien" },
+        "translation": {
+          "en": "how many",
+          "fr": "combien"
+        },
         "french": "combien",
         "english": "how many",
-        "meanings": ["how many"],
+        "meanings": [
+          "how many"
+        ],
         "classifiers": [],
         "partOfSpeech": "",
         "exampleSentence": "",
         "relatedWords": [],
         "relatedVocabulary": [],
         "relatedVocabularyText": "",
-        "meta": { "dictFound": true },
+        "meta": {
+          "dictFound": true
+        },
         "imageUrl": null,
         "audioUrl": null,
-        "manualOverrides": { "pinyin": false, "french": false, "english": false, "exampleSentence": false, "relatedVocabulary": false },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
         "notes": ""
       },
       {
@@ -2082,20 +2272,33 @@
         "hanzi": "岁",
         "pinyinEnabled": true,
         "pinyin": "sui4",
-        "translation": { "en": "years old", "fr": "ans" },
+        "translation": {
+          "en": "years old",
+          "fr": "ans"
+        },
         "french": "ans",
         "english": "years old",
-        "meanings": ["years old"],
+        "meanings": [
+          "years old"
+        ],
         "classifiers": [],
         "partOfSpeech": "",
         "exampleSentence": "",
         "relatedWords": [],
         "relatedVocabulary": [],
         "relatedVocabularyText": "",
-        "meta": { "dictFound": true },
+        "meta": {
+          "dictFound": true
+        },
         "imageUrl": null,
         "audioUrl": null,
-        "manualOverrides": { "pinyin": false, "french": true, "english": true, "exampleSentence": false, "relatedVocabulary": false },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": true,
+          "english": true,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
         "notes": ""
       },
       {
@@ -2106,20 +2309,33 @@
         "hanzi": "八",
         "pinyinEnabled": true,
         "pinyin": "ba1",
-        "translation": { "en": "eight", "fr": "huit" },
+        "translation": {
+          "en": "eight",
+          "fr": "huit"
+        },
         "french": "huit",
         "english": "eight",
-        "meanings": ["eight"],
+        "meanings": [
+          "eight"
+        ],
         "classifiers": [],
         "partOfSpeech": "",
         "exampleSentence": "",
         "relatedWords": [],
         "relatedVocabulary": [],
         "relatedVocabularyText": "",
-        "meta": { "dictFound": true },
+        "meta": {
+          "dictFound": true
+        },
         "imageUrl": null,
         "audioUrl": null,
-        "manualOverrides": { "pinyin": false, "french": false, "english": false, "exampleSentence": false, "relatedVocabulary": false },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
         "notes": ""
       },
       {
@@ -2130,20 +2346,39 @@
         "hanzi": "弟",
         "pinyinEnabled": true,
         "pinyin": "di4",
-        "translation": { "en": "little brother", "fr": "petit frère" },
+        "translation": {
+          "en": "little brother",
+          "fr": "petit frère"
+        },
         "french": "petit frère",
         "english": "little brother",
         "meanings": [],
         "classifiers": [],
         "partOfSpeech": "",
         "exampleSentence": "",
-        "relatedWords": [{ "hanzi": "弟弟", "pinyin": "di4 di", "en": "younger brother" }],
-        "relatedVocabulary": ["弟弟"],
+        "relatedWords": [
+          {
+            "hanzi": "弟弟",
+            "pinyin": "di4 di",
+            "en": "younger brother"
+          }
+        ],
+        "relatedVocabulary": [
+          "弟弟"
+        ],
         "relatedVocabularyText": "弟弟",
-        "meta": { "dictFound": false },
+        "meta": {
+          "dictFound": false
+        },
         "imageUrl": null,
         "audioUrl": null,
-        "manualOverrides": { "pinyin": false, "french": true, "english": true, "exampleSentence": false, "relatedVocabulary": false },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": true,
+          "english": true,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
         "notes": ""
       },
       {
@@ -2154,20 +2389,33 @@
         "hanzi": "没",
         "pinyinEnabled": true,
         "pinyin": "mei2",
-        "translation": { "en": "not have", "fr": "il n'y a pas" },
+        "translation": {
+          "en": "not have",
+          "fr": "il n'y a pas"
+        },
         "french": "il n'y a pas",
         "english": "not have",
-        "meanings": ["not have"],
+        "meanings": [
+          "not have"
+        ],
         "classifiers": [],
         "partOfSpeech": "",
         "exampleSentence": "",
         "relatedWords": [],
         "relatedVocabulary": [],
         "relatedVocabularyText": "",
-        "meta": { "dictFound": true },
+        "meta": {
+          "dictFound": true
+        },
         "imageUrl": null,
         "audioUrl": null,
-        "manualOverrides": { "pinyin": false, "french": false, "english": false, "exampleSentence": false, "relatedVocabulary": false },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
         "notes": ""
       },
       {
@@ -2178,22 +2426,103 @@
         "hanzi": "四",
         "pinyinEnabled": true,
         "pinyin": "si4",
-        "translation": { "en": "four", "fr": "quatre" },
+        "translation": {
+          "en": "four",
+          "fr": "quatre"
+        },
         "french": "quatre",
         "english": "four",
-        "meanings": ["four"],
+        "meanings": [
+          "four"
+        ],
         "classifiers": [],
         "partOfSpeech": "",
         "exampleSentence": "",
         "relatedWords": [],
         "relatedVocabulary": [],
         "relatedVocabularyText": "",
-        "meta": { "dictFound": true },
+        "meta": {
+          "dictFound": true
+        },
         "imageUrl": null,
         "audioUrl": null,
-        "manualOverrides": { "pinyin": false, "french": false, "english": false, "exampleSentence": false, "relatedVocabulary": false },
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        },
         "notes": ""
       }
     ]
+  },
+  {
+    "id": "lesson-1779277447371-sy2c",
+    "globalLessonId": "3e2b594c-d59d-44e3-8cb4-9e3bdda6adcf",
+    "order": 11,
+    "title": "Leçon 11 - Les couleurs",
+    "description": "",
+    "sourceText": "关文文：你喜欢什么颜色？\n王天一：我喜欢红色、黄色和蓝色。\n关文文：我喜欢白色和黑色。\n\n气球，气球，什么颜色？\n红色、黄色、蓝色、白色。\n气球，气球，什么颜色？\n红、黄、蓝、白、黑色。\n气球，气球，什么颜色？\n橙、紫、粉红色。 \n气球，气球，什么颜色？\n绿、灰、棕色。\n",
+    "characterRefs": [
+      "关",
+      "文",
+      "你",
+      "喜",
+      "欢",
+      "什",
+      "么",
+      "颜",
+      "色",
+      "王",
+      "天",
+      "一",
+      "我",
+      "红",
+      "黄",
+      "和",
+      "蓝",
+      "白",
+      "黑",
+      "气",
+      "球",
+      "橙",
+      "紫",
+      "粉",
+      "绿",
+      "灰",
+      "棕"
+    ],
+    "notes": "",
+    "sentenceAudios": [],
+    "cardMap": {
+      "关": "card-lesson-1779277447371-sy2c-0",
+      "文": "card-lesson-1779277447371-sy2c-1",
+      "你": "card-lesson-1779277447371-sy2c-2",
+      "喜": "card-lesson-1779277447371-sy2c-3",
+      "欢": "card-lesson-1779277447371-sy2c-4",
+      "什": "card-lesson-1779277447371-sy2c-5",
+      "么": "card-lesson-1779277447371-sy2c-6",
+      "颜": "card-lesson-1779277447371-sy2c-7",
+      "色": "card-lesson-1779277447371-sy2c-8",
+      "王": "card-lesson-1779277447371-sy2c-9",
+      "天": "card-lesson-1779277447371-sy2c-10",
+      "一": "card-lesson-1779277447371-sy2c-11",
+      "我": "card-lesson-1779277447371-sy2c-12",
+      "红": "card-lesson-1779277447371-sy2c-13",
+      "黄": "card-lesson-1779277447371-sy2c-14",
+      "和": "card-lesson-1779277447371-sy2c-15",
+      "蓝": "card-lesson-1779277447371-sy2c-16",
+      "白": "card-lesson-1779277447371-sy2c-17",
+      "黑": "card-lesson-1779277447371-sy2c-18",
+      "气": "card-lesson-1779277447371-sy2c-19",
+      "球": "card-lesson-1779277447371-sy2c-20",
+      "橙": "card-lesson-1779277447371-sy2c-21",
+      "紫": "card-lesson-1779277447371-sy2c-22",
+      "粉": "card-lesson-1779277447371-sy2c-23",
+      "绿": "card-lesson-1779277447371-sy2c-24",
+      "灰": "card-lesson-1779277447371-sy2c-25",
+      "棕": "card-lesson-1779277447371-sy2c-26"
+    }
   }
 ]
