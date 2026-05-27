@@ -169,6 +169,7 @@ export default function WritingPractice({
     [],
   );
 
+  const handleQuizCompleteRef = useRef(null);
   // TODO: manual tablet test needed before sharing — hanzi-writer leniency on last stroke behaves
   // differently with stylus vs finger, especially in difficulty-3 (no hint) mode. Verify onComplete
   // fires correctly and does not misfire on lift-off events on iPad/Android tablet.
@@ -204,6 +205,7 @@ export default function WritingPractice({
       sounds.playError();
     }
   };
+  handleQuizCompleteRef.current = handleQuizComplete;
 
   useEffect(() => {
     if (!canvasWrapRef.current) return undefined;
@@ -341,11 +343,11 @@ export default function WritingPractice({
 
     writer.quiz({
       leniency: 1,
-      showHintAfterMisses: writingDifficulty === 1 ? 1 : false,
+      showHintAfterMisses: writingDifficulty === 1 ? 1 : writingDifficulty === 2 ? 3 : false,
       onMistake: () => {
         setFeedback(isRadicalMode ? 'Continue, tu es presque sur ce composant.' : 'Continue, tu es presque.');
       },
-      onComplete: handleQuizComplete,
+      onComplete: (result) => handleQuizCompleteRef.current(result),
     });
     setQuizActive(true);
 
@@ -415,11 +417,11 @@ export default function WritingPractice({
 
     writerRef.current.quiz({
       leniency: 1,
-      showHintAfterMisses: writingDifficulty === 1 ? 1 : false,
+      showHintAfterMisses: writingDifficulty === 1 ? 1 : writingDifficulty === 2 ? 3 : false,
       onMistake: () => {
         setFeedback(isRadicalMode ? 'Continue, tu es presque sur ce composant.' : 'Continue, tu es presque.');
       },
-      onComplete: handleQuizComplete,
+      onComplete: (result) => handleQuizCompleteRef.current(result),
     });
   };
 
