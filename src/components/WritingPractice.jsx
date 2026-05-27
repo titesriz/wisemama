@@ -197,7 +197,6 @@ export default function WritingPractice({
 
     if (totalMistakes <= 2) {
       setFeedback('Bravo ! Etoile gagnee.');
-      setSuccessTick((prev) => prev + 1);
       sounds.playSuccess();
       onSuccess?.(totalMistakes);
     } else {
