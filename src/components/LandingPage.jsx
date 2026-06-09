@@ -190,20 +190,21 @@ export default function LandingPage({
               </button>
             </>
           ) : null}
-          <div className="landing-refresh-link-row">
-            <button
-              type="button"
-              className="landing-refresh-link"
-              onClick={() => {
-                const ok = onRefreshLessons?.();
-                setRefreshStatus(ok ? 'Leçons mises à jour.' : 'Mise à jour indisponible.');
-              }}
-            >
-              Mettre à jour les leçons
-            </button>
-            {refreshStatus ? <span className="landing-refresh-status">{refreshStatus}</span> : null}
-          </div>
         </article>
+      </div>
+
+      <div className="landing-footer">
+        <button
+          type="button"
+          className="landing-refresh-link"
+          onClick={() => {
+            const ok = onRefreshLessons?.();
+            setRefreshStatus(ok ? 'Leçons mises à jour.' : 'Mise à jour indisponible.');
+          }}
+        >
+          Mettre à jour les leçons
+        </button>
+        {refreshStatus ? <span className="landing-refresh-status">{refreshStatus}</span> : null}
       </div>
     </section>
   );

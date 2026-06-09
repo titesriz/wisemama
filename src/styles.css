@@ -437,18 +437,19 @@ body {
   color: #f4fffe;
 }
 
-.landing-refresh-link-row {
+.landing-footer {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 8px 0 4px;
+  padding: 16px 0 24px;
+  background: #fff;
 }
 
 .landing-refresh-link {
   background: none;
   border: none;
-  color: #a0aab8;
+  color: #999;
   font-size: 12px;
   cursor: pointer;
   text-decoration: underline;
@@ -3085,8 +3086,8 @@ body {
 }
 
 .lesson-text-shell {
-  width: min(900px, 100%);
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
   border: none;
   border-radius: 0;
   overflow: visible;
@@ -3097,10 +3098,17 @@ body {
 }
 
 .lesson-text-frame {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
   min-height: calc(100dvh - 140px);
   display: grid;
   align-content: start;
   gap: 14px;
+  border-radius: 0;
+  box-shadow: none;
+  background: #fff;
+  padding: 16px 20px;
 }
 
 .lesson-text-current-card {
@@ -3213,6 +3221,10 @@ body {
   border: 2px solid #e0e0e0;
   border-radius: 16px;
   padding: 18px;
+  height: 62vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
 .sentence-line {
