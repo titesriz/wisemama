@@ -3124,13 +3124,14 @@ body {
 }
 
 .lesson-text-frame {
+  position: relative;
   width: 100%;
   min-width: 0;
   flex: 1;
   min-height: 0;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: visible;
   border-radius: 0;
   box-shadow: none;
   background: #fff;
@@ -3203,10 +3204,7 @@ body {
 .lesson-text-content {
   flex: 1;
   min-height: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -3247,6 +3245,19 @@ body {
   margin: 4px 0 0;
   color: #636e72;
   font-weight: 600;
+}
+
+.text-source-section {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 6px;
 }
 
 .text-source-section h2,
@@ -3320,18 +3331,10 @@ body {
   background: rgba(78, 205, 196, 0.12);
 }
 
-.char.new {
-  color: #2d3436;
-  font-weight: 700;
-}
-
-.char.learning {
-  color: #b98900;
-  font-weight: 700;
-}
-
+.char.new,
+.char.learning,
 .char.learned {
-  color: #00b894;
+  color: #2d3436;
   font-weight: 700;
 }
 
@@ -4738,10 +4741,15 @@ body {
 }
 
 .lesson-picker-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 100;
   border: 1px solid #e6d7ad;
   border-radius: 12px;
   background: #fff;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   max-height: 280px;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
