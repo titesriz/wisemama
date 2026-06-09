@@ -305,7 +305,9 @@ export default function App() {
     setLessonJourneyQueue([]);
     setLessonJourneyPosition(0);
     setReturnToLessonText(false);
+    setLessonTextLessonId('');
     setEnteredApp(false);
+    window.history.pushState({}, '', '/');
   };
 
   const handleWritingSuccess = (mistakes) => {
