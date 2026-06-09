@@ -546,36 +546,35 @@ export default function WritingPractice({
                 </button>
               </div>
             </div>
+            {showLessonPicker ? (
+              <div
+                className="lesson-picker-dropdown"
+                onClick={(event) => event.stopPropagation()}
+                onKeyDown={(event) => event.stopPropagation()}
+              >
+                {availableLessons.map((lesson) => (
+                  <button
+                    key={lesson.id}
+                    type="button"
+                    className={`lesson-option ui-pressable ${lesson.id === lessonId ? 'active' : ''}`}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      sounds.playTap();
+                      setShowLessonPicker(false);
+                      onSelectLesson?.(lesson.id);
+                    }}
+                  >
+                    <div className="option-preview">{lesson.coverImage ? <img src={lesson.coverImage} alt="" /> : <span>📘</span>}</div>
+                    <div className="option-info">
+                      <strong>{lesson.order ? `${lesson.order}. ` : ''}{lesson.title || 'Lecon'}</strong>
+                      <span className="option-meta">{lesson.cards?.length || 0} cartes</span>
+                    </div>
+                    {lesson.id === lessonId ? <span className="checkmark">✓</span> : null}
+                  </button>
+                ))}
+              </div>
+            ) : null}
           </div>
-
-          {showLessonPicker ? (
-            <div
-              className="lesson-picker-dropdown"
-              onClick={(event) => event.stopPropagation()}
-              onKeyDown={(event) => event.stopPropagation()}
-            >
-              {availableLessons.map((lesson) => (
-                <button
-                  key={lesson.id}
-                  type="button"
-                  className={`lesson-option ui-pressable ${lesson.id === lessonId ? 'active' : ''}`}
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    sounds.playTap();
-                    setShowLessonPicker(false);
-                    onSelectLesson?.(lesson.id);
-                  }}
-                >
-                  <div className="option-preview">{lesson.coverImage ? <img src={lesson.coverImage} alt="" /> : <span>📘</span>}</div>
-                  <div className="option-info">
-                    <strong>{lesson.order ? `${lesson.order}. ` : ''}{lesson.title || 'Lecon'}</strong>
-                    <span className="option-meta">{lesson.cards?.length || 0} cartes</span>
-                  </div>
-                  {lesson.id === lessonId ? <span className="checkmark">✓</span> : null}
-                </button>
-              ))}
-            </div>
-          ) : null}
         </section>
       ) : null}
 
