@@ -365,64 +365,73 @@ export default function LessonTextView({
           </section>
 
           <section className="vocabulary-section lesson-text-vocab">
-            <div className="lesson-section-marker">② Entraîne-toi à écrire</div>
-            <div className="vocabulary-grid lesson-text-vocab-list">
-              {vocabulary.map((item) => (
+            <div className="vocab-section-header">
+              <span className="lesson-section-marker">② Entraîne-toi à écrire</span>
+              <span className="vocab-count">
+                {selectedVocabulary.length} caractère{selectedVocabulary.length !== 1 ? 's' : ''} sélectionné{selectedVocabulary.length !== 1 ? 's' : ''}
+              </span>
+              <div className="vocab-difficulty-btns">
                 <button
-                  key={item.id}
                   type="button"
-                  className={`vocab-card ${item.status} ${selectedCardIds.has(item.id) ? 'selected' : 'unselected'}`}
-                  title={`${item.hanzi} (${formatPinyinDisplay(item.pinyin)}) - ${item.french || item.english || ''}`}
-                  onClick={() => toggleVocabularySelection(item.id)}
+                  className={`lesson-difficulty-star ui-pressable ${writingDifficulty === 1 ? 'active' : ''}`}
+                  onClick={() => {
+                    onChangeWritingDifficulty?.(1);
+                    onStartPractice?.(selectedVocabulary.map((item) => item.id));
+                  }}
+                  aria-label="Difficulte 1"
+                  disabled={!journeyStartCard || selectedVocabulary.length === 0}
                 >
-                  <div className="vocab-hanzi">{item.hanzi}</div>
-                  <div className="vocab-status">{selectedCardIds.has(item.id) ? '✓' : '○'}</div>
-                  <div className="vocab-pinyin-hint">{formatPinyinDisplay(item.pinyin)}</div>
+                  Facile
                 </button>
-              ))}
+                <button
+                  type="button"
+                  className={`lesson-difficulty-star ui-pressable ${writingDifficulty === 3 ? 'active' : ''}`}
+                  onClick={() => {
+                    onChangeWritingDifficulty?.(3);
+                    onStartPractice?.(selectedVocabulary.map((item) => item.id));
+                  }}
+                  aria-label="Difficulte 3"
+                  disabled={!journeyStartCard || selectedVocabulary.length === 0}
+                >
+                  Difficile
+                </button>
+              </div>
+            </div>
+            <div className="vocab-grid-with-controls">
+              <div className="vocab-select-btns">
+                <button
+                  type="button"
+                  className="vocab-select-btn ui-pressable"
+                  onClick={() => setAllVocabularySelection(true)}
+                >
+                  Tous
+                </button>
+                <button
+                  type="button"
+                  className="vocab-select-btn ui-pressable"
+                  onClick={() => setAllVocabularySelection(false)}
+                >
+                  Aucun
+                </button>
+              </div>
+              <div className="vocabulary-grid">
+                {vocabulary.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className={`vocab-card ${item.status} ${selectedCardIds.has(item.id) ? 'selected' : 'unselected'}`}
+                    title={`${item.hanzi} (${formatPinyinDisplay(item.pinyin)}) - ${item.french || item.english || ''}`}
+                    onClick={() => toggleVocabularySelection(item.id)}
+                  >
+                    <div className="vocab-hanzi">{item.hanzi}</div>
+                    <div className="vocab-status">{selectedCardIds.has(item.id) ? '✓' : '○'}</div>
+                    <div className="vocab-pinyin-hint">{formatPinyinDisplay(item.pinyin)}</div>
+                  </button>
+                ))}
+              </div>
             </div>
           </section>
           </div>
-
-
-          <footer className="lesson-text-footer lesson-action">
-            <button
-              type="button"
-              className={`lesson-text-control-btn ui-pressable ${allSelected ? 'active' : ''}`}
-              onClick={() => setAllVocabularySelection(!allSelected)}
-            >
-              {allSelected ? 'Aucun' : 'Tout'}
-            </button>
-            <div className={`lesson-text-start lesson-text-start-legend ${selectedVocabulary.length === 0 ? 'disabled' : ''}`}>
-              {selectedVocabulary.length === 0
-                ? 'Selectionne au moins 1 caractère'
-                : `Apprendre les ${selectedVocabulary.length} caractères →`}
-            </div>
-            <button
-              type="button"
-              className={`lesson-difficulty-star ui-pressable ${writingDifficulty === 1 ? 'active' : ''}`}
-              onClick={() => {
-                onChangeWritingDifficulty?.(1);
-                onStartPractice?.(selectedVocabulary.map((item) => item.id));
-              }}
-              aria-label="Difficulte 1"
-              disabled={!journeyStartCard || selectedVocabulary.length === 0}
-            >
-              Facile
-            </button>
-            <button
-              type="button"
-              className={`lesson-difficulty-star ui-pressable ${writingDifficulty === 3 ? 'active' : ''}`}
-              onClick={() => {
-                onChangeWritingDifficulty?.(3);
-                onStartPractice?.(selectedVocabulary.map((item) => item.id));
-              }}
-              aria-label="Difficulte 3"
-              disabled={!journeyStartCard || selectedVocabulary.length === 0}
-            >
-              Difficile
-            </button>
-          </footer>
         </article>
       </div>
     </section>
