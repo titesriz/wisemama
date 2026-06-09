@@ -3123,14 +3123,13 @@ body {
 }
 
 .lesson-text-frame {
-  position: relative;
   width: 100%;
   min-width: 0;
   flex: 1;
   min-height: 0;
   display: flex;
   flex-direction: column;
-  overflow: visible;
+  overflow: hidden;
   border-radius: 0;
   box-shadow: none;
   background: #fff;
@@ -3138,6 +3137,7 @@ body {
 }
 
 .lesson-text-current-card {
+  position: relative;
   flex-shrink: 0;
   margin-top: 0;
   margin-bottom: 0;
