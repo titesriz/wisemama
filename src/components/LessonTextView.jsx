@@ -292,13 +292,24 @@ export default function LessonTextView({
           ) : null}
 
           <div className="lesson-text-content">
-          <div className="lesson-header">
-            <h1>{lesson?.title || 'Lecon'}</h1>
-            {lesson?.description ? <p>{lesson.description}</p> : null}
-          </div>
-
           <section className="text-source-section">
-            <div className="lesson-section-marker">① Lis la leçon</div>
+            <div className="lesson-text-top-row">
+              <span className="lesson-section-marker">① Lis la leçon</span>
+              <div className="pinyin-toggle" role="radiogroup" aria-label="Mode pinyin">
+                <label className="toggle-option">
+                  <input type="radio" name="pinyinMode" value="all" checked={pinyinMode === 'all'} onChange={() => setPinyinMode('all')} />
+                  <span className="radio-label"><span className="radio-icon">🟢</span>Tous les pinyin</span>
+                </label>
+                <label className="toggle-option">
+                  <input type="radio" name="pinyinMode" value="tone" checked={pinyinMode === 'tone'} onChange={() => setPinyinMode('tone')} />
+                  <span className="radio-label"><span className="radio-icon">🎵</span>Aide tonalité</span>
+                </label>
+                <label className="toggle-option">
+                  <input type="radio" name="pinyinMode" value="none" checked={pinyinMode === 'none'} onChange={() => setPinyinMode('none')} />
+                  <span className="radio-label"><span className="radio-icon">⚪</span>Aucun pinyin</span>
+                </label>
+              </div>
+            </div>
             <div className="text-display">
               {sentences.map((sentence, sentenceIndex) => (
                 <div key={`${sentence}-${sentenceIndex}`} className="sentence-line">
@@ -352,23 +363,6 @@ export default function LessonTextView({
               ))}
             </div>
           </section>
-
-          <div className="pinyin-controls">
-            <div className="pinyin-toggle" role="radiogroup" aria-label="Mode pinyin">
-              <label className="toggle-option">
-                <input type="radio" name="pinyinMode" value="all" checked={pinyinMode === 'all'} onChange={() => setPinyinMode('all')} />
-                <span className="radio-label"><span className="radio-icon">🟢</span>Tous les pinyin</span>
-              </label>
-              <label className="toggle-option">
-                <input type="radio" name="pinyinMode" value="tone" checked={pinyinMode === 'tone'} onChange={() => setPinyinMode('tone')} />
-                <span className="radio-label"><span className="radio-icon">🎵</span>Aide tonalité</span>
-              </label>
-              <label className="toggle-option">
-                <input type="radio" name="pinyinMode" value="none" checked={pinyinMode === 'none'} onChange={() => setPinyinMode('none')} />
-                <span className="radio-label"><span className="radio-icon">⚪</span>Aucun pinyin</span>
-              </label>
-            </div>
-          </div>
 
           <section className="vocabulary-section lesson-text-vocab">
             <div className="lesson-section-marker">② Entraîne-toi à écrire</div>
