@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import WritingPractice from './WritingPractice.jsx';
 
 export default function WritingOnlyPage({
