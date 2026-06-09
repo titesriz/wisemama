@@ -167,28 +167,28 @@ export default function LandingPage({
         </article>
 
         <article className="profile-card-parent">
+          <div className="companion-row">
+            {parentProfile ? (
+              <AvatarRenderer
+                config={parentProfile.avatar}
+                size={52}
+                className="landing-avatar-circle"
+                alt={`Avatar ${parentProfile.name || 'Maman'}`}
+              />
+            ) : null}
+            <p className="companion-message">
+              Tu apprends avec {parentProfile?.name || 'Maman'} aujourd'hui 🌸
+            </p>
+          </div>
           {isDevMode ? (
-            <>
-              <h3 className="parent-title">Espace Parent</h3>
-              <div className="parent-avatar">
-                {parentProfile ? (
-                  <AvatarRenderer
-                    config={parentProfile.avatar}
-                    size={56}
-                    className="landing-avatar-circle"
-                    alt={`Avatar ${parentProfile.name || 'Parent'}`}
-                  />
-                ) : null}
-              </div>
-              <button
-                type="button"
-                className="manage-button"
-                onClick={() => parentProfile && onStartProfile(parentProfile.id)}
-                disabled={!parentProfile}
-              >
-                Gérer
-              </button>
-            </>
+            <button
+              type="button"
+              className="manage-button manage-button-sm"
+              onClick={() => parentProfile && onStartProfile(parentProfile.id)}
+              disabled={!parentProfile}
+            >
+              Gérer
+            </button>
           ) : null}
         </article>
       </div>
