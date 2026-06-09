@@ -237,7 +237,7 @@ export default function WritingPractice({
   }, []);
 
   useEffect(() => {
-    if (!isRadicalMode || !targetChar) {
+    if (!targetChar) {
       setFullCharData(null);
       return undefined;
     }
@@ -254,7 +254,7 @@ export default function WritingPractice({
     return () => {
       isMounted = false;
     };
-  }, [isRadicalMode, targetChar]);
+  }, [targetChar]);
 
   useEffect(() => {
     setComponentStepIndex(0);
