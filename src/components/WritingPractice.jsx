@@ -826,16 +826,6 @@ export default function WritingPractice({
             <span>Reset</span>
             <small>Effacer</small>
           </button>
-          <button
-            type="button"
-            className="writing-action-btn primary ui-pressable"
-            onClick={startQuiz}
-            disabled={quizActive}
-            data-coach="write"
-          >
-            <span>{quizActive ? '...' : 'OK'}</span>
-            <small>Verifier</small>
-          </button>
         </div>
       </div>
 
