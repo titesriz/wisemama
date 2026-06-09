@@ -51,13 +51,14 @@
     "order": 2,
     "title": "Leçon 2 - Love language",
     "description": "",
-    "sourceText": "我，你，他，她\n我爱你！ ",
+    "sourceText": "我，你，他，她\n我爱你！\n 我，妳，她\n我爱妳！ ",
     "characterRefs": [
       "我",
       "你",
       "他",
       "她",
-      "爱"
+      "爱",
+      "妳"
     ],
     "notes": "",
     "sentenceAudios": [],
@@ -66,10 +67,11 @@
       "你": "card-1770786610243-ixe5",
       "他": "card-1770786628762-mivv",
       "她": "card-1770786651713-7sj5",
-      "爱": "card-1770786071099-8f5y"
+      "爱": "card-1770786071099-8f5y",
+      "妳": "card-1781011381660-ni3f"
     },
     "createdDate": "2026-03-16T15:38:51.263Z",
-    "lastUpdated": "2026-02-26T14:39:40.006Z"
+    "lastUpdated": "2026-06-09T13:23:01.670Z"
   },
   {
     "id": "lesson-1771504726854-cyhe",
