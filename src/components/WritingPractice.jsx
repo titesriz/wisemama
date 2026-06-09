@@ -629,18 +629,6 @@ export default function WritingPractice({
               Ecriture
             </button>
           ) : null}
-          {strokePreviewSteps.length ? (
-            <button
-              type="button"
-              className={`writing-meta-btn ui-pressable ${showStrokeArrows ? 'active' : ''}`}
-              onClick={() => {
-                sounds.playTap();
-                setShowStrokeArrows((prev) => !prev);
-              }}
-            >
-              Strokes
-            </button>
-          ) : null}
           {isDevMode ? (
             <button
               type="button"
@@ -856,6 +844,18 @@ export default function WritingPractice({
           <button type="button" className="writing-action-btn ui-pressable" onClick={clearCanvas}>
             <span>↺</span>
             <small>Recommencer</small>
+          </button>
+          <button
+            type="button"
+            className={`writing-action-btn ui-pressable ${showStrokeArrows ? 'active' : ''}`}
+            onClick={() => {
+              sounds.playTap();
+              setShowStrokeArrows((prev) => !prev);
+            }}
+            disabled={!strokePreviewSteps.length}
+          >
+            <span>✍️</span>
+            <small>Strokes</small>
           </button>
         </div>
       </div>

@@ -3053,6 +3053,12 @@ body {
   background: #eefcfb;
 }
 
+.writing-action-btn.active {
+  border-color: #4ecdc4;
+  background: #4ecdc4;
+  color: #fff;
+}
+
 .writing-feedback {
   margin: 0;
   padding: 12px 18px;
