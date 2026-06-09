@@ -2277,7 +2277,6 @@ body {
   overflow: hidden;
   display: grid;
   font-family: Inter, 'Segoe UI', sans-serif;
-  contain: layout size;
 }
 
 .writing-screen-embedded {
