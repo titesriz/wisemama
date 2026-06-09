@@ -124,6 +124,10 @@ function getPrimaryImageUrl(char) {
 function expandLessonFromV2(lesson) {
   const cardMap = lesson?.cardMap && typeof lesson.cardMap === 'object' ? lesson.cardMap : {};
   const characterRefs = Array.isArray(lesson?.characterRefs) ? lesson.characterRefs : [];
+  // Fall back to normalizeLesson when lesson already has expanded cards (no characterRefs)
+  if (characterRefs.length === 0 && Array.isArray(lesson?.cards) && lesson.cards.length > 0) {
+    return normalizeLesson(lesson, 0);
+  }
   const cards = characterRefs.map((hanzi, index) => {
     const char = enrichCharacterRecord(hanzi, getCharacter(hanzi) || {});
     const id = cardMap[hanzi] || `card-${lesson.id}-${index}`;
