@@ -629,16 +629,18 @@ export default function WritingPractice({
               Ecriture
             </button>
           ) : null}
-          <button
-            type="button"
-            className="writing-meta-btn ui-pressable"
-            onClick={() => {
-              sounds.playTap();
-              setShowWorksheet(true);
-            }}
-          >
-            Fiche
-          </button>
+          {strokePreviewSteps.length ? (
+            <button
+              type="button"
+              className={`writing-meta-btn ui-pressable ${showStrokeArrows ? 'active' : ''}`}
+              onClick={() => {
+                sounds.playTap();
+                setShowStrokeArrows((prev) => !prev);
+              }}
+            >
+              Strokes
+            </button>
+          ) : null}
           {isDevMode ? (
             <button
               type="button"
@@ -781,6 +783,33 @@ export default function WritingPractice({
             </div>
           ) : null}
         </section>
+      ) : null}
+
+      {!isRadicalMode && showStrokeArrows && strokePreviewSteps.length ? (
+        <div className="stroke-preview-band">
+          {strokePreviewSteps.map((step) => (
+            <div key={step.index} className="radical-stroke-step">
+              <div className="radical-stroke-step-count">{step.index + 1}</div>
+              <svg viewBox="0 0 92 92" className="radical-stroke-step-canvas" aria-label={`Trait ${step.index + 1}`}>
+                <rect x="1" y="1" width="90" height="90" rx="14" fill="#fff" stroke="#e7ebf2" />
+                <line x1="46" y1="8" x2="46" y2="84" stroke="#e7ebf2" strokeDasharray="4 4" />
+                <line x1="8" y1="46" x2="84" y2="46" stroke="#e7ebf2" strokeDasharray="4 4" />
+                <g transform={strokePreviewTransform.transform}>
+                  <g transform="translate(512 388) scale(0.7) translate(-512 -388)">
+                    {step.strokes.map((strokePath, strokeIndex) => (
+                      <path
+                        key={`${step.index}-${strokeIndex}`}
+                        d={strokePath}
+                        fill={strokeIndex === step.index ? '#ff6b6b' : '#111111'}
+                        stroke="none"
+                      />
+                    ))}
+                  </g>
+                </g>
+              </svg>
+            </div>
+          ))}
+        </div>
       ) : null}
 
       <div className="writing-area">
