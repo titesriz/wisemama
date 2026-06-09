@@ -3209,8 +3209,8 @@ body {
   overscroll-behavior: contain;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 8px 0 0;
+  gap: 0;
+  padding: 6px 0 0;
   width: 100%;
 }
 
@@ -3604,11 +3604,11 @@ body {
 .lesson-text-vocab {
   flex-shrink: 0;
   border-top: 1px solid #e7ebf2;
-  padding-top: 12px;
-  padding-bottom: 8px;
+  padding-top: 8px;
+  padding-bottom: max(6px, env(safe-area-inset-bottom));
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 6px;
 }
 
 .vocab-section-header {
@@ -3645,8 +3645,8 @@ body {
 }
 
 .vocab-select-btn {
-  min-width: 48px;
-  height: 44px;
+  min-width: 44px;
+  height: 34px;
   border-radius: 10px;
   border: 2px solid #d8deea;
   background: #fff;
