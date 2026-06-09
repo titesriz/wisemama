@@ -92,9 +92,14 @@ body {
   place-items: center;
 }
 
-.child-lesson-card {
+.lesson-card-with-picker {
+  position: relative;
   width: 100%;
   max-width: 520px;
+}
+
+.child-lesson-card {
+  width: 100%;
   margin: 0;
   position: relative;
 }
@@ -3220,6 +3225,7 @@ body {
 }
 
 .lesson-text-top-row {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -3249,10 +3255,7 @@ body {
 .text-source-section {
   flex: 1;
   min-height: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -3267,6 +3270,12 @@ body {
 }
 
 .text-display {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
   background: #f9fafb;
   border: 2px solid #e0e0e0;
   border-radius: 16px;

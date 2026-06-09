@@ -81,42 +81,71 @@ export default function LandingPage({
                   />
                 ) : null}
               </div>
-              <div
-                className="current-lesson-card child-lesson-card ui-pressable"
-                onClick={onOpenLessonTextUi}
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter' || event.key === ' ') {
-                    event.preventDefault();
-                    onOpenLessonTextUi?.();
-                  }
-                }}
-                role="button"
-                tabIndex={0}
-                aria-label="Ouvrir la lecon"
-              >
-                <div className="lesson-header child-lesson-header child-lesson-header-fixed">
-                  <div className="child-lesson-main">
-                    <div className="lesson-info child-lesson-info">
-                      <h3 className="lesson-title child-lesson-title">{activeLesson.title}</h3>
-                      {activeLesson.description ? (
-                        <p className="lesson-description child-lesson-description">{activeLesson.description}</p>
-                      ) : null}
+              <div className="lesson-card-with-picker">
+                <div
+                  className="current-lesson-card child-lesson-card ui-pressable"
+                  onClick={onOpenLessonTextUi}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      onOpenLessonTextUi?.();
+                    }
+                  }}
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Ouvrir la lecon"
+                >
+                  <div className="lesson-header child-lesson-header child-lesson-header-fixed">
+                    <div className="child-lesson-main">
+                      <div className="lesson-info child-lesson-info">
+                        <h3 className="lesson-title child-lesson-title">{activeLesson.title}</h3>
+                        {activeLesson.description ? (
+                          <p className="lesson-description child-lesson-description">{activeLesson.description}</p>
+                        ) : null}
+                      </div>
+                    </div>
+                    <div className="lesson-actions child-lesson-actions">
+                      <button
+                        type="button"
+                        className="change-lesson-btn icon-only ui-pressable"
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          setShowLessonPicker((prev) => !prev);
+                        }}
+                        aria-label="Changer de lecon"
+                      >
+                        🗂️
+                      </button>
                     </div>
                   </div>
-                  <div className="lesson-actions child-lesson-actions">
-                    <button
-                      type="button"
-                      className="change-lesson-btn icon-only ui-pressable"
-                      onClick={(event) => {
-                        event.stopPropagation();
-                        setShowLessonPicker((prev) => !prev);
-                      }}
-                      aria-label="Changer de lecon"
-                    >
-                      🗂️
-                    </button>
-                  </div>
                 </div>
+                {showLessonPicker ? (
+                  <div
+                    className="lesson-picker-dropdown"
+                    onClick={(event) => event.stopPropagation()}
+                    onKeyDown={(event) => event.stopPropagation()}
+                  >
+                    {sortedLessons.map((lesson) => (
+                      <button
+                        key={lesson.id}
+                        type="button"
+                        className={`lesson-option ui-pressable ${lesson.id === activeLessonId ? 'active' : ''}`}
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          onSelectLesson?.(lesson.id);
+                          setShowLessonPicker(false);
+                        }}
+                      >
+                        <div className="option-preview">{lesson.coverImage ? <img src={lesson.coverImage} alt="" /> : <span>📘</span>}</div>
+                        <div className="option-info">
+                          <strong>{lesson.order ? `${lesson.order}. ` : ''}{lesson.title}</strong>
+                          <span className="option-meta">{lesson.cards.length} cartes</span>
+                        </div>
+                        {lesson.id === activeLessonId ? <span className="checkmark">✓</span> : null}
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
               </div>
             </>
           ) : (
@@ -137,33 +166,6 @@ export default function LandingPage({
               ) : null}
             </div>
           )}
-          {activeLesson && showLessonPicker ? (
-            <div
-              className="lesson-picker-dropdown"
-              onClick={(event) => event.stopPropagation()}
-              onKeyDown={(event) => event.stopPropagation()}
-            >
-              {sortedLessons.map((lesson) => (
-                <button
-                  key={lesson.id}
-                  type="button"
-                  className={`lesson-option ui-pressable ${lesson.id === activeLessonId ? 'active' : ''}`}
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    onSelectLesson?.(lesson.id);
-                    setShowLessonPicker(false);
-                  }}
-                >
-                  <div className="option-preview">{lesson.coverImage ? <img src={lesson.coverImage} alt="" /> : <span>📘</span>}</div>
-                  <div className="option-info">
-                    <strong>{lesson.order ? `${lesson.order}. ` : ''}{lesson.title}</strong>
-                    <span className="option-meta">{lesson.cards.length} cartes</span>
-                  </div>
-                  {lesson.id === activeLessonId ? <span className="checkmark">✓</span> : null}
-                </button>
-              ))}
-            </div>
-          ) : null}
         </article>
 
         <article className="profile-card-parent">
