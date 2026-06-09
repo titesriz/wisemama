@@ -259,37 +259,36 @@ export default function LessonTextView({
                 </button>
               </div>
             </div>
+            {showLessonPicker ? (
+              <div
+                className="lesson-picker-dropdown"
+                onClick={(event) => event.stopPropagation()}
+                onKeyDown={(event) => event.stopPropagation()}
+              >
+                {availableLessons.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className={`lesson-option ui-pressable ${item.id === lesson?.id ? 'active' : ''}`}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      setShowLessonPicker(false);
+                      onSelectLesson?.(item.id);
+                    }}
+                  >
+                    <div className="option-preview">
+                      {item.coverImage ? <img src={item.coverImage} alt="" /> : <span>📘</span>}
+                    </div>
+                    <div className="option-info">
+                      <strong>{item.order ? `${item.order}. ` : ''}{item.title || 'Lecon'}</strong>
+                      <span className="option-meta">{item.cards?.length || 0} cartes</span>
+                    </div>
+                    {item.id === lesson?.id ? <span className="checkmark">✓</span> : null}
+                  </button>
+                ))}
+              </div>
+            ) : null}
           </div>
-
-          {showLessonPicker ? (
-            <div
-              className="lesson-picker-dropdown"
-              onClick={(event) => event.stopPropagation()}
-              onKeyDown={(event) => event.stopPropagation()}
-            >
-              {availableLessons.map((item) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  className={`lesson-option ui-pressable ${item.id === lesson?.id ? 'active' : ''}`}
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    setShowLessonPicker(false);
-                    onSelectLesson?.(item.id);
-                  }}
-                >
-                  <div className="option-preview">
-                    {item.coverImage ? <img src={item.coverImage} alt="" /> : <span>📘</span>}
-                  </div>
-                  <div className="option-info">
-                    <strong>{item.order ? `${item.order}. ` : ''}{item.title || 'Lecon'}</strong>
-                    <span className="option-meta">{item.cards?.length || 0} cartes</span>
-                  </div>
-                  {item.id === lesson?.id ? <span className="checkmark">✓</span> : null}
-                </button>
-              ))}
-            </div>
-          ) : null}
 
           <div className="lesson-text-content">
           <section className="text-source-section">
