@@ -59,7 +59,7 @@ export default function FTUEFlow({ initialName = '', onComplete }) {
             <div className="ftue-screen in">
               <StepTitle
                 title="Et ton accompagnant ?"
-                subtitle="Le prenom de la personne qui t aide (laisse tel quel si c est Maman)."
+                subtitle="Le prénom de la personne qui t'aide (laisse tel quel si c'est Maman)."
               />
               <input
                 className="ftue-input"

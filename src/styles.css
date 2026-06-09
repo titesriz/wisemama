@@ -437,6 +437,34 @@ body {
   color: #f4fffe;
 }
 
+.landing-refresh-link-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 8px 0 4px;
+}
+
+.landing-refresh-link {
+  background: none;
+  border: none;
+  color: #a0aab8;
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  padding: 4px;
+}
+
+.landing-refresh-link:hover {
+  color: #636e72;
+}
+
+.landing-refresh-status {
+  font-size: 12px;
+  color: #00b894;
+}
+
 .manage-button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
@@ -2224,6 +2252,7 @@ body {
   overflow: hidden;
   display: grid;
   font-family: Inter, 'Segoe UI', sans-serif;
+  contain: layout size;
 }
 
 .writing-screen-embedded {
@@ -2851,6 +2880,15 @@ body {
   gap: 16px;
   align-items: center;
   padding: 12px 18px;
+  min-height: 0;
+  flex-shrink: 0;
+}
+
+.writing-action-buttons {
+  display: grid;
+  gap: 12px;
+  flex-shrink: 0;
+  align-self: start;
 }
 
 .writing-canvas-container {
@@ -2925,11 +2963,6 @@ body {
 
 .writing-guide-grid span:nth-child(3) {
   display: none;
-}
-
-.writing-action-buttons {
-  display: grid;
-  gap: 12px;
 }
 
 .writing-action-btn {
@@ -3136,7 +3169,16 @@ body {
   padding: 6px 0 0;
   overflow: visible;
   display: grid;
-  gap: 18px;
+  gap: 12px;
+  width: 100%;
+}
+
+.lesson-section-marker {
+  font-size: 13px;
+  font-weight: 700;
+  color: #a0aab8;
+  letter-spacing: 0.03em;
+  margin-bottom: 4px;
 }
 
 .writing-header-shell {
@@ -3178,7 +3220,7 @@ body {
   grid-template-columns: 1fr auto;
   column-gap: 14px;
   align-items: flex-start;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
 .sentence-line:last-child {
@@ -4637,7 +4679,7 @@ body {
   font-weight: 900;
   padding: 0 10px;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 22px;
 }
 
 .lesson-picker-dropdown {

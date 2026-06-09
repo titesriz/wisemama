@@ -298,7 +298,7 @@ export default function LessonTextView({
           </div>
 
           <section className="text-source-section">
-            <h2>📖 Texte de la lecon</h2>
+            <div className="lesson-section-marker">① Lis la leçon</div>
             <div className="text-display">
               {sentences.map((sentence, sentenceIndex) => (
                 <div key={`${sentence}-${sentenceIndex}`} className="sentence-line">
@@ -371,7 +371,7 @@ export default function LessonTextView({
           </div>
 
           <section className="vocabulary-section lesson-text-vocab">
-            <h2>📚 Selectionne les caractères à apprendre</h2>
+            <div className="lesson-section-marker">② Entraîne-toi à écrire</div>
             <div className="vocabulary-grid lesson-text-vocab-list">
               {vocabulary.map((item) => (
                 <button

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import WritingPractice from './WritingPractice.jsx';
 
 export default function WritingOnlyPage({
@@ -20,6 +19,7 @@ export default function WritingOnlyPage({
   onOpenRadical,
   onSuccess,
   onJourneyRestart,
+  onSessionComplete,
 }) {
   const [showEndScreen, setShowEndScreen] = useState(false);
 
@@ -34,7 +34,7 @@ export default function WritingOnlyPage({
 
   const handleNext = () => {
     if (isLastJourneyCard) {
-      setShowEndScreen(true);
+      onSessionComplete?.();
     } else {
       onNext?.();
     }
@@ -47,32 +47,6 @@ export default function WritingOnlyPage({
         <button type="button" className="button secondary" onClick={onBack}>
           Retour
         </button>
-      </section>
-    );
-  }
-
-  if (showEndScreen) {
-    return (
-      <section className="writing-only-page writing-end-screen">
-        <div className="writing-end-actions">
-          <button
-            type="button"
-            className="button"
-            onClick={() => {
-              setShowEndScreen(false);
-              onJourneyRestart?.();
-            }}
-          >
-            Recommencer
-          </button>
-          <button
-            type="button"
-            className="button secondary"
-            onClick={onBack}
-          >
-            Retour à la leçon
-          </button>
-        </div>
       </section>
     );
   }

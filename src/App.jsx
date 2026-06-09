@@ -294,6 +294,20 @@ export default function App() {
     setCardIndex((prev) => (prev - 1 + totalCards) % totalCards);
   };
 
+  const handleWritingSessionComplete = () => {
+    const currentIndex = lessonOptions.findIndex((l) => l.id === activeLessonId);
+    const nextLesson = lessonOptions[currentIndex + 1];
+    if (nextLesson) {
+      setActiveLesson(nextLesson.id);
+      setCardIndex(0);
+    }
+    setStandaloneView(STANDALONE_VIEW.NONE);
+    setLessonJourneyQueue([]);
+    setLessonJourneyPosition(0);
+    setReturnToLessonText(false);
+    setEnteredApp(false);
+  };
+
   const handleWritingSuccess = (mistakes) => {
     if (!activeLesson || !currentCard || !currentProfileKey) return;
 
@@ -718,6 +732,7 @@ export default function App() {
         onPrev={returnToLessonText ? goPrevInLessonJourney : goPrev}
         onNext={returnToLessonText ? goNextInLessonJourney : goNext}
         onSuccess={handleWritingSuccess}
+        onSessionComplete={handleWritingSessionComplete}
         onJourneyRestart={() => {
           setLessonJourneyPosition(0);
           setCardIndex(lessonJourneyQueue[0] ?? 0);

@@ -6,6 +6,7 @@ import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
 import { getParentModel } from '../lib/audioStore.js';
 import { findCharacterStructure } from '../lib/characterStructure.js';
 import { getTopLevelComponents } from '../lib/characterDecomposition.js';
+import { isDevMode } from '../config.js';
 
 function createStaticCharDataLoader(data) {
   return (_char, onLoad) => {
@@ -464,8 +465,8 @@ export default function WritingPractice({
   }, [lessonId, card?.id, card?.audioUrl]);
 
   useEffect(() => {
-    setShowCharInfo(false);
-  }, [lessonId, card?.id, hanzi]);
+    setShowCharInfo(writingDifficulty === 1);
+  }, [lessonId, card?.id, hanzi, writingDifficulty]);
 
   const profileLabel = profile?.role === 'parent' ? 'Parent' : 'Kid';
   const availableLessons = lessons.length ? lessons : [{ id: lessonId || 'current', title: lessonTitle || 'Lecon', cards: [] }];
@@ -605,7 +606,7 @@ export default function WritingPractice({
             <span>{card?.french || ''}</span>
             <small>{card?.english || ''}</small>
           </div>
-          {!isRadicalMode && onOpenRadical ? (
+          {isDevMode && !isRadicalMode && onOpenRadical ? (
             <button
               type="button"
               className="writing-meta-btn ui-pressable"
@@ -639,14 +640,16 @@ export default function WritingPractice({
           >
             Fiche
           </button>
-          <button
-            type="button"
-            className="writing-sound-btn ui-pressable"
-            onClick={playCardAudio}
-            disabled={!audioSrc}
-          >
-            Son
-          </button>
+          {isDevMode ? (
+            <button
+              type="button"
+              className="writing-sound-btn ui-pressable"
+              onClick={playCardAudio}
+              disabled={!audioSrc}
+            >
+              Son
+            </button>
+          ) : null}
           {audioSrc ? <audio ref={audioRef} src={audioSrc} preload="auto" /> : null}
         </div>
       ) : null}
@@ -823,8 +826,8 @@ export default function WritingPractice({
             <small>Modele</small>
           </button>
           <button type="button" className="writing-action-btn ui-pressable" onClick={clearCanvas}>
-            <span>Reset</span>
-            <small>Effacer</small>
+            <span>↺</span>
+            <small>Recommencer</small>
           </button>
         </div>
       </div>
@@ -840,7 +843,7 @@ export default function WritingPractice({
               {Math.max(1, cardIndex + 1)}/{Math.max(1, totalCards)}
             </div>
             <button type="button" className="writing-nav-btn ui-pressable" onClick={onNext}>
-              Suiv ►
+              {cardIndex + 1 >= totalCards ? 'Terminer ✓' : 'Suiv ►'}
             </button>
           </div>
         </>

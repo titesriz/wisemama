@@ -190,10 +190,10 @@ export default function LandingPage({
               </button>
             </>
           ) : null}
-          <div className="parent-tools-row">
+          <div className="landing-refresh-link-row">
             <button
               type="button"
-              className="manage-button manage-button-secondary"
+              className="landing-refresh-link"
               onClick={() => {
                 const ok = onRefreshLessons?.();
                 setRefreshStatus(ok ? 'Leçons mises à jour.' : 'Mise à jour indisponible.');
@@ -201,9 +201,8 @@ export default function LandingPage({
             >
               Mettre à jour les leçons
             </button>
-            <p className="parent-refresh-hint">Appuie ici si le professeur a mis à jour le contenu.</p>
+            {refreshStatus ? <span className="landing-refresh-status">{refreshStatus}</span> : null}
           </div>
-          {refreshStatus ? <p className="parent-refresh-status">{refreshStatus}</p> : null}
         </article>
       </div>
     </section>
