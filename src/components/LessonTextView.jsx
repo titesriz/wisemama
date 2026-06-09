@@ -368,7 +368,9 @@ export default function LessonTextView({
             <div className="vocab-section-header">
               <span className="lesson-section-marker">② Entraîne-toi à écrire</span>
               <span className="vocab-count">
-                {selectedVocabulary.length} caractère{selectedVocabulary.length !== 1 ? 's' : ''} sélectionné{selectedVocabulary.length !== 1 ? 's' : ''}
+                {selectedVocabulary.length === 0
+                  ? 'Sélectionne au moins 1 caractère'
+                  : `${selectedVocabulary.length} caractère${selectedVocabulary.length !== 1 ? 's' : ''} sélectionné${selectedVocabulary.length !== 1 ? 's' : ''}`}
               </span>
               <div className="vocab-difficulty-btns">
                 <button
