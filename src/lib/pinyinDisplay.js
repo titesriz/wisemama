@@ -19,7 +19,7 @@ function normalizeUmlaut(value = '') {
 
 function applyToneToSyllable(syllableRaw, toneNumberRaw) {
   const toneNumber = Number(toneNumberRaw);
-  if (!toneNumber || toneNumber < 1 || toneNumber > 5) return `${syllableRaw}${toneNumberRaw}`;
+  if (!toneNumber || toneNumber < 1 || toneNumber > 5) return normalizeUmlaut(syllableRaw);
   if (hasToneMark(syllableRaw)) return syllableRaw;
 
   const syllable = normalizeUmlaut(syllableRaw);
