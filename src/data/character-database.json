@@ -4490,5 +4490,22 @@
     "relatedWords": [],
     "createdDate": "2026-06-10T09:26:23.183Z",
     "lastUpdated": "2026-06-10T09:26:23.183Z"
+  },
+  "米": {
+    "hanzi": "米",
+    "pinyin": "mi3",
+    "pinyinNumbered": "mi3",
+    "french": "riz; mètre",
+    "english": "rice; meter",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1781103536062-5bis",
+    "firstSeenDate": "2026-06-10T14:58:56.062Z",
+    "appearsInLessons": [
+      "lesson-1781103536062-5bis"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-06-10T14:58:56.062Z",
+    "lastUpdated": "2026-06-10T14:58:56.062Z"
   }
 }
