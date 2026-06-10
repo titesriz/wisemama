@@ -1,4 +1,5 @@
 {
   "buildCommand": "npm run build:share",
-  "outputDirectory": "dist"
+  "outputDirectory": "dist",
+  "github": { "productionBranch": "deploy" }
 }
