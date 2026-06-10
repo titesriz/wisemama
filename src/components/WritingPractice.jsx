@@ -773,9 +773,9 @@ export default function WritingPractice({
         </section>
       ) : null}
 
-      {!isRadicalMode && showStrokeArrows && strokePreviewSteps.length ? (
+      {!isRadicalMode ? (
         <div className="stroke-preview-band">
-          {strokePreviewSteps.map((step) => (
+          {showStrokeArrows && strokePreviewSteps.length ? strokePreviewSteps.map((step) => (
             <div key={step.index} className="radical-stroke-step">
               <div className="radical-stroke-step-count">{step.index + 1}</div>
               <svg viewBox="0 0 92 92" className="radical-stroke-step-canvas" aria-label={`Trait ${step.index + 1}`}>
@@ -796,7 +796,7 @@ export default function WritingPractice({
                 </g>
               </svg>
             </div>
-          ))}
+          )) : null}
         </div>
       ) : null}
 

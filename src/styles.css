@@ -2912,11 +2912,13 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
+  align-items: center;
   gap: 8px;
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   padding: 10px 18px;
+  min-height: calc(92px + 20px);
   background: #f9fafb;
   border-top: 1px solid #e7ebf2;
   border-bottom: 1px solid #e7ebf2;
