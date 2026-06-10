@@ -855,7 +855,7 @@ export default function WritingPractice({
             disabled={!strokePreviewSteps.length}
           >
             <span>✍️</span>
-            <small>Strokes</small>
+            <small>Traits</small>
           </button>
         </div>
       </div>
