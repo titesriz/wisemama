@@ -825,28 +825,6 @@ export default function WritingPractice({
         <div className="writing-action-buttons">
           <button
             type="button"
-            className={`writing-action-btn ui-pressable ${showModel ? 'model-on' : ''}`}
-            onClick={() => setShowModel((prev) => !prev)}
-          >
-            <span>{showModel ? '🙈' : '👁'}</span>
-            <small>{showModel ? 'Cacher' : 'Montrer'}</small>
-          </button>
-          {writingDifficulty === 2 ? (
-            <button type="button" className="writing-action-btn ui-pressable" onClick={showHint}>
-              <span>💡</span>
-              <small>Hint</small>
-            </button>
-          ) : null}
-          <button type="button" className="writing-action-btn ui-pressable" onClick={showStrokeOrder}>
-            <span>Voir</span>
-            <small>Modele</small>
-          </button>
-          <button type="button" className="writing-action-btn ui-pressable" onClick={clearCanvas}>
-            <span>↺</span>
-            <small>Recommencer</small>
-          </button>
-          <button
-            type="button"
             className={`writing-action-btn ui-pressable ${showStrokeArrows ? 'active' : ''}`}
             onClick={() => {
               sounds.playTap();
@@ -854,9 +832,31 @@ export default function WritingPractice({
             }}
             disabled={!strokePreviewSteps.length}
           >
-            <span>✍️</span>
-            <small>Traits</small>
+            <span>✏️</span>
+            <small>Guide</small>
           </button>
+          <button
+            type="button"
+            className={`writing-action-btn ui-pressable ${showModel ? 'model-on' : ''}`}
+            onClick={() => setShowModel((prev) => !prev)}
+          >
+            <span>👁️</span>
+            <small>Modèle</small>
+          </button>
+          <button type="button" className="writing-action-btn ui-pressable" onClick={showStrokeOrder}>
+            <span>▶️</span>
+            <small>Animer</small>
+          </button>
+          <button type="button" className="writing-action-btn ui-pressable" onClick={clearCanvas}>
+            <span>🔄</span>
+            <small>Effacer</small>
+          </button>
+          {writingDifficulty === 2 ? (
+            <button type="button" className="writing-action-btn ui-pressable" onClick={showHint}>
+              <span>💡</span>
+              <small>Hint</small>
+            </button>
+          ) : null}
         </div>
       </div>
 
