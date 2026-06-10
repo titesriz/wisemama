@@ -4286,5 +4286,209 @@
     "relatedWords": [],
     "createdDate": "2026-06-09T13:23:01.667Z",
     "lastUpdated": "2026-06-09T13:23:01.667Z"
+  },
+  "这": {
+    "hanzi": "这",
+    "pinyin": "zhe4",
+    "pinyinNumbered": "zhe4",
+    "french": "ce; ceci",
+    "english": "this",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1781083583182-unif",
+    "firstSeenDate": "2026-06-10T09:26:23.183Z",
+    "appearsInLessons": [
+      "lesson-1781083583182-unif"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-06-10T09:26:23.183Z",
+    "lastUpdated": "2026-06-10T09:26:23.183Z"
+  },
+  "校": {
+    "hanzi": "校",
+    "pinyin": "xiao4",
+    "pinyinNumbered": "xiao4",
+    "french": "école",
+    "english": "school",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1781083583182-unif",
+    "firstSeenDate": "2026-06-10T09:26:23.183Z",
+    "appearsInLessons": [
+      "lesson-1781083583182-unif"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-06-10T09:26:23.183Z",
+    "lastUpdated": "2026-06-10T09:26:23.183Z"
+  },
+  "服": {
+    "hanzi": "服",
+    "pinyin": "fu2",
+    "pinyinNumbered": "fu2",
+    "french": "vêtement; uniforme",
+    "english": "clothing; uniform",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1781083583182-unif",
+    "firstSeenDate": "2026-06-10T09:26:23.183Z",
+    "appearsInLessons": [
+      "lesson-1781083583182-unif"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-06-10T09:26:23.183Z",
+    "lastUpdated": "2026-06-10T09:26:23.183Z"
+  },
+  "女": {
+    "hanzi": "女",
+    "pinyin": "nv3",
+    "pinyinNumbered": "nv3",
+    "french": "fille; femme",
+    "english": "girl; woman; female",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1781083583182-unif",
+    "firstSeenDate": "2026-06-10T09:26:23.183Z",
+    "appearsInLessons": [
+      "lesson-1781083583182-unif"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-06-10T09:26:23.183Z",
+    "lastUpdated": "2026-06-10T09:26:23.183Z"
+  },
+  "生": {
+    "hanzi": "生",
+    "pinyin": "sheng1",
+    "pinyinNumbered": "sheng1",
+    "french": "élève; vivre",
+    "english": "student; life",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1781083583182-unif",
+    "firstSeenDate": "2026-06-10T09:26:23.183Z",
+    "appearsInLessons": [
+      "lesson-1781083583182-unif"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-06-10T09:26:23.183Z",
+    "lastUpdated": "2026-06-10T09:26:23.183Z"
+  },
+  "穿": {
+    "hanzi": "穿",
+    "pinyin": "chuan1",
+    "pinyinNumbered": "chuan1",
+    "french": "porter (vêtement)",
+    "english": "to wear",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1781083583182-unif",
+    "firstSeenDate": "2026-06-10T09:26:23.183Z",
+    "appearsInLessons": [
+      "lesson-1781083583182-unif"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-06-10T09:26:23.183Z",
+    "lastUpdated": "2026-06-10T09:26:23.183Z"
+  },
+  "衬": {
+    "hanzi": "衬",
+    "pinyin": "chen4",
+    "pinyinNumbered": "chen4",
+    "french": "chemise (composant)",
+    "english": "shirt (component)",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1781083583182-unif",
+    "firstSeenDate": "2026-06-10T09:26:23.183Z",
+    "appearsInLessons": [
+      "lesson-1781083583182-unif"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-06-10T09:26:23.183Z",
+    "lastUpdated": "2026-06-10T09:26:23.183Z"
+  },
+  "衫": {
+    "hanzi": "衫",
+    "pinyin": "shan1",
+    "pinyinNumbered": "shan1",
+    "french": "chemise; haut",
+    "english": "shirt; top",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1781083583182-unif",
+    "firstSeenDate": "2026-06-10T09:26:23.183Z",
+    "appearsInLessons": [
+      "lesson-1781083583182-unif"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-06-10T09:26:23.183Z",
+    "lastUpdated": "2026-06-10T09:26:23.183Z"
+  },
+  "裙": {
+    "hanzi": "裙",
+    "pinyin": "qun2",
+    "pinyinNumbered": "qun2",
+    "french": "jupe",
+    "english": "skirt",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1781083583182-unif",
+    "firstSeenDate": "2026-06-10T09:26:23.183Z",
+    "appearsInLessons": [
+      "lesson-1781083583182-unif"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-06-10T09:26:23.183Z",
+    "lastUpdated": "2026-06-10T09:26:23.183Z"
+  },
+  "子": {
+    "hanzi": "子",
+    "pinyin": "zi5",
+    "pinyinNumbered": "zi5",
+    "french": "enfant; suffixe",
+    "english": "child; suffix",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1781083583182-unif",
+    "firstSeenDate": "2026-06-10T09:26:23.183Z",
+    "appearsInLessons": [
+      "lesson-1781083583182-unif"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-06-10T09:26:23.183Z",
+    "lastUpdated": "2026-06-10T09:26:23.183Z"
+  },
+  "男": {
+    "hanzi": "男",
+    "pinyin": "nan2",
+    "pinyinNumbered": "nan2",
+    "french": "garçon; homme",
+    "english": "boy; man; male",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1781083583182-unif",
+    "firstSeenDate": "2026-06-10T09:26:23.183Z",
+    "appearsInLessons": [
+      "lesson-1781083583182-unif"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-06-10T09:26:23.183Z",
+    "lastUpdated": "2026-06-10T09:26:23.183Z"
+  },
+  "裤": {
+    "hanzi": "裤",
+    "pinyin": "ku4",
+    "pinyinNumbered": "ku4",
+    "french": "pantalon",
+    "english": "trousers; pants",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1781083583182-unif",
+    "firstSeenDate": "2026-06-10T09:26:23.183Z",
+    "appearsInLessons": [
+      "lesson-1781083583182-unif"
+    ],
+    "relatedWords": [],
+    "createdDate": "2026-06-10T09:26:23.183Z",
+    "lastUpdated": "2026-06-10T09:26:23.183Z"
   }
 }
