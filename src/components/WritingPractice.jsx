@@ -141,7 +141,7 @@ export default function WritingPractice({
   const [audioSrc, setAudioSrc] = useState('');
   const [fullCharData, setFullCharData] = useState(null);
   const [componentStepIndex, setComponentStepIndex] = useState(0);
-  const [showStrokeArrows, setShowStrokeArrows] = useState(false);
+  const [showStrokeArrows, setShowStrokeArrows] = useState(writingDifficulty === 1);
   const [showWorksheet, setShowWorksheet] = useState(false);
   const [worksheetSize, setWorksheetSize] = useState('medium');
   const sounds = useUiSounds();
@@ -263,6 +263,7 @@ export default function WritingPractice({
   useEffect(() => {
     setShowModel(writingDifficulty === 1);
     setShowCharInfo(writingDifficulty <= 2);
+    setShowStrokeArrows(writingDifficulty === 1);
   }, [lessonId, card?.id, hanzi, writingDifficulty]);
 
   useEffect(() => {
