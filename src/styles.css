@@ -2751,6 +2751,18 @@ body {
   display: block;
 }
 
+.radical-stroke-step-current .radical-stroke-step-count {
+  background: #ff6b6b;
+  color: #fff;
+  transform: scale(1.12);
+  transition: transform 120ms ease, background 120ms ease;
+}
+
+.radical-stroke-step-current .radical-stroke-step-canvas {
+  border-radius: 14px;
+  box-shadow: 0 0 0 3px #ff6b6b;
+}
+
 .worksheet-modal {
   width: min(980px, 100%);
   padding: 18px;

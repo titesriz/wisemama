@@ -1,0 +1,54 @@
+.char-gloss {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.char-gloss:not(.char-gloss-hover):hover {
+  background: rgba(78, 205, 196, 0.12);
+}
+
+.char-gloss-inert {
+  opacity: 0.55;
+}
+
+.char-gloss-popover {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 6px);
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 110px;
+  max-width: 220px;
+  padding: 8px 12px;
+  border-radius: var(--wm-radius-sm, 12px);
+  background: var(--accent-indigo, #1f2a5a);
+  color: #fff;
+  font-size: 0.8rem;
+  line-height: 1.25;
+  box-shadow: var(--wm-shadow-card, 0 8px 24px rgba(45, 52, 54, 0.12));
+  z-index: 20;
+  pointer-events: none;
+  white-space: normal;
+}
+
+.char-gloss-popover strong {
+  color: #ffd89e;
+  font-size: 0.85rem;
+}
+
+.char-gloss-hover .char-gloss-popover {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--wm-motion-fast, 120ms) ease;
+}
+
+.char-gloss-hover:hover .char-gloss-popover,
+.char-gloss-hover:focus-within .char-gloss-popover,
+.char-gloss-hover.char-gloss-tapped .char-gloss-popover {
+  opacity: 1;
+  visibility: visible;
+}

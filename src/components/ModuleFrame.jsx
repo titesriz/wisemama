@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import AvatarRenderer from './AvatarRenderer.jsx';
 import { useUiSounds } from '../hooks/useUiSounds.js';
+import { useSwipeNav } from '../hooks/useSwipeNav.js';
 import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
 import { getParentModel } from '../lib/audioStore.js';
 
@@ -19,9 +20,12 @@ export default function ModuleFrame({
   onPrev,
   onNext,
   onSwitchModule,
+  modes = ['flashcards', 'audio', 'writing'],
+  onOpenPicker,
   children,
 }) {
   const sounds = useUiSounds();
+  const swipeHandlers = useSwipeNav(onPrev, onNext);
   const audioRef = useRef(null);
   const [audioSrc, setAudioSrc] = useState('');
   const [showLessonPicker, setShowLessonPicker] = useState(false);
@@ -68,7 +72,7 @@ export default function ModuleFrame({
   }, [lessonId, card?.id, card?.audioUrl]);
 
   return (
-    <section className="writing-screen module-screen" aria-label="Module harmonise">
+    <section className="writing-screen module-screen" aria-label="Module harmonise" {...swipeHandlers}>
       <div className="writing-top-banner">
         <button
           type="button"
@@ -96,7 +100,11 @@ export default function ModuleFrame({
           className="writing-lesson-selector ui-pressable"
           onClick={() => {
             sounds.playTap();
-            setShowLessonPicker((prev) => !prev);
+            if (onOpenPicker) {
+              onOpenPicker();
+            } else {
+              setShowLessonPicker((prev) => !prev);
+            }
           }}
         >
           {lessonTitle || 'Lecon'}
@@ -168,39 +176,45 @@ export default function ModuleFrame({
       </div>
 
       <div className="writing-mode-selector">
-        <button
-          type="button"
-          className={`writing-mode-btn ui-pressable ${activeModule === 'flashcards' ? 'active' : ''}`}
-          onClick={() => {
-            sounds.playTap();
-            onSwitchModule?.('flashcards');
-          }}
-          disabled={activeModule === 'flashcards'}
-        >
-          Lire
-        </button>
-        <button
-          type="button"
-          className={`writing-mode-btn ui-pressable ${activeModule === 'audio' ? 'active' : ''}`}
-          onClick={() => {
-            sounds.playTap();
-            onSwitchModule?.('audio');
-          }}
-          disabled={activeModule === 'audio'}
-        >
-          Parler
-        </button>
-        <button
-          type="button"
-          className={`writing-mode-btn ui-pressable ${activeModule === 'writing' ? 'active' : ''}`}
-          onClick={() => {
-            sounds.playTap();
-            onSwitchModule?.('writing');
-          }}
-          disabled={activeModule === 'writing'}
-        >
-          Ecrire
-        </button>
+        {modes.includes('flashcards') ? (
+          <button
+            type="button"
+            className={`writing-mode-btn ui-pressable ${activeModule === 'flashcards' ? 'active' : ''}`}
+            onClick={() => {
+              sounds.playTap();
+              onSwitchModule?.('flashcards');
+            }}
+            disabled={activeModule === 'flashcards'}
+          >
+            Lire
+          </button>
+        ) : null}
+        {modes.includes('audio') ? (
+          <button
+            type="button"
+            className={`writing-mode-btn ui-pressable ${activeModule === 'audio' ? 'active' : ''}`}
+            onClick={() => {
+              sounds.playTap();
+              onSwitchModule?.('audio');
+            }}
+            disabled={activeModule === 'audio'}
+          >
+            Parler
+          </button>
+        ) : null}
+        {modes.includes('writing') ? (
+          <button
+            type="button"
+            className={`writing-mode-btn ui-pressable ${activeModule === 'writing' ? 'active' : ''}`}
+            onClick={() => {
+              sounds.playTap();
+              onSwitchModule?.('writing');
+            }}
+            disabled={activeModule === 'writing'}
+          >
+            Ecrire
+          </button>
+        ) : null}
       </div>
     </section>
   );

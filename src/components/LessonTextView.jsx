@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import AvatarRenderer from './AvatarRenderer.jsx';
+import CharacterGlossChar from './CharacterGlossChar.jsx';
 import '../styles/radical-discovery.css';
 import { formatPinyinDisplay, extractToneAccent } from '../lib/pinyinDisplay.js';
 import { segmentLessonText } from '../lib/lessonTextSegmentation.js';
@@ -353,7 +354,12 @@ export default function LessonTextView({
                           <span className={`char-pinyin-slot${toneClass}`}>
                             {pinyinSlot}
                           </span>
-                          <span className="char-hanzi">{char}</span>
+                          <CharacterGlossChar
+                            char={char}
+                            entry={{ pinyin: card.pinyin, french: card.french, english: card.english }}
+                            trigger="hover"
+                            className="char-hanzi"
+                          />
                         </span>
                       );
                     })}

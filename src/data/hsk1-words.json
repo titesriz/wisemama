@@ -1,0 +1,4050 @@
+[
+  {
+    "id": "爱",
+    "hanzi": "爱",
+    "pinyin": "ài",
+    "english": "to love; to be fond of; to like",
+    "french": "aimer",
+    "hskLevel": 1
+  },
+  {
+    "id": "八",
+    "hanzi": "八",
+    "pinyin": "bā",
+    "english": "eight; 8",
+    "french": "huit",
+    "hskLevel": 1
+  },
+  {
+    "id": "爸",
+    "hanzi": "爸",
+    "pinyin": "bà",
+    "english": "father",
+    "french": "papa",
+    "hskLevel": 1
+  },
+  {
+    "id": "爸爸",
+    "hanzi": "爸爸",
+    "pinyin": "bà ba",
+    "english": "(coll.) father; dad",
+    "french": "papa",
+    "hskLevel": 1
+  },
+  {
+    "id": "吧",
+    "hanzi": "吧",
+    "pinyin": "ba",
+    "english": "(sentence-final particle of suggestion)",
+    "french": "(particule de suggestion)",
+    "hskLevel": 1
+  },
+  {
+    "id": "白",
+    "hanzi": "白",
+    "pinyin": "bái",
+    "english": "white",
+    "french": "blanc",
+    "hskLevel": 1
+  },
+  {
+    "id": "百",
+    "hanzi": "百",
+    "pinyin": "bǎi",
+    "english": "hundred",
+    "french": "cent",
+    "hskLevel": 1
+  },
+  {
+    "id": "班",
+    "hanzi": "班",
+    "pinyin": "bān",
+    "english": "class (of students)",
+    "french": "classe",
+    "hskLevel": 1
+  },
+  {
+    "id": "半",
+    "hanzi": "半",
+    "pinyin": "bàn",
+    "english": "half",
+    "french": "demi; moitié",
+    "hskLevel": 1
+  },
+  {
+    "id": "帮",
+    "hanzi": "帮",
+    "pinyin": "bāng",
+    "english": "to help",
+    "french": "aider",
+    "hskLevel": 1
+  },
+  {
+    "id": "包",
+    "hanzi": "包",
+    "pinyin": "bāo",
+    "english": "to wrap; package; bag",
+    "french": "sac; emballer",
+    "hskLevel": 1
+  },
+  {
+    "id": "杯",
+    "hanzi": "杯",
+    "pinyin": "bēi",
+    "english": "cup",
+    "french": "tasse",
+    "hskLevel": 1
+  },
+  {
+    "id": "北",
+    "hanzi": "北",
+    "pinyin": "běi",
+    "english": "north",
+    "french": "nord",
+    "hskLevel": 1
+  },
+  {
+    "id": "北边",
+    "hanzi": "北边",
+    "pinyin": "běi biān",
+    "english": "north",
+    "french": "côté nord",
+    "hskLevel": 1
+  },
+  {
+    "id": "北京",
+    "hanzi": "北京",
+    "pinyin": "Běi jīng",
+    "english": "Beijing, capital of the People's Republic of China",
+    "french": "Pékin",
+    "hskLevel": 1
+  },
+  {
+    "id": "本",
+    "hanzi": "本",
+    "pinyin": "běn",
+    "english": "root",
+    "french": "(classificateur pour livres)",
+    "hskLevel": 1
+  },
+  {
+    "id": "比",
+    "hanzi": "比",
+    "pinyin": "bǐ",
+    "english": "to compare",
+    "french": "comparer",
+    "hskLevel": 1
+  },
+  {
+    "id": "别",
+    "hanzi": "别",
+    "pinyin": "bié",
+    "english": "don't; other",
+    "french": "ne pas (impératif); autre",
+    "hskLevel": 1
+  },
+  {
+    "id": "病",
+    "hanzi": "病",
+    "pinyin": "bìng",
+    "english": "illness",
+    "french": "maladie",
+    "hskLevel": 1
+  },
+  {
+    "id": "不",
+    "hanzi": "不",
+    "pinyin": "bù",
+    "english": "no; not so",
+    "french": "ne...pas; non",
+    "hskLevel": 1
+  },
+  {
+    "id": "不客气",
+    "hanzi": "不客气",
+    "pinyin": "bù kè qi",
+    "english": "you're welcome",
+    "french": "de rien; je t'en prie",
+    "hskLevel": 1
+  },
+  {
+    "id": "菜",
+    "hanzi": "菜",
+    "pinyin": "cài",
+    "english": "dish (type of food)",
+    "french": "plat; légume",
+    "hskLevel": 1
+  },
+  {
+    "id": "茶",
+    "hanzi": "茶",
+    "pinyin": "chá",
+    "english": "tea",
+    "french": "thé",
+    "hskLevel": 1
+  },
+  {
+    "id": "差",
+    "hanzi": "差",
+    "pinyin": "chā",
+    "english": "difference; discrepancy",
+    "french": "différence; écart",
+    "hskLevel": 1
+  },
+  {
+    "id": "常",
+    "hanzi": "常",
+    "pinyin": "cháng",
+    "english": "often; frequently",
+    "french": "souvent",
+    "hskLevel": 1
+  },
+  {
+    "id": "常常",
+    "hanzi": "常常",
+    "pinyin": "cháng cháng",
+    "english": "frequently",
+    "french": "souvent",
+    "hskLevel": 1
+  },
+  {
+    "id": "唱",
+    "hanzi": "唱",
+    "pinyin": "chàng",
+    "english": "to sing",
+    "french": "chanter",
+    "hskLevel": 1
+  },
+  {
+    "id": "车",
+    "hanzi": "车",
+    "pinyin": "chē",
+    "english": "car; vehicle",
+    "french": "voiture; véhicule",
+    "hskLevel": 1
+  },
+  {
+    "id": "吃",
+    "hanzi": "吃",
+    "pinyin": "chī",
+    "english": "to eat; to consume",
+    "french": "manger",
+    "hskLevel": 1
+  },
+  {
+    "id": "出",
+    "hanzi": "出",
+    "pinyin": "chū",
+    "english": "to go out",
+    "french": "sortir",
+    "hskLevel": 1
+  },
+  {
+    "id": "穿",
+    "hanzi": "穿",
+    "pinyin": "chuān",
+    "english": "to wear",
+    "french": "porter (un vêtement)",
+    "hskLevel": 1
+  },
+  {
+    "id": "床",
+    "hanzi": "床",
+    "pinyin": "chuáng",
+    "english": "bed",
+    "french": "lit",
+    "hskLevel": 1
+  },
+  {
+    "id": "次",
+    "hanzi": "次",
+    "pinyin": "cì",
+    "english": "next in sequence",
+    "french": "fois (classificateur)",
+    "hskLevel": 1
+  },
+  {
+    "id": "从",
+    "hanzi": "从",
+    "pinyin": "cóng",
+    "english": "from",
+    "french": "depuis; de",
+    "hskLevel": 1
+  },
+  {
+    "id": "错",
+    "hanzi": "错",
+    "pinyin": "cuò",
+    "english": "wrong; mistake",
+    "french": "faux; erreur",
+    "hskLevel": 1
+  },
+  {
+    "id": "打",
+    "hanzi": "打",
+    "pinyin": "dǎ",
+    "english": "to hit; to play (a sport); to make (a call)",
+    "french": "frapper; jouer à; faire (un appel)",
+    "hskLevel": 1
+  },
+  {
+    "id": "打车",
+    "hanzi": "打车",
+    "pinyin": "dǎ chē",
+    "english": "to take a taxi (in town)",
+    "french": "prendre un taxi",
+    "hskLevel": 1
+  },
+  {
+    "id": "大",
+    "hanzi": "大",
+    "pinyin": "dà",
+    "english": "big; large; great",
+    "french": "grand",
+    "hskLevel": 1
+  },
+  {
+    "id": "不大",
+    "hanzi": "不大",
+    "pinyin": "bù dà",
+    "english": "not very",
+    "french": "pas très",
+    "hskLevel": 1
+  },
+  {
+    "id": "到",
+    "hanzi": "到",
+    "pinyin": "dào",
+    "english": "to reach; to arrive",
+    "french": "arriver",
+    "hskLevel": 1
+  },
+  {
+    "id": "地",
+    "hanzi": "地",
+    "pinyin": "de",
+    "english": "(adverbial particle)",
+    "french": "(particule adverbiale)",
+    "hskLevel": 1
+  },
+  {
+    "id": "地方",
+    "hanzi": "地方",
+    "pinyin": "dì fāng",
+    "english": "region",
+    "french": "endroit; région",
+    "hskLevel": 1
+  },
+  {
+    "id": "地图",
+    "hanzi": "地图",
+    "pinyin": "dì tú",
+    "english": "map",
+    "french": "carte (géographique)",
+    "hskLevel": 1
+  },
+  {
+    "id": "的",
+    "hanzi": "的",
+    "pinyin": "de",
+    "english": "of; ~'s (possessive particle)",
+    "french": "(particule possessive)",
+    "hskLevel": 1
+  },
+  {
+    "id": "别的",
+    "hanzi": "别的",
+    "pinyin": "bié de",
+    "english": "else",
+    "french": "autre",
+    "hskLevel": 1
+  },
+  {
+    "id": "得到",
+    "hanzi": "得到",
+    "pinyin": "dé dào",
+    "english": "to get",
+    "french": "obtenir",
+    "hskLevel": 1
+  },
+  {
+    "id": "等",
+    "hanzi": "等",
+    "pinyin": "děng",
+    "english": "class",
+    "french": "attendre; classe",
+    "hskLevel": 1
+  },
+  {
+    "id": "弟",
+    "hanzi": "弟",
+    "pinyin": "dì",
+    "english": "younger brother",
+    "french": "petit frère",
+    "hskLevel": 1
+  },
+  {
+    "id": "弟弟",
+    "hanzi": "弟弟",
+    "pinyin": "dì di",
+    "english": "younger brother",
+    "french": "petit frère",
+    "hskLevel": 1
+  },
+  {
+    "id": "第",
+    "hanzi": "第",
+    "pinyin": "dì",
+    "english": "(prefix indicating ordinal number, as in 六 \"sixth\")",
+    "french": "(préfixe ordinal)",
+    "hskLevel": 1
+  },
+  {
+    "id": "点",
+    "hanzi": "点",
+    "pinyin": "diǎn",
+    "english": "point",
+    "french": "point; heure; un peu",
+    "hskLevel": 1
+  },
+  {
+    "id": "地点",
+    "hanzi": "地点",
+    "pinyin": "dì diǎn",
+    "english": "place",
+    "french": "lieu; endroit",
+    "hskLevel": 1
+  },
+  {
+    "id": "电",
+    "hanzi": "电",
+    "pinyin": "diàn",
+    "english": "electricity",
+    "french": "électricité",
+    "hskLevel": 1
+  },
+  {
+    "id": "电脑",
+    "hanzi": "电脑",
+    "pinyin": "diàn nǎo",
+    "english": "computer",
+    "french": "ordinateur",
+    "hskLevel": 1
+  },
+  {
+    "id": "电视",
+    "hanzi": "电视",
+    "pinyin": "diàn shì",
+    "english": "television; TV",
+    "french": "télévision",
+    "hskLevel": 1
+  },
+  {
+    "id": "电视机",
+    "hanzi": "电视机",
+    "pinyin": "diàn shì jī",
+    "english": "television set",
+    "french": "poste de télévision",
+    "hskLevel": 1
+  },
+  {
+    "id": "电影",
+    "hanzi": "电影",
+    "pinyin": "diàn yǐng",
+    "english": "movie; film",
+    "french": "film",
+    "hskLevel": 1
+  },
+  {
+    "id": "电影院",
+    "hanzi": "电影院",
+    "pinyin": "diàn yǐng yuàn",
+    "english": "cinema; movie theater",
+    "french": "cinéma",
+    "hskLevel": 1
+  },
+  {
+    "id": "东",
+    "hanzi": "东",
+    "pinyin": "dōng",
+    "english": "east",
+    "french": "est",
+    "hskLevel": 1
+  },
+  {
+    "id": "东边",
+    "hanzi": "东边",
+    "pinyin": "dōng bian",
+    "english": "east",
+    "french": "côté est",
+    "hskLevel": 1
+  },
+  {
+    "id": "动",
+    "hanzi": "动",
+    "pinyin": "dòng",
+    "english": "(of sth) to move",
+    "french": "bouger",
+    "hskLevel": 1
+  },
+  {
+    "id": "动作",
+    "hanzi": "动作",
+    "pinyin": "dòng zuò",
+    "english": "movement; motion; action",
+    "french": "mouvement; action",
+    "hskLevel": 1
+  },
+  {
+    "id": "都",
+    "hanzi": "都",
+    "pinyin": "dū",
+    "english": "all; both",
+    "french": "tout; tous",
+    "hskLevel": 1
+  },
+  {
+    "id": "读",
+    "hanzi": "读",
+    "pinyin": "dú",
+    "english": "to read",
+    "french": "lire",
+    "hskLevel": 1
+  },
+  {
+    "id": "对",
+    "hanzi": "对",
+    "pinyin": "duì",
+    "english": "right; correct",
+    "french": "correct; juste",
+    "hskLevel": 1
+  },
+  {
+    "id": "不对",
+    "hanzi": "不对",
+    "pinyin": "bù duì",
+    "english": "incorrect",
+    "french": "incorrect",
+    "hskLevel": 1
+  },
+  {
+    "id": "多",
+    "hanzi": "多",
+    "pinyin": "duō",
+    "english": "many; much",
+    "french": "beaucoup; nombreux",
+    "hskLevel": 1
+  },
+  {
+    "id": "饿",
+    "hanzi": "饿",
+    "pinyin": "è",
+    "english": "to be hungry",
+    "french": "avoir faim",
+    "hskLevel": 1
+  },
+  {
+    "id": "二",
+    "hanzi": "二",
+    "pinyin": "èr",
+    "english": "two",
+    "french": "deux",
+    "hskLevel": 1
+  },
+  {
+    "id": "第二",
+    "hanzi": "第二",
+    "pinyin": "dì èr",
+    "english": "second",
+    "french": "deuxième",
+    "hskLevel": 1
+  },
+  {
+    "id": "饭",
+    "hanzi": "饭",
+    "pinyin": "fàn",
+    "english": "cooked rice",
+    "french": "riz cuit; repas",
+    "hskLevel": 1
+  },
+  {
+    "id": "吃饭",
+    "hanzi": "吃饭",
+    "pinyin": "chī fàn",
+    "english": "to have a meal",
+    "french": "manger (un repas)",
+    "hskLevel": 1
+  },
+  {
+    "id": "饭店",
+    "hanzi": "饭店",
+    "pinyin": "fàn diàn",
+    "english": "restaurant",
+    "french": "restaurant",
+    "hskLevel": 1
+  },
+  {
+    "id": "放",
+    "hanzi": "放",
+    "pinyin": "fàng",
+    "english": "to put",
+    "french": "mettre; poser",
+    "hskLevel": 1
+  },
+  {
+    "id": "放假",
+    "hanzi": "放假",
+    "pinyin": "fàng jià",
+    "english": "to have a holiday or vacation",
+    "french": "être en vacances",
+    "hskLevel": 1
+  },
+  {
+    "id": "飞",
+    "hanzi": "飞",
+    "pinyin": "fēi",
+    "english": "to fly",
+    "french": "voler",
+    "hskLevel": 1
+  },
+  {
+    "id": "飞机",
+    "hanzi": "飞机",
+    "pinyin": "fēi jī",
+    "english": "airplane",
+    "french": "avion",
+    "hskLevel": 1
+  },
+  {
+    "id": "非常",
+    "hanzi": "非常",
+    "pinyin": "fēi cháng",
+    "english": "very; really",
+    "french": "très",
+    "hskLevel": 1
+  },
+  {
+    "id": "分",
+    "hanzi": "分",
+    "pinyin": "fēn",
+    "english": "to divide; to separate",
+    "french": "diviser; (minute)",
+    "hskLevel": 1
+  },
+  {
+    "id": "风",
+    "hanzi": "风",
+    "pinyin": "fēng",
+    "english": "wind",
+    "french": "vent",
+    "hskLevel": 1
+  },
+  {
+    "id": "干",
+    "hanzi": "干",
+    "pinyin": "gān",
+    "english": "dry",
+    "french": "sec",
+    "hskLevel": 1
+  },
+  {
+    "id": "干净",
+    "hanzi": "干净",
+    "pinyin": "gān jìng",
+    "english": "clean",
+    "french": "propre",
+    "hskLevel": 1
+  },
+  {
+    "id": "高",
+    "hanzi": "高",
+    "pinyin": "gāo",
+    "english": "tall; high",
+    "french": "grand; haut",
+    "hskLevel": 1
+  },
+  {
+    "id": "高兴",
+    "hanzi": "高兴",
+    "pinyin": "gāo xìng",
+    "english": "happy",
+    "french": "content; heureux",
+    "hskLevel": 1
+  },
+  {
+    "id": "告诉",
+    "hanzi": "告诉",
+    "pinyin": "gào sù",
+    "english": "to tell",
+    "french": "dire; informer",
+    "hskLevel": 1
+  },
+  {
+    "id": "哥",
+    "hanzi": "哥",
+    "pinyin": "gē",
+    "english": "elder brother",
+    "french": "grand frère",
+    "hskLevel": 1
+  },
+  {
+    "id": "哥哥",
+    "hanzi": "哥哥",
+    "pinyin": "gē ge",
+    "english": "older brother",
+    "french": "grand frère",
+    "hskLevel": 1
+  },
+  {
+    "id": "歌",
+    "hanzi": "歌",
+    "pinyin": "gē",
+    "english": "song",
+    "french": "chanson",
+    "hskLevel": 1
+  },
+  {
+    "id": "唱歌",
+    "hanzi": "唱歌",
+    "pinyin": "chàng gē",
+    "english": "to sing a song",
+    "french": "chanter (une chanson)",
+    "hskLevel": 1
+  },
+  {
+    "id": "个",
+    "hanzi": "个",
+    "pinyin": "gè",
+    "english": "(general measure word)",
+    "french": "(classificateur général)",
+    "hskLevel": 1
+  },
+  {
+    "id": "给",
+    "hanzi": "给",
+    "pinyin": "gěi",
+    "english": "to give; for",
+    "french": "donner; pour",
+    "hskLevel": 1
+  },
+  {
+    "id": "跟",
+    "hanzi": "跟",
+    "pinyin": "gēn",
+    "english": "with; to follow",
+    "french": "avec; suivre",
+    "hskLevel": 1
+  },
+  {
+    "id": "工作",
+    "hanzi": "工作",
+    "pinyin": "gōng zuò",
+    "english": "to work",
+    "french": "travailler; travail",
+    "hskLevel": 1
+  },
+  {
+    "id": "关",
+    "hanzi": "关",
+    "pinyin": "guān",
+    "english": "to close",
+    "french": "fermer",
+    "hskLevel": 1
+  },
+  {
+    "id": "贵",
+    "hanzi": "贵",
+    "pinyin": "guì",
+    "english": "expensive",
+    "french": "cher",
+    "hskLevel": 1
+  },
+  {
+    "id": "国",
+    "hanzi": "国",
+    "pinyin": "guó",
+    "english": "country",
+    "french": "pays",
+    "hskLevel": 1
+  },
+  {
+    "id": "过",
+    "hanzi": "过",
+    "pinyin": "guò",
+    "english": "to pass; to cross; (past-experience particle)",
+    "french": "passer; (particule d'expérience passée)",
+    "hskLevel": 1
+  },
+  {
+    "id": "还",
+    "hanzi": "还",
+    "pinyin": "hái",
+    "english": "still; also",
+    "french": "encore; aussi",
+    "hskLevel": 1
+  },
+  {
+    "id": "汉语",
+    "hanzi": "汉语",
+    "pinyin": "Hàn yǔ",
+    "english": "Chinese language",
+    "french": "chinois (langue)",
+    "hskLevel": 1
+  },
+  {
+    "id": "好",
+    "hanzi": "好",
+    "pinyin": "hǎo",
+    "english": "good",
+    "french": "bon; bien",
+    "hskLevel": 1
+  },
+  {
+    "id": "爱好",
+    "hanzi": "爱好",
+    "pinyin": "ài hào",
+    "english": "to like; to be fond of; to take pleasure in; to be keen on",
+    "french": "aimer; loisir",
+    "hskLevel": 1
+  },
+  {
+    "id": "好吃",
+    "hanzi": "好吃",
+    "pinyin": "hǎo chī",
+    "english": "tasty",
+    "french": "délicieux",
+    "hskLevel": 1
+  },
+  {
+    "id": "号",
+    "hanzi": "号",
+    "pinyin": "hào",
+    "english": "number; day (of the month)",
+    "french": "numéro; jour (du mois)",
+    "hskLevel": 1
+  },
+  {
+    "id": "喝",
+    "hanzi": "喝",
+    "pinyin": "hē",
+    "english": "to drink",
+    "french": "boire",
+    "hskLevel": 1
+  },
+  {
+    "id": "和",
+    "hanzi": "和",
+    "pinyin": "hé",
+    "english": "and; with",
+    "french": "et; avec",
+    "hskLevel": 1
+  },
+  {
+    "id": "很",
+    "hanzi": "很",
+    "pinyin": "hěn",
+    "english": "(adverb of degree)",
+    "french": "très",
+    "hskLevel": 1
+  },
+  {
+    "id": "后",
+    "hanzi": "后",
+    "pinyin": "hòu",
+    "english": "after; behind",
+    "french": "après; derrière",
+    "hskLevel": 1
+  },
+  {
+    "id": "后边",
+    "hanzi": "后边",
+    "pinyin": "hòu bian",
+    "english": "the back; the rear; the last bit",
+    "french": "derrière",
+    "hskLevel": 1
+  },
+  {
+    "id": "花",
+    "hanzi": "花",
+    "pinyin": "huā",
+    "english": "flower; to spend",
+    "french": "fleur; dépenser",
+    "hskLevel": 1
+  },
+  {
+    "id": "话",
+    "hanzi": "话",
+    "pinyin": "huà",
+    "english": "speech; words",
+    "french": "parole; mots",
+    "hskLevel": 1
+  },
+  {
+    "id": "电话",
+    "hanzi": "电话",
+    "pinyin": "diàn huà",
+    "english": "telephone",
+    "french": "téléphone",
+    "hskLevel": 1
+  },
+  {
+    "id": "打电话",
+    "hanzi": "打电话",
+    "pinyin": "dǎ diàn huà",
+    "english": "to make a telephone call",
+    "french": "téléphoner",
+    "hskLevel": 1
+  },
+  {
+    "id": "坏",
+    "hanzi": "坏",
+    "pinyin": "huài",
+    "english": "bad",
+    "french": "mauvais",
+    "hskLevel": 1
+  },
+  {
+    "id": "回",
+    "hanzi": "回",
+    "pinyin": "huí",
+    "english": "to return",
+    "french": "retourner",
+    "hskLevel": 1
+  },
+  {
+    "id": "回答",
+    "hanzi": "回答",
+    "pinyin": "huí dá",
+    "english": "to reply; to answer",
+    "french": "répondre",
+    "hskLevel": 1
+  },
+  {
+    "id": "回到",
+    "hanzi": "回到",
+    "pinyin": "huí dào",
+    "english": "to return to",
+    "french": "retourner à",
+    "hskLevel": 1
+  },
+  {
+    "id": "会",
+    "hanzi": "会",
+    "pinyin": "huì",
+    "english": "can; to have the skill; to know how to",
+    "french": "savoir (faire); pouvoir",
+    "hskLevel": 1
+  },
+  {
+    "id": "火车",
+    "hanzi": "火车",
+    "pinyin": "huǒ chē",
+    "english": "train",
+    "french": "train",
+    "hskLevel": 1
+  },
+  {
+    "id": "机场",
+    "hanzi": "机场",
+    "pinyin": "jī chǎng",
+    "english": "airport; airfield",
+    "french": "aéroport",
+    "hskLevel": 1
+  },
+  {
+    "id": "鸡蛋",
+    "hanzi": "鸡蛋",
+    "pinyin": "jī dàn",
+    "english": "(chicken) egg",
+    "french": "œuf",
+    "hskLevel": 1
+  },
+  {
+    "id": "几",
+    "hanzi": "几",
+    "pinyin": "jǐ",
+    "english": "how many; several",
+    "french": "combien; plusieurs",
+    "hskLevel": 1
+  },
+  {
+    "id": "记",
+    "hanzi": "记",
+    "pinyin": "jì",
+    "english": "to record",
+    "french": "noter",
+    "hskLevel": 1
+  },
+  {
+    "id": "记得",
+    "hanzi": "记得",
+    "pinyin": "jì de",
+    "english": "to remember",
+    "french": "se souvenir",
+    "hskLevel": 1
+  },
+  {
+    "id": "家",
+    "hanzi": "家",
+    "pinyin": "jiā",
+    "english": "home; family",
+    "french": "maison; famille",
+    "hskLevel": 1
+  },
+  {
+    "id": "国家",
+    "hanzi": "国家",
+    "pinyin": "guó jiā",
+    "english": "country; nation; state",
+    "french": "pays; nation",
+    "hskLevel": 1
+  },
+  {
+    "id": "回家",
+    "hanzi": "回家",
+    "pinyin": "huí jiā",
+    "english": "to return home",
+    "french": "rentrer à la maison",
+    "hskLevel": 1
+  },
+  {
+    "id": "间",
+    "hanzi": "间",
+    "pinyin": "jiān",
+    "english": "between",
+    "french": "entre; (classificateur pour pièces)",
+    "hskLevel": 1
+  },
+  {
+    "id": "房间",
+    "hanzi": "房间",
+    "pinyin": "fáng jiān",
+    "english": "room",
+    "french": "chambre; pièce",
+    "hskLevel": 1
+  },
+  {
+    "id": "见",
+    "hanzi": "见",
+    "pinyin": "jiàn",
+    "english": "to see",
+    "french": "voir",
+    "hskLevel": 1
+  },
+  {
+    "id": "见面",
+    "hanzi": "见面",
+    "pinyin": "jiàn miàn",
+    "english": "to meet; to see each other",
+    "french": "se rencontrer",
+    "hskLevel": 1
+  },
+  {
+    "id": "叫",
+    "hanzi": "叫",
+    "pinyin": "jiào",
+    "english": "to be called; to shout",
+    "french": "s'appeler; crier",
+    "hskLevel": 1
+  },
+  {
+    "id": "教",
+    "hanzi": "教",
+    "pinyin": "jiào",
+    "english": "to teach",
+    "french": "enseigner",
+    "hskLevel": 1
+  },
+  {
+    "id": "介绍",
+    "hanzi": "介绍",
+    "pinyin": "jiè shào",
+    "english": "to introduce (sb to sb)",
+    "french": "présenter",
+    "hskLevel": 1
+  },
+  {
+    "id": "姐",
+    "hanzi": "姐",
+    "pinyin": "jiě",
+    "english": "older sister",
+    "french": "grande sœur",
+    "hskLevel": 1
+  },
+  {
+    "id": "姐姐",
+    "hanzi": "姐姐",
+    "pinyin": "jiě jie",
+    "english": "older sister",
+    "french": "grande sœur",
+    "hskLevel": 1
+  },
+  {
+    "id": "进",
+    "hanzi": "进",
+    "pinyin": "jìn",
+    "english": "to go forward",
+    "french": "entrer",
+    "hskLevel": 1
+  },
+  {
+    "id": "九",
+    "hanzi": "九",
+    "pinyin": "jiǔ",
+    "english": "nine",
+    "french": "neuf",
+    "hskLevel": 1
+  },
+  {
+    "id": "就",
+    "hanzi": "就",
+    "pinyin": "jiù",
+    "english": "(after a suppositional clause) in that case; then",
+    "french": "alors; justement",
+    "hskLevel": 1
+  },
+  {
+    "id": "觉得",
+    "hanzi": "觉得",
+    "pinyin": "jué de",
+    "english": "to think that ...; to feel that ...",
+    "french": "penser que; trouver que",
+    "hskLevel": 1
+  },
+  {
+    "id": "开",
+    "hanzi": "开",
+    "pinyin": "kāi",
+    "english": "to open (transitive or intransitive)",
+    "french": "ouvrir",
+    "hskLevel": 1
+  },
+  {
+    "id": "打开",
+    "hanzi": "打开",
+    "pinyin": "dǎ kāi",
+    "english": "to open",
+    "french": "ouvrir",
+    "hskLevel": 1
+  },
+  {
+    "id": "开车",
+    "hanzi": "开车",
+    "pinyin": "kāi chē",
+    "english": "to drive a car",
+    "french": "conduire",
+    "hskLevel": 1
+  },
+  {
+    "id": "开会",
+    "hanzi": "开会",
+    "pinyin": "kāi huì",
+    "english": "to hold a meeting",
+    "french": "tenir une réunion",
+    "hskLevel": 1
+  },
+  {
+    "id": "看",
+    "hanzi": "看",
+    "pinyin": "kàn",
+    "english": "to look; to see; to watch",
+    "french": "regarder; voir",
+    "hskLevel": 1
+  },
+  {
+    "id": "好看",
+    "hanzi": "好看",
+    "pinyin": "hǎo kàn",
+    "english": "good-looking",
+    "french": "beau; joli",
+    "hskLevel": 1
+  },
+  {
+    "id": "看病",
+    "hanzi": "看病",
+    "pinyin": "kàn bìng",
+    "english": "to visit a doctor",
+    "french": "consulter un médecin",
+    "hskLevel": 1
+  },
+  {
+    "id": "看到",
+    "hanzi": "看到",
+    "pinyin": "kàn dào",
+    "english": "to see",
+    "french": "voir",
+    "hskLevel": 1
+  },
+  {
+    "id": "看见",
+    "hanzi": "看见",
+    "pinyin": "kàn jiàn",
+    "english": "to see",
+    "french": "voir",
+    "hskLevel": 1
+  },
+  {
+    "id": "考",
+    "hanzi": "考",
+    "pinyin": "kǎo",
+    "english": "to test; to take an exam",
+    "french": "passer un examen",
+    "hskLevel": 1
+  },
+  {
+    "id": "渴",
+    "hanzi": "渴",
+    "pinyin": "kě",
+    "english": "thirsty",
+    "french": "avoir soif",
+    "hskLevel": 1
+  },
+  {
+    "id": "课",
+    "hanzi": "课",
+    "pinyin": "kè",
+    "english": "subject",
+    "french": "cours; leçon",
+    "hskLevel": 1
+  },
+  {
+    "id": "课本",
+    "hanzi": "课本",
+    "pinyin": "kè běn",
+    "english": "textbook",
+    "french": "manuel scolaire",
+    "hskLevel": 1
+  },
+  {
+    "id": "课文",
+    "hanzi": "课文",
+    "pinyin": "kè wén",
+    "english": "text",
+    "french": "texte (de la leçon)",
+    "hskLevel": 1
+  },
+  {
+    "id": "口",
+    "hanzi": "口",
+    "pinyin": "kǒu",
+    "english": "mouth",
+    "french": "bouche",
+    "hskLevel": 1
+  },
+  {
+    "id": "块",
+    "hanzi": "块",
+    "pinyin": "kuài",
+    "english": "lump; chunk; piece",
+    "french": "morceau; (classificateur, yuan)",
+    "hskLevel": 1
+  },
+  {
+    "id": "快",
+    "hanzi": "快",
+    "pinyin": "kuài",
+    "english": "rapid",
+    "french": "rapide; vite",
+    "hskLevel": 1
+  },
+  {
+    "id": "来",
+    "hanzi": "来",
+    "pinyin": "lái",
+    "english": "to come",
+    "french": "venir",
+    "hskLevel": 1
+  },
+  {
+    "id": "出来",
+    "hanzi": "出来",
+    "pinyin": "chū lái",
+    "english": "to come out",
+    "french": "sortir",
+    "hskLevel": 1
+  },
+  {
+    "id": "回来",
+    "hanzi": "回来",
+    "pinyin": "huí lai",
+    "english": "to return; to come back",
+    "french": "revenir",
+    "hskLevel": 1
+  },
+  {
+    "id": "进来",
+    "hanzi": "进来",
+    "pinyin": "jìn lái",
+    "english": "to come in",
+    "french": "entrer",
+    "hskLevel": 1
+  },
+  {
+    "id": "来到",
+    "hanzi": "来到",
+    "pinyin": "lái dào",
+    "english": "to arrive; to come",
+    "french": "arriver",
+    "hskLevel": 1
+  },
+  {
+    "id": "老",
+    "hanzi": "老",
+    "pinyin": "lǎo",
+    "english": "prefix used before the surname of a person or a numeral indicating the order of birth of the children in a family or to indicate affection or familiarity",
+    "french": "vieux; (préfixe familier)",
+    "hskLevel": 1
+  },
+  {
+    "id": "老师",
+    "hanzi": "老师",
+    "pinyin": "lǎo shī",
+    "english": "teacher",
+    "french": "professeur; enseignant",
+    "hskLevel": 1
+  },
+  {
+    "id": "了",
+    "hanzi": "了",
+    "pinyin": "le",
+    "english": "(completed action marker)",
+    "french": "(particule d'action accomplie)",
+    "hskLevel": 1
+  },
+  {
+    "id": "累",
+    "hanzi": "累",
+    "pinyin": "lèi",
+    "english": "tired",
+    "french": "fatigué",
+    "hskLevel": 1
+  },
+  {
+    "id": "冷",
+    "hanzi": "冷",
+    "pinyin": "lěng",
+    "english": "cold",
+    "french": "froid",
+    "hskLevel": 1
+  },
+  {
+    "id": "里",
+    "hanzi": "里",
+    "pinyin": "lǐ",
+    "english": "inside; in",
+    "french": "dedans; dans",
+    "hskLevel": 1
+  },
+  {
+    "id": "家里",
+    "hanzi": "家里",
+    "pinyin": "jiā lǐ",
+    "english": "home",
+    "french": "à la maison",
+    "hskLevel": 1
+  },
+  {
+    "id": "里边",
+    "hanzi": "里边",
+    "pinyin": "lǐ bian",
+    "english": "inside",
+    "french": "dedans",
+    "hskLevel": 1
+  },
+  {
+    "id": "两",
+    "hanzi": "两",
+    "pinyin": "liǎng",
+    "english": "two",
+    "french": "deux",
+    "hskLevel": 1
+  },
+  {
+    "id": "零",
+    "hanzi": "零",
+    "pinyin": "líng",
+    "english": "zero",
+    "french": "zéro",
+    "hskLevel": 1
+  },
+  {
+    "id": "六",
+    "hanzi": "六",
+    "pinyin": "liù",
+    "english": "six",
+    "french": "six",
+    "hskLevel": 1
+  },
+  {
+    "id": "楼",
+    "hanzi": "楼",
+    "pinyin": "lóu",
+    "english": "building; floor (of a building)",
+    "french": "bâtiment; étage",
+    "hskLevel": 1
+  },
+  {
+    "id": "路",
+    "hanzi": "路",
+    "pinyin": "lù",
+    "english": "road; way",
+    "french": "route; chemin",
+    "hskLevel": 1
+  },
+  {
+    "id": "路口",
+    "hanzi": "路口",
+    "pinyin": "lù kǒu",
+    "english": "crossing",
+    "french": "carrefour",
+    "hskLevel": 1
+  },
+  {
+    "id": "妈",
+    "hanzi": "妈",
+    "pinyin": "mā",
+    "english": "ma",
+    "french": "maman",
+    "hskLevel": 1
+  },
+  {
+    "id": "妈妈",
+    "hanzi": "妈妈",
+    "pinyin": "mā ma",
+    "english": "mama",
+    "french": "maman",
+    "hskLevel": 1
+  },
+  {
+    "id": "马路",
+    "hanzi": "马路",
+    "pinyin": "mǎ lù",
+    "english": "street",
+    "french": "rue; route",
+    "hskLevel": 1
+  },
+  {
+    "id": "吗",
+    "hanzi": "吗",
+    "pinyin": "ma",
+    "english": "(question particle)",
+    "french": "(particule interrogative)",
+    "hskLevel": 1
+  },
+  {
+    "id": "买",
+    "hanzi": "买",
+    "pinyin": "mǎi",
+    "english": "to buy",
+    "french": "acheter",
+    "hskLevel": 1
+  },
+  {
+    "id": "慢",
+    "hanzi": "慢",
+    "pinyin": "màn",
+    "english": "slow",
+    "french": "lent",
+    "hskLevel": 1
+  },
+  {
+    "id": "忙",
+    "hanzi": "忙",
+    "pinyin": "máng",
+    "english": "busy",
+    "french": "occupé",
+    "hskLevel": 1
+  },
+  {
+    "id": "帮忙",
+    "hanzi": "帮忙",
+    "pinyin": "bāng máng",
+    "english": "to help",
+    "french": "aider",
+    "hskLevel": 1
+  },
+  {
+    "id": "毛",
+    "hanzi": "毛",
+    "pinyin": "máo",
+    "english": "hair; (currency unit, jiao)",
+    "french": "poil; (unité monétaire)",
+    "hskLevel": 1
+  },
+  {
+    "id": "没",
+    "hanzi": "没",
+    "pinyin": "méi",
+    "english": "(negative prefix for verbs) have not; not",
+    "french": "ne...pas (avoir)",
+    "hskLevel": 1
+  },
+  {
+    "id": "没关系",
+    "hanzi": "没关系",
+    "pinyin": "méi guān xi",
+    "english": "it doesn't matter",
+    "french": "ce n'est pas grave",
+    "hskLevel": 1
+  },
+  {
+    "id": "妹",
+    "hanzi": "妹",
+    "pinyin": "mèi",
+    "english": "younger sister",
+    "french": "petite sœur",
+    "hskLevel": 1
+  },
+  {
+    "id": "妹妹",
+    "hanzi": "妹妹",
+    "pinyin": "mèi mei",
+    "english": "younger sister",
+    "french": "petite sœur",
+    "hskLevel": 1
+  },
+  {
+    "id": "门",
+    "hanzi": "门",
+    "pinyin": "mén",
+    "english": "door",
+    "french": "porte",
+    "hskLevel": 1
+  },
+  {
+    "id": "门口",
+    "hanzi": "门口",
+    "pinyin": "mén kǒu",
+    "english": "doorway",
+    "french": "entrée",
+    "hskLevel": 1
+  },
+  {
+    "id": "们",
+    "hanzi": "们",
+    "pinyin": "men",
+    "english": "plural marker for pronouns, and nouns referring to individuals",
+    "french": "(marqueur du pluriel)",
+    "hskLevel": 1
+  },
+  {
+    "id": "米饭",
+    "hanzi": "米饭",
+    "pinyin": "mǐ fàn",
+    "english": "(cooked) rice",
+    "french": "riz (cuit)",
+    "hskLevel": 1
+  },
+  {
+    "id": "面包",
+    "hanzi": "面包",
+    "pinyin": "miàn bāo",
+    "english": "bread",
+    "french": "pain",
+    "hskLevel": 1
+  },
+  {
+    "id": "面条儿",
+    "hanzi": "面条儿",
+    "pinyin": "miàn tiáo r",
+    "english": "noodles",
+    "french": "nouilles",
+    "hskLevel": 1
+  },
+  {
+    "id": "明白",
+    "hanzi": "明白",
+    "pinyin": "míng bai",
+    "english": "clear",
+    "french": "clair; comprendre",
+    "hskLevel": 1
+  },
+  {
+    "id": "拿",
+    "hanzi": "拿",
+    "pinyin": "ná",
+    "english": "to take; to hold",
+    "french": "prendre; tenir",
+    "hskLevel": 1
+  },
+  {
+    "id": "哪",
+    "hanzi": "哪",
+    "pinyin": "nǎ",
+    "english": "which",
+    "french": "quel",
+    "hskLevel": 1
+  },
+  {
+    "id": "哪儿",
+    "hanzi": "哪儿",
+    "pinyin": "nǎ r",
+    "english": "where?",
+    "french": "où",
+    "hskLevel": 1
+  },
+  {
+    "id": "哪里",
+    "hanzi": "哪里",
+    "pinyin": "nǎ lǐ",
+    "english": "where?",
+    "french": "où",
+    "hskLevel": 1
+  },
+  {
+    "id": "哪些",
+    "hanzi": "哪些",
+    "pinyin": "nǎ xiē",
+    "english": "which ones?",
+    "french": "lesquels",
+    "hskLevel": 1
+  },
+  {
+    "id": "那",
+    "hanzi": "那",
+    "pinyin": "nà",
+    "english": "that",
+    "french": "ce; cela",
+    "hskLevel": 1
+  },
+  {
+    "id": "那边",
+    "hanzi": "那边",
+    "pinyin": "nà bian",
+    "english": "over there",
+    "french": "là-bas",
+    "hskLevel": 1
+  },
+  {
+    "id": "那儿",
+    "hanzi": "那儿",
+    "pinyin": "nà r",
+    "english": "there",
+    "french": "là",
+    "hskLevel": 1
+  },
+  {
+    "id": "那里",
+    "hanzi": "那里",
+    "pinyin": "nà li",
+    "english": "there; that place",
+    "french": "là",
+    "hskLevel": 1
+  },
+  {
+    "id": "那些",
+    "hanzi": "那些",
+    "pinyin": "nà xiē",
+    "english": "those",
+    "french": "ceux-là",
+    "hskLevel": 1
+  },
+  {
+    "id": "奶",
+    "hanzi": "奶",
+    "pinyin": "nǎi",
+    "english": "milk; grandma",
+    "french": "lait; mamie",
+    "hskLevel": 1
+  },
+  {
+    "id": "奶奶",
+    "hanzi": "奶奶",
+    "pinyin": "nǎi nai",
+    "english": "(informal) grandma (paternal grandmother)",
+    "french": "grand-mère (paternelle)",
+    "hskLevel": 1
+  },
+  {
+    "id": "男",
+    "hanzi": "男",
+    "pinyin": "nán",
+    "english": "male",
+    "french": "homme; masculin",
+    "hskLevel": 1
+  },
+  {
+    "id": "男孩儿",
+    "hanzi": "男孩儿",
+    "pinyin": "nán hái r",
+    "english": "boy",
+    "french": "garçon",
+    "hskLevel": 1
+  },
+  {
+    "id": "男生",
+    "hanzi": "男生",
+    "pinyin": "nán shēng",
+    "english": "schoolboy",
+    "french": "élève (garçon)",
+    "hskLevel": 1
+  },
+  {
+    "id": "南",
+    "hanzi": "南",
+    "pinyin": "nán",
+    "english": "south",
+    "french": "sud",
+    "hskLevel": 1
+  },
+  {
+    "id": "南边",
+    "hanzi": "南边",
+    "pinyin": "nán bian",
+    "english": "south",
+    "french": "côté sud",
+    "hskLevel": 1
+  },
+  {
+    "id": "难",
+    "hanzi": "难",
+    "pinyin": "nán",
+    "english": "difficult (to...)",
+    "french": "difficile",
+    "hskLevel": 1
+  },
+  {
+    "id": "呢",
+    "hanzi": "呢",
+    "pinyin": "ne",
+    "english": "particle indicating that a previously asked question is to be applied to the preceding word (\"What about ...?\", \"And ...?\")",
+    "french": "(particule interrogative \"et...?\")",
+    "hskLevel": 1
+  },
+  {
+    "id": "能",
+    "hanzi": "能",
+    "pinyin": "néng",
+    "english": "can; to be able to",
+    "french": "pouvoir",
+    "hskLevel": 1
+  },
+  {
+    "id": "你",
+    "hanzi": "你",
+    "pinyin": "nǐ",
+    "english": "you (informal, as opposed to courteous 您)",
+    "french": "tu; toi",
+    "hskLevel": 1
+  },
+  {
+    "id": "你们",
+    "hanzi": "你们",
+    "pinyin": "nǐ men",
+    "english": "you (plural)",
+    "french": "vous",
+    "hskLevel": 1
+  },
+  {
+    "id": "年",
+    "hanzi": "年",
+    "pinyin": "nián",
+    "english": "year",
+    "french": "année",
+    "hskLevel": 1
+  },
+  {
+    "id": "半年",
+    "hanzi": "半年",
+    "pinyin": "bàn nián",
+    "english": "half a year",
+    "french": "six mois",
+    "hskLevel": 1
+  },
+  {
+    "id": "今年",
+    "hanzi": "今年",
+    "pinyin": "jīn nián",
+    "english": "this year",
+    "french": "cette année",
+    "hskLevel": 1
+  },
+  {
+    "id": "明年",
+    "hanzi": "明年",
+    "pinyin": "míng nián",
+    "english": "next year",
+    "french": "l'année prochaine",
+    "hskLevel": 1
+  },
+  {
+    "id": "您",
+    "hanzi": "您",
+    "pinyin": "nín",
+    "english": "you (courteous, as opposed to informal 你)",
+    "french": "vous (poli)",
+    "hskLevel": 1
+  },
+  {
+    "id": "牛奶",
+    "hanzi": "牛奶",
+    "pinyin": "niú nǎi",
+    "english": "cow's milk",
+    "french": "lait (de vache)",
+    "hskLevel": 1
+  },
+  {
+    "id": "女",
+    "hanzi": "女",
+    "pinyin": "nǚ",
+    "english": "female",
+    "french": "femme; féminin",
+    "hskLevel": 1
+  },
+  {
+    "id": "女儿",
+    "hanzi": "女儿",
+    "pinyin": "nǚ ér",
+    "english": "daughter",
+    "french": "fille",
+    "hskLevel": 1
+  },
+  {
+    "id": "女孩儿",
+    "hanzi": "女孩儿",
+    "pinyin": "nǚ hái r",
+    "english": "girl",
+    "french": "fille",
+    "hskLevel": 1
+  },
+  {
+    "id": "女生",
+    "hanzi": "女生",
+    "pinyin": "nǚ shēng",
+    "english": "schoolgirl",
+    "french": "élève (fille)",
+    "hskLevel": 1
+  },
+  {
+    "id": "旁边",
+    "hanzi": "旁边",
+    "pinyin": "páng biān",
+    "english": "side; adjacent place",
+    "french": "à côté",
+    "hskLevel": 1
+  },
+  {
+    "id": "跑",
+    "hanzi": "跑",
+    "pinyin": "pǎo",
+    "english": "to run",
+    "french": "courir",
+    "hskLevel": 1
+  },
+  {
+    "id": "朋友",
+    "hanzi": "朋友",
+    "pinyin": "péng you",
+    "english": "friend",
+    "french": "ami",
+    "hskLevel": 1
+  },
+  {
+    "id": "男朋友",
+    "hanzi": "男朋友",
+    "pinyin": "nán péng you",
+    "english": "boyfriend",
+    "french": "petit ami",
+    "hskLevel": 1
+  },
+  {
+    "id": "女朋友",
+    "hanzi": "女朋友",
+    "pinyin": "nǚ péng you",
+    "english": "girlfriend",
+    "french": "petite amie",
+    "hskLevel": 1
+  },
+  {
+    "id": "票",
+    "hanzi": "票",
+    "pinyin": "piào",
+    "english": "ticket",
+    "french": "billet",
+    "hskLevel": 1
+  },
+  {
+    "id": "车票",
+    "hanzi": "车票",
+    "pinyin": "chē piào",
+    "english": "ticket (for a bus or train)",
+    "french": "billet (bus/train)",
+    "hskLevel": 1
+  },
+  {
+    "id": "机票",
+    "hanzi": "机票",
+    "pinyin": "jī piào",
+    "english": "air ticket",
+    "french": "billet d'avion",
+    "hskLevel": 1
+  },
+  {
+    "id": "门票",
+    "hanzi": "门票",
+    "pinyin": "mén piào",
+    "english": "ticket (for theater, cinema etc)",
+    "french": "billet d'entrée",
+    "hskLevel": 1
+  },
+  {
+    "id": "七",
+    "hanzi": "七",
+    "pinyin": "qī",
+    "english": "seven",
+    "french": "sept",
+    "hskLevel": 1
+  },
+  {
+    "id": "起",
+    "hanzi": "起",
+    "pinyin": "qǐ",
+    "english": "to rise",
+    "french": "se lever",
+    "hskLevel": 1
+  },
+  {
+    "id": "对不起",
+    "hanzi": "对不起",
+    "pinyin": "duì bu qǐ",
+    "english": "I'm sorry; excuse me; I beg your pardon",
+    "french": "désolé; pardon",
+    "hskLevel": 1
+  },
+  {
+    "id": "起床",
+    "hanzi": "起床",
+    "pinyin": "qǐ chuáng",
+    "english": "to get out of bed",
+    "french": "se lever",
+    "hskLevel": 1
+  },
+  {
+    "id": "起来",
+    "hanzi": "起来",
+    "pinyin": "qǐ lai",
+    "english": "to stand up",
+    "french": "se lever",
+    "hskLevel": 1
+  },
+  {
+    "id": "汽车",
+    "hanzi": "汽车",
+    "pinyin": "qì chē",
+    "english": "car",
+    "french": "voiture",
+    "hskLevel": 1
+  },
+  {
+    "id": "前",
+    "hanzi": "前",
+    "pinyin": "qián",
+    "english": "front",
+    "french": "devant",
+    "hskLevel": 1
+  },
+  {
+    "id": "前边",
+    "hanzi": "前边",
+    "pinyin": "qián bian",
+    "english": "front",
+    "french": "devant",
+    "hskLevel": 1
+  },
+  {
+    "id": "钱",
+    "hanzi": "钱",
+    "pinyin": "Qián",
+    "english": "surname Qian",
+    "french": "argent",
+    "hskLevel": 1
+  },
+  {
+    "id": "钱包",
+    "hanzi": "钱包",
+    "pinyin": "qián bāo",
+    "english": "purse",
+    "french": "portefeuille",
+    "hskLevel": 1
+  },
+  {
+    "id": "请",
+    "hanzi": "请",
+    "pinyin": "qǐng",
+    "english": "to ask",
+    "french": "prier; s'il vous plaît",
+    "hskLevel": 1
+  },
+  {
+    "id": "请假",
+    "hanzi": "请假",
+    "pinyin": "qǐng jià",
+    "english": "to request leave of absence",
+    "french": "demander un congé",
+    "hskLevel": 1
+  },
+  {
+    "id": "请进",
+    "hanzi": "请进",
+    "pinyin": "qǐng jìn",
+    "english": "\"please come in\"",
+    "french": "entrez, je vous prie",
+    "hskLevel": 1
+  },
+  {
+    "id": "球",
+    "hanzi": "球",
+    "pinyin": "qiú",
+    "english": "ball",
+    "french": "balle; ballon",
+    "hskLevel": 1
+  },
+  {
+    "id": "打球",
+    "hanzi": "打球",
+    "pinyin": "dǎ qiú",
+    "english": "to play ball",
+    "french": "jouer au ballon",
+    "hskLevel": 1
+  },
+  {
+    "id": "去",
+    "hanzi": "去",
+    "pinyin": "qù",
+    "english": "to go",
+    "french": "aller",
+    "hskLevel": 1
+  },
+  {
+    "id": "出去",
+    "hanzi": "出去",
+    "pinyin": "chū qù",
+    "english": "to go out",
+    "french": "sortir",
+    "hskLevel": 1
+  },
+  {
+    "id": "回去",
+    "hanzi": "回去",
+    "pinyin": "huí qu",
+    "english": "to return",
+    "french": "retourner",
+    "hskLevel": 1
+  },
+  {
+    "id": "进去",
+    "hanzi": "进去",
+    "pinyin": "jìn qù",
+    "english": "to go in",
+    "french": "entrer",
+    "hskLevel": 1
+  },
+  {
+    "id": "去年",
+    "hanzi": "去年",
+    "pinyin": "qù nián",
+    "english": "last year",
+    "french": "l'année dernière",
+    "hskLevel": 1
+  },
+  {
+    "id": "热",
+    "hanzi": "热",
+    "pinyin": "rè",
+    "english": "hot",
+    "french": "chaud",
+    "hskLevel": 1
+  },
+  {
+    "id": "人",
+    "hanzi": "人",
+    "pinyin": "rén",
+    "english": "person; people",
+    "french": "personne; gens",
+    "hskLevel": 1
+  },
+  {
+    "id": "别人",
+    "hanzi": "别人",
+    "pinyin": "bié ren",
+    "english": "other people; others; other person",
+    "french": "autrui",
+    "hskLevel": 1
+  },
+  {
+    "id": "病人",
+    "hanzi": "病人",
+    "pinyin": "bìng rén",
+    "english": "sick person",
+    "french": "malade (personne)",
+    "hskLevel": 1
+  },
+  {
+    "id": "工人",
+    "hanzi": "工人",
+    "pinyin": "gōng rén",
+    "english": "worker",
+    "french": "ouvrier",
+    "hskLevel": 1
+  },
+  {
+    "id": "家人",
+    "hanzi": "家人",
+    "pinyin": "jiā rén",
+    "english": "family member",
+    "french": "famille (membres)",
+    "hskLevel": 1
+  },
+  {
+    "id": "老人",
+    "hanzi": "老人",
+    "pinyin": "lǎo rén",
+    "english": "old man or woman",
+    "french": "personne âgée",
+    "hskLevel": 1
+  },
+  {
+    "id": "男人",
+    "hanzi": "男人",
+    "pinyin": "nán rén",
+    "english": "a man",
+    "french": "homme",
+    "hskLevel": 1
+  },
+  {
+    "id": "女人",
+    "hanzi": "女人",
+    "pinyin": "nǚ rén",
+    "english": "woman",
+    "french": "femme",
+    "hskLevel": 1
+  },
+  {
+    "id": "认识",
+    "hanzi": "认识",
+    "pinyin": "rèn shi",
+    "english": "to know",
+    "french": "connaître",
+    "hskLevel": 1
+  },
+  {
+    "id": "日",
+    "hanzi": "日",
+    "pinyin": "rì",
+    "english": "day; sun",
+    "french": "jour; soleil",
+    "hskLevel": 1
+  },
+  {
+    "id": "日期",
+    "hanzi": "日期",
+    "pinyin": "rì qī",
+    "english": "date",
+    "french": "date",
+    "hskLevel": 1
+  },
+  {
+    "id": "肉",
+    "hanzi": "肉",
+    "pinyin": "ròu",
+    "english": "meat",
+    "french": "viande",
+    "hskLevel": 1
+  },
+  {
+    "id": "三",
+    "hanzi": "三",
+    "pinyin": "sān",
+    "english": "three",
+    "french": "trois",
+    "hskLevel": 1
+  },
+  {
+    "id": "山",
+    "hanzi": "山",
+    "pinyin": "shān",
+    "english": "mountain",
+    "french": "montagne",
+    "hskLevel": 1
+  },
+  {
+    "id": "商场",
+    "hanzi": "商场",
+    "pinyin": "shāng chǎng",
+    "english": "shopping mall",
+    "french": "centre commercial",
+    "hskLevel": 1
+  },
+  {
+    "id": "商店",
+    "hanzi": "商店",
+    "pinyin": "shāng diàn",
+    "english": "store; shop",
+    "french": "magasin",
+    "hskLevel": 1
+  },
+  {
+    "id": "上",
+    "hanzi": "上",
+    "pinyin": "shàng",
+    "english": "up; on; above; to go to",
+    "french": "sur; dessus; monter",
+    "hskLevel": 1
+  },
+  {
+    "id": "车上",
+    "hanzi": "车上",
+    "pinyin": "chē shàng",
+    "english": "in the car",
+    "french": "dans la voiture",
+    "hskLevel": 1
+  },
+  {
+    "id": "地上",
+    "hanzi": "地上",
+    "pinyin": "dì shang",
+    "english": "on the ground",
+    "french": "par terre",
+    "hskLevel": 1
+  },
+  {
+    "id": "关上",
+    "hanzi": "关上",
+    "pinyin": "guān shàng",
+    "english": "to close (a door)",
+    "french": "fermer",
+    "hskLevel": 1
+  },
+  {
+    "id": "楼上",
+    "hanzi": "楼上",
+    "pinyin": "lóu shàng",
+    "english": "upstairs",
+    "french": "à l'étage",
+    "hskLevel": 1
+  },
+  {
+    "id": "路上",
+    "hanzi": "路上",
+    "pinyin": "lù shang",
+    "english": "on the road",
+    "french": "en chemin",
+    "hskLevel": 1
+  },
+  {
+    "id": "马上",
+    "hanzi": "马上",
+    "pinyin": "mǎ shàng",
+    "english": "at once",
+    "french": "tout de suite",
+    "hskLevel": 1
+  },
+  {
+    "id": "上班",
+    "hanzi": "上班",
+    "pinyin": "shàng bān",
+    "english": "to go to work",
+    "french": "aller au travail",
+    "hskLevel": 1
+  },
+  {
+    "id": "上边",
+    "hanzi": "上边",
+    "pinyin": "shàng bian",
+    "english": "the top",
+    "french": "au-dessus",
+    "hskLevel": 1
+  },
+  {
+    "id": "上车",
+    "hanzi": "上车",
+    "pinyin": "shàng chē",
+    "english": "to get on or into (a bus, train, car etc)",
+    "french": "monter (dans un véhicule)",
+    "hskLevel": 1
+  },
+  {
+    "id": "上次",
+    "hanzi": "上次",
+    "pinyin": "shàng cì",
+    "english": "last time",
+    "french": "la dernière fois",
+    "hskLevel": 1
+  },
+  {
+    "id": "上课",
+    "hanzi": "上课",
+    "pinyin": "shàng kè",
+    "english": "to go to class",
+    "french": "aller en cours",
+    "hskLevel": 1
+  },
+  {
+    "id": "上网",
+    "hanzi": "上网",
+    "pinyin": "shàng wǎng",
+    "english": "to go online",
+    "french": "aller sur internet",
+    "hskLevel": 1
+  },
+  {
+    "id": "上午",
+    "hanzi": "上午",
+    "pinyin": "shàng wǔ",
+    "english": "morning",
+    "french": "matin",
+    "hskLevel": 1
+  },
+  {
+    "id": "少",
+    "hanzi": "少",
+    "pinyin": "shǎo",
+    "english": "few",
+    "french": "peu",
+    "hskLevel": 1
+  },
+  {
+    "id": "多少",
+    "hanzi": "多少",
+    "pinyin": "duō shǎo",
+    "english": "how many; how much",
+    "french": "combien",
+    "hskLevel": 1
+  },
+  {
+    "id": "身上",
+    "hanzi": "身上",
+    "pinyin": "shēn shang",
+    "english": "on the body",
+    "french": "sur soi",
+    "hskLevel": 1
+  },
+  {
+    "id": "身体",
+    "hanzi": "身体",
+    "pinyin": "shēn tǐ",
+    "english": "the body",
+    "french": "corps; santé",
+    "hskLevel": 1
+  },
+  {
+    "id": "什么",
+    "hanzi": "什么",
+    "pinyin": "shén me",
+    "english": "what?",
+    "french": "quoi; que",
+    "hskLevel": 1
+  },
+  {
+    "id": "干什么",
+    "hanzi": "干什么",
+    "pinyin": "gàn shén me",
+    "english": "what are you doing?",
+    "french": "faire quoi",
+    "hskLevel": 1
+  },
+  {
+    "id": "没什么",
+    "hanzi": "没什么",
+    "pinyin": "méi shén me",
+    "english": "nothing",
+    "french": "rien",
+    "hskLevel": 1
+  },
+  {
+    "id": "生病",
+    "hanzi": "生病",
+    "pinyin": "shēng bìng",
+    "english": "to fall ill",
+    "french": "tomber malade",
+    "hskLevel": 1
+  },
+  {
+    "id": "生气",
+    "hanzi": "生气",
+    "pinyin": "shēng qì",
+    "english": "to get angry",
+    "french": "se fâcher",
+    "hskLevel": 1
+  },
+  {
+    "id": "生日",
+    "hanzi": "生日",
+    "pinyin": "shēng rì",
+    "english": "birthday",
+    "french": "anniversaire",
+    "hskLevel": 1
+  },
+  {
+    "id": "十",
+    "hanzi": "十",
+    "pinyin": "shí",
+    "english": "ten",
+    "french": "dix",
+    "hskLevel": 1
+  },
+  {
+    "id": "时候",
+    "hanzi": "时候",
+    "pinyin": "shí hou",
+    "english": "time",
+    "french": "moment",
+    "hskLevel": 1
+  },
+  {
+    "id": "时间",
+    "hanzi": "时间",
+    "pinyin": "shí jiān",
+    "english": "time",
+    "french": "temps",
+    "hskLevel": 1
+  },
+  {
+    "id": "事",
+    "hanzi": "事",
+    "pinyin": "shì",
+    "english": "matter",
+    "french": "affaire; chose",
+    "hskLevel": 1
+  },
+  {
+    "id": "没事儿",
+    "hanzi": "没事儿",
+    "pinyin": "méi shì r",
+    "english": "it's nothing; no problem",
+    "french": "ce n'est rien",
+    "hskLevel": 1
+  },
+  {
+    "id": "试",
+    "hanzi": "试",
+    "pinyin": "shì",
+    "english": "to test",
+    "french": "essayer; tester",
+    "hskLevel": 1
+  },
+  {
+    "id": "考试",
+    "hanzi": "考试",
+    "pinyin": "kǎo shì",
+    "english": "to take an exam",
+    "french": "examen; passer un examen",
+    "hskLevel": 1
+  },
+  {
+    "id": "是",
+    "hanzi": "是",
+    "pinyin": "shì",
+    "english": "to be (followed by substantives only)",
+    "french": "être",
+    "hskLevel": 1
+  },
+  {
+    "id": "还是",
+    "hanzi": "还是",
+    "pinyin": "hái shi",
+    "english": "still; or (in questions)",
+    "french": "encore; ou (question)",
+    "hskLevel": 1
+  },
+  {
+    "id": "是不是",
+    "hanzi": "是不是",
+    "pinyin": "shì bù shì",
+    "english": "is or isn't",
+    "french": "est-ce que",
+    "hskLevel": 1
+  },
+  {
+    "id": "手",
+    "hanzi": "手",
+    "pinyin": "shǒu",
+    "english": "hand",
+    "french": "main",
+    "hskLevel": 1
+  },
+  {
+    "id": "手机",
+    "hanzi": "手机",
+    "pinyin": "shǒu jī",
+    "english": "cell phone",
+    "french": "téléphone portable",
+    "hskLevel": 1
+  },
+  {
+    "id": "书",
+    "hanzi": "书",
+    "pinyin": "shū",
+    "english": "book",
+    "french": "livre",
+    "hskLevel": 1
+  },
+  {
+    "id": "读书",
+    "hanzi": "读书",
+    "pinyin": "dú shū",
+    "english": "to read a book",
+    "french": "lire (un livre); étudier",
+    "hskLevel": 1
+  },
+  {
+    "id": "书包",
+    "hanzi": "书包",
+    "pinyin": "shū bāo",
+    "english": "schoolbag",
+    "french": "cartable",
+    "hskLevel": 1
+  },
+  {
+    "id": "书店",
+    "hanzi": "书店",
+    "pinyin": "shū diàn",
+    "english": "bookstore",
+    "french": "librairie",
+    "hskLevel": 1
+  },
+  {
+    "id": "树",
+    "hanzi": "树",
+    "pinyin": "shù",
+    "english": "tree",
+    "french": "arbre",
+    "hskLevel": 1
+  },
+  {
+    "id": "谁",
+    "hanzi": "谁",
+    "pinyin": "shéi",
+    "english": "who",
+    "french": "qui",
+    "hskLevel": 1
+  },
+  {
+    "id": "水",
+    "hanzi": "水",
+    "pinyin": "shuǐ",
+    "english": "water",
+    "french": "eau",
+    "hskLevel": 1
+  },
+  {
+    "id": "水果",
+    "hanzi": "水果",
+    "pinyin": "shuǐ guǒ",
+    "english": "fruit",
+    "french": "fruit",
+    "hskLevel": 1
+  },
+  {
+    "id": "睡",
+    "hanzi": "睡",
+    "pinyin": "shuì",
+    "english": "to sleep",
+    "french": "dormir",
+    "hskLevel": 1
+  },
+  {
+    "id": "睡觉",
+    "hanzi": "睡觉",
+    "pinyin": "shuì jiào",
+    "english": "to go to bed",
+    "french": "dormir; se coucher",
+    "hskLevel": 1
+  },
+  {
+    "id": "说",
+    "hanzi": "说",
+    "pinyin": "shuō",
+    "english": "to speak; to say",
+    "french": "dire; parler",
+    "hskLevel": 1
+  },
+  {
+    "id": "说话",
+    "hanzi": "说话",
+    "pinyin": "shuō huà",
+    "english": "to speak",
+    "french": "parler",
+    "hskLevel": 1
+  },
+  {
+    "id": "四",
+    "hanzi": "四",
+    "pinyin": "sì",
+    "english": "four",
+    "french": "quatre",
+    "hskLevel": 1
+  },
+  {
+    "id": "送",
+    "hanzi": "送",
+    "pinyin": "sòng",
+    "english": "to send; to deliver; to transmit",
+    "french": "envoyer; offrir",
+    "hskLevel": 1
+  },
+  {
+    "id": "岁",
+    "hanzi": "岁",
+    "pinyin": "suì",
+    "english": "years old (age)",
+    "french": "ans (âge)",
+    "hskLevel": 1
+  },
+  {
+    "id": "他",
+    "hanzi": "他",
+    "pinyin": "tā",
+    "english": "he; him (used for either sex when the sex is unknown or unimportant)",
+    "french": "il; lui",
+    "hskLevel": 1
+  },
+  {
+    "id": "他们",
+    "hanzi": "他们",
+    "pinyin": "tā men",
+    "english": "they",
+    "french": "ils",
+    "hskLevel": 1
+  },
+  {
+    "id": "她",
+    "hanzi": "她",
+    "pinyin": "tā",
+    "english": "she",
+    "french": "elle",
+    "hskLevel": 1
+  },
+  {
+    "id": "她们",
+    "hanzi": "她们",
+    "pinyin": "tā men",
+    "english": "they",
+    "french": "elles",
+    "hskLevel": 1
+  },
+  {
+    "id": "太",
+    "hanzi": "太",
+    "pinyin": "tài",
+    "english": "too; extremely",
+    "french": "trop; très",
+    "hskLevel": 1
+  },
+  {
+    "id": "天",
+    "hanzi": "天",
+    "pinyin": "tiān",
+    "english": "day",
+    "french": "jour",
+    "hskLevel": 1
+  },
+  {
+    "id": "白天",
+    "hanzi": "白天",
+    "pinyin": "bái tiān",
+    "english": "daytime",
+    "french": "journée",
+    "hskLevel": 1
+  },
+  {
+    "id": "半天",
+    "hanzi": "半天",
+    "pinyin": "bàn tiān",
+    "english": "half of the day",
+    "french": "une demi-journée",
+    "hskLevel": 1
+  },
+  {
+    "id": "后天",
+    "hanzi": "后天",
+    "pinyin": "hòu tiān",
+    "english": "the day after tomorrow",
+    "french": "après-demain",
+    "hskLevel": 1
+  },
+  {
+    "id": "今天",
+    "hanzi": "今天",
+    "pinyin": "jīn tiān",
+    "english": "today",
+    "french": "aujourd'hui",
+    "hskLevel": 1
+  },
+  {
+    "id": "明天",
+    "hanzi": "明天",
+    "pinyin": "míng tiān",
+    "english": "tomorrow",
+    "french": "demain",
+    "hskLevel": 1
+  },
+  {
+    "id": "前天",
+    "hanzi": "前天",
+    "pinyin": "qián tiān",
+    "english": "the day before yesterday",
+    "french": "avant-hier",
+    "hskLevel": 1
+  },
+  {
+    "id": "天气",
+    "hanzi": "天气",
+    "pinyin": "tiān qì",
+    "english": "weather",
+    "french": "météo; temps",
+    "hskLevel": 1
+  },
+  {
+    "id": "听",
+    "hanzi": "听",
+    "pinyin": "tīng",
+    "english": "to listen; to hear",
+    "french": "écouter",
+    "hskLevel": 1
+  },
+  {
+    "id": "好听",
+    "hanzi": "好听",
+    "pinyin": "hǎo tīng",
+    "english": "pleasant to hear",
+    "french": "agréable à écouter",
+    "hskLevel": 1
+  },
+  {
+    "id": "听到",
+    "hanzi": "听到",
+    "pinyin": "tīng dào",
+    "english": "to hear",
+    "french": "entendre",
+    "hskLevel": 1
+  },
+  {
+    "id": "听见",
+    "hanzi": "听见",
+    "pinyin": "tīng jiàn",
+    "english": "to hear",
+    "french": "entendre",
+    "hskLevel": 1
+  },
+  {
+    "id": "图书馆",
+    "hanzi": "图书馆",
+    "pinyin": "tú shū guǎn",
+    "english": "library",
+    "french": "bibliothèque",
+    "hskLevel": 1
+  },
+  {
+    "id": "外",
+    "hanzi": "外",
+    "pinyin": "wài",
+    "english": "outside",
+    "french": "dehors",
+    "hskLevel": 1
+  },
+  {
+    "id": "国外",
+    "hanzi": "国外",
+    "pinyin": "guó wài",
+    "english": "abroad",
+    "french": "à l'étranger",
+    "hskLevel": 1
+  },
+  {
+    "id": "外边",
+    "hanzi": "外边",
+    "pinyin": "wài bian",
+    "english": "outside",
+    "french": "dehors",
+    "hskLevel": 1
+  },
+  {
+    "id": "外国",
+    "hanzi": "外国",
+    "pinyin": "wài guó",
+    "english": "foreign (country)",
+    "french": "pays étranger",
+    "hskLevel": 1
+  },
+  {
+    "id": "外语",
+    "hanzi": "外语",
+    "pinyin": "wài yǔ",
+    "english": "foreign language",
+    "french": "langue étrangère",
+    "hskLevel": 1
+  },
+  {
+    "id": "玩儿",
+    "hanzi": "玩儿",
+    "pinyin": "wán r",
+    "english": "to play",
+    "french": "jouer",
+    "hskLevel": 1
+  },
+  {
+    "id": "好玩儿",
+    "hanzi": "好玩儿",
+    "pinyin": "hǎo wán r",
+    "english": "fun; amusing",
+    "french": "amusant",
+    "hskLevel": 1
+  },
+  {
+    "id": "晚",
+    "hanzi": "晚",
+    "pinyin": "wǎn",
+    "english": "evening",
+    "french": "soir",
+    "hskLevel": 1
+  },
+  {
+    "id": "晚饭",
+    "hanzi": "晚饭",
+    "pinyin": "wǎn fàn",
+    "english": "evening meal",
+    "french": "dîner",
+    "hskLevel": 1
+  },
+  {
+    "id": "晚上",
+    "hanzi": "晚上",
+    "pinyin": "wǎn shang",
+    "english": "evening",
+    "french": "le soir",
+    "hskLevel": 1
+  },
+  {
+    "id": "网上",
+    "hanzi": "网上",
+    "pinyin": "wǎng shàng",
+    "english": "online",
+    "french": "en ligne",
+    "hskLevel": 1
+  },
+  {
+    "id": "网友",
+    "hanzi": "网友",
+    "pinyin": "wǎng yǒu",
+    "english": "online friend",
+    "french": "ami en ligne",
+    "hskLevel": 1
+  },
+  {
+    "id": "忘",
+    "hanzi": "忘",
+    "pinyin": "wàng",
+    "english": "to forget",
+    "french": "oublier",
+    "hskLevel": 1
+  },
+  {
+    "id": "忘记",
+    "hanzi": "忘记",
+    "pinyin": "wàng jì",
+    "english": "to forget",
+    "french": "oublier",
+    "hskLevel": 1
+  },
+  {
+    "id": "问",
+    "hanzi": "问",
+    "pinyin": "wèn",
+    "english": "to ask; to inquire",
+    "french": "demander",
+    "hskLevel": 1
+  },
+  {
+    "id": "请问",
+    "hanzi": "请问",
+    "pinyin": "qǐng wèn",
+    "english": "Excuse me, may I ask...?",
+    "french": "excusez-moi (pour demander)",
+    "hskLevel": 1
+  },
+  {
+    "id": "我",
+    "hanzi": "我",
+    "pinyin": "wǒ",
+    "english": "I; me; my",
+    "french": "je; moi",
+    "hskLevel": 1
+  },
+  {
+    "id": "我们",
+    "hanzi": "我们",
+    "pinyin": "wǒ men",
+    "english": "we",
+    "french": "nous",
+    "hskLevel": 1
+  },
+  {
+    "id": "五",
+    "hanzi": "五",
+    "pinyin": "wǔ",
+    "english": "five",
+    "french": "cinq",
+    "hskLevel": 1
+  },
+  {
+    "id": "午饭",
+    "hanzi": "午饭",
+    "pinyin": "wǔ fàn",
+    "english": "lunch",
+    "french": "déjeuner",
+    "hskLevel": 1
+  },
+  {
+    "id": "洗",
+    "hanzi": "洗",
+    "pinyin": "xǐ",
+    "english": "to wash; to bathe",
+    "french": "laver",
+    "hskLevel": 1
+  },
+  {
+    "id": "洗手间",
+    "hanzi": "洗手间",
+    "pinyin": "xǐ shǒu jiān",
+    "english": "toilet",
+    "french": "toilettes",
+    "hskLevel": 1
+  },
+  {
+    "id": "喜欢",
+    "hanzi": "喜欢",
+    "pinyin": "xǐ huan",
+    "english": "to like; to be fond of",
+    "french": "aimer",
+    "hskLevel": 1
+  },
+  {
+    "id": "西",
+    "hanzi": "西",
+    "pinyin": "Xī",
+    "english": "the West",
+    "french": "ouest",
+    "hskLevel": 1
+  },
+  {
+    "id": "东西",
+    "hanzi": "东西",
+    "pinyin": "dōng xī",
+    "english": "thing; object",
+    "french": "chose; objet",
+    "hskLevel": 1
+  },
+  {
+    "id": "西边",
+    "hanzi": "西边",
+    "pinyin": "xī biān",
+    "english": "west",
+    "french": "côté ouest",
+    "hskLevel": 1
+  },
+  {
+    "id": "下",
+    "hanzi": "下",
+    "pinyin": "xià",
+    "english": "down",
+    "french": "bas; sous; descendre",
+    "hskLevel": 1
+  },
+  {
+    "id": "楼下",
+    "hanzi": "楼下",
+    "pinyin": "lóu xià",
+    "english": "downstairs",
+    "french": "en bas (de l'immeuble)",
+    "hskLevel": 1
+  },
+  {
+    "id": "下班",
+    "hanzi": "下班",
+    "pinyin": "xià bān",
+    "english": "to finish work",
+    "french": "finir le travail",
+    "hskLevel": 1
+  },
+  {
+    "id": "下边",
+    "hanzi": "下边",
+    "pinyin": "xià bian",
+    "english": "under",
+    "french": "en dessous",
+    "hskLevel": 1
+  },
+  {
+    "id": "下车",
+    "hanzi": "下车",
+    "pinyin": "xià chē",
+    "english": "to get off or out of (a bus, train, car etc)",
+    "french": "descendre (d'un véhicule)",
+    "hskLevel": 1
+  },
+  {
+    "id": "下次",
+    "hanzi": "下次",
+    "pinyin": "xià cì",
+    "english": "next time",
+    "french": "la prochaine fois",
+    "hskLevel": 1
+  },
+  {
+    "id": "下课",
+    "hanzi": "下课",
+    "pinyin": "xià kè",
+    "english": "to finish class",
+    "french": "finir les cours",
+    "hskLevel": 1
+  },
+  {
+    "id": "下午",
+    "hanzi": "下午",
+    "pinyin": "xià wǔ",
+    "english": "afternoon",
+    "french": "après-midi",
+    "hskLevel": 1
+  },
+  {
+    "id": "先",
+    "hanzi": "先",
+    "pinyin": "xiān",
+    "english": "first; before",
+    "french": "d'abord",
+    "hskLevel": 1
+  },
+  {
+    "id": "先生",
+    "hanzi": "先生",
+    "pinyin": "xiān sheng",
+    "english": "Mr.; sir; husband",
+    "french": "monsieur",
+    "hskLevel": 1
+  },
+  {
+    "id": "想",
+    "hanzi": "想",
+    "pinyin": "xiǎng",
+    "english": "to think (about)",
+    "french": "penser; vouloir",
+    "hskLevel": 1
+  },
+  {
+    "id": "小",
+    "hanzi": "小",
+    "pinyin": "xiǎo",
+    "english": "small",
+    "french": "petit",
+    "hskLevel": 1
+  },
+  {
+    "id": "小孩儿",
+    "hanzi": "小孩儿",
+    "pinyin": "xiǎo hái r",
+    "english": "child",
+    "french": "enfant",
+    "hskLevel": 1
+  },
+  {
+    "id": "小姐",
+    "hanzi": "小姐",
+    "pinyin": "xiǎo jie",
+    "english": "young lady",
+    "french": "mademoiselle",
+    "hskLevel": 1
+  },
+  {
+    "id": "小朋友",
+    "hanzi": "小朋友",
+    "pinyin": "xiǎo péng yǒu",
+    "english": "child",
+    "french": "enfant",
+    "hskLevel": 1
+  },
+  {
+    "id": "小时",
+    "hanzi": "小时",
+    "pinyin": "xiǎo shí",
+    "english": "hour",
+    "french": "heure (durée)",
+    "hskLevel": 1
+  },
+  {
+    "id": "笑",
+    "hanzi": "笑",
+    "pinyin": "xiào",
+    "english": "to smile; to laugh",
+    "french": "sourire; rire",
+    "hskLevel": 1
+  },
+  {
+    "id": "开玩笑",
+    "hanzi": "开玩笑",
+    "pinyin": "kāi wán xiào",
+    "english": "to play a joke",
+    "french": "plaisanter",
+    "hskLevel": 1
+  },
+  {
+    "id": "写",
+    "hanzi": "写",
+    "pinyin": "xiě",
+    "english": "to write",
+    "french": "écrire",
+    "hskLevel": 1
+  },
+  {
+    "id": "听写",
+    "hanzi": "听写",
+    "pinyin": "tīng xiě",
+    "english": "(of a pupil) to write down (in a dictation exercise)",
+    "french": "dictée",
+    "hskLevel": 1
+  },
+  {
+    "id": "谢谢",
+    "hanzi": "谢谢",
+    "pinyin": "xiè xie",
+    "english": "to thank",
+    "french": "merci",
+    "hskLevel": 1
+  },
+  {
+    "id": "新",
+    "hanzi": "新",
+    "pinyin": "xīn",
+    "english": "new",
+    "french": "nouveau",
+    "hskLevel": 1
+  },
+  {
+    "id": "新年",
+    "hanzi": "新年",
+    "pinyin": "xīn nián",
+    "english": "New Year",
+    "french": "nouvel an",
+    "hskLevel": 1
+  },
+  {
+    "id": "星期",
+    "hanzi": "星期",
+    "pinyin": "xīng qī",
+    "english": "week",
+    "french": "semaine",
+    "hskLevel": 1
+  },
+  {
+    "id": "星期日",
+    "hanzi": "星期日",
+    "pinyin": "Xīng qī rì",
+    "english": "Sunday",
+    "french": "dimanche",
+    "hskLevel": 1
+  },
+  {
+    "id": "星期天",
+    "hanzi": "星期天",
+    "pinyin": "Xīng qī tiān",
+    "english": "Sunday",
+    "french": "dimanche",
+    "hskLevel": 1
+  },
+  {
+    "id": "行",
+    "hanzi": "行",
+    "pinyin": "xíng",
+    "english": "OK; to walk; to go",
+    "french": "d'accord; marcher",
+    "hskLevel": 1
+  },
+  {
+    "id": "休息",
+    "hanzi": "休息",
+    "pinyin": "xiū xi",
+    "english": "rest",
+    "french": "se reposer",
+    "hskLevel": 1
+  },
+  {
+    "id": "学",
+    "hanzi": "学",
+    "pinyin": "xué",
+    "english": "to learn",
+    "french": "apprendre; étudier",
+    "hskLevel": 1
+  },
+  {
+    "id": "大学",
+    "hanzi": "大学",
+    "pinyin": "dà xué",
+    "english": "university",
+    "french": "université",
+    "hskLevel": 1
+  },
+  {
+    "id": "放学",
+    "hanzi": "放学",
+    "pinyin": "fàng xué",
+    "english": "to dismiss students at the end of the school day",
+    "french": "finir l'école",
+    "hskLevel": 1
+  },
+  {
+    "id": "教学楼",
+    "hanzi": "教学楼",
+    "pinyin": "jiào xué lóu",
+    "english": "teaching block",
+    "french": "bâtiment d'enseignement",
+    "hskLevel": 1
+  },
+  {
+    "id": "上学",
+    "hanzi": "上学",
+    "pinyin": "shàng xué",
+    "english": "to go to school",
+    "french": "aller à l'école",
+    "hskLevel": 1
+  },
+  {
+    "id": "同学",
+    "hanzi": "同学",
+    "pinyin": "tóng xué",
+    "english": "classmate",
+    "french": "camarade de classe",
+    "hskLevel": 1
+  },
+  {
+    "id": "小学",
+    "hanzi": "小学",
+    "pinyin": "xiǎo xué",
+    "english": "elementary school; primary school",
+    "french": "école primaire",
+    "hskLevel": 1
+  },
+  {
+    "id": "学生",
+    "hanzi": "学生",
+    "pinyin": "xué sheng",
+    "english": "student",
+    "french": "élève; étudiant",
+    "hskLevel": 1
+  },
+  {
+    "id": "大学生",
+    "hanzi": "大学生",
+    "pinyin": "dà xué shēng",
+    "english": "university student",
+    "french": "étudiant universitaire",
+    "hskLevel": 1
+  },
+  {
+    "id": "小学生",
+    "hanzi": "小学生",
+    "pinyin": "xiǎo xué shēng",
+    "english": "primary school student",
+    "french": "élève de primaire",
+    "hskLevel": 1
+  },
+  {
+    "id": "学习",
+    "hanzi": "学习",
+    "pinyin": "xué xí",
+    "english": "to learn",
+    "french": "étudier; apprendre",
+    "hskLevel": 1
+  },
+  {
+    "id": "学校",
+    "hanzi": "学校",
+    "pinyin": "xué xiào",
+    "english": "school",
+    "french": "école",
+    "hskLevel": 1
+  },
+  {
+    "id": "学院",
+    "hanzi": "学院",
+    "pinyin": "xué yuàn",
+    "english": "college",
+    "french": "institut; faculté",
+    "hskLevel": 1
+  },
+  {
+    "id": "要",
+    "hanzi": "要",
+    "pinyin": "yào",
+    "english": "to want; will; going to",
+    "french": "vouloir; falloir",
+    "hskLevel": 1
+  },
+  {
+    "id": "也",
+    "hanzi": "也",
+    "pinyin": "yě",
+    "english": "also; too",
+    "french": "aussi",
+    "hskLevel": 1
+  },
+  {
+    "id": "页",
+    "hanzi": "页",
+    "pinyin": "yè",
+    "english": "page",
+    "french": "page",
+    "hskLevel": 1
+  },
+  {
+    "id": "爷爷",
+    "hanzi": "爷爷",
+    "pinyin": "yé ye",
+    "english": "(coll.) father's father",
+    "french": "grand-père (paternel)",
+    "hskLevel": 1
+  },
+  {
+    "id": "一",
+    "hanzi": "一",
+    "pinyin": "yī",
+    "english": "one",
+    "french": "un",
+    "hskLevel": 1
+  },
+  {
+    "id": "一半",
+    "hanzi": "一半",
+    "pinyin": "yī bàn",
+    "english": "half",
+    "french": "la moitié",
+    "hskLevel": 1
+  },
+  {
+    "id": "一边",
+    "hanzi": "一边",
+    "pinyin": "yī biān",
+    "english": "one side",
+    "french": "d'un côté",
+    "hskLevel": 1
+  },
+  {
+    "id": "一点儿",
+    "hanzi": "一点儿",
+    "pinyin": "yī diǎn r",
+    "english": "a little; a bit",
+    "french": "un peu",
+    "hskLevel": 1
+  },
+  {
+    "id": "一会儿",
+    "hanzi": "一会儿",
+    "pinyin": "yī huì r",
+    "english": "a moment",
+    "french": "un instant",
+    "hskLevel": 1
+  },
+  {
+    "id": "一块儿",
+    "hanzi": "一块儿",
+    "pinyin": "yī kuài r",
+    "english": "together",
+    "french": "ensemble",
+    "hskLevel": 1
+  },
+  {
+    "id": "一起",
+    "hanzi": "一起",
+    "pinyin": "yī qǐ",
+    "english": "together",
+    "french": "ensemble",
+    "hskLevel": 1
+  },
+  {
+    "id": "一下儿",
+    "hanzi": "一下儿",
+    "pinyin": "yī xià r",
+    "english": "a little bit; briefly",
+    "french": "un instant; un peu",
+    "hskLevel": 1
+  },
+  {
+    "id": "一些",
+    "hanzi": "一些",
+    "pinyin": "yī xiē",
+    "english": "some",
+    "french": "quelques",
+    "hskLevel": 1
+  },
+  {
+    "id": "一样",
+    "hanzi": "一样",
+    "pinyin": "yī yàng",
+    "english": "same",
+    "french": "pareil; identique",
+    "hskLevel": 1
+  },
+  {
+    "id": "衣服",
+    "hanzi": "衣服",
+    "pinyin": "yī fu",
+    "english": "clothes",
+    "french": "vêtements",
+    "hskLevel": 1
+  },
+  {
+    "id": "医生",
+    "hanzi": "医生",
+    "pinyin": "yī shēng",
+    "english": "doctor",
+    "french": "médecin",
+    "hskLevel": 1
+  },
+  {
+    "id": "医院",
+    "hanzi": "医院",
+    "pinyin": "yī yuàn",
+    "english": "hospital",
+    "french": "hôpital",
+    "hskLevel": 1
+  },
+  {
+    "id": "用",
+    "hanzi": "用",
+    "pinyin": "yòng",
+    "english": "to use",
+    "french": "utiliser",
+    "hskLevel": 1
+  },
+  {
+    "id": "不用",
+    "hanzi": "不用",
+    "pinyin": "bù yòng",
+    "english": "need not",
+    "french": "pas besoin de",
+    "hskLevel": 1
+  },
+  {
+    "id": "有",
+    "hanzi": "有",
+    "pinyin": "yǒu",
+    "english": "to have; there is",
+    "french": "avoir; il y a",
+    "hskLevel": 1
+  },
+  {
+    "id": "还有",
+    "hanzi": "还有",
+    "pinyin": "hái yǒu",
+    "english": "furthermore",
+    "french": "et aussi; en plus",
+    "hskLevel": 1
+  },
+  {
+    "id": "没有",
+    "hanzi": "没有",
+    "pinyin": "méi yǒu",
+    "english": "haven't",
+    "french": "ne pas avoir",
+    "hskLevel": 1
+  },
+  {
+    "id": "有的",
+    "hanzi": "有的",
+    "pinyin": "yǒu de",
+    "english": "(there are) some (who are...)",
+    "french": "certains",
+    "hskLevel": 1
+  },
+  {
+    "id": "有名",
+    "hanzi": "有名",
+    "pinyin": "yǒu míng",
+    "english": "famous",
+    "french": "célèbre",
+    "hskLevel": 1
+  },
+  {
+    "id": "有时",
+    "hanzi": "有时",
+    "pinyin": "yǒu shí",
+    "english": "sometimes",
+    "french": "parfois",
+    "hskLevel": 1
+  },
+  {
+    "id": "有时候",
+    "hanzi": "有时候",
+    "pinyin": "yǒu shí hou",
+    "english": "sometimes",
+    "french": "parfois",
+    "hskLevel": 1
+  },
+  {
+    "id": "有些",
+    "hanzi": "有些",
+    "pinyin": "yǒu xiē",
+    "english": "some",
+    "french": "quelques",
+    "hskLevel": 1
+  },
+  {
+    "id": "有一些",
+    "hanzi": "有一些",
+    "pinyin": "yǒu yī xiē",
+    "english": "somewhat",
+    "french": "un peu",
+    "hskLevel": 1
+  },
+  {
+    "id": "有用",
+    "hanzi": "有用",
+    "pinyin": "yǒu yòng",
+    "english": "useful",
+    "french": "utile",
+    "hskLevel": 1
+  },
+  {
+    "id": "右",
+    "hanzi": "右",
+    "pinyin": "yòu",
+    "english": "(bound form) right; right-hand side",
+    "french": "droite",
+    "hskLevel": 1
+  },
+  {
+    "id": "右边",
+    "hanzi": "右边",
+    "pinyin": "yòu bian",
+    "english": "right side",
+    "french": "côté droit",
+    "hskLevel": 1
+  },
+  {
+    "id": "雨",
+    "hanzi": "雨",
+    "pinyin": "yǔ",
+    "english": "rain",
+    "french": "pluie",
+    "hskLevel": 1
+  },
+  {
+    "id": "下雨",
+    "hanzi": "下雨",
+    "pinyin": "xià yǔ",
+    "english": "to rain",
+    "french": "pleuvoir",
+    "hskLevel": 1
+  },
+  {
+    "id": "元",
+    "hanzi": "元",
+    "pinyin": "yuán",
+    "english": "yuan (currency)",
+    "french": "yuan (monnaie)",
+    "hskLevel": 1
+  },
+  {
+    "id": "远",
+    "hanzi": "远",
+    "pinyin": "yuǎn",
+    "english": "far",
+    "french": "loin",
+    "hskLevel": 1
+  },
+  {
+    "id": "月",
+    "hanzi": "月",
+    "pinyin": "yuè",
+    "english": "moon",
+    "french": "lune; mois",
+    "hskLevel": 1
+  },
+  {
+    "id": "再",
+    "hanzi": "再",
+    "pinyin": "zài",
+    "english": "again; once more; re-",
+    "french": "encore; de nouveau",
+    "hskLevel": 1
+  },
+  {
+    "id": "再见",
+    "hanzi": "再见",
+    "pinyin": "zài jiàn",
+    "english": "goodbye",
+    "french": "au revoir",
+    "hskLevel": 1
+  },
+  {
+    "id": "在",
+    "hanzi": "在",
+    "pinyin": "zài",
+    "english": "at; in; to be located at",
+    "french": "à; dans; se trouver",
+    "hskLevel": 1
+  },
+  {
+    "id": "现在",
+    "hanzi": "现在",
+    "pinyin": "xiàn zài",
+    "english": "now",
+    "french": "maintenant",
+    "hskLevel": 1
+  },
+  {
+    "id": "在家",
+    "hanzi": "在家",
+    "pinyin": "zài jiā",
+    "english": "to be at home",
+    "french": "être à la maison",
+    "hskLevel": 1
+  },
+  {
+    "id": "早",
+    "hanzi": "早",
+    "pinyin": "zǎo",
+    "english": "early",
+    "french": "tôt",
+    "hskLevel": 1
+  },
+  {
+    "id": "早饭",
+    "hanzi": "早饭",
+    "pinyin": "zǎo fàn",
+    "english": "breakfast",
+    "french": "petit-déjeuner",
+    "hskLevel": 1
+  },
+  {
+    "id": "早上",
+    "hanzi": "早上",
+    "pinyin": "zǎo shang",
+    "english": "early morning",
+    "french": "le matin",
+    "hskLevel": 1
+  },
+  {
+    "id": "怎么",
+    "hanzi": "怎么",
+    "pinyin": "zěn me",
+    "english": "how?",
+    "french": "comment",
+    "hskLevel": 1
+  },
+  {
+    "id": "站",
+    "hanzi": "站",
+    "pinyin": "zhàn",
+    "english": "station",
+    "french": "gare; arrêt",
+    "hskLevel": 1
+  },
+  {
+    "id": "车站",
+    "hanzi": "车站",
+    "pinyin": "chē zhàn",
+    "english": "rail station",
+    "french": "gare; arrêt de bus",
+    "hskLevel": 1
+  },
+  {
+    "id": "找",
+    "hanzi": "找",
+    "pinyin": "zhǎo",
+    "english": "to try to find",
+    "french": "chercher",
+    "hskLevel": 1
+  },
+  {
+    "id": "找到",
+    "hanzi": "找到",
+    "pinyin": "zhǎo dào",
+    "english": "to find",
+    "french": "trouver",
+    "hskLevel": 1
+  },
+  {
+    "id": "这",
+    "hanzi": "这",
+    "pinyin": "zhè",
+    "english": "(pronoun) this; these",
+    "french": "ce; ceci",
+    "hskLevel": 1
+  },
+  {
+    "id": "这边",
+    "hanzi": "这边",
+    "pinyin": "zhè biān",
+    "english": "this side",
+    "french": "par ici",
+    "hskLevel": 1
+  },
+  {
+    "id": "这儿",
+    "hanzi": "这儿",
+    "pinyin": "zhè r",
+    "english": "here",
+    "french": "ici",
+    "hskLevel": 1
+  },
+  {
+    "id": "这里",
+    "hanzi": "这里",
+    "pinyin": "zhè lǐ",
+    "english": "here",
+    "french": "ici",
+    "hskLevel": 1
+  },
+  {
+    "id": "这些",
+    "hanzi": "这些",
+    "pinyin": "zhè xiē",
+    "english": "these",
+    "french": "ceux-ci",
+    "hskLevel": 1
+  },
+  {
+    "id": "着",
+    "hanzi": "着",
+    "pinyin": "zhe",
+    "english": "(particle indicating continuing action)",
+    "french": "(particule d'action continue)",
+    "hskLevel": 1
+  },
+  {
+    "id": "真",
+    "hanzi": "真",
+    "pinyin": "zhēn",
+    "english": "really",
+    "french": "vraiment",
+    "hskLevel": 1
+  },
+  {
+    "id": "认真",
+    "hanzi": "认真",
+    "pinyin": "rèn zhēn",
+    "english": "conscientious",
+    "french": "sérieux; consciencieux",
+    "hskLevel": 1
+  },
+  {
+    "id": "真的",
+    "hanzi": "真的",
+    "pinyin": "zhēn de",
+    "english": "really, truly, indeed",
+    "french": "vraiment",
+    "hskLevel": 1
+  },
+  {
+    "id": "正",
+    "hanzi": "正",
+    "pinyin": "zhèng",
+    "english": "just; upright; straight",
+    "french": "juste; droit",
+    "hskLevel": 1
+  },
+  {
+    "id": "正在",
+    "hanzi": "正在",
+    "pinyin": "zhèng zài",
+    "english": "just at (that time)",
+    "french": "être en train de",
+    "hskLevel": 1
+  },
+  {
+    "id": "知道",
+    "hanzi": "知道",
+    "pinyin": "zhī dào",
+    "english": "to know; to become aware of",
+    "french": "savoir",
+    "hskLevel": 1
+  },
+  {
+    "id": "知识",
+    "hanzi": "知识",
+    "pinyin": "zhī shi",
+    "english": "knowledge",
+    "french": "connaissance",
+    "hskLevel": 1
+  },
+  {
+    "id": "中",
+    "hanzi": "中",
+    "pinyin": "zhōng",
+    "english": "middle; center",
+    "french": "milieu; centre",
+    "hskLevel": 1
+  },
+  {
+    "id": "中国",
+    "hanzi": "中国",
+    "pinyin": "Zhōng guó",
+    "english": "China",
+    "french": "Chine",
+    "hskLevel": 1
+  },
+  {
+    "id": "中间",
+    "hanzi": "中间",
+    "pinyin": "zhōng jiān",
+    "english": "the middle; the inside",
+    "french": "le milieu",
+    "hskLevel": 1
+  },
+  {
+    "id": "中文",
+    "hanzi": "中文",
+    "pinyin": "Zhōng wén",
+    "english": "Chinese language",
+    "french": "chinois (langue écrite)",
+    "hskLevel": 1
+  },
+  {
+    "id": "中午",
+    "hanzi": "中午",
+    "pinyin": "zhōng wǔ",
+    "english": "noon",
+    "french": "midi",
+    "hskLevel": 1
+  },
+  {
+    "id": "中学",
+    "hanzi": "中学",
+    "pinyin": "zhōng xué",
+    "english": "middle school",
+    "french": "école secondaire",
+    "hskLevel": 1
+  },
+  {
+    "id": "中学生",
+    "hanzi": "中学生",
+    "pinyin": "zhōng xué shēng",
+    "english": "middle-school student",
+    "french": "collégien",
+    "hskLevel": 1
+  },
+  {
+    "id": "重",
+    "hanzi": "重",
+    "pinyin": "zhòng",
+    "english": "heavy; important",
+    "french": "lourd; important",
+    "hskLevel": 1
+  },
+  {
+    "id": "重要",
+    "hanzi": "重要",
+    "pinyin": "zhòng yào",
+    "english": "important",
+    "french": "important",
+    "hskLevel": 1
+  },
+  {
+    "id": "住",
+    "hanzi": "住",
+    "pinyin": "zhù",
+    "english": "to live",
+    "french": "habiter",
+    "hskLevel": 1
+  },
+  {
+    "id": "记住",
+    "hanzi": "记住",
+    "pinyin": "jì zhu",
+    "english": "to remember",
+    "french": "se souvenir de; retenir",
+    "hskLevel": 1
+  },
+  {
+    "id": "准备",
+    "hanzi": "准备",
+    "pinyin": "zhǔn bèi",
+    "english": "preparation",
+    "french": "préparer",
+    "hskLevel": 1
+  },
+  {
+    "id": "字",
+    "hanzi": "字",
+    "pinyin": "zì",
+    "english": "letter",
+    "french": "caractère (écrit)",
+    "hskLevel": 1
+  },
+  {
+    "id": "汉字",
+    "hanzi": "汉字",
+    "pinyin": "hàn zì",
+    "english": "Chinese character",
+    "french": "caractère chinois",
+    "hskLevel": 1
+  },
+  {
+    "id": "名字",
+    "hanzi": "名字",
+    "pinyin": "míng zi",
+    "english": "name (of a person or thing)",
+    "french": "nom",
+    "hskLevel": 1
+  },
+  {
+    "id": "子",
+    "hanzi": "子",
+    "pinyin": "zǐ",
+    "english": "son",
+    "french": "fils; (suffixe)",
+    "hskLevel": 1
+  },
+  {
+    "id": "包子",
+    "hanzi": "包子",
+    "pinyin": "bāo zi",
+    "english": "bao (steamed stuffed bun)",
+    "french": "petit pain vapeur farci",
+    "hskLevel": 1
+  },
+  {
+    "id": "杯子",
+    "hanzi": "杯子",
+    "pinyin": "bēi zi",
+    "english": "cup",
+    "french": "tasse; verre",
+    "hskLevel": 1
+  },
+  {
+    "id": "本子",
+    "hanzi": "本子",
+    "pinyin": "běn zi",
+    "english": "book",
+    "french": "cahier",
+    "hskLevel": 1
+  },
+  {
+    "id": "儿子",
+    "hanzi": "儿子",
+    "pinyin": "ér zi",
+    "english": "son",
+    "french": "fils",
+    "hskLevel": 1
+  },
+  {
+    "id": "房子",
+    "hanzi": "房子",
+    "pinyin": "fáng zi",
+    "english": "house",
+    "french": "maison",
+    "hskLevel": 1
+  },
+  {
+    "id": "孩子",
+    "hanzi": "孩子",
+    "pinyin": "hái zi",
+    "english": "child",
+    "french": "enfant",
+    "hskLevel": 1
+  },
+  {
+    "id": "桌子",
+    "hanzi": "桌子",
+    "pinyin": "zhuō zi",
+    "english": "table",
+    "french": "table",
+    "hskLevel": 1
+  },
+  {
+    "id": "走",
+    "hanzi": "走",
+    "pinyin": "zǒu",
+    "english": "to walk",
+    "french": "marcher",
+    "hskLevel": 1
+  },
+  {
+    "id": "走路",
+    "hanzi": "走路",
+    "pinyin": "zǒu lù",
+    "english": "to walk",
+    "french": "marcher",
+    "hskLevel": 1
+  },
+  {
+    "id": "最",
+    "hanzi": "最",
+    "pinyin": "zuì",
+    "english": "most",
+    "french": "le plus",
+    "hskLevel": 1
+  },
+  {
+    "id": "最好",
+    "hanzi": "最好",
+    "pinyin": "zuì hǎo",
+    "english": "best",
+    "french": "le meilleur",
+    "hskLevel": 1
+  },
+  {
+    "id": "最后",
+    "hanzi": "最后",
+    "pinyin": "zuì hòu",
+    "english": "final",
+    "french": "dernier; enfin",
+    "hskLevel": 1
+  },
+  {
+    "id": "昨天",
+    "hanzi": "昨天",
+    "pinyin": "zuó tiān",
+    "english": "yesterday",
+    "french": "hier",
+    "hskLevel": 1
+  },
+  {
+    "id": "左",
+    "hanzi": "左",
+    "pinyin": "zuǒ",
+    "english": "left",
+    "french": "gauche",
+    "hskLevel": 1
+  },
+  {
+    "id": "左边",
+    "hanzi": "左边",
+    "pinyin": "zuǒ bian",
+    "english": "left",
+    "french": "côté gauche",
+    "hskLevel": 1
+  },
+  {
+    "id": "坐",
+    "hanzi": "坐",
+    "pinyin": "zuò",
+    "english": "to sit",
+    "french": "s'asseoir",
+    "hskLevel": 1
+  },
+  {
+    "id": "请坐",
+    "hanzi": "请坐",
+    "pinyin": "qǐng zuò",
+    "english": "please, have a seat",
+    "french": "asseyez-vous, je vous prie",
+    "hskLevel": 1
+  },
+  {
+    "id": "坐下",
+    "hanzi": "坐下",
+    "pinyin": "zuò xia",
+    "english": "to sit down",
+    "french": "s'asseoir",
+    "hskLevel": 1
+  },
+  {
+    "id": "做",
+    "hanzi": "做",
+    "pinyin": "zuò",
+    "english": "to make; to produce",
+    "french": "faire",
+    "hskLevel": 1
+  }
+]

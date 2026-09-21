@@ -18,6 +18,8 @@ export default function LandingPage({
   onOpenFlashcardsUi,
   onOpenAudioUi,
   onOpenWritingUi,
+  onOpenHskDeckUi,
+  onOpenHskWordSelectUi,
 }) {
   const [showLessonPicker, setShowLessonPicker] = useState(false);
   const [refreshStatus, setRefreshStatus] = useState('');
@@ -166,6 +168,46 @@ export default function LandingPage({
               ) : null}
             </div>
           )}
+        </article>
+
+        <article className="profile-card-kid">
+          <div
+            className="current-lesson-card child-lesson-card ui-pressable"
+            onClick={onOpenHskDeckUi}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                onOpenHskDeckUi?.();
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label="Preparer le HSK1"
+          >
+            <div className="lesson-header child-lesson-header child-lesson-header-fixed">
+              <div className="child-lesson-main">
+                <div className="lesson-info child-lesson-info">
+                  <h3 className="lesson-title child-lesson-title">Préparer le HSK1</h3>
+                  <p className="lesson-description child-lesson-description">
+                    500 mots du référentiel HSK 3.0, indépendant des leçons
+                  </p>
+                </div>
+              </div>
+              <div className="lesson-actions child-lesson-actions">
+                <button
+                  type="button"
+                  className="change-lesson-btn icon-only ui-pressable"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    onOpenHskWordSelectUi?.();
+                  }}
+                  aria-label="Choisir un mot HSK1"
+                >
+                  🗂️
+                </button>
+              </div>
+            </div>
+          </div>
         </article>
 
         <article className="profile-card-parent">

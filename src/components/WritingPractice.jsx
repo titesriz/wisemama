@@ -144,6 +144,11 @@ export default function WritingPractice({
   const [showStrokeArrows, setShowStrokeArrows] = useState(writingDifficulty === 1);
   const [showWorksheet, setShowWorksheet] = useState(false);
   const [worksheetSize, setWorksheetSize] = useState('medium');
+  // Index of the *next* stroke to draw (highlighted in the preview band), not
+  // the one just completed - starts at 0 (first stroke) so there's always a
+  // clear "draw this one next" indicator.
+  const [currentStrokeIndex, setCurrentStrokeIndex] = useState(0);
+  const strokeStepRefs = useRef([]);
   const sounds = useUiSounds();
   const isRadicalMode = variant === 'radical';
   const targetChar = useMemo(() => {
@@ -156,6 +161,7 @@ export default function WritingPractice({
   const etymologyType = formatTypeLabel(etymology.type);
   const etymologyHint = structure?.etymology?.hint || '';
   const strokePreviewSteps = useMemo(() => buildStrokePreviewSteps(fullCharData), [fullCharData]);
+  const totalStrokes = fullCharData?.strokes?.length || 0;
   const strokePreviewTransform = useMemo(() => HanziWriter.getScalingTransform(92, 92, 10), []);
   const componentExercises = useMemo(
     () => (isRadicalMode ? buildComponentExercises(structure, fullCharData) : []),
@@ -261,6 +267,14 @@ export default function WritingPractice({
   }, [lessonId, card?.id, hanzi]);
 
   useEffect(() => {
+    strokeStepRefs.current[currentStrokeIndex]?.scrollIntoView({
+      behavior: 'smooth',
+      inline: 'center',
+      block: 'nearest',
+    });
+  }, [currentStrokeIndex]);
+
+  useEffect(() => {
     setShowModel(writingDifficulty === 1);
     setShowCharInfo(writingDifficulty <= 2);
     setShowStrokeArrows(writingDifficulty === 1);
@@ -336,6 +350,7 @@ export default function WritingPractice({
 
     ghostWriterRef.current = ghostWriter;
     writerRef.current = writer;
+    setCurrentStrokeIndex(0);
     setFeedback(
       isRadicalMode
         ? `Trace le composant ${activeComponentExercise?.label || ''}.`
@@ -347,6 +362,9 @@ export default function WritingPractice({
       showHintAfterMisses: writingDifficulty === 1 ? 1 : writingDifficulty === 2 ? 3 : false,
       onMistake: () => {
         setFeedback(isRadicalMode ? 'Continue, tu es presque sur ce composant.' : 'Continue, tu es presque.');
+      },
+      onCorrectStroke: (strokeData) => {
+        if (!isRadicalMode) setCurrentStrokeIndex(Math.min(strokeData.strokeNum + 1, totalStrokes - 1));
       },
       onComplete: (result) => handleQuizCompleteRef.current(result),
     });
@@ -387,7 +405,15 @@ export default function WritingPractice({
 
     setQuizActive(false);
     setFeedback('Observe bien les traits, puis essaie de tracer.');
-    await writerRef.current.animateCharacter();
+    if (totalStrokes) {
+      for (let strokeNum = 0; strokeNum < totalStrokes; strokeNum += 1) {
+        setCurrentStrokeIndex(strokeNum);
+        // eslint-disable-next-line no-await-in-loop
+        await new Promise((resolve) => writerRef.current.animateStroke(strokeNum, { onComplete: resolve }));
+      }
+    } else {
+      await writerRef.current.animateCharacter();
+    }
     startQuiz();
   };
 
@@ -414,6 +440,7 @@ export default function WritingPractice({
     }
 
     setQuizActive(true);
+    setCurrentStrokeIndex(0);
     setFeedback(isRadicalMode ? `A toi de tracer ${activeComponentExercise?.label || 'ce composant'}.` : 'A toi de tracer dans le bon ordre.');
 
     writerRef.current.quiz({
@@ -421,6 +448,9 @@ export default function WritingPractice({
       showHintAfterMisses: writingDifficulty === 1 ? 1 : writingDifficulty === 2 ? 3 : false,
       onMistake: () => {
         setFeedback(isRadicalMode ? 'Continue, tu es presque sur ce composant.' : 'Continue, tu es presque.');
+      },
+      onCorrectStroke: (strokeData) => {
+        if (!isRadicalMode) setCurrentStrokeIndex(Math.min(strokeData.strokeNum + 1, totalStrokes - 1));
       },
       onComplete: (result) => handleQuizCompleteRef.current(result),
     });
@@ -491,7 +521,10 @@ export default function WritingPractice({
   }, [showLessonPicker]);
 
   return (
-    <section className={`writing-screen ${embedded ? 'writing-screen-embedded' : ''}`} aria-label={isRadicalMode ? 'Atelier radical tablette' : 'Atelier d ecriture tablette'}>
+    <section
+      className={`writing-screen ${embedded ? 'writing-screen-embedded' : ''}`}
+      aria-label={isRadicalMode ? 'Atelier radical tablette' : 'Atelier d ecriture tablette'}
+    >
       {!embedded ? (
         <section ref={lessonPickerRef} className="writing-header-shell">
           <div className="current-lesson-card writing-header-card">
@@ -777,7 +810,11 @@ export default function WritingPractice({
       {!isRadicalMode ? (
         <div className="stroke-preview-band">
           {showStrokeArrows && strokePreviewSteps.length ? strokePreviewSteps.map((step) => (
-            <div key={step.index} className="radical-stroke-step">
+            <div
+              key={step.index}
+              ref={(el) => { strokeStepRefs.current[step.index] = el; }}
+              className={`radical-stroke-step ${step.index === currentStrokeIndex ? 'radical-stroke-step-current' : ''}`}
+            >
               <div className="radical-stroke-step-count">{step.index + 1}</div>
               <svg viewBox="0 0 92 92" className="radical-stroke-step-canvas" aria-label={`Trait ${step.index + 1}`}>
                 <rect x="1" y="1" width="90" height="90" rx="14" fill="#fff" stroke="#e7ebf2" />

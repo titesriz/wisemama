@@ -22,6 +22,10 @@ import RadicalDiscoveryPage from './components/RadicalDiscoveryPage.jsx';
 import RadicalOnlyPage from './components/RadicalOnlyPage.jsx';
 import WritingPractice from './components/WritingPractice.jsx';
 import WritingOnlyPage from './components/WritingOnlyPage.jsx';
+import HskWordPage from './components/HskWordPage.jsx';
+import HskWritingPage from './components/HskWritingPage.jsx';
+import HskWordSelectionPage from './components/HskWordSelectionPage.jsx';
+import hskWords from './data/hsk1-words.json';
 import { useAvatar } from './context/AvatarContext.jsx';
 import { useLessons } from './context/LessonsContext.jsx';
 import { useMode } from './context/ModeContext.jsx';
@@ -61,7 +65,25 @@ const STANDALONE_VIEW = {
   LESSON_SELECT: 'lesson-select',
   FONT_TEST: 'font-test',
   RADICAL_DISCOVERY: 'radical-discovery',
+  HSK_WORDS: 'hsk-words',
+  HSK_WRITING: 'hsk-writing',
+  HSK_SELECT: 'hsk-select',
 };
+
+const hskProgressStorageKey = 'wisemama-hsk1-progress-v1';
+
+function readHskProgress() {
+  try {
+    const raw = localStorage.getItem(hskProgressStorageKey);
+    if (!raw) return 0;
+    const parsed = JSON.parse(raw);
+    const index = Number(parsed?.wordIndex);
+    if (Number.isInteger(index) && index >= 0 && index < hskWords.length) return index;
+  } catch {
+    // no-op
+  }
+  return 0;
+}
 
 function getCardKey(lessonId, cardId) {
   return `${lessonId}:${cardId}`;
@@ -115,6 +137,7 @@ export default function App() {
   const [lessonJourneyPosition, setLessonJourneyPosition] = useState(0);
   const [unifiedFlowStepIndex, setUnifiedFlowStepIndex] = useState(0);
   const [writingDifficulty, setWritingDifficulty] = useState(1);
+  const [hskWordIndex, setHskWordIndex] = useState(() => readHskProgress());
   const [activeModule, setActiveModule] = useState(MODULES.LESSONS);
   const [showAvatarEditorModal, setShowAvatarEditorModal] = useState(false);
   const [showProfilePicker, setShowProfilePicker] = useState(false);
@@ -328,6 +351,37 @@ export default function App() {
       };
     });
   };
+
+  const handleHskWritingSuccess = (mistakes) => {
+    const hskWord = hskWords[hskWordIndex];
+    if (!hskWord || !currentProfileKey) return;
+
+    const cardKey = getCardKey('hsk1-deck', hskWord.id);
+    const earned = mistakes === 0 ? 3 : mistakes === 1 ? 2 : 1;
+
+    setStarsByProfile((prev) => {
+      const map = prev[currentProfileKey] || {};
+      const current = map[cardKey] ?? 0;
+      return {
+        ...prev,
+        [currentProfileKey]: {
+          ...map,
+          [cardKey]: Math.max(current, earned),
+        },
+      };
+    });
+  };
+
+  const goToNextHskWord = () => setHskWordIndex((prev) => (prev + 1) % hskWords.length);
+  const goToPrevHskWord = () => setHskWordIndex((prev) => (prev - 1 + hskWords.length) % hskWords.length);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(hskProgressStorageKey, JSON.stringify({ wordIndex: hskWordIndex }));
+    } catch {
+      // no-op
+    }
+  }, [hskWordIndex]);
 
   const currentCardKey = currentCard ? getCardKey(activeLesson.id, currentCard.id) : '';
   const earnedStars = currentCard ? currentStarsMap[currentCardKey] ?? 0 : 0;
@@ -558,6 +612,18 @@ export default function App() {
     openStandaloneModule(STANDALONE_VIEW.WRITING, MODULES.WRITING);
   };
 
+  const openHskDeckFromLanding = () => {
+    setShowDailyRituel(false);
+    setStandaloneView(STANDALONE_VIEW.HSK_WORDS);
+    setEnteredApp(false);
+  };
+
+  const openHskWordSelectFromLanding = () => {
+    setShowDailyRituel(false);
+    setStandaloneView(STANDALONE_VIEW.HSK_SELECT);
+    setEnteredApp(false);
+  };
+
   const openFontTestFromLanding = () => {
     setShowDailyRituel(false);
     setStandaloneView(STANDALONE_VIEW.FONT_TEST);
@@ -772,6 +838,64 @@ export default function App() {
           setCardIndex(0);
         }}
         onSuccess={handleWritingSuccess}
+      />
+    );
+  }
+
+  if (standaloneView === STANDALONE_VIEW.HSK_WORDS) {
+    return (
+      <HskWordPage
+        profile={activeProfile}
+        word={hskWords[hskWordIndex] || null}
+        wordIndex={hskWordIndex}
+        totalWords={hskWords.length}
+        onPrev={goToPrevHskWord}
+        onNext={goToNextHskWord}
+        onBack={() => {
+          setStandaloneView(STANDALONE_VIEW.NONE);
+          setEnteredApp(false);
+        }}
+        onSwitchModule={(module) => {
+          if (module === 'writing') {
+            setStandaloneView(STANDALONE_VIEW.HSK_WRITING);
+          }
+        }}
+        onOpenPicker={() => setStandaloneView(STANDALONE_VIEW.HSK_SELECT)}
+      />
+    );
+  }
+
+  if (standaloneView === STANDALONE_VIEW.HSK_SELECT) {
+    return (
+      <HskWordSelectionPage
+        words={hskWords}
+        activeWordId={hskWords[hskWordIndex]?.id || ''}
+        onSelectWord={(index) => {
+          setHskWordIndex(index);
+          setStandaloneView(STANDALONE_VIEW.HSK_WORDS);
+        }}
+        onBack={() => setStandaloneView(STANDALONE_VIEW.HSK_WORDS)}
+      />
+    );
+  }
+
+  if (standaloneView === STANDALONE_VIEW.HSK_WRITING) {
+    return (
+      <HskWritingPage
+        profile={activeProfile}
+        word={hskWords[hskWordIndex] || null}
+        onBack={() => {
+          setStandaloneView(STANDALONE_VIEW.NONE);
+          setEnteredApp(false);
+        }}
+        onSwitchModule={(module) => {
+          if (module === 'flashcards') {
+            setStandaloneView(STANDALONE_VIEW.HSK_WORDS);
+          }
+        }}
+        onSuccess={handleHskWritingSuccess}
+        onPrevWord={goToPrevHskWord}
+        onNextWord={goToNextHskWord}
       />
     );
   }
@@ -999,6 +1123,8 @@ export default function App() {
         onOpenFlashcardsUi={openFlashcardsFromLanding}
         onOpenAudioUi={openAudioFromLanding}
         onOpenWritingUi={openWritingFromLanding}
+        onOpenHskDeckUi={openHskDeckFromLanding}
+        onOpenHskWordSelectUi={openHskWordSelectFromLanding}
         onOpenAvatarEditor={() => setShowAvatarEditorModal(true)}
         onStartProfile={startWithProfile}
         onRefreshLessons={refreshBundledLessons}
@@ -1247,7 +1373,7 @@ export default function App() {
             </section>
           ) : null}
 
-          {activeModule === MODULES.PARENT_HOME && isParentMode ? (
+          {activeModule === MODULES.PARENT_HOME && isParentMode && isDevMode ? (
             <section className="module-pane">
               <ParentModeDashboard
                 lessons={lessonOptions}
