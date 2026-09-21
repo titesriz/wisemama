@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { isDevMode } from '../config.js';
 
 const modeStorageKey = 'wisemama-active-mode-v1';
 
@@ -10,6 +11,11 @@ export function ModeProvider({ children }) {
   useEffect(() => {
     try {
       const stored = localStorage.getItem(modeStorageKey);
+      if (stored === 'parent' && !isDevMode) {
+        // Share builds never expose a UI path into parent mode; ignore a
+        // stale/tampered localStorage value rather than honoring it.
+        return;
+      }
       if (stored === 'child' || stored === 'parent') {
         setMode(stored);
       }
@@ -34,7 +40,10 @@ export function ModeProvider({ children }) {
       isChildMode: mode === 'child',
       isParentMode: mode === 'parent',
       switchToChild: () => setMode('child'),
-      switchToParent: () => setMode('parent'),
+      switchToParent: () => {
+        if (!isDevMode) return;
+        setMode('parent');
+      },
     }),
     [mode],
   );
