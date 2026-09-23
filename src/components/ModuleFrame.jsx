@@ -30,9 +30,16 @@ export default function ModuleFrame({
   const audioRef = useRef(null);
   const [audioSrc, setAudioSrc] = useState('');
   const [showLessonPicker, setShowLessonPicker] = useState(false);
+  const [autoPlay, setAutoPlay] = useState(false);
+  const autoPlayRef = useRef(false);
+  const isFirstCardRef = useRef(true);
   const targetChar = useMemo(() => Array.from(card?.hanzi || '')[0] || '', [card?.hanzi]);
   const profileLabel = profile?.role === 'parent' ? 'Parent' : 'Kid';
   const availableLessons = lessons.length ? lessons : [{ id: lessonId || 'current', title: lessonTitle || 'Lecon', cards: [] }];
+
+  useEffect(() => {
+    autoPlayRef.current = autoPlay;
+  }, [autoPlay]);
 
   const playCardAudio = () => {
     sounds.playTap();
@@ -44,27 +51,61 @@ export default function ModuleFrame({
     speakHanzi(card?.hanzi);
   };
 
+  const toggleAutoPlay = () => {
+    setAutoPlay((prev) => {
+      const next = !prev;
+      if (next) {
+        // Turning it on plays the card we're already looking at, then every
+        // future card we land on (Prec/Suiv/picker) auto-plays too.
+        playCardAudio();
+      } else {
+        sounds.playTap();
+      }
+      return next;
+    });
+  };
+
   useEffect(() => {
     let isMounted = true;
     let objectUrl = '';
+    // Skip auto-play on this component's very first resolution (arriving on
+    // the screen shouldn't itself count as "landing on a card" - only
+    // Prec/Suiv/picker navigation after autoPlay is already on should).
+    const isFirstCard = isFirstCardRef.current;
+    isFirstCardRef.current = false;
 
     const resolveAudio = async () => {
-      if (!lessonId || !card?.id) {
-        if (isMounted) setAudioSrc(card?.audioUrl || '');
-        return;
-      }
-      const cardKey = `${lessonId}:${card.id}`;
-      try {
-        const parentModel = await getParentModel(cardKey);
-        if (parentModel?.blob) {
-          objectUrl = URL.createObjectURL(parentModel.blob);
-          if (isMounted) setAudioSrc(objectUrl);
-          return;
+      let resolvedSrc = '';
+      let recordingBlob = null;
+
+      if (lessonId && card?.id) {
+        const cardKey = `${lessonId}:${card.id}`;
+        try {
+          const parentModel = await getParentModel(cardKey);
+          if (parentModel?.blob) {
+            recordingBlob = parentModel.blob;
+            objectUrl = URL.createObjectURL(recordingBlob);
+            resolvedSrc = objectUrl;
+          }
+        } catch {
+          // fallthrough to card audio
         }
-      } catch {
-        // fallthrough
       }
-      if (isMounted) setAudioSrc(card?.audioUrl || '');
+      if (!recordingBlob) {
+        resolvedSrc = card?.audioUrl || '';
+      }
+
+      if (!isMounted) return;
+      setAudioSrc(resolvedSrc);
+
+      if (autoPlayRef.current && !isFirstCard) {
+        if (recordingBlob) {
+          const preview = new Audio(objectUrl);
+          preview.play().catch(() => speakHanzi(card?.hanzi));
+        } else {
+          speakHanzi(card?.hanzi);
+        }
+      }
     };
 
     resolveAudio();
@@ -111,7 +152,8 @@ export default function ModuleFrame({
             }
           }}
         >
-          {lessonTitle || 'Lecon'}
+          <span className="writing-lesson-selector-label">{lessonTitle || 'Lecon'}</span>
+          <span className="writing-lesson-selector-icon" aria-hidden="true">🗂️</span>
         </button>
         {onOpenLessonText ? (
           <button
@@ -154,14 +196,27 @@ export default function ModuleFrame({
           <span>{card?.french || ''}</span>
           <small>{card?.english || ''}</small>
         </div>
-        <button
-          type="button"
-          className="writing-sound-btn ui-pressable"
-          onClick={playCardAudio}
-          disabled={!audioSrc && !card?.hanzi}
-        >
-          Son
-        </button>
+        <div className="writing-sound-controls">
+          <button
+            type="button"
+            className={`writing-sound-btn ui-pressable ${autoPlay ? 'active' : ''}`}
+            onClick={toggleAutoPlay}
+            disabled={!audioSrc && !card?.hanzi}
+            aria-pressed={autoPlay}
+          >
+            Son
+            <span className="writing-sound-btn-tick" aria-hidden="true">{autoPlay ? '🔈' : '🔇'}</span>
+          </button>
+          <button
+            type="button"
+            className="writing-sound-repeat-btn ui-pressable"
+            onClick={playCardAudio}
+            disabled={!audioSrc && !card?.hanzi}
+            aria-label="Rejouer le son"
+          >
+            🔊
+          </button>
+        </div>
         {audioSrc ? <audio ref={audioRef} src={audioSrc} preload="auto" /> : null}
       </div>
 
