@@ -139,19 +139,24 @@ export function getAvatarTraitsByStyle(style) {
 
 export function defaultAvatarConfig(seedPrefix = 'kid') {
   const profile = getProfile(defaultStyle);
+  // Every real call site passes the role ('child'/'parent') as seedPrefix, so
+  // it also picks a sensible default hairstyle instead of the style profile's
+  // bare index-0 ('none') - otherwise any freshly-created parent profile
+  // (e.g. via "Nouveau profil") renders bald, unlike the bundled Maman avatar.
+  const isParent = seedPrefix === 'parent';
   return {
     style: defaultStyle,
     seed: randomSeed(seedPrefix),
     beard: profile.beard[0],
     clothes: profile.clothes[0],
     clothesColor: profile.clothesColor[0],
-    hair: profile.hair[0],
+    hair: isParent ? 'sideComed' : profile.hair[0],
     hairColor: profile.hairColor[0],
     hairProbability: 100,
     eyes: profile.eyes[0],
     mouth: profile.mouth[0],
-    rearHair: profile.rearHair[0],
-    rearHairProbability: 50,
+    rearHair: isParent ? 'longWavy' : profile.rearHair[0],
+    rearHairProbability: isParent ? 100 : 50,
     skinColor: profile.skinColor[0],
     eyebrows: profile.eyebrows[0],
     head: profile.head[0],
