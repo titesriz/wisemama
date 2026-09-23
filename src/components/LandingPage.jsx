@@ -20,6 +20,7 @@ export default function LandingPage({
   onOpenWritingUi,
   onOpenHskDeckUi,
   onOpenHskWordSelectUi,
+  onOpenColorsDeckUi,
 }) {
   const [showLessonPicker, setShowLessonPicker] = useState(false);
   const [refreshStatus, setRefreshStatus] = useState('');
@@ -205,6 +206,33 @@ export default function LandingPage({
                 >
                   🗂️
                 </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article className="profile-card-kid">
+          <div
+            className="current-lesson-card child-lesson-card ui-pressable"
+            onClick={onOpenColorsDeckUi}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                onOpenColorsDeckUi?.();
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label="Decouvrir les couleurs"
+          >
+            <div className="lesson-header child-lesson-header child-lesson-header-fixed">
+              <div className="child-lesson-main">
+                <div className="lesson-info child-lesson-info">
+                  <h3 className="lesson-title child-lesson-title">Découvrir les couleurs</h3>
+                  <p className="lesson-description child-lesson-description">
+                    Lire, écrire et un quiz - indépendant des leçons
+                  </p>
+                </div>
               </div>
             </div>
           </div>

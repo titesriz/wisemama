@@ -25,7 +25,11 @@ import WritingOnlyPage from './components/WritingOnlyPage.jsx';
 import HskWordPage from './components/HskWordPage.jsx';
 import HskWritingPage from './components/HskWritingPage.jsx';
 import HskWordSelectionPage from './components/HskWordSelectionPage.jsx';
+import ColorsWordPage from './components/ColorsWordPage.jsx';
+import ColorsWritingPage from './components/ColorsWritingPage.jsx';
+import ColorsQuizPage from './components/ColorsQuizPage.jsx';
 import hskWords from './data/hsk1-words.json';
+import colorsWords from './data/colors-words.json';
 import { useAvatar } from './context/AvatarContext.jsx';
 import { useLessons } from './context/LessonsContext.jsx';
 import { useMode } from './context/ModeContext.jsx';
@@ -68,6 +72,9 @@ const STANDALONE_VIEW = {
   HSK_WORDS: 'hsk-words',
   HSK_WRITING: 'hsk-writing',
   HSK_SELECT: 'hsk-select',
+  COLORS_WORDS: 'colors-words',
+  COLORS_WRITING: 'colors-writing',
+  COLORS_QUIZ: 'colors-quiz',
 };
 
 const hskProgressStorageKey = 'wisemama-hsk1-progress-v1';
@@ -138,6 +145,7 @@ export default function App() {
   const [unifiedFlowStepIndex, setUnifiedFlowStepIndex] = useState(0);
   const [writingDifficulty, setWritingDifficulty] = useState(1);
   const [hskWordIndex, setHskWordIndex] = useState(() => readHskProgress());
+  const [colorsWordIndex, setColorsWordIndex] = useState(0);
   const [activeModule, setActiveModule] = useState(MODULES.LESSONS);
   const [showAvatarEditorModal, setShowAvatarEditorModal] = useState(false);
   const [showProfilePicker, setShowProfilePicker] = useState(false);
@@ -374,6 +382,29 @@ export default function App() {
 
   const goToNextHskWord = () => setHskWordIndex((prev) => (prev + 1) % hskWords.length);
   const goToPrevHskWord = () => setHskWordIndex((prev) => (prev - 1 + hskWords.length) % hskWords.length);
+
+  const handleColorsWritingSuccess = (mistakes) => {
+    const colorsWord = colorsWords[colorsWordIndex];
+    if (!colorsWord || !currentProfileKey) return;
+
+    const cardKey = getCardKey('colors-deck', colorsWord.id);
+    const earned = mistakes === 0 ? 3 : mistakes === 1 ? 2 : 1;
+
+    setStarsByProfile((prev) => {
+      const map = prev[currentProfileKey] || {};
+      const current = map[cardKey] ?? 0;
+      return {
+        ...prev,
+        [currentProfileKey]: {
+          ...map,
+          [cardKey]: Math.max(current, earned),
+        },
+      };
+    });
+  };
+
+  const goToNextColorsWord = () => setColorsWordIndex((prev) => (prev + 1) % colorsWords.length);
+  const goToPrevColorsWord = () => setColorsWordIndex((prev) => (prev - 1 + colorsWords.length) % colorsWords.length);
 
   useEffect(() => {
     try {
@@ -621,6 +652,12 @@ export default function App() {
   const openHskWordSelectFromLanding = () => {
     setShowDailyRituel(false);
     setStandaloneView(STANDALONE_VIEW.HSK_SELECT);
+    setEnteredApp(false);
+  };
+
+  const openColorsDeckFromLanding = () => {
+    setShowDailyRituel(false);
+    setStandaloneView(STANDALONE_VIEW.COLORS_WORDS);
     setEnteredApp(false);
   };
 
@@ -900,6 +937,69 @@ export default function App() {
     );
   }
 
+  if (standaloneView === STANDALONE_VIEW.COLORS_WORDS) {
+    return (
+      <ColorsWordPage
+        profile={activeProfile}
+        word={colorsWords[colorsWordIndex] || null}
+        wordIndex={colorsWordIndex}
+        totalWords={colorsWords.length}
+        onPrev={goToPrevColorsWord}
+        onNext={goToNextColorsWord}
+        onBack={() => {
+          setStandaloneView(STANDALONE_VIEW.NONE);
+          setEnteredApp(false);
+        }}
+        onSwitchModule={(module) => {
+          if (module === 'writing') {
+            setStandaloneView(STANDALONE_VIEW.COLORS_WRITING);
+          } else if (module === 'quiz') {
+            setStandaloneView(STANDALONE_VIEW.COLORS_QUIZ);
+          }
+        }}
+      />
+    );
+  }
+
+  if (standaloneView === STANDALONE_VIEW.COLORS_WRITING) {
+    return (
+      <ColorsWritingPage
+        profile={activeProfile}
+        word={colorsWords[colorsWordIndex] || null}
+        onBack={() => {
+          setStandaloneView(STANDALONE_VIEW.NONE);
+          setEnteredApp(false);
+        }}
+        onSwitchModule={(module) => {
+          if (module === 'flashcards') {
+            setStandaloneView(STANDALONE_VIEW.COLORS_WORDS);
+          }
+        }}
+        onSuccess={handleColorsWritingSuccess}
+        onPrevWord={goToPrevColorsWord}
+        onNextWord={goToNextColorsWord}
+      />
+    );
+  }
+
+  if (standaloneView === STANDALONE_VIEW.COLORS_QUIZ) {
+    return (
+      <ColorsQuizPage
+        profile={activeProfile}
+        words={colorsWords}
+        onBack={() => {
+          setStandaloneView(STANDALONE_VIEW.NONE);
+          setEnteredApp(false);
+        }}
+        onSwitchModule={(module) => {
+          if (module === 'flashcards') {
+            setStandaloneView(STANDALONE_VIEW.COLORS_WORDS);
+          }
+        }}
+      />
+    );
+  }
+
   if (standaloneView === STANDALONE_VIEW.FLASHCARDS) {
     return (
       <FlashcardOnlyPage
@@ -1125,6 +1225,7 @@ export default function App() {
         onOpenWritingUi={openWritingFromLanding}
         onOpenHskDeckUi={openHskDeckFromLanding}
         onOpenHskWordSelectUi={openHskWordSelectFromLanding}
+        onOpenColorsDeckUi={openColorsDeckFromLanding}
         onOpenAvatarEditor={() => setShowAvatarEditorModal(true)}
         onStartProfile={startWithProfile}
         onRefreshLessons={refreshBundledLessons}

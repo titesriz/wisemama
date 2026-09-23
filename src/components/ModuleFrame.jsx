@@ -215,6 +215,19 @@ export default function ModuleFrame({
             Ecrire
           </button>
         ) : null}
+        {modes.includes('quiz') ? (
+          <button
+            type="button"
+            className={`writing-mode-btn ui-pressable ${activeModule === 'quiz' ? 'active' : ''}`}
+            onClick={() => {
+              sounds.playTap();
+              onSwitchModule?.('quiz');
+            }}
+            disabled={activeModule === 'quiz'}
+          >
+            Quiz
+          </button>
+        ) : null}
       </div>
     </section>
   );

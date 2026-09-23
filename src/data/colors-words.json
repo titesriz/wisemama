@@ -1,0 +1,13 @@
+[
+  { "id": "红", "hanzi": "红", "pinyin": "hóng", "french": "rouge", "english": "red", "colorHex": "#e63946" },
+  { "id": "黄", "hanzi": "黄", "pinyin": "huáng", "french": "jaune", "english": "yellow", "colorHex": "#ffd60a" },
+  { "id": "蓝", "hanzi": "蓝", "pinyin": "lán", "french": "bleu", "english": "blue", "colorHex": "#1d4ed8" },
+  { "id": "白", "hanzi": "白", "pinyin": "bái", "french": "blanc", "english": "white", "colorHex": "#ffffff" },
+  { "id": "黑", "hanzi": "黑", "pinyin": "hēi", "french": "noir", "english": "black", "colorHex": "#111111" },
+  { "id": "绿", "hanzi": "绿", "pinyin": "lǜ", "french": "vert", "english": "green", "colorHex": "#2a9d34" },
+  { "id": "橙", "hanzi": "橙", "pinyin": "chéng", "french": "orange", "english": "orange", "colorHex": "#f4791f" },
+  { "id": "紫", "hanzi": "紫", "pinyin": "zǐ", "french": "violet", "english": "purple", "colorHex": "#7c3aed" },
+  { "id": "粉红", "hanzi": "粉红", "pinyin": "fěn hóng", "french": "rose", "english": "pink", "colorHex": "#f472b6" },
+  { "id": "灰", "hanzi": "灰", "pinyin": "huī", "french": "gris", "english": "gray", "colorHex": "#9ca3af" },
+  { "id": "棕", "hanzi": "棕", "pinyin": "zōng", "french": "brun, marron", "english": "brown", "colorHex": "#8b5a2b" }
+]
