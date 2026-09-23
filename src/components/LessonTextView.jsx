@@ -403,15 +403,6 @@ export default function LessonTextView({
                 >
                   Difficile
                 </button>
-                <button
-                  type="button"
-                  className="lesson-difficulty-star ui-pressable"
-                  onClick={() => onStartQuiz?.()}
-                  aria-label="Quiz"
-                  disabled={(lesson?.cards?.length || 0) < 2}
-                >
-                  Quiz
-                </button>
               </div>
             </div>
             <div className="vocab-grid-with-controls">
