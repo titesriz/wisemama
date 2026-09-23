@@ -4,6 +4,7 @@ import { useUiSounds } from '../hooks/useUiSounds.js';
 import { useSwipeNav } from '../hooks/useSwipeNav.js';
 import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
 import { getParentModel } from '../lib/audioStore.js';
+import { speakHanzi } from '../lib/ttsFallback.js';
 
 export default function ModuleFrame({
   profile,
@@ -35,9 +36,12 @@ export default function ModuleFrame({
 
   const playCardAudio = () => {
     sounds.playTap();
-    if (!audioRef.current) return;
-    audioRef.current.currentTime = 0;
-    audioRef.current.play();
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch(() => speakHanzi(card?.hanzi));
+      return;
+    }
+    speakHanzi(card?.hanzi);
   };
 
   useEffect(() => {
@@ -154,7 +158,7 @@ export default function ModuleFrame({
           type="button"
           className="writing-sound-btn ui-pressable"
           onClick={playCardAudio}
-          disabled={!audioSrc}
+          disabled={!audioSrc && !card?.hanzi}
         >
           Son
         </button>

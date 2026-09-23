@@ -8,6 +8,7 @@ import { buildLessonsSyncEnvelope, extractLessonsFromPayload, isSyncEnvelope } f
 import { useUiSounds } from '../hooks/useUiSounds.js';
 import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
 import { normalizeLessonText, segmentLessonText } from '../lib/lessonTextSegmentation.js';
+import { speakHanzi } from '../lib/ttsFallback.js';
 import { getLessonsByOrder, normalizeLessonOrder } from '../utils/lessons/lessonOrder.js';
 
 function makeDraftCardId() {
@@ -820,7 +821,12 @@ export default function LessonEditorBeta({ onBack, onSelectLesson, initialLesson
           <div className="lesson-preview-surface">
             {sentenceList.length ? sentenceList.map((sentence, sentenceIndex) => (
               <p key={`${sentence}-${sentenceIndex}`} className="lesson-preview-line">
-                <button type="button" className="lesson-text-audio ui-pressable" aria-label={`Lire phrase ${sentenceIndex + 1}`}>🔊</button>
+                <button
+                  type="button"
+                  className="lesson-text-audio ui-pressable"
+                  aria-label={`Lire phrase ${sentenceIndex + 1}`}
+                  onClick={() => speakHanzi(sentence)}
+                >🔊</button>
                 <span className="lesson-preview-phrase">
                   {Array.from(sentence).map((char, charIndex) => {
                     if (!isChineseChar(char)) {

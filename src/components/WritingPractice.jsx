@@ -4,6 +4,7 @@ import AvatarRenderer from './AvatarRenderer.jsx';
 import { useUiSounds } from '../hooks/useUiSounds.js';
 import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
 import { getParentModel } from '../lib/audioStore.js';
+import { speakHanzi } from '../lib/ttsFallback.js';
 import { findCharacterStructure } from '../lib/characterStructure.js';
 import { getTopLevelComponents } from '../lib/characterDecomposition.js';
 import { isDevMode } from '../config.js';
@@ -458,9 +459,12 @@ export default function WritingPractice({
 
   const playCardAudio = () => {
     sounds.playTap();
-    if (!audioRef.current) return;
-    audioRef.current.currentTime = 0;
-    audioRef.current.play();
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch(() => speakHanzi(targetChar));
+      return;
+    }
+    speakHanzi(targetChar);
   };
 
   useEffect(() => {
@@ -668,7 +672,7 @@ export default function WritingPractice({
               type="button"
               className="writing-sound-btn ui-pressable"
               onClick={playCardAudio}
-              disabled={!audioSrc}
+              disabled={!audioSrc && !targetChar}
             >
               Son
             </button>

@@ -3,6 +3,7 @@ import ModuleFrame from './ModuleFrame.jsx';
 import SuccessBurst from './SuccessBurst.jsx';
 import { useUiSounds } from '../hooks/useUiSounds.js';
 import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
+import { speakHanzi } from '../lib/ttsFallback.js';
 
 export default function FlashcardStandaloneUI({
   profile,
@@ -25,9 +26,12 @@ export default function FlashcardStandaloneUI({
 
   const playAudio = () => {
     sounds.playTap();
-    if (!audioRef.current) return;
-    audioRef.current.currentTime = 0;
-    audioRef.current.play();
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch(() => speakHanzi(card.hanzi));
+      return;
+    }
+    speakHanzi(card.hanzi);
   };
 
   if (!card) {

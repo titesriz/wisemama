@@ -5,6 +5,7 @@ import WritingPractice from './WritingPractice.jsx';
 import { useUiSounds } from '../hooks/useUiSounds.js';
 import '../styles/unified-learning-flow.css';
 import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
+import { speakHanzi } from '../lib/ttsFallback.js';
 
 const STEP_ORDER = ['see', 'listen', 'speak', 'write'];
 
@@ -59,9 +60,13 @@ function ListenStep({ card }) {
   const [played, setPlayed] = useState(false);
 
   const play = () => {
-    if (!audioRef.current) return;
-    audioRef.current.currentTime = 0;
-    audioRef.current.play();
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch(() => speakHanzi(card.hanzi));
+      setPlayed(true);
+      return;
+    }
+    speakHanzi(card.hanzi);
     setPlayed(true);
   };
 
@@ -196,9 +201,12 @@ export default function UnifiedLearningFlow({
 
   const playCardAudio = () => {
     sounds.playTap();
-    if (!audioRef.current) return;
-    audioRef.current.currentTime = 0;
-    audioRef.current.play();
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch(() => speakHanzi(card.hanzi));
+      return;
+    }
+    speakHanzi(card.hanzi);
   };
 
   const openLessonFromPicker = (lessonId) => {
@@ -266,7 +274,7 @@ export default function UnifiedLearningFlow({
           <span>{card.french || ''}</span>
           <small>{card.english || ''}</small>
         </div>
-        <button type="button" className="writing-sound-btn ui-pressable" onClick={playCardAudio} disabled={!card.audioUrl}>
+        <button type="button" className="writing-sound-btn ui-pressable" onClick={playCardAudio} disabled={!card.audioUrl && !card.hanzi}>
           Son
         </button>
         {card.audioUrl ? <audio ref={audioRef} src={card.audioUrl} preload="auto" /> : null}
