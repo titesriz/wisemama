@@ -19,11 +19,12 @@ function normalizeUmlaut(value = '') {
 
 function applyToneToSyllable(syllableRaw, toneNumberRaw) {
   const toneNumber = Number(toneNumberRaw);
-  if (!toneNumber || toneNumber < 1 || toneNumber > 5) return normalizeUmlaut(syllableRaw);
+  if (!Number.isInteger(toneNumber) || toneNumber < 0 || toneNumber > 5) return normalizeUmlaut(syllableRaw);
   if (hasToneMark(syllableRaw)) return syllableRaw;
 
   const syllable = normalizeUmlaut(syllableRaw);
-  if (toneNumber === 5) return syllable;
+  // 0 and 5 both mean neutral tone (this project's data uses both conventions) - bare syllable, no mark.
+  if (toneNumber === 5 || toneNumber === 0) return syllable;
 
   const lower = syllable.toLowerCase();
   const vowels = ['a', 'e', 'i', 'o', 'u', 'ü'];
@@ -67,7 +68,7 @@ const TONE_MARK_TO_NUMBER = {
 
 export function extractToneAccent(value = '') {
   if (!value) return { accent: '', tone: 0 };
-  const numbered = value.match(/[1-5]/);
+  const numbered = value.match(/[0-5]/);
   if (numbered) {
     const n = Number(numbered[0]);
     return n >= 1 && n <= 4 ? { accent: TONE_ACCENTS[n - 1], tone: n } : { accent: '·', tone: 0 };
@@ -82,5 +83,5 @@ export function extractToneAccent(value = '') {
 export function formatPinyinDisplay(value = '') {
   if (!value) return '';
   if (hasToneMark(value)) return value;
-  return value.replace(/([A-Za-züÜvV:]+)([1-5])/g, (_, syllable, tone) => applyToneToSyllable(syllable, tone));
+  return value.replace(/([A-Za-züÜvV:]+)([0-5])/g, (_, syllable, tone) => applyToneToSyllable(syllable, tone));
 }

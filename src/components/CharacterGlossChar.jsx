@@ -19,8 +19,13 @@ export default function CharacterGlossChar({ char, entry, trigger = 'click', cla
   const [open, setOpen] = useState(false);
   const rootRef = useRef(null);
 
+  // Closes this popover the moment anything outside it is pressed - including
+  // another character's gloss span. Without this, each instance only ever
+  // closed itself (via its own outside-click check or, in hover mode, its own
+  // timeout), so tapping a second character left the first one's popover
+  // open until its timer separately ran out.
   useEffect(() => {
-    if (trigger !== 'click' || !open) return undefined;
+    if (!open) return undefined;
     const handlePointerDown = (event) => {
       if (!rootRef.current?.contains(event.target)) setOpen(false);
     };
@@ -30,7 +35,7 @@ export default function CharacterGlossChar({ char, entry, trigger = 'click', cla
       document.removeEventListener('mousedown', handlePointerDown);
       document.removeEventListener('touchstart', handlePointerDown);
     };
-  }, [trigger, open]);
+  }, [open]);
 
   useEffect(() => {
     if (trigger !== 'hover' || !open) return undefined;
