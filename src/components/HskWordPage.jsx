@@ -44,7 +44,7 @@ export default function HskWordPage({
       cardIndex={wordIndex}
       totalCards={totalWords}
       activeModule="flashcards"
-      modes={['flashcards', 'writing']}
+      modes={['flashcards', 'writing', 'quiz']}
       onBack={onBack}
       onPrev={onPrev}
       onNext={onNext}

@@ -10,31 +10,31 @@ import {
   summarizeByCompetency,
   summarizeByType,
 } from '../lib/quizLog.js';
-import '../styles/colors-deck.css';
+import '../styles/hsk-quiz.css';
 
-const DECK_ID = 'colors-deck';
-// One question per color (11 colors) is too many to keep every character
-// distinct within a session once you go past ~10 - capped so a session
-// never has to repeat a character at all.
-const TARGET_ROUNDS = 10;
+const DECK_ID = 'hsk1-deck';
+// 500 words means repeats within one session are near-impossible even at 20
+// draws, so (unlike the Colors deck) there's no need to shrink the session
+// to guarantee every word is distinct - 5 questions per type instead.
+const TARGET_ROUNDS = 20;
 
 function shuffle(list) {
   return [...list].sort(() => Math.random() - 0.5);
 }
 
-const QUESTION_TYPES = ['swatch-to-char', 'char-to-swatch', 'sound-to-char', 'sound-to-swatch'];
-const CHAR_OPTION_TYPES = ['swatch-to-char', 'sound-to-char'];
+const QUESTION_TYPES = ['sound-to-char', 'char-to-translation', 'translation-to-char', 'sound-to-translation'];
+const CHAR_OPTION_TYPES = ['sound-to-char', 'translation-to-char'];
 const PROMPT_LABELS = {
-  'swatch-to-char': 'Quel caractere correspond a cette couleur ?',
-  'char-to-swatch': 'Quelle couleur correspond a ce caractere ?',
   'sound-to-char': 'Quel caractere correspond a ce son ?',
-  'sound-to-swatch': 'Quelle couleur correspond a ce son ?',
+  'char-to-translation': 'Quelle est la signification de ce caractere ?',
+  'translation-to-char': 'Quel caractere correspond a cette traduction ?',
+  'sound-to-translation': 'Quelle est la signification de ce son ?',
 };
 const TYPE_SHORT_LABELS = {
-  'swatch-to-char': 'Couleur -> caractere',
-  'char-to-swatch': 'Caractere -> couleur',
   'sound-to-char': 'Son -> caractere',
-  'sound-to-swatch': 'Son -> couleur',
+  'char-to-translation': 'Caractere -> traduction',
+  'translation-to-char': 'Traduction -> caractere',
+  'sound-to-translation': 'Son -> traduction',
 };
 const COMPETENCY_LABELS = {
   ecoute: 'Ecoute',
@@ -48,33 +48,19 @@ function buildRound(word, questionType, words) {
   return { correctWord: word, questionType, options };
 }
 
-// One occurrence of every word first (guarantees full coverage of all
-// colors in a session), then fills the remaining slots randomly.
 function buildWordSequence(words, totalRounds) {
-  if (totalRounds <= words.length) {
-    return shuffle(words).slice(0, totalRounds);
-  }
-  const guaranteed = shuffle(words);
-  const extraCount = totalRounds - guaranteed.length;
-  const extras = Array.from({ length: extraCount }, () => words[Math.floor(Math.random() * words.length)]);
-  return shuffle([...guaranteed, ...extras]);
+  return Array.from({ length: totalRounds }, () => words[Math.floor(Math.random() * words.length)]);
 }
 
-// Spreads the question types as evenly as possible across totalRounds
-// (e.g. 10 rounds / 4 types -> 3,3,2,2), randomizing which types get the
-// extra round.
+// Exactly 5 of each of the 4 types (20 / 4 divides evenly).
 function buildTypeSequence(totalRounds) {
-  const typeOrder = shuffle(QUESTION_TYPES);
-  const sequence = Array.from({ length: totalRounds }, (_, i) => typeOrder[i % typeOrder.length]);
-  return shuffle(sequence);
+  const perType = totalRounds / QUESTION_TYPES.length;
+  return shuffle(QUESTION_TYPES.flatMap((type) => Array.from({ length: perType }, () => type)));
 }
 
-// Orders items so no two adjacent items share the same key - e.g. the same
-// character never comes up twice back-to-back, even across a mode switch.
-// Classic "reorganize string" placement: most-frequent keys fill the even
-// slots first, then wrap into the odd slots. Guaranteed to succeed as long
-// as no single key makes up more than half the items, which always holds
-// here (11 colors spread across 20 rounds).
+// Orders items so no two adjacent items share the same key - practically a
+// no-op at this vocabulary size, but kept as a cheap safety net consistent
+// with the Colors deck's quiz.
 function arrangeNoAdjacentRepeats(items, keyFn) {
   const groups = new Map();
   items.forEach((item) => {
@@ -97,14 +83,9 @@ function arrangeNoAdjacentRepeats(items, keyFn) {
   return result;
 }
 
-// Fixed session, one question per color (never repeats a character),
-// question types spread as evenly as possible, arranged so the same
-// character never repeats on two consecutive questions (moot once every
-// character is distinct, but keeps this safe if the deck ever grows).
 function buildSessionRounds(words) {
-  const totalRounds = Math.min(TARGET_ROUNDS, words.length);
-  const wordSequence = buildWordSequence(words, totalRounds);
-  const typeSequence = buildTypeSequence(totalRounds);
+  const wordSequence = buildWordSequence(words, TARGET_ROUNDS);
+  const typeSequence = buildTypeSequence(TARGET_ROUNDS);
   const rounds = wordSequence.map((word, i) => buildRound(word, typeSequence[i], words));
   return arrangeNoAdjacentRepeats(rounds, (round) => round.correctWord.id);
 }
@@ -113,7 +94,7 @@ function buildSession(words) {
   return { id: createSessionId(), rounds: buildSessionRounds(words) };
 }
 
-export default function ColorsQuizPage({ profile, words = [], onBack, onSwitchModule }) {
+export default function HskQuizPage({ profile, words = [], onBack, onSwitchModule }) {
   const sounds = useUiSounds();
   const [session, setSession] = useState(() => buildSession(words));
   const [roundIndex, setRoundIndex] = useState(0);
@@ -129,7 +110,7 @@ export default function ColorsQuizPage({ profile, words = [], onBack, onSwitchMo
   const answered = selectedId !== null;
   const isCorrectSelection = round ? selectedId === round.correctWord.id : false;
   const showCharOptions = round ? CHAR_OPTION_TYPES.includes(round.questionType) : false;
-  const isSoundPrompt = round ? (round.questionType === 'sound-to-char' || round.questionType === 'sound-to-swatch') : false;
+  const isSoundPrompt = round ? (round.questionType === 'sound-to-char' || round.questionType === 'sound-to-translation') : false;
 
   useEffect(() => {
     if (!round) return;
@@ -186,7 +167,7 @@ export default function ColorsQuizPage({ profile, words = [], onBack, onSwitchMo
   };
 
   if (!words.length) {
-    return <p className="empty">Aucune couleur disponible.</p>;
+    return <p className="empty">Aucun mot disponible.</p>;
   }
 
   if (isSessionComplete) {
@@ -195,7 +176,7 @@ export default function ColorsQuizPage({ profile, words = [], onBack, onSwitchMo
     const byCompetency = summarizeByCompetency(sessionEvents);
 
     return (
-      <section className="writing-screen module-screen colors-quiz-screen" aria-label="Resultat quiz couleurs">
+      <section className="writing-screen module-screen hsk-quiz-screen" aria-label="Resultat quiz HSK1">
         <div className="writing-top-banner">
           <button
             type="button"
@@ -207,7 +188,7 @@ export default function ColorsQuizPage({ profile, words = [], onBack, onSwitchMo
           >
             文
           </button>
-          <div className="colors-quiz-score">Resultat</div>
+          <div className="hsk-quiz-score">Resultat</div>
           <button
             type="button"
             className="writing-lesson-selector ui-pressable"
@@ -220,21 +201,21 @@ export default function ColorsQuizPage({ profile, words = [], onBack, onSwitchMo
           </button>
         </div>
 
-        <div className="colors-quiz-results">
-          <p className="colors-quiz-results-score">{score.correct}/{score.total}</p>
+        <div className="hsk-quiz-results">
+          <p className="hsk-quiz-results-score">{score.correct}/{score.total}</p>
 
-          <div className="colors-quiz-results-breakdown">
+          <div className="hsk-quiz-results-breakdown">
             {QUESTION_TYPES.map((type) => (
-              <div key={type} className="colors-quiz-results-row">
+              <div key={type} className="hsk-quiz-results-row">
                 <span>{TYPE_SHORT_LABELS[type]}</span>
                 <span>{byType[type]?.correct ?? 0}/{byType[type]?.total ?? 0}</span>
               </div>
             ))}
           </div>
 
-          <div className="colors-quiz-results-breakdown">
+          <div className="hsk-quiz-results-breakdown">
             {Object.entries(COMPETENCY_LABELS).map(([key, label]) => (
-              <div key={key} className="colors-quiz-results-row">
+              <div key={key} className="hsk-quiz-results-row">
                 <span>{label}</span>
                 <span>{byCompetency[key]?.correct ?? 0}/{byCompetency[key]?.total ?? 0}</span>
               </div>
@@ -252,7 +233,7 @@ export default function ColorsQuizPage({ profile, words = [], onBack, onSwitchMo
   const promptLabel = PROMPT_LABELS[round.questionType];
 
   return (
-    <section className="writing-screen module-screen colors-quiz-screen" aria-label="Quiz couleurs">
+    <section className="writing-screen module-screen hsk-quiz-screen" aria-label="Quiz HSK1">
       <div className="writing-top-banner">
         <button
           type="button"
@@ -264,7 +245,7 @@ export default function ColorsQuizPage({ profile, words = [], onBack, onSwitchMo
         >
           文
         </button>
-        <div className="colors-quiz-score">Q{roundIndex + 1}/{totalRounds} · {score.correct}/{score.total}</div>
+        <div className="hsk-quiz-score">Q{roundIndex + 1}/{totalRounds} · {score.correct}/{score.total}</div>
         <button
           type="button"
           className="writing-lesson-selector ui-pressable"
@@ -277,22 +258,21 @@ export default function ColorsQuizPage({ profile, words = [], onBack, onSwitchMo
         </button>
       </div>
 
-      <div className="colors-quiz-body">
-        <p className="colors-quiz-prompt-label">{promptLabel}</p>
+      <div className="hsk-quiz-body">
+        <p className="hsk-quiz-prompt-label">{promptLabel}</p>
 
-        {round.questionType === 'swatch-to-char' ? (
-          <div className="color-swatch color-swatch-large" style={{ background: round.correctWord.colorHex }} aria-hidden="true" />
+        {round.questionType === 'translation-to-char' ? (
+          <div className="hsk-quiz-translation-prompt">{round.correctWord.french}</div>
         ) : null}
 
-        {round.questionType === 'char-to-swatch' ? (
-          <div className="colors-quiz-hanzi-prompt">{round.correctWord.hanzi}</div>
+        {round.questionType === 'char-to-translation' ? (
+          <div className="hsk-quiz-hanzi-prompt">{round.correctWord.hanzi}</div>
         ) : null}
 
         {isSoundPrompt ? (
           <button
             type="button"
-            className={`colors-quiz-sound-prompt-btn ui-pressable ${round.questionType === 'sound-to-char' && hintActive ? 'colors-quiz-sound-prompt-btn-tinted' : ''}`}
-            style={round.questionType === 'sound-to-char' && hintActive ? { background: round.correctWord.colorHex } : undefined}
+            className="hsk-quiz-sound-prompt-btn ui-pressable"
             onClick={playWordSound}
             aria-label="Ecouter le mot"
           >
@@ -300,18 +280,18 @@ export default function ColorsQuizPage({ profile, words = [], onBack, onSwitchMo
           </button>
         ) : null}
 
-        {(round.questionType === 'char-to-swatch' || isSoundPrompt) && hintActive ? (
+        {(round.questionType === 'char-to-translation' || round.questionType === 'translation-to-char' || isSoundPrompt) && hintActive ? (
           <>
-            {round.questionType === 'sound-to-swatch' ? (
-              <div className="colors-quiz-hint-hanzi">{round.correctWord.hanzi}</div>
+            {round.questionType === 'sound-to-translation' ? (
+              <div className="hsk-quiz-hint-hanzi">{round.correctWord.hanzi}</div>
             ) : null}
-            <p className="colors-quiz-option-pinyin colors-quiz-prompt-pinyin">
+            <p className="hsk-quiz-option-pinyin hsk-quiz-prompt-pinyin">
               {formatPinyinDisplay(round.correctWord.pinyin)}
             </p>
           </>
         ) : null}
 
-        <div className="colors-quiz-options">
+        <div className="hsk-quiz-options">
           {round.options.map((option) => {
             const isSelected = option.id === selectedId;
             const isTheCorrectOne = option.id === round.correctWord.id;
@@ -323,14 +303,11 @@ export default function ColorsQuizPage({ profile, words = [], onBack, onSwitchMo
                 <button
                   key={option.id}
                   type="button"
-                  className={`colors-quiz-option colors-quiz-option-hanzi ui-pressable ${showAsCorrect ? 'correct' : ''} ${showAsWrong ? 'wrong' : ''}`}
+                  className={`hsk-quiz-option hsk-quiz-option-hanzi ui-pressable ${showAsCorrect ? 'correct' : ''} ${showAsWrong ? 'wrong' : ''}`}
                   onClick={() => handleSelect(option.id)}
                   disabled={answered}
                 >
                   {option.hanzi}
-                  {hintActive && round.questionType === 'swatch-to-char' ? (
-                    <small className="colors-quiz-option-pinyin">{formatPinyinDisplay(option.pinyin)}</small>
-                  ) : null}
                 </button>
               );
             }
@@ -339,24 +316,24 @@ export default function ColorsQuizPage({ profile, words = [], onBack, onSwitchMo
               <button
                 key={option.id}
                 type="button"
-                className={`colors-quiz-option colors-quiz-option-swatch ui-pressable ${showAsCorrect ? 'correct' : ''} ${showAsWrong ? 'wrong' : ''}`}
-                style={{ background: option.colorHex }}
+                className={`hsk-quiz-option hsk-quiz-option-text ui-pressable ${showAsCorrect ? 'correct' : ''} ${showAsWrong ? 'wrong' : ''}`}
                 onClick={() => handleSelect(option.id)}
                 disabled={answered}
-                aria-label={option.french}
-              />
+              >
+                {option.french}
+              </button>
             );
           })}
         </div>
 
         {!answered ? (
-          <div className="colors-quiz-hint-row">
-            <button type="button" className="colors-quiz-hint-btn ui-pressable" onClick={showHint} disabled={hintActive}>
+          <div className="hsk-quiz-hint-row">
+            <button type="button" className="hsk-quiz-hint-btn ui-pressable" onClick={showHint} disabled={hintActive}>
               💡 Indice
             </button>
             <button
               type="button"
-              className="colors-quiz-sound-btn ui-pressable"
+              className="hsk-quiz-sound-btn ui-pressable"
               onClick={playWordSound}
               aria-label="Ecouter le mot"
             >
@@ -366,11 +343,11 @@ export default function ColorsQuizPage({ profile, words = [], onBack, onSwitchMo
         ) : null}
 
         {answered ? (
-          <div className="colors-quiz-feedback">
-            <p className={isCorrectSelection ? 'colors-quiz-feedback-ok' : 'colors-quiz-feedback-ko'}>
+          <div className="hsk-quiz-feedback">
+            <p className={isCorrectSelection ? 'hsk-quiz-feedback-ok' : 'hsk-quiz-feedback-ko'}>
               {isCorrectSelection ? 'Bravo !' : 'Pas tout a fait.'}
             </p>
-            <p className="colors-quiz-feedback-detail">
+            <p className="hsk-quiz-feedback-detail">
               {round.correctWord.hanzi} · {formatPinyinDisplay(round.correctWord.pinyin)} · {round.correctWord.french} / {round.correctWord.english}
             </p>
             <button type="button" className="button" onClick={nextRound}>

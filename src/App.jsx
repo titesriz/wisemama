@@ -28,6 +28,8 @@ import HskWordSelectionPage from './components/HskWordSelectionPage.jsx';
 import ColorsWordPage from './components/ColorsWordPage.jsx';
 import ColorsWritingPage from './components/ColorsWritingPage.jsx';
 import ColorsQuizPage from './components/ColorsQuizPage.jsx';
+import HskQuizPage from './components/HskQuizPage.jsx';
+import LessonQuizPage from './components/LessonQuizPage.jsx';
 import hskWords from './data/hsk1-words.json';
 import colorsWords from './data/colors-words.json';
 import { useAvatar } from './context/AvatarContext.jsx';
@@ -51,6 +53,7 @@ const MODULES = {
   FLASHCARDS: 'flashcards',
   AUDIO: 'audio',
   WRITING: 'writing',
+  QUIZ: 'quiz',
   RADICAL: 'radical',
   LEARNING_FLOW: 'learning-flow',
   EMOTIONAL_DUO: 'emotional-duo',
@@ -72,6 +75,8 @@ const STANDALONE_VIEW = {
   HSK_WORDS: 'hsk-words',
   HSK_WRITING: 'hsk-writing',
   HSK_SELECT: 'hsk-select',
+  HSK_QUIZ: 'hsk-quiz',
+  LESSON_QUIZ: 'lesson-quiz',
   COLORS_WORDS: 'colors-words',
   COLORS_WRITING: 'colors-writing',
   COLORS_QUIZ: 'colors-quiz',
@@ -585,6 +590,15 @@ export default function App() {
     setActiveModule(MODULES.WRITING);
   };
 
+  const startQuizFromLessonText = () => {
+    const targetLesson = lessonOptions.find((lesson) => lesson.id === lessonTextLessonId);
+    if (!targetLesson) return;
+    setActiveLesson(targetLesson.id);
+    setStandaloneView(STANDALONE_VIEW.LESSON_QUIZ);
+    setShowDailyRituel(false);
+    setEnteredApp(false);
+  };
+
   const goNextInLessonJourney = () => {
     if (!lessonJourneyQueue.length) {
       goNext();
@@ -766,6 +780,7 @@ export default function App() {
           onPracticeCharacter={openCharacterPracticeFromLessonText}
           onBack={closeLessonTextView}
           onStartPractice={startJourneyFromLessonText}
+          onStartQuiz={startQuizFromLessonText}
           onOpenRadicalDiscovery={() => setStandaloneView(STANDALONE_VIEW.RADICAL_DISCOVERY)}
         />
       );
@@ -895,6 +910,8 @@ export default function App() {
         onSwitchModule={(module) => {
           if (module === 'writing') {
             setStandaloneView(STANDALONE_VIEW.HSK_WRITING);
+          } else if (module === 'quiz') {
+            setStandaloneView(STANDALONE_VIEW.HSK_QUIZ);
           }
         }}
         onOpenPicker={() => setStandaloneView(STANDALONE_VIEW.HSK_SELECT)}
@@ -933,6 +950,44 @@ export default function App() {
         onSuccess={handleHskWritingSuccess}
         onPrevWord={goToPrevHskWord}
         onNextWord={goToNextHskWord}
+      />
+    );
+  }
+
+  if (standaloneView === STANDALONE_VIEW.HSK_QUIZ) {
+    return (
+      <HskQuizPage
+        profile={activeProfile}
+        words={hskWords}
+        onBack={() => {
+          setStandaloneView(STANDALONE_VIEW.NONE);
+          setEnteredApp(false);
+        }}
+        onSwitchModule={(module) => {
+          if (module === 'flashcards') {
+            setStandaloneView(STANDALONE_VIEW.HSK_WORDS);
+          }
+        }}
+      />
+    );
+  }
+
+  if (standaloneView === STANDALONE_VIEW.LESSON_QUIZ) {
+    return (
+      <LessonQuizPage
+        profile={activeProfile}
+        lessonId={activeLesson?.id}
+        lessonTitle={activeLesson?.title}
+        words={activeLesson?.cards || []}
+        onBack={() => {
+          setStandaloneView(STANDALONE_VIEW.NONE);
+          setEnteredApp(false);
+        }}
+        onSwitchModule={(module) => {
+          if (module === 'flashcards' && activeLesson?.id) {
+            openLessonTextView(activeLesson.id);
+          }
+        }}
       />
     );
   }
@@ -1583,6 +1638,19 @@ export default function App() {
             </section>
           ) : null}
 
+          {activeModule === MODULES.QUIZ && activeLesson ? (
+            <section className="module-pane">
+              <LessonQuizPage
+                profile={activeProfile}
+                lessonId={activeLesson.id}
+                lessonTitle={activeLesson.title}
+                words={activeLesson.cards || []}
+                onBack={goToLanding}
+                onSwitchModule={setActiveModule}
+              />
+            </section>
+          ) : null}
+
           {activeModule === MODULES.LEARNING_FLOW && activeLesson ? (
             <section className="module-pane">
               <UnifiedLearningFlow
@@ -1633,6 +1701,7 @@ export default function App() {
           activeModule !== MODULES.FLASHCARDS &&
           activeModule !== MODULES.AUDIO &&
           activeModule !== MODULES.WRITING &&
+          activeModule !== MODULES.QUIZ &&
           activeModule !== MODULES.LEARNING_FLOW &&
           activeModule !== MODULES.EMOTIONAL_DUO &&
           activeModule !== MODULES.PARENT_HOME ? (

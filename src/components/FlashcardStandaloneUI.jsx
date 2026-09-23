@@ -48,6 +48,7 @@ export default function FlashcardStandaloneUI({
       cardIndex={cardIndex}
       totalCards={totalCards}
       activeModule="flashcards"
+      modes={['flashcards', 'audio', 'writing', 'quiz']}
       onBack={onBack}
       onOpenLessonText={onOpenLessonText}
       onSelectLesson={onSelectLesson}

@@ -81,6 +81,7 @@ export default function LessonTextView({
   onPracticeCharacter,
   onBack,
   onStartPractice,
+  onStartQuiz,
   onOpenRadicalDiscovery,
 }) {
   const [pinyinMode, setPinyinMode] = useState('all');
@@ -401,6 +402,15 @@ export default function LessonTextView({
                   disabled={!journeyStartCard || selectedVocabulary.length === 0}
                 >
                   Difficile
+                </button>
+                <button
+                  type="button"
+                  className="lesson-difficulty-star ui-pressable"
+                  onClick={() => onStartQuiz?.()}
+                  aria-label="Quiz"
+                  disabled={(lesson?.cards?.length || 0) < 2}
+                >
+                  Quiz
                 </button>
               </div>
             </div>
