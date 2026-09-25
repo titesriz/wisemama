@@ -25,7 +25,16 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-03-16T15:38:51.260Z",
-    "lastUpdated": "2026-03-17T14:31:28.894Z"
+    "lastUpdated": "2026-03-17T14:31:28.894Z",
+    "sources": [
+      "character-database",
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 413,
+    "decks": [],
+    "traditional": ""
   },
   "二": {
     "hanzi": "二",
@@ -75,7 +84,16 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.260Z",
-    "lastUpdated": "2026-03-16T16:16:37.378Z"
+    "lastUpdated": "2026-03-16T16:16:37.378Z",
+    "sources": [
+      "character-database",
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 68,
+    "decks": [],
+    "traditional": ""
   },
   "三": {
     "hanzi": "三",
@@ -125,7 +143,16 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.260Z",
-    "lastUpdated": "2026-03-16T16:16:41.316Z"
+    "lastUpdated": "2026-03-16T16:16:41.316Z",
+    "sources": [
+      "character-database",
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 269,
+    "decks": [],
+    "traditional": ""
   },
   "四": {
     "hanzi": "四",
@@ -153,7 +180,16 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-03-16T15:38:51.260Z",
-    "lastUpdated": "2026-03-17T14:31:28.896Z"
+    "lastUpdated": "2026-03-17T14:31:28.896Z",
+    "sources": [
+      "character-database",
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 321,
+    "decks": [],
+    "traditional": ""
   },
   "五": {
     "hanzi": "五",
@@ -203,7 +239,16 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.260Z",
-    "lastUpdated": "2026-03-16T16:16:48.965Z"
+    "lastUpdated": "2026-03-16T16:16:48.965Z",
+    "sources": [
+      "character-database",
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 360,
+    "decks": [],
+    "traditional": ""
   },
   "六": {
     "hanzi": "六",
@@ -253,7 +298,16 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.260Z",
-    "lastUpdated": "2026-03-16T16:16:52.097Z"
+    "lastUpdated": "2026-03-16T16:16:52.097Z",
+    "sources": [
+      "character-database",
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 171,
+    "decks": [],
+    "traditional": ""
   },
   "七": {
     "hanzi": "七",
@@ -303,7 +357,16 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.261Z",
-    "lastUpdated": "2026-03-16T16:16:54.765Z"
+    "lastUpdated": "2026-03-16T16:16:54.765Z",
+    "sources": [
+      "character-database",
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 236,
+    "decks": [],
+    "traditional": ""
   },
   "八": {
     "hanzi": "八",
@@ -353,7 +416,16 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.261Z",
-    "lastUpdated": "2026-03-16T16:16:57.682Z"
+    "lastUpdated": "2026-03-16T16:16:57.682Z",
+    "sources": [
+      "character-database",
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 1,
+    "decks": [],
+    "traditional": ""
   },
   "九": {
     "hanzi": "九",
@@ -403,7 +475,16 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.261Z",
-    "lastUpdated": "2026-03-16T16:17:00.859Z"
+    "lastUpdated": "2026-03-16T16:17:00.859Z",
+    "sources": [
+      "character-database",
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 136,
+    "decks": [],
+    "traditional": ""
   },
   "十": {
     "hanzi": "十",
@@ -453,7 +534,16 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.261Z",
-    "lastUpdated": "2026-03-16T16:17:03.845Z"
+    "lastUpdated": "2026-03-16T16:17:03.845Z",
+    "sources": [
+      "character-database",
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 297,
+    "decks": [],
+    "traditional": ""
   },
   "大": {
     "hanzi": "大",
@@ -503,7 +593,15 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.261Z",
-    "lastUpdated": "2026-03-16T16:17:08.296Z"
+    "lastUpdated": "2026-03-16T16:17:08.296Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 37,
+    "decks": [],
+    "traditional": ""
   },
   "家": {
     "hanzi": "家",
@@ -532,7 +630,16 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-03-16T15:38:51.261Z",
-    "lastUpdated": "2026-03-25T12:44:29.947Z"
+    "lastUpdated": "2026-03-25T12:44:29.947Z",
+    "sources": [
+      "character-database",
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 123,
+    "decks": [],
+    "traditional": "傢"
   },
   "都": {
     "hanzi": "都",
@@ -582,7 +689,16 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.262Z",
-    "lastUpdated": "2026-03-16T16:17:18.753Z"
+    "lastUpdated": "2026-03-16T16:17:18.753Z",
+    "sources": [
+      "character-database",
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 62,
+    "decks": [],
+    "traditional": ""
   },
   "来": {
     "hanzi": "来",
@@ -632,7 +748,16 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.262Z",
-    "lastUpdated": "2026-03-16T16:17:21.526Z"
+    "lastUpdated": "2026-03-16T16:17:21.526Z",
+    "sources": [
+      "character-database",
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 156,
+    "decks": [],
+    "traditional": "來"
   },
   "数": {
     "hanzi": "数",
@@ -682,7 +807,14 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.262Z",
-    "lastUpdated": "2026-03-16T16:17:24.444Z"
+    "lastUpdated": "2026-03-16T16:17:24.444Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "我": {
     "hanzi": "我",
@@ -711,7 +843,16 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-03-16T15:38:51.262Z",
-    "lastUpdated": "2026-03-25T12:44:29.946Z"
+    "lastUpdated": "2026-03-25T12:44:29.946Z",
+    "sources": [
+      "character-database",
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 358,
+    "decks": [],
+    "traditional": ""
   },
   "你": {
     "hanzi": "你",
@@ -740,7 +881,16 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-03-16T15:38:51.262Z",
-    "lastUpdated": "2026-03-25T12:44:29.950Z"
+    "lastUpdated": "2026-03-25T12:44:29.950Z",
+    "sources": [
+      "character-database",
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 215,
+    "decks": [],
+    "traditional": ""
   },
   "他": {
     "hanzi": "他",
@@ -790,7 +940,16 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.263Z",
-    "lastUpdated": "2026-03-16T16:17:33.095Z"
+    "lastUpdated": "2026-03-16T16:17:33.095Z",
+    "sources": [
+      "character-database",
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 324,
+    "decks": [],
+    "traditional": ""
   },
   "她": {
     "hanzi": "她",
@@ -840,7 +999,16 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.263Z",
-    "lastUpdated": "2026-03-16T16:17:35.616Z"
+    "lastUpdated": "2026-03-16T16:17:35.616Z",
+    "sources": [
+      "character-database",
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 326,
+    "decks": [],
+    "traditional": ""
   },
   "爱": {
     "hanzi": "爱",
@@ -890,7 +1058,15 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.263Z",
-    "lastUpdated": "2026-03-16T16:17:38.396Z"
+    "lastUpdated": "2026-03-16T16:17:38.396Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 0,
+    "decks": [],
+    "traditional": "愛"
   },
   "老": {
     "hanzi": "老",
@@ -924,7 +1100,15 @@
       }
     ],
     "createdDate": "2026-03-16T15:38:51.263Z",
-    "lastUpdated": "2026-03-17T14:31:28.886Z"
+    "lastUpdated": "2026-03-17T14:31:28.886Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 161,
+    "decks": [],
+    "traditional": ""
   },
   "师": {
     "hanzi": "师",
@@ -958,7 +1142,14 @@
       }
     ],
     "createdDate": "2026-03-16T15:38:51.264Z",
-    "lastUpdated": "2026-03-17T14:31:28.887Z"
+    "lastUpdated": "2026-03-17T14:31:28.887Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "您": {
     "hanzi": "您",
@@ -1008,7 +1199,15 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.264Z",
-    "lastUpdated": "2026-03-16T16:17:47.147Z"
+    "lastUpdated": "2026-03-16T16:17:47.147Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 221,
+    "decks": [],
+    "traditional": ""
   },
   "早": {
     "hanzi": "早",
@@ -1058,7 +1257,15 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.264Z",
-    "lastUpdated": "2026-03-16T16:17:49.831Z"
+    "lastUpdated": "2026-03-16T16:17:49.831Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 450,
+    "decks": [],
+    "traditional": ""
   },
   "好": {
     "hanzi": "好",
@@ -1114,7 +1321,15 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.264Z",
-    "lastUpdated": "2026-03-16T16:17:53.572Z"
+    "lastUpdated": "2026-03-16T16:17:53.572Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 99,
+    "decks": [],
+    "traditional": ""
   },
   "再": {
     "hanzi": "再",
@@ -1170,7 +1385,15 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.264Z",
-    "lastUpdated": "2026-03-16T16:17:55.959Z"
+    "lastUpdated": "2026-03-16T16:17:55.959Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 445,
+    "decks": [],
+    "traditional": ""
   },
   "见": {
     "hanzi": "见",
@@ -1226,7 +1449,15 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.265Z",
-    "lastUpdated": "2026-03-16T16:17:58.388Z"
+    "lastUpdated": "2026-03-16T16:17:58.388Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 128,
+    "decks": [],
+    "traditional": "見"
   },
   "同": {
     "hanzi": "同",
@@ -1282,7 +1513,14 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.265Z",
-    "lastUpdated": "2026-03-16T16:18:01.063Z"
+    "lastUpdated": "2026-03-16T16:18:01.063Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "学": {
     "hanzi": "学",
@@ -1338,7 +1576,15 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.268Z",
-    "lastUpdated": "2026-03-16T16:18:03.649Z"
+    "lastUpdated": "2026-03-16T16:18:03.649Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 396,
+    "decks": [],
+    "traditional": "學"
   },
   "小": {
     "hanzi": "小",
@@ -1388,7 +1634,15 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.269Z",
-    "lastUpdated": "2026-03-16T16:18:09.671Z"
+    "lastUpdated": "2026-03-16T16:18:09.671Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 379,
+    "decks": [],
+    "traditional": ""
   },
   "朋": {
     "hanzi": "朋",
@@ -1444,7 +1698,14 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.269Z",
-    "lastUpdated": "2026-03-16T16:18:12.513Z"
+    "lastUpdated": "2026-03-16T16:18:12.513Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "友": {
     "hanzi": "友",
@@ -1500,7 +1761,14 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.269Z",
-    "lastUpdated": "2026-03-16T16:18:15.009Z"
+    "lastUpdated": "2026-03-16T16:18:15.009Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "们": {
     "hanzi": "们",
@@ -1550,7 +1818,15 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.270Z",
-    "lastUpdated": "2026-03-16T16:18:17.456Z"
+    "lastUpdated": "2026-03-16T16:18:17.456Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 190,
+    "decks": [],
+    "traditional": "們"
   },
   "有": {
     "hanzi": "有",
@@ -1579,7 +1855,16 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-03-16T15:38:51.270Z",
-    "lastUpdated": "2026-03-25T12:44:29.947Z"
+    "lastUpdated": "2026-03-25T12:44:29.947Z",
+    "sources": [
+      "character-database",
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 428,
+    "decks": [],
+    "traditional": ""
   },
   "礼": {
     "hanzi": "礼",
@@ -1629,7 +1914,14 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.270Z",
-    "lastUpdated": "2026-03-16T16:18:22.540Z"
+    "lastUpdated": "2026-03-16T16:18:22.540Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "貌": {
     "hanzi": "貌",
@@ -1679,7 +1971,14 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.271Z",
-    "lastUpdated": "2026-03-16T16:18:25.081Z"
+    "lastUpdated": "2026-03-16T16:18:25.081Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "时": {
     "hanzi": "时",
@@ -1729,7 +2028,14 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.271Z",
-    "lastUpdated": "2026-03-16T16:18:27.380Z"
+    "lastUpdated": "2026-03-16T16:18:27.380Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "刻": {
     "hanzi": "刻",
@@ -1779,7 +2085,14 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.271Z",
-    "lastUpdated": "2026-03-16T16:18:29.867Z"
+    "lastUpdated": "2026-03-16T16:18:29.867Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "要": {
     "hanzi": "要",
@@ -1829,7 +2142,15 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.272Z",
-    "lastUpdated": "2026-03-16T16:18:32.982Z"
+    "lastUpdated": "2026-03-16T16:18:32.982Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 409,
+    "decks": [],
+    "traditional": ""
   },
   "记": {
     "hanzi": "记",
@@ -1879,7 +2200,15 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.272Z",
-    "lastUpdated": "2026-03-16T16:18:35.268Z"
+    "lastUpdated": "2026-03-16T16:18:35.268Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 121,
+    "decks": [],
+    "traditional": "記"
   },
   "牢": {
     "hanzi": "牢",
@@ -1929,7 +2258,14 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.273Z",
-    "lastUpdated": "2026-03-16T16:18:37.528Z"
+    "lastUpdated": "2026-03-16T16:18:37.528Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "对": {
     "hanzi": "对",
@@ -1979,7 +2315,15 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.273Z",
-    "lastUpdated": "2026-03-16T16:18:39.997Z"
+    "lastUpdated": "2026-03-16T16:18:39.997Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 64,
+    "decks": [],
+    "traditional": "對"
   },
   "不": {
     "hanzi": "不",
@@ -2029,7 +2373,16 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.273Z",
-    "lastUpdated": "2026-03-16T16:18:42.464Z"
+    "lastUpdated": "2026-03-16T16:18:42.464Z",
+    "sources": [
+      "character-database",
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 19,
+    "decks": [],
+    "traditional": ""
   },
   "起": {
     "hanzi": "起",
@@ -2079,7 +2432,15 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.274Z",
-    "lastUpdated": "2026-03-16T16:18:45.212Z"
+    "lastUpdated": "2026-03-16T16:18:45.212Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 237,
+    "decks": [],
+    "traditional": ""
   },
   "没": {
     "hanzi": "没",
@@ -2129,7 +2490,15 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.274Z",
-    "lastUpdated": "2026-03-16T16:18:47.583Z"
+    "lastUpdated": "2026-03-16T16:18:47.583Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 184,
+    "decks": [],
+    "traditional": "沒"
   },
   "关": {
     "hanzi": "关",
@@ -2179,7 +2548,16 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.274Z",
-    "lastUpdated": "2026-03-16T16:18:50.243Z"
+    "lastUpdated": "2026-03-16T16:18:50.243Z",
+    "sources": [
+      "character-database",
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 93,
+    "decks": [],
+    "traditional": "關"
   },
   "系": {
     "hanzi": "系",
@@ -2229,7 +2607,14 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.275Z",
-    "lastUpdated": "2026-03-16T16:18:52.927Z"
+    "lastUpdated": "2026-03-16T16:18:52.927Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "多": {
     "hanzi": "多",
@@ -2279,7 +2664,15 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.275Z",
-    "lastUpdated": "2026-03-16T16:18:55.459Z"
+    "lastUpdated": "2026-03-16T16:18:55.459Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 66,
+    "decks": [],
+    "traditional": ""
   },
   "谢": {
     "hanzi": "谢",
@@ -2335,7 +2728,14 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.276Z",
-    "lastUpdated": "2026-03-16T16:18:58.247Z"
+    "lastUpdated": "2026-03-16T16:18:58.247Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "用": {
     "hanzi": "用",
@@ -2385,7 +2785,15 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.276Z",
-    "lastUpdated": "2026-03-16T16:19:00.977Z"
+    "lastUpdated": "2026-03-16T16:19:00.977Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 426,
+    "decks": [],
+    "traditional": ""
   },
   "客": {
     "hanzi": "客",
@@ -2435,7 +2843,14 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.277Z",
-    "lastUpdated": "2026-03-16T16:19:03.676Z"
+    "lastUpdated": "2026-03-16T16:19:03.676Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "气": {
     "hanzi": "气",
@@ -2485,7 +2900,14 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.277Z",
-    "lastUpdated": "2026-03-16T16:19:06.345Z"
+    "lastUpdated": "2026-03-16T16:19:06.345Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "姓": {
     "hanzi": "姓",
@@ -2535,7 +2957,14 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.278Z",
-    "lastUpdated": "2026-03-16T16:19:09.137Z"
+    "lastUpdated": "2026-03-16T16:19:09.137Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "什": {
     "hanzi": "什",
@@ -2591,7 +3020,14 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.279Z",
-    "lastUpdated": "2026-03-16T16:19:11.942Z"
+    "lastUpdated": "2026-03-16T16:19:11.942Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "么": {
     "hanzi": "么",
@@ -2647,7 +3083,14 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.279Z",
-    "lastUpdated": "2026-03-16T16:19:14.342Z"
+    "lastUpdated": "2026-03-16T16:19:14.342Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "个": {
     "hanzi": "个",
@@ -2686,7 +3129,15 @@
       }
     },
     "createdDate": "2026-04-08T00:00:00.000Z",
-    "lastUpdated": "2026-04-08T00:00:00.000Z"
+    "lastUpdated": "2026-04-08T00:00:00.000Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 89,
+    "decks": [],
+    "traditional": "個"
   },
   "吗": {
     "hanzi": "吗",
@@ -2725,7 +3176,16 @@
       }
     },
     "createdDate": "2026-04-08T00:00:00.000Z",
-    "lastUpdated": "2026-04-08T00:00:00.000Z"
+    "lastUpdated": "2026-04-08T00:00:00.000Z",
+    "sources": [
+      "character-database",
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 178,
+    "decks": [],
+    "traditional": "嗎"
   },
   "王": {
     "hanzi": "王",
@@ -2753,7 +3213,14 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-03-16T15:38:51.280Z",
-    "lastUpdated": "2026-03-17T14:31:28.893Z"
+    "lastUpdated": "2026-03-17T14:31:28.893Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "天": {
     "hanzi": "天",
@@ -2781,7 +3248,15 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-03-16T15:38:51.280Z",
-    "lastUpdated": "2026-03-17T14:31:28.893Z"
+    "lastUpdated": "2026-03-17T14:31:28.893Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 329,
+    "decks": [],
+    "traditional": ""
   },
   "叫": {
     "hanzi": "叫",
@@ -2831,7 +3306,15 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.282Z",
-    "lastUpdated": "2026-03-16T16:19:23.198Z"
+    "lastUpdated": "2026-03-16T16:19:23.198Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 130,
+    "decks": [],
+    "traditional": ""
   },
   "名": {
     "hanzi": "名",
@@ -2881,7 +3364,14 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.282Z",
-    "lastUpdated": "2026-03-16T16:19:25.543Z"
+    "lastUpdated": "2026-03-16T16:19:25.543Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "字": {
     "hanzi": "字",
@@ -2931,7 +3421,15 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.283Z",
-    "lastUpdated": "2026-03-16T16:19:27.953Z"
+    "lastUpdated": "2026-03-16T16:19:27.953Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 483,
+    "decks": [],
+    "traditional": ""
   },
   "岁": {
     "hanzi": "岁",
@@ -2970,7 +3468,15 @@
       }
     },
     "createdDate": "2026-04-08T00:00:00.000Z",
-    "lastUpdated": "2026-04-08T00:00:00.000Z"
+    "lastUpdated": "2026-04-08T00:00:00.000Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 323,
+    "decks": [],
+    "traditional": "嵗"
   },
   "几": {
     "hanzi": "几",
@@ -3020,7 +3526,15 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.285Z",
-    "lastUpdated": "2026-03-17T14:31:28.890Z"
+    "lastUpdated": "2026-03-17T14:31:28.890Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 120,
+    "decks": [],
+    "traditional": ""
   },
   "口": {
     "hanzi": "口",
@@ -3070,7 +3584,15 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.285Z",
-    "lastUpdated": "2026-03-17T14:31:28.891Z"
+    "lastUpdated": "2026-03-17T14:31:28.891Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 153,
+    "decks": [],
+    "traditional": ""
   },
   "人": {
     "hanzi": "人",
@@ -3120,7 +3642,15 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.285Z",
-    "lastUpdated": "2026-03-17T14:31:28.892Z"
+    "lastUpdated": "2026-03-17T14:31:28.892Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 257,
+    "decks": [],
+    "traditional": ""
   },
   "谁": {
     "hanzi": "谁",
@@ -3170,7 +3700,16 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.287Z",
-    "lastUpdated": "2026-03-17T14:31:28.898Z"
+    "lastUpdated": "2026-03-17T14:31:28.898Z",
+    "sources": [
+      "character-database",
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 314,
+    "decks": [],
+    "traditional": "誰"
   },
   "爸": {
     "hanzi": "爸",
@@ -3221,7 +3760,16 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.287Z",
-    "lastUpdated": "2026-03-25T12:44:29.950Z"
+    "lastUpdated": "2026-03-25T12:44:29.950Z",
+    "sources": [
+      "character-database",
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 2,
+    "decks": [],
+    "traditional": ""
   },
   "妈": {
     "hanzi": "妈",
@@ -3272,7 +3820,16 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.288Z",
-    "lastUpdated": "2026-03-25T12:44:29.948Z"
+    "lastUpdated": "2026-03-25T12:44:29.948Z",
+    "sources": [
+      "character-database",
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 175,
+    "decks": [],
+    "traditional": "媽"
   },
   "妹": {
     "hanzi": "妹",
@@ -3328,7 +3885,15 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.288Z",
-    "lastUpdated": "2026-03-17T14:31:28.901Z"
+    "lastUpdated": "2026-03-17T14:31:28.901Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 186,
+    "decks": [],
+    "traditional": ""
   },
   "和": {
     "hanzi": "和",
@@ -3379,7 +3944,15 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.288Z",
-    "lastUpdated": "2026-03-25T12:44:29.949Z"
+    "lastUpdated": "2026-03-25T12:44:29.949Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 104,
+    "decks": [],
+    "traditional": "咊"
   },
   "猫": {
     "hanzi": "猫",
@@ -3436,7 +4009,15 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.289Z",
-    "lastUpdated": "2026-03-16T16:19:51.195Z"
+    "lastUpdated": "2026-03-16T16:19:51.195Z",
+    "sources": [
+      "character-database",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "狗": {
     "hanzi": "狗",
@@ -3486,7 +4067,15 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.290Z",
-    "lastUpdated": "2026-03-16T16:19:53.666Z"
+    "lastUpdated": "2026-03-16T16:19:53.666Z",
+    "sources": [
+      "character-database",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "鸟": {
     "hanzi": "鸟",
@@ -3536,7 +4125,15 @@
       }
     },
     "createdDate": "2026-03-16T15:38:51.290Z",
-    "lastUpdated": "2026-03-16T16:19:56.682Z"
+    "lastUpdated": "2026-03-16T16:19:56.682Z",
+    "sources": [
+      "character-database",
+      "cedict-mini"
+    ],
+    "hskLevel": 2,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "弟": {
     "hanzi": "弟",
@@ -3581,7 +4178,15 @@
       }
     },
     "createdDate": "2026-03-25T00:00:00.000Z",
-    "lastUpdated": "2026-03-25T12:44:29.948Z"
+    "lastUpdated": "2026-03-25T12:44:29.948Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 47,
+    "decks": [],
+    "traditional": ""
   },
   "哥": {
     "hanzi": "哥",
@@ -3626,7 +4231,15 @@
       }
     },
     "createdDate": "2026-03-25T00:00:00.000Z",
-    "lastUpdated": "2026-03-25T12:44:29.951Z"
+    "lastUpdated": "2026-03-25T12:44:29.951Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 85,
+    "decks": [],
+    "traditional": ""
   },
   "姐": {
     "hanzi": "姐",
@@ -3671,7 +4284,15 @@
       }
     },
     "createdDate": "2026-03-25T00:00:00.000Z",
-    "lastUpdated": "2026-03-25T12:44:29.952Z"
+    "lastUpdated": "2026-03-25T12:44:29.952Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 133,
+    "decks": [],
+    "traditional": ""
   },
   "的": {
     "hanzi": "的",
@@ -3710,7 +4331,16 @@
       }
     },
     "createdDate": "2026-04-08T00:00:00.000Z",
-    "lastUpdated": "2026-04-08T00:00:00.000Z"
+    "lastUpdated": "2026-04-08T00:00:00.000Z",
+    "sources": [
+      "character-database",
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 43,
+    "decks": [],
+    "traditional": ""
   },
   "是": {
     "hanzi": "是",
@@ -3749,7 +4379,16 @@
       }
     },
     "createdDate": "2026-04-08T00:00:00.000Z",
-    "lastUpdated": "2026-04-08T00:00:00.000Z"
+    "lastUpdated": "2026-04-08T00:00:00.000Z",
+    "sources": [
+      "character-database",
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 304,
+    "decks": [],
+    "traditional": ""
   },
   "外": {
     "hanzi": "外",
@@ -3799,7 +4438,15 @@
       }
     },
     "createdDate": "2026-04-08T00:00:00.000Z",
-    "lastUpdated": "2026-04-08T00:00:00.000Z"
+    "lastUpdated": "2026-04-08T00:00:00.000Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 342,
+    "decks": [],
+    "traditional": ""
   },
   "婆": {
     "hanzi": "婆",
@@ -3844,7 +4491,14 @@
       }
     },
     "createdDate": "2026-04-08T00:00:00.000Z",
-    "lastUpdated": "2026-04-08T00:00:00.000Z"
+    "lastUpdated": "2026-04-08T00:00:00.000Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "公": {
     "hanzi": "公",
@@ -3889,7 +4543,14 @@
       }
     },
     "createdDate": "2026-04-08T00:00:00.000Z",
-    "lastUpdated": "2026-04-08T00:00:00.000Z"
+    "lastUpdated": "2026-04-08T00:00:00.000Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "奶": {
     "hanzi": "奶",
@@ -3934,7 +4595,15 @@
       }
     },
     "createdDate": "2026-04-08T00:00:00.000Z",
-    "lastUpdated": "2026-04-08T00:00:00.000Z"
+    "lastUpdated": "2026-04-08T00:00:00.000Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 205,
+    "decks": [],
+    "traditional": ""
   },
   "爷": {
     "hanzi": "爷",
@@ -3979,7 +4648,14 @@
       }
     },
     "createdDate": "2026-04-08T00:00:00.000Z",
-    "lastUpdated": "2026-04-08T00:00:00.000Z"
+    "lastUpdated": "2026-04-08T00:00:00.000Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "文": {
     "hanzi": "文",
@@ -3996,7 +4672,14 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-05-20T12:01:38.463Z",
-    "lastUpdated": "2026-05-20T12:01:38.463Z"
+    "lastUpdated": "2026-05-20T12:01:38.463Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "喜": {
     "hanzi": "喜",
@@ -4013,7 +4696,14 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-05-20T12:01:38.463Z",
-    "lastUpdated": "2026-05-20T12:01:38.463Z"
+    "lastUpdated": "2026-05-20T12:01:38.463Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "欢": {
     "hanzi": "欢",
@@ -4030,7 +4720,14 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-05-20T12:01:38.463Z",
-    "lastUpdated": "2026-05-20T12:01:38.463Z"
+    "lastUpdated": "2026-05-20T12:01:38.463Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "颜": {
     "hanzi": "颜",
@@ -4047,7 +4744,14 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-05-20T12:01:38.463Z",
-    "lastUpdated": "2026-05-20T12:01:38.463Z"
+    "lastUpdated": "2026-05-20T12:01:38.463Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "色": {
     "hanzi": "色",
@@ -4064,7 +4768,14 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-05-20T12:01:38.463Z",
-    "lastUpdated": "2026-05-20T12:01:38.463Z"
+    "lastUpdated": "2026-05-20T12:01:38.463Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "红": {
     "hanzi": "红",
@@ -4081,7 +4792,15 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-05-20T12:01:38.463Z",
-    "lastUpdated": "2026-05-20T12:01:38.463Z"
+    "lastUpdated": "2026-05-20T12:01:38.463Z",
+    "sources": [
+      "character-database",
+      "cedict-mini"
+    ],
+    "hskLevel": 2,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "黄": {
     "hanzi": "黄",
@@ -4098,7 +4817,14 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-05-20T12:01:38.463Z",
-    "lastUpdated": "2026-05-20T12:01:38.463Z"
+    "lastUpdated": "2026-05-20T12:01:38.463Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "蓝": {
     "hanzi": "蓝",
@@ -4115,7 +4841,15 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-05-20T12:01:38.463Z",
-    "lastUpdated": "2026-05-20T12:01:38.463Z"
+    "lastUpdated": "2026-05-20T12:01:38.463Z",
+    "sources": [
+      "character-database",
+      "cedict-mini"
+    ],
+    "hskLevel": 2,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "白": {
     "hanzi": "白",
@@ -4132,7 +4866,16 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-05-20T12:01:38.463Z",
-    "lastUpdated": "2026-05-20T12:01:38.463Z"
+    "lastUpdated": "2026-05-20T12:01:38.463Z",
+    "sources": [
+      "character-database",
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 5,
+    "decks": [],
+    "traditional": ""
   },
   "黑": {
     "hanzi": "黑",
@@ -4149,7 +4892,15 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-05-20T12:01:38.463Z",
-    "lastUpdated": "2026-05-20T12:01:38.463Z"
+    "lastUpdated": "2026-05-20T12:01:38.463Z",
+    "sources": [
+      "character-database",
+      "cedict-mini"
+    ],
+    "hskLevel": 2,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "球": {
     "hanzi": "球",
@@ -4166,7 +4917,15 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-05-20T12:01:38.463Z",
-    "lastUpdated": "2026-05-20T12:01:38.463Z"
+    "lastUpdated": "2026-05-20T12:01:38.463Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 249,
+    "decks": [],
+    "traditional": ""
   },
   "橙": {
     "hanzi": "橙",
@@ -4183,7 +4942,14 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-05-20T12:01:38.463Z",
-    "lastUpdated": "2026-05-20T12:01:38.463Z"
+    "lastUpdated": "2026-05-20T12:01:38.463Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "紫": {
     "hanzi": "紫",
@@ -4200,7 +4966,14 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-05-20T12:01:38.463Z",
-    "lastUpdated": "2026-05-20T12:01:38.463Z"
+    "lastUpdated": "2026-05-20T12:01:38.463Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "粉": {
     "hanzi": "粉",
@@ -4217,7 +4990,14 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-05-20T12:01:38.463Z",
-    "lastUpdated": "2026-05-20T12:01:38.463Z"
+    "lastUpdated": "2026-05-20T12:01:38.463Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "绿": {
     "hanzi": "绿",
@@ -4234,7 +5014,15 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-05-20T12:01:38.463Z",
-    "lastUpdated": "2026-05-20T12:01:38.463Z"
+    "lastUpdated": "2026-05-20T12:01:38.463Z",
+    "sources": [
+      "character-database",
+      "cedict-mini"
+    ],
+    "hskLevel": 3,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "灰": {
     "hanzi": "灰",
@@ -4251,7 +5039,14 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-05-20T12:01:38.463Z",
-    "lastUpdated": "2026-05-20T12:01:38.463Z"
+    "lastUpdated": "2026-05-20T12:01:38.463Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "棕": {
     "hanzi": "棕",
@@ -4268,7 +5063,14 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-05-20T12:01:38.463Z",
-    "lastUpdated": "2026-05-20T12:01:38.463Z"
+    "lastUpdated": "2026-05-20T12:01:38.463Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "妳": {
     "hanzi": "妳",
@@ -4285,7 +5087,14 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-06-09T13:23:01.667Z",
-    "lastUpdated": "2026-06-09T13:23:01.667Z"
+    "lastUpdated": "2026-06-09T13:23:01.667Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "这": {
     "hanzi": "这",
@@ -4302,7 +5111,16 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-06-10T09:26:23.183Z",
-    "lastUpdated": "2026-06-10T09:26:23.183Z"
+    "lastUpdated": "2026-06-10T09:26:23.183Z",
+    "sources": [
+      "character-database",
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 458,
+    "decks": [],
+    "traditional": "這"
   },
   "校": {
     "hanzi": "校",
@@ -4319,7 +5137,14 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-06-10T09:26:23.183Z",
-    "lastUpdated": "2026-06-10T09:26:23.183Z"
+    "lastUpdated": "2026-06-10T09:26:23.183Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "服": {
     "hanzi": "服",
@@ -4336,7 +5161,14 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-06-10T09:26:23.183Z",
-    "lastUpdated": "2026-06-10T09:26:23.183Z"
+    "lastUpdated": "2026-06-10T09:26:23.183Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "女": {
     "hanzi": "女",
@@ -4353,7 +5185,15 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-06-10T09:26:23.183Z",
-    "lastUpdated": "2026-06-10T09:26:23.183Z"
+    "lastUpdated": "2026-06-10T09:26:23.183Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 223,
+    "decks": [],
+    "traditional": ""
   },
   "生": {
     "hanzi": "生",
@@ -4370,7 +5210,14 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-06-10T09:26:23.183Z",
-    "lastUpdated": "2026-06-10T09:26:23.183Z"
+    "lastUpdated": "2026-06-10T09:26:23.183Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "穿": {
     "hanzi": "穿",
@@ -4387,7 +5234,15 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-06-10T09:26:23.183Z",
-    "lastUpdated": "2026-06-10T09:26:23.183Z"
+    "lastUpdated": "2026-06-10T09:26:23.183Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 30,
+    "decks": [],
+    "traditional": ""
   },
   "衬": {
     "hanzi": "衬",
@@ -4404,7 +5259,14 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-06-10T09:26:23.183Z",
-    "lastUpdated": "2026-06-10T09:26:23.183Z"
+    "lastUpdated": "2026-06-10T09:26:23.183Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "衫": {
     "hanzi": "衫",
@@ -4421,7 +5283,14 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-06-10T09:26:23.183Z",
-    "lastUpdated": "2026-06-10T09:26:23.183Z"
+    "lastUpdated": "2026-06-10T09:26:23.183Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "裙": {
     "hanzi": "裙",
@@ -4438,7 +5307,14 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-06-10T09:26:23.183Z",
-    "lastUpdated": "2026-06-10T09:26:23.183Z"
+    "lastUpdated": "2026-06-10T09:26:23.183Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "子": {
     "hanzi": "子",
@@ -4455,7 +5331,15 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-06-10T09:26:23.183Z",
-    "lastUpdated": "2026-06-10T09:26:23.183Z"
+    "lastUpdated": "2026-06-10T09:26:23.183Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 486,
+    "decks": [],
+    "traditional": ""
   },
   "男": {
     "hanzi": "男",
@@ -4472,7 +5356,15 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-06-10T09:26:23.183Z",
-    "lastUpdated": "2026-06-10T09:26:23.183Z"
+    "lastUpdated": "2026-06-10T09:26:23.183Z",
+    "sources": [
+      "character-database",
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 207,
+    "decks": [],
+    "traditional": ""
   },
   "裤": {
     "hanzi": "裤",
@@ -4489,7 +5381,14 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-06-10T09:26:23.183Z",
-    "lastUpdated": "2026-06-10T09:26:23.183Z"
+    "lastUpdated": "2026-06-10T09:26:23.183Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "米": {
     "hanzi": "米",
@@ -4506,7 +5405,14 @@
     ],
     "relatedWords": [],
     "createdDate": "2026-06-10T14:58:56.062Z",
-    "lastUpdated": "2026-06-10T14:58:56.062Z"
+    "lastUpdated": "2026-06-10T14:58:56.062Z",
+    "sources": [
+      "character-database"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   },
   "吧": {
     "hanzi": "吧",
@@ -4549,7 +5455,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 4,
+    "decks": [],
+    "traditional": ""
   },
   "百": {
     "hanzi": "百",
@@ -4592,7 +5505,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 6,
+    "decks": [],
+    "traditional": ""
   },
   "班": {
     "hanzi": "班",
@@ -4635,7 +5555,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 7,
+    "decks": [],
+    "traditional": ""
   },
   "半": {
     "hanzi": "半",
@@ -4678,7 +5605,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 8,
+    "decks": [],
+    "traditional": ""
   },
   "帮": {
     "hanzi": "帮",
@@ -4721,7 +5655,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 9,
+    "decks": [],
+    "traditional": "幇"
   },
   "包": {
     "hanzi": "包",
@@ -4764,7 +5705,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 10,
+    "decks": [],
+    "traditional": ""
   },
   "杯": {
     "hanzi": "杯",
@@ -4807,7 +5755,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 11,
+    "decks": [],
+    "traditional": ""
   },
   "北": {
     "hanzi": "北",
@@ -4850,7 +5805,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 12,
+    "decks": [],
+    "traditional": ""
   },
   "本": {
     "hanzi": "本",
@@ -4893,7 +5855,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 15,
+    "decks": [],
+    "traditional": ""
   },
   "比": {
     "hanzi": "比",
@@ -4936,7 +5905,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 16,
+    "decks": [],
+    "traditional": ""
   },
   "别": {
     "hanzi": "别",
@@ -4979,7 +5955,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 17,
+    "decks": [],
+    "traditional": "別"
   },
   "病": {
     "hanzi": "病",
@@ -5022,7 +6005,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 18,
+    "decks": [],
+    "traditional": ""
   },
   "菜": {
     "hanzi": "菜",
@@ -5065,7 +6055,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 21,
+    "decks": [],
+    "traditional": ""
   },
   "茶": {
     "hanzi": "茶",
@@ -5108,7 +6105,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 22,
+    "decks": [],
+    "traditional": ""
   },
   "差": {
     "hanzi": "差",
@@ -5151,7 +6155,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 23,
+    "decks": [],
+    "traditional": ""
   },
   "常": {
     "hanzi": "常",
@@ -5194,7 +6205,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 24,
+    "decks": [],
+    "traditional": ""
   },
   "唱": {
     "hanzi": "唱",
@@ -5237,7 +6255,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 26,
+    "decks": [],
+    "traditional": ""
   },
   "车": {
     "hanzi": "车",
@@ -5280,7 +6305,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 27,
+    "decks": [],
+    "traditional": "車"
   },
   "吃": {
     "hanzi": "吃",
@@ -5323,7 +6355,15 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 28,
+    "decks": [],
+    "traditional": ""
   },
   "出": {
     "hanzi": "出",
@@ -5366,7 +6406,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 29,
+    "decks": [],
+    "traditional": ""
   },
   "床": {
     "hanzi": "床",
@@ -5409,7 +6456,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 31,
+    "decks": [],
+    "traditional": ""
   },
   "次": {
     "hanzi": "次",
@@ -5452,7 +6506,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 32,
+    "decks": [],
+    "traditional": ""
   },
   "从": {
     "hanzi": "从",
@@ -5495,7 +6556,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 33,
+    "decks": [],
+    "traditional": ""
   },
   "错": {
     "hanzi": "错",
@@ -5538,7 +6606,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 34,
+    "decks": [],
+    "traditional": "錯"
   },
   "打": {
     "hanzi": "打",
@@ -5581,7 +6656,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 35,
+    "decks": [],
+    "traditional": ""
   },
   "到": {
     "hanzi": "到",
@@ -5624,7 +6706,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 39,
+    "decks": [],
+    "traditional": ""
   },
   "地": {
     "hanzi": "地",
@@ -5667,7 +6756,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 40,
+    "decks": [],
+    "traditional": ""
   },
   "等": {
     "hanzi": "等",
@@ -5710,7 +6806,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 46,
+    "decks": [],
+    "traditional": ""
   },
   "第": {
     "hanzi": "第",
@@ -5753,7 +6856,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 49,
+    "decks": [],
+    "traditional": ""
   },
   "点": {
     "hanzi": "点",
@@ -5796,7 +6906,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 50,
+    "decks": [],
+    "traditional": "點"
   },
   "电": {
     "hanzi": "电",
@@ -5839,7 +6956,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 52,
+    "decks": [],
+    "traditional": "電"
   },
   "东": {
     "hanzi": "东",
@@ -5882,7 +7006,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 58,
+    "decks": [],
+    "traditional": "東"
   },
   "动": {
     "hanzi": "动",
@@ -5925,7 +7056,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 60,
+    "decks": [],
+    "traditional": "動"
   },
   "读": {
     "hanzi": "读",
@@ -5968,7 +7106,15 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 63,
+    "decks": [],
+    "traditional": "讀"
   },
   "饿": {
     "hanzi": "饿",
@@ -6011,7 +7157,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 67,
+    "decks": [],
+    "traditional": "餓"
   },
   "饭": {
     "hanzi": "饭",
@@ -6054,7 +7207,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 70,
+    "decks": [],
+    "traditional": "飯"
   },
   "放": {
     "hanzi": "放",
@@ -6097,7 +7257,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 73,
+    "decks": [],
+    "traditional": ""
   },
   "飞": {
     "hanzi": "飞",
@@ -6140,7 +7307,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 75,
+    "decks": [],
+    "traditional": "飛"
   },
   "分": {
     "hanzi": "分",
@@ -6183,7 +7357,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 78,
+    "decks": [],
+    "traditional": ""
   },
   "风": {
     "hanzi": "风",
@@ -6226,7 +7407,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 79,
+    "decks": [],
+    "traditional": "風"
   },
   "干": {
     "hanzi": "干",
@@ -6269,7 +7457,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 80,
+    "decks": [],
+    "traditional": "乹"
   },
   "高": {
     "hanzi": "高",
@@ -6312,7 +7507,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 82,
+    "decks": [],
+    "traditional": ""
   },
   "歌": {
     "hanzi": "歌",
@@ -6355,7 +7557,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 87,
+    "decks": [],
+    "traditional": ""
   },
   "给": {
     "hanzi": "给",
@@ -6398,7 +7607,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 90,
+    "decks": [],
+    "traditional": "給"
   },
   "跟": {
     "hanzi": "跟",
@@ -6441,7 +7657,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 91,
+    "decks": [],
+    "traditional": ""
   },
   "贵": {
     "hanzi": "贵",
@@ -6484,7 +7707,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 94,
+    "decks": [],
+    "traditional": "貴"
   },
   "国": {
     "hanzi": "国",
@@ -6527,7 +7757,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 95,
+    "decks": [],
+    "traditional": "國"
   },
   "过": {
     "hanzi": "过",
@@ -6570,7 +7807,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 96,
+    "decks": [],
+    "traditional": "過"
   },
   "还": {
     "hanzi": "还",
@@ -6613,7 +7857,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 97,
+    "decks": [],
+    "traditional": "還"
   },
   "号": {
     "hanzi": "号",
@@ -6656,7 +7907,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 102,
+    "decks": [],
+    "traditional": "號"
   },
   "喝": {
     "hanzi": "喝",
@@ -6699,7 +7957,15 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 103,
+    "decks": [],
+    "traditional": ""
   },
   "很": {
     "hanzi": "很",
@@ -6742,7 +8008,15 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 105,
+    "decks": [],
+    "traditional": ""
   },
   "后": {
     "hanzi": "后",
@@ -6785,7 +8059,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 106,
+    "decks": [],
+    "traditional": ""
   },
   "花": {
     "hanzi": "花",
@@ -6828,7 +8109,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 108,
+    "decks": [],
+    "traditional": ""
   },
   "话": {
     "hanzi": "话",
@@ -6871,7 +8159,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 109,
+    "decks": [],
+    "traditional": "話"
   },
   "坏": {
     "hanzi": "坏",
@@ -6914,7 +8209,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 112,
+    "decks": [],
+    "traditional": "壞"
   },
   "回": {
     "hanzi": "回",
@@ -6957,7 +8259,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 113,
+    "decks": [],
+    "traditional": ""
   },
   "会": {
     "hanzi": "会",
@@ -7000,7 +8309,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 116,
+    "decks": [],
+    "traditional": "會"
   },
   "间": {
     "hanzi": "间",
@@ -7043,7 +8359,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 126,
+    "decks": [],
+    "traditional": "間"
   },
   "教": {
     "hanzi": "教",
@@ -7086,7 +8409,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 131,
+    "decks": [],
+    "traditional": ""
   },
   "进": {
     "hanzi": "进",
@@ -7129,7 +8459,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 135,
+    "decks": [],
+    "traditional": "進"
   },
   "就": {
     "hanzi": "就",
@@ -7172,7 +8509,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 137,
+    "decks": [],
+    "traditional": ""
   },
   "开": {
     "hanzi": "开",
@@ -7215,7 +8559,15 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 139,
+    "decks": [],
+    "traditional": "開"
   },
   "看": {
     "hanzi": "看",
@@ -7258,7 +8610,15 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 143,
+    "decks": [],
+    "traditional": ""
   },
   "考": {
     "hanzi": "考",
@@ -7301,7 +8661,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 148,
+    "decks": [],
+    "traditional": "攷"
   },
   "渴": {
     "hanzi": "渴",
@@ -7344,7 +8711,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 149,
+    "decks": [],
+    "traditional": ""
   },
   "课": {
     "hanzi": "课",
@@ -7387,7 +8761,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 150,
+    "decks": [],
+    "traditional": "課"
   },
   "块": {
     "hanzi": "块",
@@ -7430,7 +8811,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 154,
+    "decks": [],
+    "traditional": "塊"
   },
   "快": {
     "hanzi": "快",
@@ -7473,7 +8861,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 155,
+    "decks": [],
+    "traditional": ""
   },
   "了": {
     "hanzi": "了",
@@ -7516,7 +8911,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 163,
+    "decks": [],
+    "traditional": ""
   },
   "累": {
     "hanzi": "累",
@@ -7559,7 +8961,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 164,
+    "decks": [],
+    "traditional": ""
   },
   "冷": {
     "hanzi": "冷",
@@ -7602,7 +9011,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 165,
+    "decks": [],
+    "traditional": ""
   },
   "里": {
     "hanzi": "里",
@@ -7645,7 +9061,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 166,
+    "decks": [],
+    "traditional": "裏"
   },
   "两": {
     "hanzi": "两",
@@ -7688,7 +9111,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 169,
+    "decks": [],
+    "traditional": "兩"
   },
   "零": {
     "hanzi": "零",
@@ -7731,7 +9161,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 170,
+    "decks": [],
+    "traditional": ""
   },
   "楼": {
     "hanzi": "楼",
@@ -7774,7 +9211,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 172,
+    "decks": [],
+    "traditional": "樓"
   },
   "路": {
     "hanzi": "路",
@@ -7817,7 +9261,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 173,
+    "decks": [],
+    "traditional": ""
   },
   "买": {
     "hanzi": "买",
@@ -7860,7 +9311,15 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 179,
+    "decks": [],
+    "traditional": "買"
   },
   "慢": {
     "hanzi": "慢",
@@ -7903,7 +9362,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 180,
+    "decks": [],
+    "traditional": ""
   },
   "忙": {
     "hanzi": "忙",
@@ -7946,7 +9412,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 181,
+    "decks": [],
+    "traditional": ""
   },
   "毛": {
     "hanzi": "毛",
@@ -7989,7 +9462,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 183,
+    "decks": [],
+    "traditional": ""
   },
   "门": {
     "hanzi": "门",
@@ -8032,7 +9512,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 188,
+    "decks": [],
+    "traditional": "門"
   },
   "拿": {
     "hanzi": "拿",
@@ -8075,7 +9562,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 195,
+    "decks": [],
+    "traditional": "㧱"
   },
   "哪": {
     "hanzi": "哪",
@@ -8118,7 +9612,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 196,
+    "decks": [],
+    "traditional": ""
   },
   "那": {
     "hanzi": "那",
@@ -8161,7 +9662,15 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 200,
+    "decks": [],
+    "traditional": ""
   },
   "南": {
     "hanzi": "南",
@@ -8204,7 +9713,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 210,
+    "decks": [],
+    "traditional": ""
   },
   "难": {
     "hanzi": "难",
@@ -8247,7 +9763,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 212,
+    "decks": [],
+    "traditional": "難"
   },
   "呢": {
     "hanzi": "呢",
@@ -8290,7 +9813,15 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 213,
+    "decks": [],
+    "traditional": ""
   },
   "能": {
     "hanzi": "能",
@@ -8333,7 +9864,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 214,
+    "decks": [],
+    "traditional": ""
   },
   "年": {
     "hanzi": "年",
@@ -8376,7 +9914,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 217,
+    "decks": [],
+    "traditional": ""
   },
   "跑": {
     "hanzi": "跑",
@@ -8419,7 +9964,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 228,
+    "decks": [],
+    "traditional": ""
   },
   "票": {
     "hanzi": "票",
@@ -8462,7 +10014,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 232,
+    "decks": [],
+    "traditional": ""
   },
   "前": {
     "hanzi": "前",
@@ -8505,7 +10064,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 242,
+    "decks": [],
+    "traditional": ""
   },
   "钱": {
     "hanzi": "钱",
@@ -8548,7 +10114,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 244,
+    "decks": [],
+    "traditional": "錢"
   },
   "请": {
     "hanzi": "请",
@@ -8591,7 +10164,15 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 246,
+    "decks": [],
+    "traditional": "請"
   },
   "去": {
     "hanzi": "去",
@@ -8634,7 +10215,15 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 251,
+    "decks": [],
+    "traditional": ""
   },
   "热": {
     "hanzi": "热",
@@ -8677,7 +10266,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 256,
+    "decks": [],
+    "traditional": "熱"
   },
   "日": {
     "hanzi": "日",
@@ -8720,7 +10316,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 266,
+    "decks": [],
+    "traditional": ""
   },
   "肉": {
     "hanzi": "肉",
@@ -8763,7 +10366,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 268,
+    "decks": [],
+    "traditional": ""
   },
   "山": {
     "hanzi": "山",
@@ -8806,7 +10416,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 270,
+    "decks": [],
+    "traditional": ""
   },
   "上": {
     "hanzi": "上",
@@ -8849,7 +10466,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 273,
+    "decks": [],
+    "traditional": ""
   },
   "少": {
     "hanzi": "少",
@@ -8892,7 +10516,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 287,
+    "decks": [],
+    "traditional": ""
   },
   "事": {
     "hanzi": "事",
@@ -8935,7 +10566,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 300,
+    "decks": [],
+    "traditional": ""
   },
   "试": {
     "hanzi": "试",
@@ -8978,7 +10616,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 302,
+    "decks": [],
+    "traditional": "試"
   },
   "手": {
     "hanzi": "手",
@@ -9021,7 +10666,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 307,
+    "decks": [],
+    "traditional": ""
   },
   "书": {
     "hanzi": "书",
@@ -9064,7 +10716,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 309,
+    "decks": [],
+    "traditional": "書"
   },
   "树": {
     "hanzi": "树",
@@ -9107,7 +10766,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 313,
+    "decks": [],
+    "traditional": "樹"
   },
   "水": {
     "hanzi": "水",
@@ -9150,7 +10816,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 315,
+    "decks": [],
+    "traditional": ""
   },
   "睡": {
     "hanzi": "睡",
@@ -9193,7 +10866,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 317,
+    "decks": [],
+    "traditional": ""
   },
   "说": {
     "hanzi": "说",
@@ -9236,7 +10916,15 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 319,
+    "decks": [],
+    "traditional": "說"
   },
   "送": {
     "hanzi": "送",
@@ -9279,7 +10967,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 322,
+    "decks": [],
+    "traditional": ""
   },
   "太": {
     "hanzi": "太",
@@ -9322,7 +11017,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 328,
+    "decks": [],
+    "traditional": ""
   },
   "听": {
     "hanzi": "听",
@@ -9365,7 +11067,15 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 337,
+    "decks": [],
+    "traditional": ""
   },
   "晚": {
     "hanzi": "晚",
@@ -9408,7 +11118,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 349,
+    "decks": [],
+    "traditional": ""
   },
   "忘": {
     "hanzi": "忘",
@@ -9451,7 +11168,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 354,
+    "decks": [],
+    "traditional": ""
   },
   "问": {
     "hanzi": "问",
@@ -9494,7 +11218,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 356,
+    "decks": [],
+    "traditional": "問"
   },
   "洗": {
     "hanzi": "洗",
@@ -9537,7 +11268,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 362,
+    "decks": [],
+    "traditional": ""
   },
   "西": {
     "hanzi": "西",
@@ -9580,7 +11318,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 365,
+    "decks": [],
+    "traditional": ""
   },
   "下": {
     "hanzi": "下",
@@ -9623,7 +11368,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 368,
+    "decks": [],
+    "traditional": ""
   },
   "先": {
     "hanzi": "先",
@@ -9666,7 +11418,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 376,
+    "decks": [],
+    "traditional": ""
   },
   "想": {
     "hanzi": "想",
@@ -9709,7 +11468,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 378,
+    "decks": [],
+    "traditional": ""
   },
   "笑": {
     "hanzi": "笑",
@@ -9752,7 +11518,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 384,
+    "decks": [],
+    "traditional": "咲"
   },
   "写": {
     "hanzi": "写",
@@ -9795,7 +11568,15 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 386,
+    "decks": [],
+    "traditional": "寫"
   },
   "新": {
     "hanzi": "新",
@@ -9838,7 +11619,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 389,
+    "decks": [],
+    "traditional": ""
   },
   "行": {
     "hanzi": "行",
@@ -9881,7 +11669,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 394,
+    "decks": [],
+    "traditional": ""
   },
   "也": {
     "hanzi": "也",
@@ -9924,7 +11719,15 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 410,
+    "decks": [],
+    "traditional": ""
   },
   "页": {
     "hanzi": "页",
@@ -9967,7 +11770,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 411,
+    "decks": [],
+    "traditional": "頁"
   },
   "右": {
     "hanzi": "右",
@@ -10010,7 +11820,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 438,
+    "decks": [],
+    "traditional": ""
   },
   "雨": {
     "hanzi": "雨",
@@ -10053,7 +11870,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 440,
+    "decks": [],
+    "traditional": ""
   },
   "元": {
     "hanzi": "元",
@@ -10096,7 +11920,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 442,
+    "decks": [],
+    "traditional": ""
   },
   "远": {
     "hanzi": "远",
@@ -10139,7 +11970,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 443,
+    "decks": [],
+    "traditional": "遠"
   },
   "月": {
     "hanzi": "月",
@@ -10182,7 +12020,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 444,
+    "decks": [],
+    "traditional": ""
   },
   "在": {
     "hanzi": "在",
@@ -10225,7 +12070,15 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1",
+      "cedict-mini"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 447,
+    "decks": [],
+    "traditional": ""
   },
   "站": {
     "hanzi": "站",
@@ -10268,7 +12121,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 454,
+    "decks": [],
+    "traditional": ""
   },
   "找": {
     "hanzi": "找",
@@ -10311,7 +12171,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 456,
+    "decks": [],
+    "traditional": ""
   },
   "着": {
     "hanzi": "着",
@@ -10354,7 +12221,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 463,
+    "decks": [],
+    "traditional": "著"
   },
   "真": {
     "hanzi": "真",
@@ -10397,7 +12271,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 464,
+    "decks": [],
+    "traditional": ""
   },
   "正": {
     "hanzi": "正",
@@ -10440,7 +12321,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 467,
+    "decks": [],
+    "traditional": ""
   },
   "中": {
     "hanzi": "中",
@@ -10483,7 +12371,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 471,
+    "decks": [],
+    "traditional": ""
   },
   "重": {
     "hanzi": "重",
@@ -10526,7 +12421,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 478,
+    "decks": [],
+    "traditional": ""
   },
   "住": {
     "hanzi": "住",
@@ -10569,7 +12471,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 480,
+    "decks": [],
+    "traditional": ""
   },
   "走": {
     "hanzi": "走",
@@ -10612,7 +12521,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 494,
+    "decks": [],
+    "traditional": ""
   },
   "最": {
     "hanzi": "最",
@@ -10655,7 +12571,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 496,
+    "decks": [],
+    "traditional": "㝡"
   },
   "左": {
     "hanzi": "左",
@@ -10698,7 +12621,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 500,
+    "decks": [],
+    "traditional": ""
   },
   "坐": {
     "hanzi": "坐",
@@ -10741,7 +12671,14 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 502,
+    "decks": [],
+    "traditional": ""
   },
   "做": {
     "hanzi": "做",
@@ -10784,6 +12721,163 @@
       }
     },
     "createdDate": "2026-01-01T00:00:00.000Z",
-    "lastUpdated": "2026-01-01T00:00:00.000Z"
+    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "sources": [
+      "hsk1"
+    ],
+    "hskLevel": 1,
+    "hskOrder": 505,
+    "decks": [],
+    "traditional": ""
+  },
+  "它": {
+    "hanzi": "它",
+    "pinyin": "ta1",
+    "pinyinNumbered": "ta1",
+    "traditional": "",
+    "french": "il elle objet",
+    "english": "it",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": null,
+    "firstSeenDate": null,
+    "appearsInLessons": [],
+    "relatedWords": [],
+    "radical": "",
+    "decomposition": "",
+    "components": [],
+    "componentMatches": [],
+    "etymology": null,
+    "hskLevel": 2,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "cedict-mini"
+    ],
+    "metadataSource": null,
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-09-25T17:54:04.681Z",
+    "lastUpdated": "2026-09-25T17:54:04.683Z"
+  },
+  "卖": {
+    "hanzi": "卖",
+    "pinyin": "mai4",
+    "pinyinNumbered": "mai4",
+    "traditional": "",
+    "french": "vendre",
+    "english": "to sell",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": null,
+    "firstSeenDate": null,
+    "appearsInLessons": [],
+    "relatedWords": [],
+    "radical": "",
+    "decomposition": "",
+    "components": [],
+    "componentMatches": [],
+    "etymology": null,
+    "hskLevel": 2,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "cedict-mini"
+    ],
+    "metadataSource": null,
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-09-25T17:54:04.683Z",
+    "lastUpdated": "2026-09-25T17:54:04.683Z"
+  },
+  "鱼": {
+    "hanzi": "鱼",
+    "pinyin": "yu2",
+    "pinyinNumbered": "yu2",
+    "traditional": "",
+    "french": "poisson",
+    "english": "fish",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": null,
+    "firstSeenDate": null,
+    "appearsInLessons": [],
+    "relatedWords": [],
+    "radical": "",
+    "decomposition": "",
+    "components": [],
+    "componentMatches": [],
+    "etymology": null,
+    "hskLevel": 2,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "cedict-mini"
+    ],
+    "metadataSource": null,
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-09-25T17:54:04.683Z",
+    "lastUpdated": "2026-09-25T17:54:04.683Z"
   }
 }

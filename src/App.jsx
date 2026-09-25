@@ -30,6 +30,8 @@ import ColorsWritingPage from './components/ColorsWritingPage.jsx';
 import ColorsQuizPage from './components/ColorsQuizPage.jsx';
 import HskQuizPage from './components/HskQuizPage.jsx';
 import LessonQuizPage from './components/LessonQuizPage.jsx';
+import LessonVocabWordPage from './components/LessonVocabWordPage.jsx';
+import LessonVocabWritingPage from './components/LessonVocabWritingPage.jsx';
 import hskWords from './data/hsk1-words.json';
 import colorsWords from './data/colors-words.json';
 import { useAvatar } from './context/AvatarContext.jsx';
@@ -77,6 +79,8 @@ const STANDALONE_VIEW = {
   HSK_SELECT: 'hsk-select',
   HSK_QUIZ: 'hsk-quiz',
   LESSON_QUIZ: 'lesson-quiz',
+  LESSON_VOCAB_WORDS: 'lesson-vocab-words',
+  LESSON_VOCAB_WRITING: 'lesson-vocab-writing',
   COLORS_WORDS: 'colors-words',
   COLORS_WRITING: 'colors-writing',
   COLORS_QUIZ: 'colors-quiz',
@@ -151,6 +155,7 @@ export default function App() {
   const [writingDifficulty, setWritingDifficulty] = useState(1);
   const [hskWordIndex, setHskWordIndex] = useState(() => readHskProgress());
   const [colorsWordIndex, setColorsWordIndex] = useState(0);
+  const [vocabWordIndex, setVocabWordIndex] = useState(0);
   const [activeModule, setActiveModule] = useState(MODULES.LESSONS);
   const [showAvatarEditorModal, setShowAvatarEditorModal] = useState(false);
   const [showProfilePicker, setShowProfilePicker] = useState(false);
@@ -411,6 +416,38 @@ export default function App() {
   const goToNextColorsWord = () => setColorsWordIndex((prev) => (prev + 1) % colorsWords.length);
   const goToPrevColorsWord = () => setColorsWordIndex((prev) => (prev - 1 + colorsWords.length) % colorsWords.length);
 
+  const handleLessonVocabWritingSuccess = (mistakes) => {
+    const vocabWords = activeLesson?.vocabulary || [];
+    const vocabWord = vocabWords[vocabWordIndex];
+    if (!vocabWord || !activeLesson || !currentProfileKey) return;
+
+    const cardKey = getCardKey(activeLesson.id, vocabWord.id);
+    const earned = mistakes === 0 ? 3 : mistakes === 1 ? 2 : 1;
+
+    setStarsByProfile((prev) => {
+      const map = prev[currentProfileKey] || {};
+      const current = map[cardKey] ?? 0;
+      return {
+        ...prev,
+        [currentProfileKey]: {
+          ...map,
+          [cardKey]: Math.max(current, earned),
+        },
+      };
+    });
+  };
+
+  const goToNextVocabWord = () => {
+    const total = activeLesson?.vocabulary?.length || 0;
+    if (!total) return;
+    setVocabWordIndex((prev) => (prev + 1) % total);
+  };
+  const goToPrevVocabWord = () => {
+    const total = activeLesson?.vocabulary?.length || 0;
+    if (!total) return;
+    setVocabWordIndex((prev) => (prev - 1 + total) % total);
+  };
+
   useEffect(() => {
     try {
       localStorage.setItem(hskProgressStorageKey, JSON.stringify({ wordIndex: hskWordIndex }));
@@ -599,6 +636,18 @@ export default function App() {
     setEnteredApp(false);
   };
 
+  const openVocabPracticeFromLessonText = (wordId) => {
+    const targetLesson = lessonOptions.find((lesson) => lesson.id === lessonTextLessonId);
+    if (!targetLesson || !wordId) return;
+    const targetIndex = (targetLesson.vocabulary || []).findIndex((word) => word.id === wordId);
+    if (targetIndex < 0) return;
+    setActiveLesson(targetLesson.id);
+    setVocabWordIndex(targetIndex);
+    setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS);
+    setShowDailyRituel(false);
+    setEnteredApp(false);
+  };
+
   const goNextInLessonJourney = () => {
     if (!lessonJourneyQueue.length) {
       goNext();
@@ -778,6 +827,7 @@ export default function App() {
             openLessonTextView(lessonId);
           }}
           onPracticeCharacter={openCharacterPracticeFromLessonText}
+          onPracticeVocabulary={openVocabPracticeFromLessonText}
           onBack={closeLessonTextView}
           onStartPractice={startJourneyFromLessonText}
           onStartQuiz={startQuizFromLessonText}
@@ -978,7 +1028,7 @@ export default function App() {
         profile={activeProfile}
         lessonId={activeLesson?.id}
         lessonTitle={activeLesson?.title}
-        words={activeLesson?.cards || []}
+        words={[...(activeLesson?.cards || []), ...(activeLesson?.vocabulary || [])]}
         onBack={() => {
           setStandaloneView(STANDALONE_VIEW.NONE);
           setEnteredApp(false);
@@ -988,6 +1038,57 @@ export default function App() {
             openLessonTextView(activeLesson.id);
           }
         }}
+      />
+    );
+  }
+
+  if (standaloneView === STANDALONE_VIEW.LESSON_VOCAB_WORDS) {
+    const vocabWords = activeLesson?.vocabulary || [];
+    return (
+      <LessonVocabWordPage
+        profile={activeProfile}
+        lessonId={activeLesson?.id}
+        lessonTitle={activeLesson?.title}
+        word={vocabWords[vocabWordIndex] || null}
+        wordIndex={vocabWordIndex}
+        totalWords={vocabWords.length}
+        onPrev={goToPrevVocabWord}
+        onNext={goToNextVocabWord}
+        onBack={() => {
+          setStandaloneView(STANDALONE_VIEW.NONE);
+          setEnteredApp(false);
+        }}
+        onSwitchModule={(module) => {
+          if (module === 'writing') {
+            setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WRITING);
+          } else if (module === 'quiz') {
+            setStandaloneView(STANDALONE_VIEW.LESSON_QUIZ);
+          }
+        }}
+      />
+    );
+  }
+
+  if (standaloneView === STANDALONE_VIEW.LESSON_VOCAB_WRITING) {
+    const vocabWords = activeLesson?.vocabulary || [];
+    return (
+      <LessonVocabWritingPage
+        profile={activeProfile}
+        lessonId={activeLesson?.id}
+        lessonTitle={activeLesson?.title}
+        word={vocabWords[vocabWordIndex] || null}
+        onBack={() => {
+          setStandaloneView(STANDALONE_VIEW.NONE);
+          setEnteredApp(false);
+        }}
+        onSwitchModule={(module) => {
+          if (module === 'flashcards') {
+            setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS);
+          }
+        }}
+        onSuccess={handleLessonVocabWritingSuccess}
+        onPrevWord={goToPrevVocabWord}
+        onNextWord={goToNextVocabWord}
       />
     );
   }

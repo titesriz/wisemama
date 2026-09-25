@@ -1,4 +1,31 @@
-import entries from '../data/cedict-mini.json';
+import { getAllCharacters } from '../utils/database/characterDB.js';
+import { getAllWords } from '../utils/database/vocabularyDB.js';
+
+// Used by lesson-authoring tools (DictionaryLookup.jsx, chineseImport.js,
+// flashcardGeneration.js) to search for a character/word while building a
+// lesson. Was cedict-mini.json directly; now reads the same unified
+// characters + vocabulary collections everything else uses, so authoring
+// tools see the same data as the rest of the app (lesson-authored
+// corrections included) instead of a separate, potentially stale subset.
+// Read lazily (not a static import) since these collections are
+// localStorage-backed and only populated once LessonsProvider has mounted.
+function getEntries() {
+  const characters = Object.values(getAllCharacters()).map((char) => ({
+    hanzi: char.hanzi,
+    pinyin: char.pinyin,
+    english: char.english,
+    french: char.french,
+    hsk: char.hskLevel,
+  }));
+  const words = getAllWords().map((word) => ({
+    hanzi: word.hanzi,
+    pinyin: word.pinyin,
+    english: word.english,
+    french: word.french,
+    hsk: word.hskLevel,
+  }));
+  return [...characters, ...words];
+}
 
 function normalize(text) {
   return String(text || '')
@@ -47,7 +74,7 @@ export function searchDictionary(query, options = {}) {
   const q = String(query || '').trim();
   if (!q) return [];
 
-  return entries
+  return getEntries()
     .filter((entry) => filterByHsk(entry, hskLevel))
     .map((entry) => ({ entry, score: scoreEntry(entry, q) }))
     .filter((item) => item.score > 0)
@@ -57,12 +84,12 @@ export function searchDictionary(query, options = {}) {
 }
 
 export function getDictionarySize() {
-  return entries.length;
+  return getEntries().length;
 }
 
 export function getDictionaryHskLevels() {
   const levels = new Set();
-  entries.forEach((entry) => {
+  getEntries().forEach((entry) => {
     const level = Number(entry.hsk);
     if (Number.isFinite(level)) {
       levels.add(level);
@@ -72,10 +99,10 @@ export function getDictionaryHskLevels() {
 }
 
 export function getDictionaryEntries() {
-  return entries;
+  return getEntries();
 }
 
 export function findDictionaryEntryByHanzi(hanzi) {
   if (!hanzi) return null;
-  return entries.find((entry) => entry.hanzi === hanzi) || null;
+  return getEntries().find((entry) => entry.hanzi === hanzi) || null;
 }

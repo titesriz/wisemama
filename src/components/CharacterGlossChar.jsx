@@ -47,10 +47,20 @@ export default function CharacterGlossChar({ char, entry, trigger = 'click', cla
     return <span className={`char-gloss-inert ${className}`}>{char}</span>;
   }
 
+  // Simplified stays primary (this app teaches simplified) - traditional is
+  // only ever a secondary addition, shown solely when it's known AND
+  // actually differs from the simplified form already on screen. Most
+  // characters were never touched by simplification (是, 我, 你...) and
+  // correctly show nothing extra here; a differing form with no data
+  // available (a genuine gap) also correctly shows nothing, same as any
+  // other missing field on `entry`.
+  const hasTraditional = entry.traditional && entry.traditional !== char;
+
   const popover = (
     <span className="char-gloss-popover" role="tooltip">
       <strong>{formatPinyinDisplay(entry.pinyin || '')}</strong>
       <span>{entry.french || entry.english || 'Traduction non disponible'}</span>
+      {hasTraditional ? <span className="char-gloss-traditional">繁 {entry.traditional}</span> : null}
     </span>
   );
 

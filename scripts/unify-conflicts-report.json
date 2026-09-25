@@ -1,0 +1,2297 @@
+[
+  {
+    "collection": "characters",
+    "hanzi": "爱",
+    "field": "french",
+    "kept": "amour",
+    "keptSource": "character-database",
+    "rejected": "aimer",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "爱",
+    "field": "english",
+    "kept": "love",
+    "keptSource": "character-database",
+    "rejected": "to love; to be fond of; to like",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "爱",
+    "field": "pinyin",
+    "kept": "ai1",
+    "keptSource": "character-database",
+    "rejected": "ài",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "八",
+    "field": "english",
+    "kept": "eight",
+    "keptSource": "character-database",
+    "rejected": "eight; 8",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "八",
+    "field": "pinyin",
+    "kept": "ba1",
+    "keptSource": "character-database",
+    "rejected": "bā",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "爸",
+    "field": "pinyin",
+    "kept": "ba4",
+    "keptSource": "character-database",
+    "rejected": "bà",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "白",
+    "field": "pinyin",
+    "kept": "bai2",
+    "keptSource": "character-database",
+    "rejected": "bái",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "不",
+    "field": "french",
+    "kept": "ne pas; non",
+    "keptSource": "character-database",
+    "rejected": "ne...pas; non",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "不",
+    "field": "english",
+    "kept": "not",
+    "keptSource": "character-database",
+    "rejected": "no; not so",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "不",
+    "field": "pinyin",
+    "kept": "bu4",
+    "keptSource": "character-database",
+    "rejected": "bù",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "穿",
+    "field": "french",
+    "kept": "porter (vêtement)",
+    "keptSource": "character-database",
+    "rejected": "porter (un vêtement)",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "穿",
+    "field": "pinyin",
+    "kept": "chuan1",
+    "keptSource": "character-database",
+    "rejected": "chuān",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "大",
+    "field": "french",
+    "kept": "Grand",
+    "keptSource": "character-database",
+    "rejected": "grand",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "大",
+    "field": "english",
+    "kept": "Big",
+    "keptSource": "character-database",
+    "rejected": "big; large; great",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "大",
+    "field": "pinyin",
+    "kept": "da4",
+    "keptSource": "character-database",
+    "rejected": "dà",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "的",
+    "field": "french",
+    "kept": "particule possessive",
+    "keptSource": "character-database",
+    "rejected": "(particule possessive)",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "的",
+    "field": "english",
+    "kept": "possessive particle",
+    "keptSource": "character-database",
+    "rejected": "of; ~'s (possessive particle)",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "的",
+    "field": "pinyin",
+    "kept": "de5",
+    "keptSource": "character-database",
+    "rejected": "de",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "弟",
+    "field": "english",
+    "kept": "little brother",
+    "keptSource": "character-database",
+    "rejected": "younger brother",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "弟",
+    "field": "pinyin",
+    "kept": "di4",
+    "keptSource": "character-database",
+    "rejected": "dì",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "都",
+    "field": "french",
+    "kept": "tous",
+    "keptSource": "character-database",
+    "rejected": "tout; tous",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "都",
+    "field": "english",
+    "kept": "all",
+    "keptSource": "character-database",
+    "rejected": "all; both",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "都",
+    "field": "pinyin",
+    "kept": "dou1",
+    "keptSource": "character-database",
+    "rejected": "dū",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "对",
+    "field": "french",
+    "kept": "correct",
+    "keptSource": "character-database",
+    "rejected": "correct; juste",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "对",
+    "field": "english",
+    "kept": "corect",
+    "keptSource": "character-database",
+    "rejected": "right; correct",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "对",
+    "field": "pinyin",
+    "kept": "dui4",
+    "keptSource": "character-database",
+    "rejected": "duì",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "多",
+    "field": "french",
+    "kept": "beaucoup",
+    "keptSource": "character-database",
+    "rejected": "beaucoup; nombreux",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "多",
+    "field": "english",
+    "kept": "many",
+    "keptSource": "character-database",
+    "rejected": "many; much",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "多",
+    "field": "pinyin",
+    "kept": "duo1",
+    "keptSource": "character-database",
+    "rejected": "duō",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "二",
+    "field": "pinyin",
+    "kept": "er4",
+    "keptSource": "character-database",
+    "rejected": "èr",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "哥",
+    "field": "english",
+    "kept": "big brother",
+    "keptSource": "character-database",
+    "rejected": "elder brother",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "哥",
+    "field": "pinyin",
+    "kept": "ge1",
+    "keptSource": "character-database",
+    "rejected": "gē",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "个",
+    "field": "french",
+    "kept": "classificateur",
+    "keptSource": "character-database",
+    "rejected": "(classificateur général)",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "个",
+    "field": "english",
+    "kept": "measure word",
+    "keptSource": "character-database",
+    "rejected": "(general measure word)",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "个",
+    "field": "pinyin",
+    "kept": "ge4",
+    "keptSource": "character-database",
+    "rejected": "gè",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "关",
+    "field": "pinyin",
+    "kept": "guan1",
+    "keptSource": "character-database",
+    "rejected": "guān",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "好",
+    "field": "english",
+    "kept": "good; well",
+    "keptSource": "character-database",
+    "rejected": "good",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "好",
+    "field": "pinyin",
+    "kept": "hao3",
+    "keptSource": "character-database",
+    "rejected": "hǎo",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "和",
+    "field": "french",
+    "kept": "et, avec",
+    "keptSource": "character-database",
+    "rejected": "et; avec",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "和",
+    "field": "english",
+    "kept": "and, with ",
+    "keptSource": "character-database",
+    "rejected": "and; with",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "和",
+    "field": "pinyin",
+    "kept": "he2",
+    "keptSource": "character-database",
+    "rejected": "hé",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "几",
+    "field": "french",
+    "kept": "combien",
+    "keptSource": "character-database",
+    "rejected": "combien; plusieurs",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "几",
+    "field": "english",
+    "kept": "how many",
+    "keptSource": "character-database",
+    "rejected": "how many; several",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "几",
+    "field": "pinyin",
+    "kept": "ji3",
+    "keptSource": "character-database",
+    "rejected": "jǐ",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "记",
+    "field": "french",
+    "kept": "retenir",
+    "keptSource": "character-database",
+    "rejected": "noter",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "记",
+    "field": "english",
+    "kept": "remember",
+    "keptSource": "character-database",
+    "rejected": "to record",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "记",
+    "field": "pinyin",
+    "kept": "ji4",
+    "keptSource": "character-database",
+    "rejected": "jì",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "家",
+    "field": "english",
+    "kept": "home",
+    "keptSource": "character-database",
+    "rejected": "home; family",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "家",
+    "field": "pinyin",
+    "kept": "jia1",
+    "keptSource": "character-database",
+    "rejected": "jiā",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "见",
+    "field": "french",
+    "kept": "rencontrer",
+    "keptSource": "character-database",
+    "rejected": "voir",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "见",
+    "field": "english",
+    "kept": "meet",
+    "keptSource": "character-database",
+    "rejected": "to see",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "见",
+    "field": "pinyin",
+    "kept": "jian4",
+    "keptSource": "character-database",
+    "rejected": "jiàn",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "叫",
+    "field": "french",
+    "kept": "appeler",
+    "keptSource": "character-database",
+    "rejected": "s'appeler; crier",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "叫",
+    "field": "english",
+    "kept": "call",
+    "keptSource": "character-database",
+    "rejected": "to be called; to shout",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "叫",
+    "field": "pinyin",
+    "kept": "jiao4",
+    "keptSource": "character-database",
+    "rejected": "jiào",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "姐",
+    "field": "french",
+    "kept": "grande soeur",
+    "keptSource": "character-database",
+    "rejected": "grande sœur",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "姐",
+    "field": "english",
+    "kept": "big sister ",
+    "keptSource": "character-database",
+    "rejected": "older sister",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "姐",
+    "field": "pinyin",
+    "kept": "jie3",
+    "keptSource": "character-database",
+    "rejected": "jiě",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "九",
+    "field": "pinyin",
+    "kept": "jiu3",
+    "keptSource": "character-database",
+    "rejected": "jiǔ",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "口",
+    "field": "pinyin",
+    "kept": "kou3",
+    "keptSource": "character-database",
+    "rejected": "kǒu",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "来",
+    "field": "pinyin",
+    "kept": "lai2",
+    "keptSource": "character-database",
+    "rejected": "lái",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "老",
+    "field": "french",
+    "kept": "vieux",
+    "keptSource": "character-database",
+    "rejected": "vieux; (préfixe familier)",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "老",
+    "field": "english",
+    "kept": "old",
+    "keptSource": "character-database",
+    "rejected": "prefix used before the surname of a person or a numeral indicating the order of birth of the children in a family or to indicate affection or familiarity",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "老",
+    "field": "pinyin",
+    "kept": "lao3",
+    "keptSource": "character-database",
+    "rejected": "lǎo",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "六",
+    "field": "pinyin",
+    "kept": "liu4",
+    "keptSource": "character-database",
+    "rejected": "liù",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "妈",
+    "field": "english",
+    "kept": "mother",
+    "keptSource": "character-database",
+    "rejected": "ma",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "妈",
+    "field": "pinyin",
+    "kept": "ma1",
+    "keptSource": "character-database",
+    "rejected": "mā",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "吗",
+    "field": "french",
+    "kept": "particule interrogative",
+    "keptSource": "character-database",
+    "rejected": "(particule interrogative)",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "吗",
+    "field": "english",
+    "kept": "question particle",
+    "keptSource": "character-database",
+    "rejected": "(question particle)",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "吗",
+    "field": "pinyin",
+    "kept": "ma5",
+    "keptSource": "character-database",
+    "rejected": "ma",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "没",
+    "field": "french",
+    "kept": "il n'y a pas",
+    "keptSource": "character-database",
+    "rejected": "ne...pas (avoir)",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "没",
+    "field": "english",
+    "kept": "not have",
+    "keptSource": "character-database",
+    "rejected": "(negative prefix for verbs) have not; not",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "没",
+    "field": "pinyin",
+    "kept": "mei2",
+    "keptSource": "character-database",
+    "rejected": "méi",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "妹",
+    "field": "french",
+    "kept": "petite soeur",
+    "keptSource": "character-database",
+    "rejected": "petite sœur",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "妹",
+    "field": "english",
+    "kept": "little sister",
+    "keptSource": "character-database",
+    "rejected": "younger sister",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "妹",
+    "field": "pinyin",
+    "kept": "mei4",
+    "keptSource": "character-database",
+    "rejected": "mèi",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "们",
+    "field": "french",
+    "kept": "pronom pluriel",
+    "keptSource": "character-database",
+    "rejected": "(marqueur du pluriel)",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "们",
+    "field": "english",
+    "kept": "pronoum plural ",
+    "keptSource": "character-database",
+    "rejected": "plural marker for pronouns, and nouns referring to individuals",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "们",
+    "field": "pinyin",
+    "kept": "men0",
+    "keptSource": "character-database",
+    "rejected": "men",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "奶",
+    "field": "french",
+    "kept": "grand-mère",
+    "keptSource": "character-database",
+    "rejected": "lait; mamie",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "奶",
+    "field": "english",
+    "kept": "grandmother",
+    "keptSource": "character-database",
+    "rejected": "milk; grandma",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "奶",
+    "field": "pinyin",
+    "kept": "nai3",
+    "keptSource": "character-database",
+    "rejected": "nǎi",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "男",
+    "field": "french",
+    "kept": "garçon; homme",
+    "keptSource": "character-database",
+    "rejected": "homme; masculin",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "男",
+    "field": "english",
+    "kept": "boy; man; male",
+    "keptSource": "character-database",
+    "rejected": "male",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "男",
+    "field": "pinyin",
+    "kept": "nan2",
+    "keptSource": "character-database",
+    "rejected": "nán",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "你",
+    "field": "english",
+    "kept": "you",
+    "keptSource": "character-database",
+    "rejected": "you (informal, as opposed to courteous 您)",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "你",
+    "field": "pinyin",
+    "kept": "ni3",
+    "keptSource": "character-database",
+    "rejected": "nǐ",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "您",
+    "field": "french",
+    "kept": "vous",
+    "keptSource": "character-database",
+    "rejected": "vous (poli)",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "您",
+    "field": "english",
+    "kept": "you",
+    "keptSource": "character-database",
+    "rejected": "you (courteous, as opposed to informal 你)",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "您",
+    "field": "pinyin",
+    "kept": "nin2",
+    "keptSource": "character-database",
+    "rejected": "nín",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "女",
+    "field": "french",
+    "kept": "fille; femme",
+    "keptSource": "character-database",
+    "rejected": "femme; féminin",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "女",
+    "field": "english",
+    "kept": "girl; woman; female",
+    "keptSource": "character-database",
+    "rejected": "female",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "女",
+    "field": "pinyin",
+    "kept": "nv3",
+    "keptSource": "character-database",
+    "rejected": "nǚ",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "七",
+    "field": "pinyin",
+    "kept": "qi1",
+    "keptSource": "character-database",
+    "rejected": "qī",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "起",
+    "field": "french",
+    "kept": "monter, se lever",
+    "keptSource": "character-database",
+    "rejected": "se lever",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "起",
+    "field": "english",
+    "kept": "rise ",
+    "keptSource": "character-database",
+    "rejected": "to rise",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "起",
+    "field": "pinyin",
+    "kept": "qi3",
+    "keptSource": "character-database",
+    "rejected": "qǐ",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "球",
+    "field": "french",
+    "kept": "ballon, balle",
+    "keptSource": "character-database",
+    "rejected": "balle; ballon",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "球",
+    "field": "pinyin",
+    "kept": "qiu2",
+    "keptSource": "character-database",
+    "rejected": "qiú",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "人",
+    "field": "french",
+    "kept": "personne",
+    "keptSource": "character-database",
+    "rejected": "personne; gens",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "人",
+    "field": "english",
+    "kept": "people",
+    "keptSource": "character-database",
+    "rejected": "person; people",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "人",
+    "field": "pinyin",
+    "kept": "ren2",
+    "keptSource": "character-database",
+    "rejected": "rén",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "三",
+    "field": "pinyin",
+    "kept": "san1",
+    "keptSource": "character-database",
+    "rejected": "sān",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "十",
+    "field": "pinyin",
+    "kept": "shi2",
+    "keptSource": "character-database",
+    "rejected": "shí",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "是",
+    "field": "english",
+    "kept": "to be",
+    "keptSource": "character-database",
+    "rejected": "to be (followed by substantives only)",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "是",
+    "field": "pinyin",
+    "kept": "shi4",
+    "keptSource": "character-database",
+    "rejected": "shì",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "谁",
+    "field": "pinyin",
+    "kept": "shui2",
+    "keptSource": "character-database",
+    "rejected": "shéi",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "四",
+    "field": "pinyin",
+    "kept": "si4",
+    "keptSource": "character-database",
+    "rejected": "sì",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "岁",
+    "field": "french",
+    "kept": "ans",
+    "keptSource": "character-database",
+    "rejected": "ans (âge)",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "岁",
+    "field": "english",
+    "kept": "years old",
+    "keptSource": "character-database",
+    "rejected": "years old (age)",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "岁",
+    "field": "pinyin",
+    "kept": "sui4",
+    "keptSource": "character-database",
+    "rejected": "suì",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "他",
+    "field": "french",
+    "kept": "il",
+    "keptSource": "character-database",
+    "rejected": "il; lui",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "他",
+    "field": "english",
+    "kept": "he",
+    "keptSource": "character-database",
+    "rejected": "he; him (used for either sex when the sex is unknown or unimportant)",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "他",
+    "field": "pinyin",
+    "kept": "ta1",
+    "keptSource": "character-database",
+    "rejected": "tā",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "她",
+    "field": "pinyin",
+    "kept": "ta1",
+    "keptSource": "character-database",
+    "rejected": "tā",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "天",
+    "field": "french",
+    "kept": "ciel",
+    "keptSource": "character-database",
+    "rejected": "jour",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "天",
+    "field": "english",
+    "kept": "sky",
+    "keptSource": "character-database",
+    "rejected": "day",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "天",
+    "field": "pinyin",
+    "kept": "tian1",
+    "keptSource": "character-database",
+    "rejected": "tiān",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "外",
+    "field": "french",
+    "kept": "extérieur",
+    "keptSource": "character-database",
+    "rejected": "dehors",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "外",
+    "field": "pinyin",
+    "kept": "wai4",
+    "keptSource": "character-database",
+    "rejected": "wài",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "我",
+    "field": "english",
+    "kept": "I",
+    "keptSource": "character-database",
+    "rejected": "I; me; my",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "我",
+    "field": "pinyin",
+    "kept": "wo3",
+    "keptSource": "character-database",
+    "rejected": "wǒ",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "五",
+    "field": "pinyin",
+    "kept": "wu3",
+    "keptSource": "character-database",
+    "rejected": "wǔ",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "小",
+    "field": "french",
+    "kept": "Petit",
+    "keptSource": "character-database",
+    "rejected": "petit",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "小",
+    "field": "english",
+    "kept": "Small",
+    "keptSource": "character-database",
+    "rejected": "small",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "小",
+    "field": "pinyin",
+    "kept": "xiao3",
+    "keptSource": "character-database",
+    "rejected": "xiǎo",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "学",
+    "field": "french",
+    "kept": "apprendre",
+    "keptSource": "character-database",
+    "rejected": "apprendre; étudier",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "学",
+    "field": "english",
+    "kept": "learn",
+    "keptSource": "character-database",
+    "rejected": "to learn",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "学",
+    "field": "pinyin",
+    "kept": "xue2",
+    "keptSource": "character-database",
+    "rejected": "xué",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "要",
+    "field": "french",
+    "kept": "vouloir",
+    "keptSource": "character-database",
+    "rejected": "vouloir; falloir",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "要",
+    "field": "english",
+    "kept": "want",
+    "keptSource": "character-database",
+    "rejected": "to want; will; going to",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "要",
+    "field": "pinyin",
+    "kept": "yao4",
+    "keptSource": "character-database",
+    "rejected": "yào",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "一",
+    "field": "pinyin",
+    "kept": "yi1",
+    "keptSource": "character-database",
+    "rejected": "yī",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "用",
+    "field": "english",
+    "kept": "use",
+    "keptSource": "character-database",
+    "rejected": "to use",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "用",
+    "field": "pinyin",
+    "kept": "yong4",
+    "keptSource": "character-database",
+    "rejected": "yòng",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "有",
+    "field": "french",
+    "kept": "avoir",
+    "keptSource": "character-database",
+    "rejected": "avoir; il y a",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "有",
+    "field": "english",
+    "kept": "to have",
+    "keptSource": "character-database",
+    "rejected": "to have; there is",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "有",
+    "field": "pinyin",
+    "kept": "you3",
+    "keptSource": "character-database",
+    "rejected": "yǒu",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "再",
+    "field": "french",
+    "kept": "encore",
+    "keptSource": "character-database",
+    "rejected": "encore; de nouveau",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "再",
+    "field": "english",
+    "kept": "again",
+    "keptSource": "character-database",
+    "rejected": "again; once more; re-",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "再",
+    "field": "pinyin",
+    "kept": "zai4",
+    "keptSource": "character-database",
+    "rejected": "zài",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "早",
+    "field": "french",
+    "kept": "tôt le matin",
+    "keptSource": "character-database",
+    "rejected": "tôt",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "早",
+    "field": "english",
+    "kept": "early morning",
+    "keptSource": "character-database",
+    "rejected": "early",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "早",
+    "field": "pinyin",
+    "kept": "zao3",
+    "keptSource": "character-database",
+    "rejected": "zǎo",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "这",
+    "field": "english",
+    "kept": "this",
+    "keptSource": "character-database",
+    "rejected": "(pronoun) this; these",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "这",
+    "field": "pinyin",
+    "kept": "zhe4",
+    "keptSource": "character-database",
+    "rejected": "zhè",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "字",
+    "field": "french",
+    "kept": "caractère chinois",
+    "keptSource": "character-database",
+    "rejected": "caractère (écrit)",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "字",
+    "field": "english",
+    "kept": "chinese character",
+    "keptSource": "character-database",
+    "rejected": "letter",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "字",
+    "field": "pinyin",
+    "kept": "zi4",
+    "keptSource": "character-database",
+    "rejected": "zì",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "子",
+    "field": "french",
+    "kept": "enfant; suffixe",
+    "keptSource": "character-database",
+    "rejected": "fils; (suffixe)",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "子",
+    "field": "english",
+    "kept": "child; suffix",
+    "keptSource": "character-database",
+    "rejected": "son",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "子",
+    "field": "pinyin",
+    "kept": "zi5",
+    "keptSource": "character-database",
+    "rejected": "zǐ",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "谢谢",
+    "field": "english",
+    "kept": "to thank",
+    "keptSource": "hsk1",
+    "rejected": "thanks; thank you",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "谢谢",
+    "field": "pinyin",
+    "kept": "xiè xie",
+    "keptSource": "hsk1",
+    "rejected": "xie4 xie",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "再见",
+    "field": "english",
+    "kept": "goodbye",
+    "keptSource": "hsk1",
+    "rejected": "goodbye; see you again",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "再见",
+    "field": "pinyin",
+    "kept": "zài jiàn",
+    "keptSource": "hsk1",
+    "rejected": "zai4 jian4",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "请",
+    "field": "french",
+    "kept": "prier; s'il vous plaît",
+    "keptSource": "hsk1",
+    "rejected": "s il te plait",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "请",
+    "field": "english",
+    "kept": "to ask",
+    "keptSource": "hsk1",
+    "rejected": "please; to invite",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "请",
+    "field": "pinyin",
+    "kept": "qǐng",
+    "keptSource": "hsk1",
+    "rejected": "qing3",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "是",
+    "field": "french",
+    "kept": "être",
+    "keptSource": "character-database",
+    "rejected": "etre; oui",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "是",
+    "field": "english",
+    "kept": "to be",
+    "keptSource": "character-database",
+    "rejected": "to be; yes",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "不",
+    "field": "english",
+    "kept": "not",
+    "keptSource": "character-database",
+    "rejected": "not; no",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "我",
+    "field": "english",
+    "kept": "I",
+    "keptSource": "character-database",
+    "rejected": "I; me",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "他",
+    "field": "english",
+    "kept": "he",
+    "keptSource": "character-database",
+    "rejected": "he; him",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "她",
+    "field": "english",
+    "kept": "she",
+    "keptSource": "character-database",
+    "rejected": "she; her",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "呢",
+    "field": "french",
+    "kept": "(particule interrogative \"et...?\")",
+    "keptSource": "hsk1",
+    "rejected": "particule de question",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "呢",
+    "field": "english",
+    "kept": "particle indicating that a previously asked question is to be applied to the preceding word (\"What about ...?\", \"And ...?\")",
+    "keptSource": "hsk1",
+    "rejected": "question particle",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "呢",
+    "field": "pinyin",
+    "kept": "ne",
+    "keptSource": "hsk1",
+    "rejected": "ne5",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "很",
+    "field": "french",
+    "kept": "très",
+    "keptSource": "hsk1",
+    "rejected": "tres",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "很",
+    "field": "english",
+    "kept": "(adverb of degree)",
+    "keptSource": "hsk1",
+    "rejected": "very",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "很",
+    "field": "pinyin",
+    "kept": "hěn",
+    "keptSource": "hsk1",
+    "rejected": "hen3",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "也",
+    "field": "english",
+    "kept": "also; too",
+    "keptSource": "hsk1",
+    "rejected": "also",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "也",
+    "field": "pinyin",
+    "kept": "yě",
+    "keptSource": "hsk1",
+    "rejected": "ye3",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "都",
+    "field": "english",
+    "kept": "all",
+    "keptSource": "character-database",
+    "rejected": "all; both",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "没有",
+    "field": "english",
+    "kept": "haven't",
+    "keptSource": "hsk1",
+    "rejected": "not have",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "没有",
+    "field": "pinyin",
+    "kept": "méi yǒu",
+    "keptSource": "hsk1",
+    "rejected": "mei2 you3",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "在",
+    "field": "french",
+    "kept": "à; dans; se trouver",
+    "keptSource": "hsk1",
+    "rejected": "a; dans",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "在",
+    "field": "english",
+    "kept": "at; in; to be located at",
+    "keptSource": "hsk1",
+    "rejected": "at; in",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "在",
+    "field": "pinyin",
+    "kept": "zài",
+    "keptSource": "hsk1",
+    "rejected": "zai4",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "去",
+    "field": "pinyin",
+    "kept": "qù",
+    "keptSource": "hsk1",
+    "rejected": "qu4",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "看",
+    "field": "french",
+    "kept": "regarder; voir",
+    "keptSource": "hsk1",
+    "rejected": "voir; regarder",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "看",
+    "field": "english",
+    "kept": "to look; to see; to watch",
+    "keptSource": "hsk1",
+    "rejected": "to see; watch",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "看",
+    "field": "pinyin",
+    "kept": "kàn",
+    "keptSource": "hsk1",
+    "rejected": "kan4",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "听",
+    "field": "french",
+    "kept": "écouter",
+    "keptSource": "hsk1",
+    "rejected": "ecouter",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "听",
+    "field": "english",
+    "kept": "to listen; to hear",
+    "keptSource": "hsk1",
+    "rejected": "to listen",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "听",
+    "field": "pinyin",
+    "kept": "tīng",
+    "keptSource": "hsk1",
+    "rejected": "ting1",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "说",
+    "field": "french",
+    "kept": "dire; parler",
+    "keptSource": "hsk1",
+    "rejected": "parler; dire",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "说",
+    "field": "english",
+    "kept": "to speak; to say",
+    "keptSource": "hsk1",
+    "rejected": "to speak; say",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "说",
+    "field": "pinyin",
+    "kept": "shuō",
+    "keptSource": "hsk1",
+    "rejected": "shuo1",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "读",
+    "field": "pinyin",
+    "kept": "dú",
+    "keptSource": "hsk1",
+    "rejected": "du2",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "写",
+    "field": "french",
+    "kept": "écrire",
+    "keptSource": "hsk1",
+    "rejected": "ecrire",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "写",
+    "field": "pinyin",
+    "kept": "xiě",
+    "keptSource": "hsk1",
+    "rejected": "xie3",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "吃",
+    "field": "english",
+    "kept": "to eat; to consume",
+    "keptSource": "hsk1",
+    "rejected": "to eat",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "吃",
+    "field": "pinyin",
+    "kept": "chī",
+    "keptSource": "hsk1",
+    "rejected": "chi1",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "喝",
+    "field": "pinyin",
+    "kept": "hē",
+    "keptSource": "hsk1",
+    "rejected": "he1",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "买",
+    "field": "pinyin",
+    "kept": "mǎi",
+    "keptSource": "hsk1",
+    "rejected": "mai3",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "开",
+    "field": "french",
+    "kept": "ouvrir",
+    "keptSource": "hsk1",
+    "rejected": "ouvrir; commencer",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "开",
+    "field": "english",
+    "kept": "to open (transitive or intransitive)",
+    "keptSource": "hsk1",
+    "rejected": "to open; start",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "开",
+    "field": "pinyin",
+    "kept": "kāi",
+    "keptSource": "hsk1",
+    "rejected": "kai1",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "学校",
+    "field": "french",
+    "kept": "école",
+    "keptSource": "hsk1",
+    "rejected": "ecole",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "学校",
+    "field": "pinyin",
+    "kept": "xué xiào",
+    "keptSource": "hsk1",
+    "rejected": "xue2 xiao4",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "老师",
+    "field": "french",
+    "kept": "professeur; enseignant",
+    "keptSource": "hsk1",
+    "rejected": "professeur",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "老师",
+    "field": "pinyin",
+    "kept": "lǎo shī",
+    "keptSource": "hsk1",
+    "rejected": "lao3 shi1",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "学生",
+    "field": "french",
+    "kept": "élève; étudiant",
+    "keptSource": "hsk1",
+    "rejected": "eleve",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "学生",
+    "field": "pinyin",
+    "kept": "xué sheng",
+    "keptSource": "hsk1",
+    "rejected": "xue2 sheng1",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "同学",
+    "field": "french",
+    "kept": "camarade de classe",
+    "keptSource": "hsk1",
+    "rejected": "camarade",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "同学",
+    "field": "pinyin",
+    "kept": "tóng xué",
+    "keptSource": "hsk1",
+    "rejected": "tong2 xue2",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "朋友",
+    "field": "pinyin",
+    "kept": "péng you",
+    "keptSource": "hsk1",
+    "rejected": "peng2 you3",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "家",
+    "field": "english",
+    "kept": "home",
+    "keptSource": "character-database",
+    "rejected": "home; family",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "妈",
+    "field": "english",
+    "kept": "mother",
+    "keptSource": "character-database",
+    "rejected": "mother; mom",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "爸",
+    "field": "english",
+    "kept": "father",
+    "keptSource": "character-database",
+    "rejected": "father; dad",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "哥哥",
+    "field": "french",
+    "kept": "grand frère",
+    "keptSource": "hsk1",
+    "rejected": "grand frere",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "哥哥",
+    "field": "pinyin",
+    "kept": "gē ge",
+    "keptSource": "hsk1",
+    "rejected": "ge1 ge",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "姐姐",
+    "field": "french",
+    "kept": "grande sœur",
+    "keptSource": "hsk1",
+    "rejected": "grande soeur",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "姐姐",
+    "field": "pinyin",
+    "kept": "jiě jie",
+    "keptSource": "hsk1",
+    "rejected": "jie3 jie",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "弟弟",
+    "field": "french",
+    "kept": "petit frère",
+    "keptSource": "hsk1",
+    "rejected": "petit frere",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "弟弟",
+    "field": "pinyin",
+    "kept": "dì di",
+    "keptSource": "hsk1",
+    "rejected": "di4 di",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "妹妹",
+    "field": "french",
+    "kept": "petite sœur",
+    "keptSource": "hsk1",
+    "rejected": "petite soeur",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "妹妹",
+    "field": "pinyin",
+    "kept": "mèi mei",
+    "keptSource": "hsk1",
+    "rejected": "mei4 mei",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "猫",
+    "field": "pinyin",
+    "kept": "māo",
+    "keptSource": "character-database",
+    "rejected": "mao1",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "狗",
+    "field": "pinyin",
+    "kept": "gǒu",
+    "keptSource": "character-database",
+    "rejected": "gou3",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "鸟",
+    "field": "pinyin",
+    "kept": "niǎo",
+    "keptSource": "character-database",
+    "rejected": "niao3",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "多少",
+    "field": "english",
+    "kept": "how many; how much",
+    "keptSource": "hsk1",
+    "rejected": "how much; how many",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "多少",
+    "field": "pinyin",
+    "kept": "duō shǎo",
+    "keptSource": "hsk1",
+    "rejected": "duo1 shao3",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "今天",
+    "field": "french",
+    "kept": "aujourd'hui",
+    "keptSource": "hsk1",
+    "rejected": "aujourd hui",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "今天",
+    "field": "pinyin",
+    "kept": "jīn tiān",
+    "keptSource": "hsk1",
+    "rejected": "jin1 tian1",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "明天",
+    "field": "pinyin",
+    "kept": "míng tiān",
+    "keptSource": "hsk1",
+    "rejected": "ming2 tian1",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "昨天",
+    "field": "pinyin",
+    "kept": "zuó tiān",
+    "keptSource": "hsk1",
+    "rejected": "zuo2 tian1",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "早上",
+    "field": "french",
+    "kept": "le matin",
+    "keptSource": "hsk1",
+    "rejected": "matin",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "早上",
+    "field": "english",
+    "kept": "early morning",
+    "keptSource": "hsk1",
+    "rejected": "morning",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "早上",
+    "field": "pinyin",
+    "kept": "zǎo shang",
+    "keptSource": "hsk1",
+    "rejected": "zao3 shang5",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "晚上",
+    "field": "french",
+    "kept": "le soir",
+    "keptSource": "hsk1",
+    "rejected": "soir",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "晚上",
+    "field": "pinyin",
+    "kept": "wǎn shang",
+    "keptSource": "hsk1",
+    "rejected": "wan3 shang5",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "现在",
+    "field": "pinyin",
+    "kept": "xiàn zài",
+    "keptSource": "hsk1",
+    "rejected": "xian4 zai4",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "这",
+    "field": "french",
+    "kept": "ce; ceci",
+    "keptSource": "character-database",
+    "rejected": "ceci",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "那",
+    "field": "french",
+    "kept": "ce; cela",
+    "keptSource": "hsk1",
+    "rejected": "cela",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "那",
+    "field": "pinyin",
+    "kept": "nà",
+    "keptSource": "hsk1",
+    "rejected": "na4",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "哪里",
+    "field": "french",
+    "kept": "où",
+    "keptSource": "hsk1",
+    "rejected": "ou",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "哪里",
+    "field": "english",
+    "kept": "where?",
+    "keptSource": "hsk1",
+    "rejected": "where",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "哪里",
+    "field": "pinyin",
+    "kept": "nǎ lǐ",
+    "keptSource": "hsk1",
+    "rejected": "na3 li3",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "什么",
+    "field": "french",
+    "kept": "quoi; que",
+    "keptSource": "hsk1",
+    "rejected": "quoi",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "什么",
+    "field": "english",
+    "kept": "what?",
+    "keptSource": "hsk1",
+    "rejected": "what",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "什么",
+    "field": "pinyin",
+    "kept": "shén me",
+    "keptSource": "hsk1",
+    "rejected": "shen2 me5",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "谁",
+    "field": "pinyin",
+    "kept": "shui2",
+    "keptSource": "character-database",
+    "rejected": "shei2",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "怎么",
+    "field": "english",
+    "kept": "how?",
+    "keptSource": "hsk1",
+    "rejected": "how",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "怎么",
+    "field": "pinyin",
+    "kept": "zěn me",
+    "keptSource": "hsk1",
+    "rejected": "zen3 me5",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "characters",
+    "hanzi": "绿",
+    "field": "pinyin",
+    "kept": "lv4",
+    "keptSource": "character-database",
+    "rejected": "lu:4",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "中国",
+    "field": "french",
+    "kept": "Chine",
+    "keptSource": "hsk1",
+    "rejected": "chine",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "中国",
+    "field": "pinyin",
+    "kept": "Zhōng guó",
+    "keptSource": "hsk1",
+    "rejected": "zhong1 guo2",
+    "rejectedSource": "cedict-mini"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "对不起",
+    "field": "french",
+    "kept": "désolé, pardon",
+    "keptSource": "lesson:lesson-1772116323479-krfe",
+    "rejected": "désolé; pardon",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "对不起",
+    "field": "english",
+    "kept": "sorry",
+    "keptSource": "lesson:lesson-1772116323479-krfe",
+    "rejected": "I'm sorry; excuse me; I beg your pardon",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "对不起",
+    "field": "pinyin",
+    "kept": "dui4 bu5 qi3",
+    "keptSource": "lesson:lesson-1772116323479-krfe",
+    "rejected": "duì bu qǐ",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "没关系",
+    "field": "french",
+    "kept": "ce n'est rien",
+    "keptSource": "lesson:lesson-1772116323479-krfe",
+    "rejected": "ce n'est pas grave",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "没关系",
+    "field": "english",
+    "kept": "it does not matter",
+    "keptSource": "lesson:lesson-1772116323479-krfe",
+    "rejected": "it doesn't matter",
+    "rejectedSource": "hsk1"
+  },
+  {
+    "collection": "vocabulary",
+    "hanzi": "没关系",
+    "field": "pinyin",
+    "kept": "mei2 guan1 xi5",
+    "keptSource": "lesson:lesson-1772116323479-krfe",
+    "rejected": "méi guān xi",
+    "rejectedSource": "hsk1"
+  }
+]

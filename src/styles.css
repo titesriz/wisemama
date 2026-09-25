@@ -3597,6 +3597,19 @@ body {
   opacity: 1;
 }
 
+.vocab-card-word {
+  width: auto;
+  min-width: 72px;
+  height: auto;
+  min-height: 72px;
+  padding: 8px 10px;
+}
+
+.vocab-card-word .vocab-hanzi {
+  font-size: 22px;
+  white-space: nowrap;
+}
+
 .lesson-text-controls {
   display: flex;
   flex-wrap: wrap;

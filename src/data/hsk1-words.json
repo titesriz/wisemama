@@ -2,23 +2,23 @@
   {
     "id": "爱",
     "hanzi": "爱",
-    "pinyin": "ài",
-    "english": "to love; to be fond of; to like",
-    "french": "aimer",
+    "pinyin": "ai1",
+    "english": "love",
+    "french": "amour",
     "hskLevel": 1
   },
   {
     "id": "八",
     "hanzi": "八",
-    "pinyin": "bā",
-    "english": "eight; 8",
+    "pinyin": "ba1",
+    "english": "eight",
     "french": "huit",
     "hskLevel": 1
   },
   {
     "id": "爸",
     "hanzi": "爸",
-    "pinyin": "bà",
+    "pinyin": "ba4",
     "english": "father",
     "french": "papa",
     "hskLevel": 1
@@ -42,7 +42,7 @@
   {
     "id": "白",
     "hanzi": "白",
-    "pinyin": "bái",
+    "pinyin": "bai2",
     "english": "white",
     "french": "blanc",
     "hskLevel": 1
@@ -154,9 +154,9 @@
   {
     "id": "不",
     "hanzi": "不",
-    "pinyin": "bù",
-    "english": "no; not so",
-    "french": "ne...pas; non",
+    "pinyin": "bu4",
+    "english": "not",
+    "french": "ne pas; non",
     "hskLevel": 1
   },
   {
@@ -242,9 +242,9 @@
   {
     "id": "穿",
     "hanzi": "穿",
-    "pinyin": "chuān",
+    "pinyin": "chuan1",
     "english": "to wear",
-    "french": "porter (un vêtement)",
+    "french": "porter (vêtement)",
     "hskLevel": 1
   },
   {
@@ -298,9 +298,9 @@
   {
     "id": "大",
     "hanzi": "大",
-    "pinyin": "dà",
-    "english": "big; large; great",
-    "french": "grand",
+    "pinyin": "da4",
+    "english": "Big",
+    "french": "Grand",
     "hskLevel": 1
   },
   {
@@ -346,9 +346,9 @@
   {
     "id": "的",
     "hanzi": "的",
-    "pinyin": "de",
-    "english": "of; ~'s (possessive particle)",
-    "french": "(particule possessive)",
+    "pinyin": "de5",
+    "english": "possessive particle",
+    "french": "particule possessive",
     "hskLevel": 1
   },
   {
@@ -378,8 +378,8 @@
   {
     "id": "弟",
     "hanzi": "弟",
-    "pinyin": "dì",
-    "english": "younger brother",
+    "pinyin": "di4",
+    "english": "little brother",
     "french": "petit frère",
     "hskLevel": 1
   },
@@ -498,9 +498,9 @@
   {
     "id": "都",
     "hanzi": "都",
-    "pinyin": "dū",
-    "english": "all; both",
-    "french": "tout; tous",
+    "pinyin": "dou1",
+    "english": "all",
+    "french": "tous",
     "hskLevel": 1
   },
   {
@@ -514,9 +514,9 @@
   {
     "id": "对",
     "hanzi": "对",
-    "pinyin": "duì",
-    "english": "right; correct",
-    "french": "correct; juste",
+    "pinyin": "dui4",
+    "english": "corect",
+    "french": "correct",
     "hskLevel": 1
   },
   {
@@ -530,9 +530,9 @@
   {
     "id": "多",
     "hanzi": "多",
-    "pinyin": "duō",
-    "english": "many; much",
-    "french": "beaucoup; nombreux",
+    "pinyin": "duo1",
+    "english": "many",
+    "french": "beaucoup",
     "hskLevel": 1
   },
   {
@@ -546,7 +546,7 @@
   {
     "id": "二",
     "hanzi": "二",
-    "pinyin": "èr",
+    "pinyin": "er4",
     "english": "two",
     "french": "deux",
     "hskLevel": 1
@@ -682,8 +682,8 @@
   {
     "id": "哥",
     "hanzi": "哥",
-    "pinyin": "gē",
-    "english": "elder brother",
+    "pinyin": "ge1",
+    "english": "big brother",
     "french": "grand frère",
     "hskLevel": 1
   },
@@ -714,9 +714,9 @@
   {
     "id": "个",
     "hanzi": "个",
-    "pinyin": "gè",
-    "english": "(general measure word)",
-    "french": "(classificateur général)",
+    "pinyin": "ge4",
+    "english": "measure word",
+    "french": "classificateur",
     "hskLevel": 1
   },
   {
@@ -746,7 +746,7 @@
   {
     "id": "关",
     "hanzi": "关",
-    "pinyin": "guān",
+    "pinyin": "guan1",
     "english": "to close",
     "french": "fermer",
     "hskLevel": 1
@@ -794,8 +794,8 @@
   {
     "id": "好",
     "hanzi": "好",
-    "pinyin": "hǎo",
-    "english": "good",
+    "pinyin": "hao3",
+    "english": "good; well",
     "french": "bon; bien",
     "hskLevel": 1
   },
@@ -834,9 +834,9 @@
   {
     "id": "和",
     "hanzi": "和",
-    "pinyin": "hé",
-    "english": "and; with",
-    "french": "et; avec",
+    "pinyin": "he2",
+    "english": "and, with ",
+    "french": "et, avec",
     "hskLevel": 1
   },
   {
@@ -962,17 +962,17 @@
   {
     "id": "几",
     "hanzi": "几",
-    "pinyin": "jǐ",
-    "english": "how many; several",
-    "french": "combien; plusieurs",
+    "pinyin": "ji3",
+    "english": "how many",
+    "french": "combien",
     "hskLevel": 1
   },
   {
     "id": "记",
     "hanzi": "记",
-    "pinyin": "jì",
-    "english": "to record",
-    "french": "noter",
+    "pinyin": "ji4",
+    "english": "remember",
+    "french": "retenir",
     "hskLevel": 1
   },
   {
@@ -986,8 +986,8 @@
   {
     "id": "家",
     "hanzi": "家",
-    "pinyin": "jiā",
-    "english": "home; family",
+    "pinyin": "jia1",
+    "english": "home",
     "french": "maison; famille",
     "hskLevel": 1
   },
@@ -1026,9 +1026,9 @@
   {
     "id": "见",
     "hanzi": "见",
-    "pinyin": "jiàn",
-    "english": "to see",
-    "french": "voir",
+    "pinyin": "jian4",
+    "english": "meet",
+    "french": "rencontrer",
     "hskLevel": 1
   },
   {
@@ -1042,9 +1042,9 @@
   {
     "id": "叫",
     "hanzi": "叫",
-    "pinyin": "jiào",
-    "english": "to be called; to shout",
-    "french": "s'appeler; crier",
+    "pinyin": "jiao4",
+    "english": "call",
+    "french": "appeler",
     "hskLevel": 1
   },
   {
@@ -1066,9 +1066,9 @@
   {
     "id": "姐",
     "hanzi": "姐",
-    "pinyin": "jiě",
-    "english": "older sister",
-    "french": "grande sœur",
+    "pinyin": "jie3",
+    "english": "big sister ",
+    "french": "grande soeur",
     "hskLevel": 1
   },
   {
@@ -1090,7 +1090,7 @@
   {
     "id": "九",
     "hanzi": "九",
-    "pinyin": "jiǔ",
+    "pinyin": "jiu3",
     "english": "nine",
     "french": "neuf",
     "hskLevel": 1
@@ -1226,7 +1226,7 @@
   {
     "id": "口",
     "hanzi": "口",
-    "pinyin": "kǒu",
+    "pinyin": "kou3",
     "english": "mouth",
     "french": "bouche",
     "hskLevel": 1
@@ -1250,7 +1250,7 @@
   {
     "id": "来",
     "hanzi": "来",
-    "pinyin": "lái",
+    "pinyin": "lai2",
     "english": "to come",
     "french": "venir",
     "hskLevel": 1
@@ -1290,9 +1290,9 @@
   {
     "id": "老",
     "hanzi": "老",
-    "pinyin": "lǎo",
-    "english": "prefix used before the surname of a person or a numeral indicating the order of birth of the children in a family or to indicate affection or familiarity",
-    "french": "vieux; (préfixe familier)",
+    "pinyin": "lao3",
+    "english": "old",
+    "french": "vieux",
     "hskLevel": 1
   },
   {
@@ -1370,7 +1370,7 @@
   {
     "id": "六",
     "hanzi": "六",
-    "pinyin": "liù",
+    "pinyin": "liu4",
     "english": "six",
     "french": "six",
     "hskLevel": 1
@@ -1402,8 +1402,8 @@
   {
     "id": "妈",
     "hanzi": "妈",
-    "pinyin": "mā",
-    "english": "ma",
+    "pinyin": "ma1",
+    "english": "mother",
     "french": "maman",
     "hskLevel": 1
   },
@@ -1426,9 +1426,9 @@
   {
     "id": "吗",
     "hanzi": "吗",
-    "pinyin": "ma",
-    "english": "(question particle)",
-    "french": "(particule interrogative)",
+    "pinyin": "ma5",
+    "english": "question particle",
+    "french": "particule interrogative",
     "hskLevel": 1
   },
   {
@@ -1474,25 +1474,25 @@
   {
     "id": "没",
     "hanzi": "没",
-    "pinyin": "méi",
-    "english": "(negative prefix for verbs) have not; not",
-    "french": "ne...pas (avoir)",
+    "pinyin": "mei2",
+    "english": "not have",
+    "french": "il n'y a pas",
     "hskLevel": 1
   },
   {
     "id": "没关系",
     "hanzi": "没关系",
-    "pinyin": "méi guān xi",
-    "english": "it doesn't matter",
-    "french": "ce n'est pas grave",
+    "pinyin": "mei2 guan1 xi5",
+    "english": "it does not matter",
+    "french": "ce n'est rien",
     "hskLevel": 1
   },
   {
     "id": "妹",
     "hanzi": "妹",
-    "pinyin": "mèi",
-    "english": "younger sister",
-    "french": "petite sœur",
+    "pinyin": "mei4",
+    "english": "little sister",
+    "french": "petite soeur",
     "hskLevel": 1
   },
   {
@@ -1522,9 +1522,9 @@
   {
     "id": "们",
     "hanzi": "们",
-    "pinyin": "men",
-    "english": "plural marker for pronouns, and nouns referring to individuals",
-    "french": "(marqueur du pluriel)",
+    "pinyin": "men0",
+    "english": "pronoum plural ",
+    "french": "pronom pluriel",
     "hskLevel": 1
   },
   {
@@ -1642,9 +1642,9 @@
   {
     "id": "奶",
     "hanzi": "奶",
-    "pinyin": "nǎi",
-    "english": "milk; grandma",
-    "french": "lait; mamie",
+    "pinyin": "nai3",
+    "english": "grandmother",
+    "french": "grand-mère",
     "hskLevel": 1
   },
   {
@@ -1658,9 +1658,9 @@
   {
     "id": "男",
     "hanzi": "男",
-    "pinyin": "nán",
-    "english": "male",
-    "french": "homme; masculin",
+    "pinyin": "nan2",
+    "english": "boy; man; male",
+    "french": "garçon; homme",
     "hskLevel": 1
   },
   {
@@ -1722,8 +1722,8 @@
   {
     "id": "你",
     "hanzi": "你",
-    "pinyin": "nǐ",
-    "english": "you (informal, as opposed to courteous 您)",
+    "pinyin": "ni3",
+    "english": "you",
     "french": "tu; toi",
     "hskLevel": 1
   },
@@ -1770,9 +1770,9 @@
   {
     "id": "您",
     "hanzi": "您",
-    "pinyin": "nín",
-    "english": "you (courteous, as opposed to informal 你)",
-    "french": "vous (poli)",
+    "pinyin": "nin2",
+    "english": "you",
+    "french": "vous",
     "hskLevel": 1
   },
   {
@@ -1786,9 +1786,9 @@
   {
     "id": "女",
     "hanzi": "女",
-    "pinyin": "nǚ",
-    "english": "female",
-    "french": "femme; féminin",
+    "pinyin": "nv3",
+    "english": "girl; woman; female",
+    "french": "fille; femme",
     "hskLevel": 1
   },
   {
@@ -1890,7 +1890,7 @@
   {
     "id": "七",
     "hanzi": "七",
-    "pinyin": "qī",
+    "pinyin": "qi1",
     "english": "seven",
     "french": "sept",
     "hskLevel": 1
@@ -1898,17 +1898,17 @@
   {
     "id": "起",
     "hanzi": "起",
-    "pinyin": "qǐ",
-    "english": "to rise",
-    "french": "se lever",
+    "pinyin": "qi3",
+    "english": "rise ",
+    "french": "monter, se lever",
     "hskLevel": 1
   },
   {
     "id": "对不起",
     "hanzi": "对不起",
-    "pinyin": "duì bu qǐ",
-    "english": "I'm sorry; excuse me; I beg your pardon",
-    "french": "désolé; pardon",
+    "pinyin": "dui4 bu5 qi3",
+    "english": "sorry",
+    "french": "désolé, pardon",
     "hskLevel": 1
   },
   {
@@ -1994,9 +1994,9 @@
   {
     "id": "球",
     "hanzi": "球",
-    "pinyin": "qiú",
+    "pinyin": "qiu2",
     "english": "ball",
-    "french": "balle; ballon",
+    "french": "ballon, balle",
     "hskLevel": 1
   },
   {
@@ -2058,9 +2058,9 @@
   {
     "id": "人",
     "hanzi": "人",
-    "pinyin": "rén",
-    "english": "person; people",
-    "french": "personne; gens",
+    "pinyin": "ren2",
+    "english": "people",
+    "french": "personne",
     "hskLevel": 1
   },
   {
@@ -2154,7 +2154,7 @@
   {
     "id": "三",
     "hanzi": "三",
-    "pinyin": "sān",
+    "pinyin": "san1",
     "english": "three",
     "french": "trois",
     "hskLevel": 1
@@ -2378,7 +2378,7 @@
   {
     "id": "十",
     "hanzi": "十",
-    "pinyin": "shí",
+    "pinyin": "shi2",
     "english": "ten",
     "french": "dix",
     "hskLevel": 1
@@ -2434,8 +2434,8 @@
   {
     "id": "是",
     "hanzi": "是",
-    "pinyin": "shì",
-    "english": "to be (followed by substantives only)",
+    "pinyin": "shi4",
+    "english": "to be",
     "french": "être",
     "hskLevel": 1
   },
@@ -2514,7 +2514,7 @@
   {
     "id": "谁",
     "hanzi": "谁",
-    "pinyin": "shéi",
+    "pinyin": "shui2",
     "english": "who",
     "french": "qui",
     "hskLevel": 1
@@ -2570,7 +2570,7 @@
   {
     "id": "四",
     "hanzi": "四",
-    "pinyin": "sì",
+    "pinyin": "si4",
     "english": "four",
     "french": "quatre",
     "hskLevel": 1
@@ -2586,17 +2586,17 @@
   {
     "id": "岁",
     "hanzi": "岁",
-    "pinyin": "suì",
-    "english": "years old (age)",
-    "french": "ans (âge)",
+    "pinyin": "sui4",
+    "english": "years old",
+    "french": "ans",
     "hskLevel": 1
   },
   {
     "id": "他",
     "hanzi": "他",
-    "pinyin": "tā",
-    "english": "he; him (used for either sex when the sex is unknown or unimportant)",
-    "french": "il; lui",
+    "pinyin": "ta1",
+    "english": "he",
+    "french": "il",
     "hskLevel": 1
   },
   {
@@ -2610,7 +2610,7 @@
   {
     "id": "她",
     "hanzi": "她",
-    "pinyin": "tā",
+    "pinyin": "ta1",
     "english": "she",
     "french": "elle",
     "hskLevel": 1
@@ -2634,9 +2634,9 @@
   {
     "id": "天",
     "hanzi": "天",
-    "pinyin": "tiān",
-    "english": "day",
-    "french": "jour",
+    "pinyin": "tian1",
+    "english": "sky",
+    "french": "ciel",
     "hskLevel": 1
   },
   {
@@ -2738,9 +2738,9 @@
   {
     "id": "外",
     "hanzi": "外",
-    "pinyin": "wài",
+    "pinyin": "wai4",
     "english": "outside",
-    "french": "dehors",
+    "french": "extérieur",
     "hskLevel": 1
   },
   {
@@ -2866,8 +2866,8 @@
   {
     "id": "我",
     "hanzi": "我",
-    "pinyin": "wǒ",
-    "english": "I; me; my",
+    "pinyin": "wo3",
+    "english": "I",
     "french": "je; moi",
     "hskLevel": 1
   },
@@ -2882,7 +2882,7 @@
   {
     "id": "五",
     "hanzi": "五",
-    "pinyin": "wǔ",
+    "pinyin": "wu3",
     "english": "five",
     "french": "cinq",
     "hskLevel": 1
@@ -3034,9 +3034,9 @@
   {
     "id": "小",
     "hanzi": "小",
-    "pinyin": "xiǎo",
-    "english": "small",
-    "french": "petit",
+    "pinyin": "xiao3",
+    "english": "Small",
+    "french": "Petit",
     "hskLevel": 1
   },
   {
@@ -3170,9 +3170,9 @@
   {
     "id": "学",
     "hanzi": "学",
-    "pinyin": "xué",
-    "english": "to learn",
-    "french": "apprendre; étudier",
+    "pinyin": "xue2",
+    "english": "learn",
+    "french": "apprendre",
     "hskLevel": 1
   },
   {
@@ -3274,9 +3274,9 @@
   {
     "id": "要",
     "hanzi": "要",
-    "pinyin": "yào",
-    "english": "to want; will; going to",
-    "french": "vouloir; falloir",
+    "pinyin": "yao4",
+    "english": "want",
+    "french": "vouloir",
     "hskLevel": 1
   },
   {
@@ -3306,7 +3306,7 @@
   {
     "id": "一",
     "hanzi": "一",
-    "pinyin": "yī",
+    "pinyin": "yi1",
     "english": "one",
     "french": "un",
     "hskLevel": 1
@@ -3410,8 +3410,8 @@
   {
     "id": "用",
     "hanzi": "用",
-    "pinyin": "yòng",
-    "english": "to use",
+    "pinyin": "yong4",
+    "english": "use",
     "french": "utiliser",
     "hskLevel": 1
   },
@@ -3426,9 +3426,9 @@
   {
     "id": "有",
     "hanzi": "有",
-    "pinyin": "yǒu",
-    "english": "to have; there is",
-    "french": "avoir; il y a",
+    "pinyin": "you3",
+    "english": "to have",
+    "french": "avoir",
     "hskLevel": 1
   },
   {
@@ -3562,9 +3562,9 @@
   {
     "id": "再",
     "hanzi": "再",
-    "pinyin": "zài",
-    "english": "again; once more; re-",
-    "french": "encore; de nouveau",
+    "pinyin": "zai4",
+    "english": "again",
+    "french": "encore",
     "hskLevel": 1
   },
   {
@@ -3602,9 +3602,9 @@
   {
     "id": "早",
     "hanzi": "早",
-    "pinyin": "zǎo",
-    "english": "early",
-    "french": "tôt",
+    "pinyin": "zao3",
+    "english": "early morning",
+    "french": "tôt le matin",
     "hskLevel": 1
   },
   {
@@ -3666,8 +3666,8 @@
   {
     "id": "这",
     "hanzi": "这",
-    "pinyin": "zhè",
-    "english": "(pronoun) this; these",
+    "pinyin": "zhe4",
+    "english": "this",
     "french": "ce; ceci",
     "hskLevel": 1
   },
@@ -3866,9 +3866,9 @@
   {
     "id": "字",
     "hanzi": "字",
-    "pinyin": "zì",
-    "english": "letter",
-    "french": "caractère (écrit)",
+    "pinyin": "zi4",
+    "english": "chinese character",
+    "french": "caractère chinois",
     "hskLevel": 1
   },
   {
@@ -3890,9 +3890,9 @@
   {
     "id": "子",
     "hanzi": "子",
-    "pinyin": "zǐ",
-    "english": "son",
-    "french": "fils; (suffixe)",
+    "pinyin": "zi5",
+    "english": "child; suffix",
+    "french": "enfant; suffixe",
     "hskLevel": 1
   },
   {

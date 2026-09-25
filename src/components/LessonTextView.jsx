@@ -82,6 +82,7 @@ export default function LessonTextView({
   onBack,
   onStartPractice,
   onStartQuiz,
+  onPracticeVocabulary,
   onOpenRadicalDiscovery,
 }) {
   const [pinyinMode, setPinyinMode] = useState('all');
@@ -162,6 +163,11 @@ export default function LessonTextView({
     () => vocabulary.filter((item) => selectedCardIds.has(item.id)),
     [selectedCardIds, vocabulary],
   );
+
+  // Optional multi-character vocabulary words (e.g. 礼貌) authored per
+  // lesson - distinct from `vocabulary` above, which is the per-character
+  // grid. Empty for every lesson that hasn't been given word data yet.
+  const lessonVocabWords = lesson?.vocabulary || [];
 
   const journeyStartIndex = useMemo(() => {
     const firstNew = selectedVocabulary.find((item) => item.status !== 'learned');
@@ -357,7 +363,7 @@ export default function LessonTextView({
                           </span>
                           <CharacterGlossChar
                             char={char}
-                            entry={{ pinyin: card.pinyin, french: card.french, english: card.english }}
+                            entry={{ pinyin: card.pinyin, french: card.french, english: card.english, traditional: card.traditional }}
                             trigger="hover"
                             className="char-hanzi"
                           />
@@ -403,6 +409,16 @@ export default function LessonTextView({
                 >
                   Difficile
                 </button>
+                {lessonVocabWords.length > 0 ? (
+                  <button
+                    type="button"
+                    className="lesson-difficulty-star ui-pressable"
+                    onClick={() => onStartQuiz?.()}
+                    aria-label="Quiz"
+                  >
+                    Quiz
+                  </button>
+                ) : null}
               </div>
             </div>
             <div className="vocab-grid-with-controls">
@@ -439,6 +455,31 @@ export default function LessonTextView({
               </div>
             </div>
           </section>
+
+          {lessonVocabWords.length > 0 ? (
+            <section className="vocabulary-section lesson-text-vocab">
+              <div className="vocab-section-header">
+                <span className="lesson-section-marker">③ Vocabulaire</span>
+                <span className="vocab-count">
+                  {lessonVocabWords.length} mot{lessonVocabWords.length !== 1 ? 's' : ''}
+                </span>
+              </div>
+              <div className="vocabulary-grid">
+                {lessonVocabWords.map((word) => (
+                  <button
+                    key={word.id}
+                    type="button"
+                    className="vocab-card vocab-card-word learning unselected"
+                    title={`${word.hanzi} (${formatPinyinDisplay(word.pinyin)}) - ${word.french || word.english || ''}`}
+                    onClick={() => onPracticeVocabulary?.(word.id)}
+                  >
+                    <div className="vocab-hanzi">{word.hanzi}</div>
+                    <div className="vocab-pinyin-hint">{formatPinyinDisplay(word.pinyin)}</div>
+                  </button>
+                ))}
+              </div>
+            </section>
+          ) : null}
           </div>
         </article>
       </div>
