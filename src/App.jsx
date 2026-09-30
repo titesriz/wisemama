@@ -29,12 +29,16 @@ import ColorsWordPage from './components/ColorsWordPage.jsx';
 import ColorsWritingPage from './components/ColorsWritingPage.jsx';
 import ColorsQuizPage from './components/ColorsQuizPage.jsx';
 import ColorsWritingTest from './components/ColorsWritingTest.jsx';
+import ClothingWordPage from './components/ClothingWordPage.jsx';
+import ClothingWritingPage from './components/ClothingWritingPage.jsx';
+import ClothingQuizPage from './components/ClothingQuizPage.jsx';
 import HskQuizPage from './components/HskQuizPage.jsx';
 import LessonQuizPage from './components/LessonQuizPage.jsx';
 import LessonVocabWordPage from './components/LessonVocabWordPage.jsx';
 import LessonVocabWritingPage from './components/LessonVocabWritingPage.jsx';
 import hskWords from './data/hsk1-words.json';
 import colorsWords from './data/colors-words.json';
+import clothingWords from './data/clothing-words.json';
 import { useAvatar } from './context/AvatarContext.jsx';
 import { useLessons } from './context/LessonsContext.jsx';
 import { useMode } from './context/ModeContext.jsx';
@@ -87,6 +91,9 @@ const STANDALONE_VIEW = {
   COLORS_WRITING: 'colors-writing',
   COLORS_QUIZ: 'colors-quiz',
   COLORS_WRITING_TEST: 'colors-writing-test',
+  CLOTHING_WORDS: 'clothing-words',
+  CLOTHING_WRITING: 'clothing-writing',
+  CLOTHING_QUIZ: 'clothing-quiz',
   LESSON_EDITOR: 'lesson-editor',
 };
 
@@ -195,6 +202,7 @@ export default function App() {
   const [writingDifficulty, setWritingDifficulty] = useState(1);
   const [hskWordIndex, setHskWordIndex] = useState(() => readHskProgress());
   const [colorsWordIndex, setColorsWordIndex] = useState(0);
+  const [clothingWordIndex, setClothingWordIndex] = useState(0);
   const [vocabWordIndex, setVocabWordIndex] = useState(0);
   const [activeModule, setActiveModule] = useState(MODULES.LESSONS);
   const [showAvatarEditorModal, setShowAvatarEditorModal] = useState(false);
@@ -455,6 +463,29 @@ export default function App() {
 
   const goToNextColorsWord = () => setColorsWordIndex((prev) => (prev + 1) % colorsWords.length);
   const goToPrevColorsWord = () => setColorsWordIndex((prev) => (prev - 1 + colorsWords.length) % colorsWords.length);
+
+  const handleClothingWritingSuccess = (mistakes) => {
+    const clothingWord = clothingWords[clothingWordIndex];
+    if (!clothingWord || !currentProfileKey) return;
+
+    const cardKey = getCardKey('clothing-deck', clothingWord.id);
+    const earned = mistakes === 0 ? 3 : mistakes === 1 ? 2 : 1;
+
+    setStarsByProfile((prev) => {
+      const map = prev[currentProfileKey] || {};
+      const current = map[cardKey] ?? 0;
+      return {
+        ...prev,
+        [currentProfileKey]: {
+          ...map,
+          [cardKey]: Math.max(current, earned),
+        },
+      };
+    });
+  };
+
+  const goToNextClothingWord = () => setClothingWordIndex((prev) => (prev + 1) % clothingWords.length);
+  const goToPrevClothingWord = () => setClothingWordIndex((prev) => (prev - 1 + clothingWords.length) % clothingWords.length);
 
   // The lesson's full learnable set for browse-through flashcards: every
   // new character (characterRefs) plus every multi-char vocabulary word
@@ -790,6 +821,12 @@ export default function App() {
   const openColorsDeckFromLanding = () => {
     setShowDailyRituel(false);
     setStandaloneView(STANDALONE_VIEW.COLORS_WORDS);
+    setEnteredApp(false);
+  };
+
+  const openClothingDeckFromLanding = () => {
+    setShowDailyRituel(false);
+    setStandaloneView(STANDALONE_VIEW.CLOTHING_WORDS);
     setEnteredApp(false);
   };
 
@@ -1277,6 +1314,69 @@ export default function App() {
     );
   }
 
+  if (standaloneView === STANDALONE_VIEW.CLOTHING_WORDS) {
+    return (
+      <ClothingWordPage
+        profile={activeProfile}
+        word={clothingWords[clothingWordIndex] || null}
+        wordIndex={clothingWordIndex}
+        totalWords={clothingWords.length}
+        onPrev={goToPrevClothingWord}
+        onNext={goToNextClothingWord}
+        onBack={() => {
+          setStandaloneView(STANDALONE_VIEW.NONE);
+          setEnteredApp(false);
+        }}
+        onSwitchModule={(module) => {
+          if (module === 'writing') {
+            setStandaloneView(STANDALONE_VIEW.CLOTHING_WRITING);
+          } else if (module === 'quiz') {
+            setStandaloneView(STANDALONE_VIEW.CLOTHING_QUIZ);
+          }
+        }}
+      />
+    );
+  }
+
+  if (standaloneView === STANDALONE_VIEW.CLOTHING_WRITING) {
+    return (
+      <ClothingWritingPage
+        profile={activeProfile}
+        word={clothingWords[clothingWordIndex] || null}
+        onBack={() => {
+          setStandaloneView(STANDALONE_VIEW.NONE);
+          setEnteredApp(false);
+        }}
+        onSwitchModule={(module) => {
+          if (module === 'flashcards') {
+            setStandaloneView(STANDALONE_VIEW.CLOTHING_WORDS);
+          }
+        }}
+        onSuccess={handleClothingWritingSuccess}
+        onPrevWord={goToPrevClothingWord}
+        onNextWord={goToNextClothingWord}
+      />
+    );
+  }
+
+  if (standaloneView === STANDALONE_VIEW.CLOTHING_QUIZ) {
+    return (
+      <ClothingQuizPage
+        profile={activeProfile}
+        words={clothingWords}
+        onBack={() => {
+          setStandaloneView(STANDALONE_VIEW.NONE);
+          setEnteredApp(false);
+        }}
+        onSwitchModule={(module) => {
+          if (module === 'flashcards') {
+            setStandaloneView(STANDALONE_VIEW.CLOTHING_WORDS);
+          }
+        }}
+      />
+    );
+  }
+
   if (standaloneView === STANDALONE_VIEW.FLASHCARDS) {
     return (
       <FlashcardOnlyPage
@@ -1504,6 +1604,7 @@ export default function App() {
         onOpenHskDeckUi={openHskDeckFromLanding}
         onOpenHskWordSelectUi={openHskWordSelectFromLanding}
         onOpenColorsDeckUi={openColorsDeckFromLanding}
+        onOpenClothingDeckUi={openClothingDeckFromLanding}
         onOpenAvatarEditor={() => setShowAvatarEditorModal(true)}
         onStartProfile={startWithProfile}
         onRefreshLessons={refreshBundledLessons}

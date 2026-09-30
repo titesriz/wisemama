@@ -1,0 +1,11 @@
+[
+  { "id": "衬衫", "hanzi": "衬衫", "pinyin": "chèn shān", "french": "chemise", "english": "shirt", "iconUrl": "/images/clothing/chemise.png" },
+  { "id": "裤子", "hanzi": "裤子", "pinyin": "kù zi", "french": "pantalon", "english": "pants", "iconUrl": "/images/clothing/pantalon.png" },
+  { "id": "裙子", "hanzi": "裙子", "pinyin": "qún zi", "french": "jupe", "english": "skirt", "iconUrl": "/images/clothing/jupe.png" },
+  { "id": "汗衫", "hanzi": "汗衫", "pinyin": "hàn shān", "french": "T-shirt", "english": "T-shirt", "iconUrl": "/images/clothing/tshirt.png" },
+  { "id": "毛衣", "hanzi": "毛衣", "pinyin": "máo yī", "french": "pull", "english": "pullover", "iconUrl": "/images/clothing/pull.png" },
+  { "id": "牛仔裤", "hanzi": "牛仔裤", "pinyin": "niú zǎi kù", "french": "jean", "english": "jeans", "iconUrl": "/images/clothing/jean.png" },
+  { "id": "外套", "hanzi": "外套", "pinyin": "wài tào", "french": "veste", "english": "jacket", "iconUrl": "/images/clothing/veste.png" },
+  { "id": "大衣", "hanzi": "大衣", "pinyin": "dà yī", "french": "manteau", "english": "coat", "iconUrl": "/images/clothing/manteau.png" },
+  { "id": "连衣裙", "hanzi": "连衣裙", "pinyin": "lián yī qún", "french": "robe", "english": "dress", "iconUrl": "/images/clothing/robe.png" }
+]

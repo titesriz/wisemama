@@ -22,6 +22,7 @@ export default function LandingPage({
   onOpenHskDeckUi,
   onOpenHskWordSelectUi,
   onOpenColorsDeckUi,
+  onOpenClothingDeckUi,
 }) {
   const [showLessonPicker, setShowLessonPicker] = useState(false);
   const [refreshStatus, setRefreshStatus] = useState('');
@@ -239,6 +240,33 @@ export default function LandingPage({
           </div>
         </article>
 
+        <article className="profile-card-kid">
+          <div
+            className="current-lesson-card child-lesson-card ui-pressable"
+            onClick={onOpenClothingDeckUi}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                onOpenClothingDeckUi?.();
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label="Decouvrir les vetements"
+          >
+            <div className="lesson-header child-lesson-header child-lesson-header-fixed">
+              <div className="child-lesson-main">
+                <div className="lesson-info child-lesson-info">
+                  <h3 className="lesson-title child-lesson-title">Découvrir les vêtements</h3>
+                  <p className="lesson-description child-lesson-description">
+                    Lire, écrire et un quiz - indépendant des leçons
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
         <article className="profile-card-parent">
           <div className="companion-row">
             {parentProfile ? (
@@ -278,7 +306,7 @@ export default function LandingPage({
           Mettre à jour les leçons
         </button>
         {refreshStatus ? <span className="landing-refresh-status">{refreshStatus}</span> : null}
-        {onOpenLessonEditorUi ? (
+        {isDevMode && onOpenLessonEditorUi ? (
           <button
             type="button"
             className="landing-refresh-link"

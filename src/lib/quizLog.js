@@ -25,6 +25,10 @@ export const QUESTION_TYPE_COMPETENCIES = {
   'char-to-translation': ['caractere', 'signification'],
   'translation-to-char': ['signification', 'caractere'],
   'sound-to-translation': ['ecoute', 'signification'],
+  // Clothing deck
+  'meaning-to-char': ['caractere', 'signification'],
+  'icon-to-char': ['caractere', 'signification'],
+  'char-to-icon': ['caractere', 'signification'],
 };
 
 function readStore() {
