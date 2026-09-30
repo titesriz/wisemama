@@ -567,7 +567,8 @@
     "firstSeenLesson": "lesson-1772113797148-y9pq",
     "firstSeenDate": "2026-03-16T15:38:51.261Z",
     "appearsInLessons": [
-      "lesson-1772113797148-y9pq"
+      "lesson-1772113797148-y9pq",
+      "lesson-1781103536064-9bis"
     ],
     "relatedWords": [],
     "progress": {
@@ -914,7 +915,8 @@
     "firstSeenLesson": "lesson-1770786071099-zy4z",
     "firstSeenDate": "2026-03-16T15:38:51.262Z",
     "appearsInLessons": [
-      "lesson-1770786071099-zy4z"
+      "lesson-1770786071099-zy4z",
+      "lesson-ask-name"
     ],
     "relatedWords": [],
     "progress": {
@@ -973,7 +975,8 @@
     "firstSeenLesson": "lesson-1770786071099-zy4z",
     "firstSeenDate": "2026-03-16T15:38:51.263Z",
     "appearsInLessons": [
-      "lesson-1770786071099-zy4z"
+      "lesson-1770786071099-zy4z",
+      "lesson-ask-name"
     ],
     "relatedWords": [],
     "progress": {
@@ -1012,8 +1015,8 @@
   },
   "爱": {
     "hanzi": "爱",
-    "pinyin": "ai1",
-    "pinyinNumbered": "ai1",
+    "pinyin": "ai4",
+    "pinyinNumbered": "ai4",
     "french": "amour",
     "english": "love",
     "audioRecordings": [
@@ -1608,7 +1611,8 @@
     "firstSeenLesson": "lesson-1772116323479-krfe",
     "firstSeenDate": "2026-03-16T15:38:51.269Z",
     "appearsInLessons": [
-      "lesson-1772116323479-krfe"
+      "lesson-1772116323479-krfe",
+      "lesson-1771504726854-cyhe"
     ],
     "relatedWords": [],
     "progress": {
@@ -1666,7 +1670,8 @@
     "firstSeenLesson": "lesson-1772116323479-krfe",
     "firstSeenDate": "2026-03-16T15:38:51.269Z",
     "appearsInLessons": [
-      "lesson-1772116323479-krfe"
+      "lesson-1772116323479-krfe",
+      "lesson-1771504726854-cyhe"
     ],
     "relatedWords": [
       {
@@ -1729,7 +1734,8 @@
     "firstSeenLesson": "lesson-1772116323479-krfe",
     "firstSeenDate": "2026-03-16T15:38:51.269Z",
     "appearsInLessons": [
-      "lesson-1772116323479-krfe"
+      "lesson-1772116323479-krfe",
+      "lesson-1771504726854-cyhe"
     ],
     "relatedWords": [
       {
@@ -1792,7 +1798,9 @@
     "firstSeenLesson": "lesson-1772116323479-krfe",
     "firstSeenDate": "2026-03-16T15:38:51.269Z",
     "appearsInLessons": [
-      "lesson-1772116323479-krfe"
+      "lesson-1772116323479-krfe",
+      "lesson-1771504726854-cyhe",
+      "lesson-ask-name"
     ],
     "relatedWords": [],
     "progress": {
@@ -3558,7 +3566,8 @@
     "firstSeenLesson": "lesson-1773670967675-4jyt",
     "firstSeenDate": "2026-03-16T15:38:51.285Z",
     "appearsInLessons": [
-      "lesson-1773670967675-4jyt"
+      "lesson-1773670967675-4jyt",
+      "lesson-1774430690827-wzys"
     ],
     "relatedWords": [],
     "progress": {
@@ -3616,7 +3625,8 @@
     "firstSeenLesson": "lesson-1773670967675-4jyt",
     "firstSeenDate": "2026-03-16T15:38:51.285Z",
     "appearsInLessons": [
-      "lesson-1773670967675-4jyt"
+      "lesson-1773670967675-4jyt",
+      "lesson-1774430690827-wzys"
     ],
     "relatedWords": [],
     "progress": {
@@ -4401,7 +4411,8 @@
     "firstSeenLesson": "lesson-1774430690827-wzys",
     "firstSeenDate": "2026-04-08T00:00:00.000Z",
     "appearsInLessons": [
-      "lesson-1774430690827-wzys"
+      "lesson-1774430690827-wzys",
+      "lesson-1781103536064-9bis"
     ],
     "relatedWords": [
       {
@@ -5206,7 +5217,8 @@
     "firstSeenLesson": "lesson-1781083583182-unif",
     "firstSeenDate": "2026-06-10T09:26:23.183Z",
     "appearsInLessons": [
-      "lesson-1781083583182-unif"
+      "lesson-1781083583182-unif",
+      "lesson-1771504726854-cyhe"
     ],
     "relatedWords": [],
     "createdDate": "2026-06-10T09:26:23.183Z",
@@ -5303,7 +5315,8 @@
     "firstSeenLesson": "lesson-1781083583182-unif",
     "firstSeenDate": "2026-06-10T09:26:23.183Z",
     "appearsInLessons": [
-      "lesson-1781083583182-unif"
+      "lesson-1781083583182-unif",
+      "lesson-1781103536064-9bis"
     ],
     "relatedWords": [],
     "createdDate": "2026-06-10T09:26:23.183Z",
@@ -7826,7 +7839,9 @@
     "images": [],
     "firstSeenLesson": null,
     "firstSeenDate": "2026-01-01T00:00:00.000Z",
-    "appearsInLessons": [],
+    "appearsInLessons": [
+      "lesson-1774430690827-wzys"
+    ],
     "relatedWords": [],
     "radical": "",
     "decomposition": "",
@@ -9431,7 +9446,9 @@
     "images": [],
     "firstSeenLesson": null,
     "firstSeenDate": "2026-01-01T00:00:00.000Z",
-    "appearsInLessons": [],
+    "appearsInLessons": [
+      "lesson-1781103536064-9bis"
+    ],
     "relatedWords": [],
     "radical": "",
     "decomposition": "",
@@ -12879,5 +12896,281 @@
     },
     "createdDate": "2026-09-25T17:54:04.683Z",
     "lastUpdated": "2026-09-25T17:54:04.683Z"
+  },
+  "汗": {
+    "hanzi": "汗",
+    "pinyin": "han4",
+    "pinyinNumbered": "han4",
+    "french": "sueur, transpiration",
+    "english": "sweat",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1781103536064-9bis",
+    "firstSeenDate": "2026-09-30T10:34:05.224Z",
+    "appearsInLessons": [
+      "lesson-1781103536064-9bis"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-09-30T10:34:05.224Z",
+    "lastUpdated": "2026-09-30T10:34:05.224Z",
+    "sources": [
+      "lesson:lesson-1781103536064-9bis"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
+  },
+  "衣": {
+    "hanzi": "衣",
+    "pinyin": "yi1",
+    "pinyinNumbered": "yi1",
+    "french": "vêtement",
+    "english": "clothing",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1781103536064-9bis",
+    "firstSeenDate": "2026-09-30T10:34:05.224Z",
+    "appearsInLessons": [
+      "lesson-1781103536064-9bis"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-09-30T10:34:05.224Z",
+    "lastUpdated": "2026-09-30T10:34:05.224Z",
+    "sources": [
+      "lesson:lesson-1781103536064-9bis"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
+  },
+  "牛": {
+    "hanzi": "牛",
+    "pinyin": "niu2",
+    "pinyinNumbered": "niu2",
+    "french": "bœuf, vache",
+    "english": "ox, cow",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1781103536064-9bis",
+    "firstSeenDate": "2026-09-30T10:34:05.224Z",
+    "appearsInLessons": [
+      "lesson-1781103536064-9bis"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-09-30T10:34:05.224Z",
+    "lastUpdated": "2026-09-30T10:34:05.224Z",
+    "sources": [
+      "lesson:lesson-1781103536064-9bis"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
+  },
+  "仔": {
+    "hanzi": "仔",
+    "pinyin": "zai3",
+    "pinyinNumbered": "zai3",
+    "french": "(dans 牛仔) cowboy",
+    "english": "(in 牛仔) cowboy",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1781103536064-9bis",
+    "firstSeenDate": "2026-09-30T10:34:05.224Z",
+    "appearsInLessons": [
+      "lesson-1781103536064-9bis"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-09-30T10:34:05.224Z",
+    "lastUpdated": "2026-09-30T10:34:05.224Z",
+    "sources": [
+      "lesson:lesson-1781103536064-9bis"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
+  },
+  "套": {
+    "hanzi": "套",
+    "pinyin": "tao4",
+    "pinyinNumbered": "tao4",
+    "french": "ensemble, housse",
+    "english": "set, cover",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1781103536064-9bis",
+    "firstSeenDate": "2026-09-30T10:34:05.224Z",
+    "appearsInLessons": [
+      "lesson-1781103536064-9bis"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-09-30T10:34:05.224Z",
+    "lastUpdated": "2026-09-30T10:34:05.224Z",
+    "sources": [
+      "lesson:lesson-1781103536064-9bis"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
+  },
+  "连": {
+    "hanzi": "连",
+    "pinyin": "lian2",
+    "pinyinNumbered": "lian2",
+    "french": "relier, joindre",
+    "english": "to link, to join",
+    "audioRecordings": [],
+    "images": [],
+    "firstSeenLesson": "lesson-1781103536064-9bis",
+    "firstSeenDate": "2026-09-30T10:34:05.224Z",
+    "appearsInLessons": [
+      "lesson-1781103536064-9bis"
+    ],
+    "relatedWords": [],
+    "progress": {
+      "status": "new",
+      "confidence": 0,
+      "totalPractices": 0,
+      "modules": {
+        "read": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "speak": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        },
+        "write": {
+          "completed": false,
+          "stars": 0,
+          "lastDate": null
+        }
+      }
+    },
+    "createdDate": "2026-09-30T10:34:05.224Z",
+    "lastUpdated": "2026-09-30T10:34:05.224Z",
+    "sources": [
+      "lesson:lesson-1781103536064-9bis"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "traditional": ""
   }
 }

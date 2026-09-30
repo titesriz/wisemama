@@ -1,0 +1,5160 @@
+{
+  "generatedAt": "2026-09-25T20:02:47.597Z",
+  "generatedBy": "read-only audit, no files modified, repo: wisemama",
+  "scope": "Vocabulary-per-lesson status audit for a Notion-driven content workflow",
+  "section1_vocabularyStatusPerLesson": {
+    "notes": [
+      "IMPORTANT: le champ s'appelait `vocabulary` (tableau d'objets complets) lors de la construction du pilote Lecon 4, le 25 sept 2026.",
+      "Depuis l'unification des donnees (meme session, plus tard le 25 sept), lessons-v2.json ne stocke plus `vocabulary` mais `vocabularyRefs`: un tableau de chaines hanzi (meme pattern que `characterRefs` deja existant).",
+      "Les mots eux-memes (pinyin/french/english/traditional) vivent maintenant dans src/data/vocabulary-database.json, pas dans lessons-v2.json.",
+      "Le flag `_starterExample: true` (qui marquait les 3 mots de la Lecon 4 comme exemple non valide par Anna) N'EXISTE PLUS NULLE PART: le script de migration (scripts/unify-character-data.mjs) ne recopiait que les champs connus (id/hanzi/pinyin/french/english/traditional/appearsInLessons/hskLevel/hskOrder/decks/sources) vers vocabulary-database.json - `_starterExample`, un champ inconnu du script, a ete silencieusement perdu pendant la migration.",
+      "Consequence pratique: aujourd'hui, rien dans les donnees ne distingue les 3 mots de la Lecon 4 (li mao / dui bu qi / mei guan xi, toujours presents, toujours corrects) comme etant un exemple pilote non-final. Si ce statut doit etre suivi, il faut le recreer (voir colonne `status` en section 4)."
+    ],
+    "lessons": [
+      {
+        "id": "lesson-1772113797148-y9pq",
+        "title": "Leçon 1 - Les chiffres",
+        "order": 1,
+        "vocabularyWordCount": 0,
+        "hasStarterExampleFlag": false
+      },
+      {
+        "id": "lesson-1770786071099-zy4z",
+        "title": "Leçon 2 - Love language",
+        "order": 2,
+        "vocabularyWordCount": 0,
+        "hasStarterExampleFlag": false
+      },
+      {
+        "id": "lesson-1771504726854-cyhe",
+        "title": "Leçon 3 - Bonjour",
+        "order": 3,
+        "vocabularyWordCount": 0,
+        "hasStarterExampleFlag": false
+      },
+      {
+        "id": "lesson-1772116323479-krfe",
+        "title": "Leçon 4 - La politesse",
+        "order": 4,
+        "vocabularyWordCount": 3,
+        "hasStarterExampleFlag": false
+      },
+      {
+        "id": "lesson-ask-name",
+        "title": "Leçon 5 - Se présenter",
+        "order": 5,
+        "vocabularyWordCount": 0,
+        "hasStarterExampleFlag": false
+      },
+      {
+        "id": "lesson-1781103536062-5bis",
+        "title": "Leçon 5 bis - Se présenter",
+        "order": 6,
+        "vocabularyWordCount": 0,
+        "hasStarterExampleFlag": false
+      },
+      {
+        "id": "lesson-1773670967675-4jyt",
+        "title": "Leçon 6 - La famille",
+        "order": 7,
+        "vocabularyWordCount": 0,
+        "hasStarterExampleFlag": false
+      },
+      {
+        "id": "lesson-1774430690827-wzys",
+        "title": "Leçon 6 bis - Ma famille, ta famille",
+        "order": 8,
+        "vocabularyWordCount": 0,
+        "hasStarterExampleFlag": false
+      },
+      {
+        "id": "lesson-age",
+        "title": "Leçon 7 - Quel âge as-tu ?",
+        "order": 9,
+        "vocabularyWordCount": 0,
+        "hasStarterExampleFlag": false
+      },
+      {
+        "id": "lesson-1779277447371-sy2c",
+        "title": "Leçon 8 - Les couleurs",
+        "order": 10,
+        "vocabularyWordCount": 0,
+        "hasStarterExampleFlag": false
+      },
+      {
+        "id": "lesson-1781103536063-8bis",
+        "title": "Leçon 8 bis - Plus de couleurs",
+        "order": 11,
+        "vocabularyWordCount": 0,
+        "hasStarterExampleFlag": false
+      },
+      {
+        "id": "lesson-1781083583182-unif",
+        "title": "Leçon 9 - L'uniforme scolaire",
+        "order": 12,
+        "vocabularyWordCount": 0,
+        "hasStarterExampleFlag": false
+      },
+      {
+        "id": "lesson-1781103536064-9bis",
+        "title": "Leçon 9 bis - L'uniforme scolaire encore",
+        "order": 13,
+        "vocabularyWordCount": 0,
+        "hasStarterExampleFlag": false
+      },
+      {
+        "id": "lesson-1",
+        "title": "Test 1 - Animaux de base",
+        "order": 99,
+        "vocabularyWordCount": 0,
+        "hasStarterExampleFlag": false
+      }
+    ]
+  },
+  "section2_vocabularyEntrySchema": {
+    "note": "Base sur le code reel: src/context/LessonsContext.jsx (normalizeLesson, resolveVocabWord), src/data/lessons-v2.json, src/data/vocabulary-database.json, src/data/character-database.json. Pas une proposition.",
+    "lessonSideField": {
+      "location": "lessons-v2.json, sur un objet lecon",
+      "fieldName": "vocabularyRefs",
+      "type": "array of string",
+      "required": false,
+      "example": [
+        "礼貌",
+        "对不起",
+        "没关系"
+      ],
+      "description": "Liste de hanzi (mots, 1+ caracteres) que la lecon revendique comme vocabulaire. Chaque hanzi DOIT etre resoluble dans vocabulary-database.json ET chaque caractere qui le compose DOIT deja exister dans characterRefs de cette meme lecon (verifie a la volee dans LessonsContext.jsx / resolveVocabWord - sinon le mot est silencieusement ignore, pas d'erreur visible)."
+    },
+    "vocabularyDatabaseEntry": {
+      "location": "src/data/vocabulary-database.json, un element du tableau",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "example": "对不起",
+          "note": "egal a hanzi dans les donnees actuelles"
+        },
+        {
+          "name": "hanzi",
+          "type": "string",
+          "required": true,
+          "example": "对不起",
+          "note": "cle de resolution utilisee par vocabularyRefs"
+        },
+        {
+          "name": "pinyin",
+          "type": "string",
+          "required": true,
+          "example": "dui4 bu5 qi3",
+          "note": "format numerote (pas d'accents), syllabes separees par espace, ton neutre note indifferemment 0 ou 5 selon la source"
+        },
+        {
+          "name": "traditional",
+          "type": "string",
+          "required": false,
+          "example": "對不起",
+          "note": "chaine vide si identique au simplifie ou si donnee absente - jamais null"
+        },
+        {
+          "name": "french",
+          "type": "string",
+          "required": true,
+          "example": "désolé, pardon"
+        },
+        {
+          "name": "english",
+          "type": "string",
+          "required": true,
+          "example": "sorry"
+        },
+        {
+          "name": "appearsInLessons",
+          "type": "array of string (lesson id)",
+          "required": true,
+          "example": [
+            "lesson-1772116323479-krfe"
+          ],
+          "note": "index inverse, mis a jour par le script de migration - pas garanti a jour si on edite lessons-v2.json a la main sans le script"
+        },
+        {
+          "name": "hskLevel",
+          "type": "number | null",
+          "required": true,
+          "example": 1,
+          "note": "null si le mot ne fait pas partie de la liste officielle HSK1 (506 mots)"
+        },
+        {
+          "name": "hskOrder",
+          "type": "number | null",
+          "required": true,
+          "example": 238,
+          "note": "position dans le deck HSK1 officiel, null sinon"
+        },
+        {
+          "name": "decks",
+          "type": "array of string",
+          "required": true,
+          "example": [],
+          "note": "reserve pour de futurs decks (Colors etc), toujours vide aujourd hui"
+        },
+        {
+          "name": "sources",
+          "type": "array of string",
+          "required": true,
+          "example": [
+            "lesson:lesson-1772116323479-krfe",
+            "hsk1"
+          ],
+          "note": "tracabilite de provenance, ajoutee par la migration du 25 sept"
+        }
+      ]
+    },
+    "characterDatabaseEntry_translationFieldsOnly": {
+      "location": "src/data/character-database.json, objet indexe par hanzi",
+      "note": "Champs de langue/traduction REELLEMENT presents - aucun autre champ de langue trouve (pas d'allemand/espagnol/etc)",
+      "fields": [
+        {
+          "name": "french",
+          "type": "string",
+          "required": true,
+          "example": "politesse"
+        },
+        {
+          "name": "english",
+          "type": "string",
+          "required": true,
+          "example": "manners"
+        },
+        {
+          "name": "pinyin",
+          "type": "string",
+          "required": true,
+          "example": "li3",
+          "note": "pas une traduction mais toujours present a cote"
+        }
+      ]
+    }
+  },
+  "section3_lessonContentCharactersTranslations": [
+    {
+      "id": "lesson-1772113797148-y9pq",
+      "title": "Leçon 1 - Les chiffres",
+      "order": 1,
+      "sourceTextAnnotated": [
+        {
+          "text": "一、二、三, 三、二、一。",
+          "characters": [
+            {
+              "char": "一",
+              "pinyin": "yi1",
+              "french": "un",
+              "english": "one"
+            },
+            {
+              "char": "、",
+              "punctuation": true
+            },
+            {
+              "char": "二",
+              "pinyin": "er4",
+              "french": "deux",
+              "english": "two"
+            },
+            {
+              "char": "、",
+              "punctuation": true
+            },
+            {
+              "char": "三",
+              "pinyin": "san1",
+              "french": "trois",
+              "english": "three"
+            },
+            {
+              "char": ",",
+              "punctuation": true
+            },
+            {
+              "char": "三",
+              "pinyin": "san1",
+              "french": "trois",
+              "english": "three"
+            },
+            {
+              "char": "、",
+              "punctuation": true
+            },
+            {
+              "char": "二",
+              "pinyin": "er4",
+              "french": "deux",
+              "english": "two"
+            },
+            {
+              "char": "、",
+              "punctuation": true
+            },
+            {
+              "char": "一",
+              "pinyin": "yi1",
+              "french": "un",
+              "english": "one"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "一、二、三、四、五、六、七。",
+          "characters": [
+            {
+              "char": "一",
+              "pinyin": "yi1",
+              "french": "un",
+              "english": "one"
+            },
+            {
+              "char": "、",
+              "punctuation": true
+            },
+            {
+              "char": "二",
+              "pinyin": "er4",
+              "french": "deux",
+              "english": "two"
+            },
+            {
+              "char": "、",
+              "punctuation": true
+            },
+            {
+              "char": "三",
+              "pinyin": "san1",
+              "french": "trois",
+              "english": "three"
+            },
+            {
+              "char": "、",
+              "punctuation": true
+            },
+            {
+              "char": "四",
+              "pinyin": "si4",
+              "french": "quatre",
+              "english": "four"
+            },
+            {
+              "char": "、",
+              "punctuation": true
+            },
+            {
+              "char": "五",
+              "pinyin": "wu3",
+              "french": "cinq",
+              "english": "five"
+            },
+            {
+              "char": "、",
+              "punctuation": true
+            },
+            {
+              "char": "六",
+              "pinyin": "liu4",
+              "french": "six",
+              "english": "six"
+            },
+            {
+              "char": "、",
+              "punctuation": true
+            },
+            {
+              "char": "七",
+              "pinyin": "qi1",
+              "french": "sept",
+              "english": "seven"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "八、九、十,十、八、九。",
+          "characters": [
+            {
+              "char": "八",
+              "pinyin": "ba1",
+              "french": "huit",
+              "english": "eight"
+            },
+            {
+              "char": "、",
+              "punctuation": true
+            },
+            {
+              "char": "九",
+              "pinyin": "jiu3",
+              "french": "neuf",
+              "english": "nine"
+            },
+            {
+              "char": "、",
+              "punctuation": true
+            },
+            {
+              "char": "十",
+              "pinyin": "shi2",
+              "french": "dix",
+              "english": "ten"
+            },
+            {
+              "char": ",",
+              "punctuation": true
+            },
+            {
+              "char": "十",
+              "pinyin": "shi2",
+              "french": "dix",
+              "english": "ten"
+            },
+            {
+              "char": "、",
+              "punctuation": true
+            },
+            {
+              "char": "八",
+              "pinyin": "ba1",
+              "french": "huit",
+              "english": "eight"
+            },
+            {
+              "char": "、",
+              "punctuation": true
+            },
+            {
+              "char": "九",
+              "pinyin": "jiu3",
+              "french": "neuf",
+              "english": "nine"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "大家都来数一数。",
+          "characters": [
+            {
+              "char": "大",
+              "pinyin": "da4",
+              "french": "Grand",
+              "english": "Big"
+            },
+            {
+              "char": "家",
+              "pinyin": "jia1",
+              "french": "maison; famille",
+              "english": "home"
+            },
+            {
+              "char": "都",
+              "pinyin": "dou1",
+              "french": "tous",
+              "english": "all"
+            },
+            {
+              "char": "来",
+              "pinyin": "lai2",
+              "french": "venir",
+              "english": "to come"
+            },
+            {
+              "char": "数",
+              "pinyin": "shu3",
+              "french": "Compter",
+              "english": "Count"
+            },
+            {
+              "char": "一",
+              "pinyin": "yi1",
+              "french": "un",
+              "english": "one"
+            },
+            {
+              "char": "数",
+              "pinyin": "shu3",
+              "french": "Compter",
+              "english": "Count"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        }
+      ],
+      "uniqueCharactersInLesson": [
+        {
+          "char": "一",
+          "pinyin": "yi1",
+          "french": "un",
+          "english": "one"
+        },
+        {
+          "char": "二",
+          "pinyin": "er4",
+          "french": "deux",
+          "english": "two"
+        },
+        {
+          "char": "三",
+          "pinyin": "san1",
+          "french": "trois",
+          "english": "three"
+        },
+        {
+          "char": "四",
+          "pinyin": "si4",
+          "french": "quatre",
+          "english": "four"
+        },
+        {
+          "char": "五",
+          "pinyin": "wu3",
+          "french": "cinq",
+          "english": "five"
+        },
+        {
+          "char": "六",
+          "pinyin": "liu4",
+          "french": "six",
+          "english": "six"
+        },
+        {
+          "char": "七",
+          "pinyin": "qi1",
+          "french": "sept",
+          "english": "seven"
+        },
+        {
+          "char": "八",
+          "pinyin": "ba1",
+          "french": "huit",
+          "english": "eight"
+        },
+        {
+          "char": "九",
+          "pinyin": "jiu3",
+          "french": "neuf",
+          "english": "nine"
+        },
+        {
+          "char": "十",
+          "pinyin": "shi2",
+          "french": "dix",
+          "english": "ten"
+        },
+        {
+          "char": "大",
+          "pinyin": "da4",
+          "french": "Grand",
+          "english": "Big"
+        },
+        {
+          "char": "家",
+          "pinyin": "jia1",
+          "french": "maison; famille",
+          "english": "home"
+        },
+        {
+          "char": "都",
+          "pinyin": "dou1",
+          "french": "tous",
+          "english": "all"
+        },
+        {
+          "char": "来",
+          "pinyin": "lai2",
+          "french": "venir",
+          "english": "to come"
+        },
+        {
+          "char": "数",
+          "pinyin": "shu3",
+          "french": "Compter",
+          "english": "Count"
+        }
+      ],
+      "vocabularyWords": []
+    },
+    {
+      "id": "lesson-1770786071099-zy4z",
+      "title": "Leçon 2 - Love language",
+      "order": 2,
+      "sourceTextAnnotated": [
+        {
+          "text": "我，你，她",
+          "characters": [
+            {
+              "char": "我",
+              "pinyin": "wo3",
+              "french": "je; moi",
+              "english": "I"
+            },
+            {
+              "char": "，",
+              "punctuation": true
+            },
+            {
+              "char": "你",
+              "pinyin": "ni3",
+              "french": "tu; toi",
+              "english": "you"
+            },
+            {
+              "char": "，",
+              "punctuation": true
+            },
+            {
+              "char": "她",
+              "pinyin": "ta1",
+              "french": "elle",
+              "english": "she"
+            }
+          ]
+        },
+        {
+          "text": "我爱你！",
+          "characters": [
+            {
+              "char": "我",
+              "pinyin": "wo3",
+              "french": "je; moi",
+              "english": "I"
+            },
+            {
+              "char": "爱",
+              "pinyin": "ai4",
+              "french": "amour",
+              "english": "love"
+            },
+            {
+              "char": "你",
+              "pinyin": "ni3",
+              "french": "tu; toi",
+              "english": "you"
+            },
+            {
+              "char": "！",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "我，妳，她",
+          "characters": [
+            {
+              "char": "我",
+              "pinyin": "wo3",
+              "french": "je; moi",
+              "english": "I"
+            },
+            {
+              "char": "，",
+              "punctuation": true
+            },
+            {
+              "char": "妳",
+              "pinyin": "ni3",
+              "french": "tu (féminin)",
+              "english": "you (feminine)"
+            },
+            {
+              "char": "，",
+              "punctuation": true
+            },
+            {
+              "char": "她",
+              "pinyin": "ta1",
+              "french": "elle",
+              "english": "she"
+            }
+          ]
+        },
+        {
+          "text": "我爱妳！",
+          "characters": [
+            {
+              "char": "我",
+              "pinyin": "wo3",
+              "french": "je; moi",
+              "english": "I"
+            },
+            {
+              "char": "爱",
+              "pinyin": "ai4",
+              "french": "amour",
+              "english": "love"
+            },
+            {
+              "char": "妳",
+              "pinyin": "ni3",
+              "french": "tu (féminin)",
+              "english": "you (feminine)"
+            },
+            {
+              "char": "！",
+              "punctuation": true
+            }
+          ]
+        }
+      ],
+      "uniqueCharactersInLesson": [
+        {
+          "char": "我",
+          "pinyin": "wo3",
+          "french": "je; moi",
+          "english": "I"
+        },
+        {
+          "char": "你",
+          "pinyin": "ni3",
+          "french": "tu; toi",
+          "english": "you"
+        },
+        {
+          "char": "她",
+          "pinyin": "ta1",
+          "french": "elle",
+          "english": "she"
+        },
+        {
+          "char": "爱",
+          "pinyin": "ai4",
+          "french": "amour",
+          "english": "love"
+        },
+        {
+          "char": "妳",
+          "pinyin": "ni3",
+          "french": "tu (féminin)",
+          "english": "you (feminine)"
+        }
+      ],
+      "vocabularyWords": []
+    },
+    {
+      "id": "lesson-1771504726854-cyhe",
+      "title": "Leçon 3 - Bonjour",
+      "order": 3,
+      "sourceTextAnnotated": [
+        {
+          "text": "老师您早! 您早!",
+          "characters": [
+            {
+              "char": "老",
+              "pinyin": "lao3",
+              "french": "vieux",
+              "english": "old"
+            },
+            {
+              "char": "师",
+              "pinyin": "shi1",
+              "french": "professeur",
+              "english": "professor"
+            },
+            {
+              "char": "您",
+              "pinyin": "nin2",
+              "french": "vous",
+              "english": "you"
+            },
+            {
+              "char": "早",
+              "pinyin": "zao3",
+              "french": "tôt le matin",
+              "english": "early morning"
+            },
+            {
+              "char": "!",
+              "punctuation": true
+            },
+            {
+              "char": "您",
+              "pinyin": "nin2",
+              "french": "vous",
+              "english": "you"
+            },
+            {
+              "char": "早",
+              "pinyin": "zao3",
+              "french": "tôt le matin",
+              "english": "early morning"
+            },
+            {
+              "char": "!",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "老师您好! 您好!",
+          "characters": [
+            {
+              "char": "老",
+              "pinyin": "lao3",
+              "french": "vieux",
+              "english": "old"
+            },
+            {
+              "char": "师",
+              "pinyin": "shi1",
+              "french": "professeur",
+              "english": "professor"
+            },
+            {
+              "char": "您",
+              "pinyin": "nin2",
+              "french": "vous",
+              "english": "you"
+            },
+            {
+              "char": "好",
+              "pinyin": "hao3",
+              "french": "bon; bien",
+              "english": "good; well"
+            },
+            {
+              "char": "!",
+              "punctuation": true
+            },
+            {
+              "char": "您",
+              "pinyin": "nin2",
+              "french": "vous",
+              "english": "you"
+            },
+            {
+              "char": "好",
+              "pinyin": "hao3",
+              "french": "bon; bien",
+              "english": "good; well"
+            },
+            {
+              "char": "!",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "老师再见! 再见!",
+          "characters": [
+            {
+              "char": "老",
+              "pinyin": "lao3",
+              "french": "vieux",
+              "english": "old"
+            },
+            {
+              "char": "师",
+              "pinyin": "shi1",
+              "french": "professeur",
+              "english": "professor"
+            },
+            {
+              "char": "再",
+              "pinyin": "zai4",
+              "french": "encore",
+              "english": "again"
+            },
+            {
+              "char": "见",
+              "pinyin": "jian4",
+              "french": "rencontrer",
+              "english": "meet"
+            },
+            {
+              "char": "!",
+              "punctuation": true
+            },
+            {
+              "char": "再",
+              "pinyin": "zai4",
+              "french": "encore",
+              "english": "again"
+            },
+            {
+              "char": "见",
+              "pinyin": "jian4",
+              "french": "rencontrer",
+              "english": "meet"
+            },
+            {
+              "char": "!",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "同学你早! 你早!",
+          "characters": [
+            {
+              "char": "同",
+              "pinyin": "tong2",
+              "french": "pareil",
+              "english": "same"
+            },
+            {
+              "char": "学",
+              "pinyin": "xue2",
+              "french": "apprendre",
+              "english": "learn"
+            },
+            {
+              "char": "你",
+              "pinyin": "ni3",
+              "french": "tu; toi",
+              "english": "you"
+            },
+            {
+              "char": "早",
+              "pinyin": "zao3",
+              "french": "tôt le matin",
+              "english": "early morning"
+            },
+            {
+              "char": "!",
+              "punctuation": true
+            },
+            {
+              "char": "你",
+              "pinyin": "ni3",
+              "french": "tu; toi",
+              "english": "you"
+            },
+            {
+              "char": "早",
+              "pinyin": "zao3",
+              "french": "tôt le matin",
+              "english": "early morning"
+            },
+            {
+              "char": "!",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "同学你好! 你好!",
+          "characters": [
+            {
+              "char": "同",
+              "pinyin": "tong2",
+              "french": "pareil",
+              "english": "same"
+            },
+            {
+              "char": "学",
+              "pinyin": "xue2",
+              "french": "apprendre",
+              "english": "learn"
+            },
+            {
+              "char": "你",
+              "pinyin": "ni3",
+              "french": "tu; toi",
+              "english": "you"
+            },
+            {
+              "char": "好",
+              "pinyin": "hao3",
+              "french": "bon; bien",
+              "english": "good; well"
+            },
+            {
+              "char": "!",
+              "punctuation": true
+            },
+            {
+              "char": "你",
+              "pinyin": "ni3",
+              "french": "tu; toi",
+              "english": "you"
+            },
+            {
+              "char": "好",
+              "pinyin": "hao3",
+              "french": "bon; bien",
+              "english": "good; well"
+            },
+            {
+              "char": "!",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "同学再见! 再见!",
+          "characters": [
+            {
+              "char": "同",
+              "pinyin": "tong2",
+              "french": "pareil",
+              "english": "same"
+            },
+            {
+              "char": "学",
+              "pinyin": "xue2",
+              "french": "apprendre",
+              "english": "learn"
+            },
+            {
+              "char": "再",
+              "pinyin": "zai4",
+              "french": "encore",
+              "english": "again"
+            },
+            {
+              "char": "见",
+              "pinyin": "jian4",
+              "french": "rencontrer",
+              "english": "meet"
+            },
+            {
+              "char": "!",
+              "punctuation": true
+            },
+            {
+              "char": "再",
+              "pinyin": "zai4",
+              "french": "encore",
+              "english": "again"
+            },
+            {
+              "char": "见",
+              "pinyin": "jian4",
+              "french": "rencontrer",
+              "english": "meet"
+            },
+            {
+              "char": "!",
+              "punctuation": true
+            }
+          ]
+        }
+      ],
+      "uniqueCharactersInLesson": [
+        {
+          "char": "老",
+          "pinyin": "lao3",
+          "french": "vieux",
+          "english": "old"
+        },
+        {
+          "char": "师",
+          "pinyin": "shi1",
+          "french": "professeur",
+          "english": "professor"
+        },
+        {
+          "char": "您",
+          "pinyin": "nin2",
+          "french": "vous",
+          "english": "you"
+        },
+        {
+          "char": "早",
+          "pinyin": "zao3",
+          "french": "tôt le matin",
+          "english": "early morning"
+        },
+        {
+          "char": "好",
+          "pinyin": "hao3",
+          "french": "bon; bien",
+          "english": "good; well"
+        },
+        {
+          "char": "再",
+          "pinyin": "zai4",
+          "french": "encore",
+          "english": "again"
+        },
+        {
+          "char": "见",
+          "pinyin": "jian4",
+          "french": "rencontrer",
+          "english": "meet"
+        },
+        {
+          "char": "同",
+          "pinyin": "tong2",
+          "french": "pareil",
+          "english": "same"
+        },
+        {
+          "char": "学",
+          "pinyin": "xue2",
+          "french": "apprendre",
+          "english": "learn"
+        },
+        {
+          "char": "你",
+          "pinyin": "ni3",
+          "french": "tu; toi",
+          "english": "you"
+        }
+      ],
+      "vocabularyWords": []
+    },
+    {
+      "id": "lesson-1772116323479-krfe",
+      "title": "Leçon 4 - La politesse",
+      "order": 4,
+      "sourceTextAnnotated": [
+        {
+          "text": "小朋友们有礼貌。",
+          "characters": [
+            {
+              "char": "小",
+              "pinyin": "xiao3",
+              "french": "Petit",
+              "english": "Small"
+            },
+            {
+              "char": "朋",
+              "pinyin": "peng2",
+              "french": "Ami",
+              "english": "Friend"
+            },
+            {
+              "char": "友",
+              "pinyin": "you3",
+              "french": "Ami",
+              "english": "Friend"
+            },
+            {
+              "char": "们",
+              "pinyin": "men0",
+              "french": "pronom pluriel",
+              "english": "pronoum plural "
+            },
+            {
+              "char": "有",
+              "pinyin": "you3",
+              "french": "avoir",
+              "english": "to have"
+            },
+            {
+              "char": "礼",
+              "pinyin": "li3",
+              "french": "politesse",
+              "english": "manners"
+            },
+            {
+              "char": "貌",
+              "pinyin": "mao4",
+              "french": "apparence, politesse",
+              "english": "manners"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "时时刻刻要记牢。",
+          "characters": [
+            {
+              "char": "时",
+              "pinyin": "shi2",
+              "french": "heure, temps",
+              "english": "hour, time "
+            },
+            {
+              "char": "时",
+              "pinyin": "shi2",
+              "french": "heure, temps",
+              "english": "hour, time "
+            },
+            {
+              "char": "刻",
+              "pinyin": "ke4",
+              "french": "seconde",
+              "english": "seconds"
+            },
+            {
+              "char": "刻",
+              "pinyin": "ke4",
+              "french": "seconde",
+              "english": "seconds"
+            },
+            {
+              "char": "要",
+              "pinyin": "yao4",
+              "french": "vouloir",
+              "english": "want"
+            },
+            {
+              "char": "记",
+              "pinyin": "ji4",
+              "french": "retenir",
+              "english": "remember"
+            },
+            {
+              "char": "牢",
+              "pinyin": "lao2",
+              "french": "bien retenir ",
+              "english": "remember well"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "对不起，没关系。",
+          "characters": [
+            {
+              "char": "对",
+              "pinyin": "dui4",
+              "french": "correct",
+              "english": "corect"
+            },
+            {
+              "char": "不",
+              "pinyin": "bu4",
+              "french": "ne pas; non",
+              "english": "not"
+            },
+            {
+              "char": "起",
+              "pinyin": "qi3",
+              "french": "monter, se lever",
+              "english": "rise "
+            },
+            {
+              "char": "，",
+              "punctuation": true
+            },
+            {
+              "char": "没",
+              "pinyin": "mei2",
+              "french": "il n'y a pas",
+              "english": "not have"
+            },
+            {
+              "char": "关",
+              "pinyin": "guan1",
+              "french": "fermer",
+              "english": "to close"
+            },
+            {
+              "char": "系",
+              "pinyin": "xi4",
+              "french": "lien",
+              "english": "link "
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "谢谢你，不客气。",
+          "characters": [
+            {
+              "char": "谢",
+              "pinyin": "xie4",
+              "french": "merci",
+              "english": "thanks"
+            },
+            {
+              "char": "谢",
+              "pinyin": "xie4",
+              "french": "merci",
+              "english": "thanks"
+            },
+            {
+              "char": "你",
+              "pinyin": "ni3",
+              "french": "tu; toi",
+              "english": "you"
+            },
+            {
+              "char": "，",
+              "punctuation": true
+            },
+            {
+              "char": "不",
+              "pinyin": "bu4",
+              "french": "ne pas; non",
+              "english": "not"
+            },
+            {
+              "char": "客",
+              "pinyin": "ke4",
+              "french": "invité",
+              "english": "guest"
+            },
+            {
+              "char": "气",
+              "pinyin": "qi4",
+              "french": "air",
+              "english": "air"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "多谢，不用谢。",
+          "characters": [
+            {
+              "char": "多",
+              "pinyin": "duo1",
+              "french": "beaucoup",
+              "english": "many"
+            },
+            {
+              "char": "谢",
+              "pinyin": "xie4",
+              "french": "merci",
+              "english": "thanks"
+            },
+            {
+              "char": "，",
+              "punctuation": true
+            },
+            {
+              "char": "不",
+              "pinyin": "bu4",
+              "french": "ne pas; non",
+              "english": "not"
+            },
+            {
+              "char": "用",
+              "pinyin": "yong4",
+              "french": "utiliser",
+              "english": "use"
+            },
+            {
+              "char": "谢",
+              "pinyin": "xie4",
+              "french": "merci",
+              "english": "thanks"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        }
+      ],
+      "uniqueCharactersInLesson": [
+        {
+          "char": "小",
+          "pinyin": "xiao3",
+          "french": "Petit",
+          "english": "Small"
+        },
+        {
+          "char": "朋",
+          "pinyin": "peng2",
+          "french": "Ami",
+          "english": "Friend"
+        },
+        {
+          "char": "友",
+          "pinyin": "you3",
+          "french": "Ami",
+          "english": "Friend"
+        },
+        {
+          "char": "们",
+          "pinyin": "men0",
+          "french": "pronom pluriel",
+          "english": "pronoum plural "
+        },
+        {
+          "char": "有",
+          "pinyin": "you3",
+          "french": "avoir",
+          "english": "to have"
+        },
+        {
+          "char": "礼",
+          "pinyin": "li3",
+          "french": "politesse",
+          "english": "manners"
+        },
+        {
+          "char": "貌",
+          "pinyin": "mao4",
+          "french": "apparence, politesse",
+          "english": "manners"
+        },
+        {
+          "char": "时",
+          "pinyin": "shi2",
+          "french": "heure, temps",
+          "english": "hour, time "
+        },
+        {
+          "char": "刻",
+          "pinyin": "ke4",
+          "french": "seconde",
+          "english": "seconds"
+        },
+        {
+          "char": "要",
+          "pinyin": "yao4",
+          "french": "vouloir",
+          "english": "want"
+        },
+        {
+          "char": "记",
+          "pinyin": "ji4",
+          "french": "retenir",
+          "english": "remember"
+        },
+        {
+          "char": "牢",
+          "pinyin": "lao2",
+          "french": "bien retenir ",
+          "english": "remember well"
+        },
+        {
+          "char": "对",
+          "pinyin": "dui4",
+          "french": "correct",
+          "english": "corect"
+        },
+        {
+          "char": "不",
+          "pinyin": "bu4",
+          "french": "ne pas; non",
+          "english": "not"
+        },
+        {
+          "char": "起",
+          "pinyin": "qi3",
+          "french": "monter, se lever",
+          "english": "rise "
+        },
+        {
+          "char": "没",
+          "pinyin": "mei2",
+          "french": "il n'y a pas",
+          "english": "not have"
+        },
+        {
+          "char": "关",
+          "pinyin": "guan1",
+          "french": "fermer",
+          "english": "to close"
+        },
+        {
+          "char": "系",
+          "pinyin": "xi4",
+          "french": "lien",
+          "english": "link "
+        },
+        {
+          "char": "多",
+          "pinyin": "duo1",
+          "french": "beaucoup",
+          "english": "many"
+        },
+        {
+          "char": "谢",
+          "pinyin": "xie4",
+          "french": "merci",
+          "english": "thanks"
+        },
+        {
+          "char": "用",
+          "pinyin": "yong4",
+          "french": "utiliser",
+          "english": "use"
+        },
+        {
+          "char": "你",
+          "pinyin": "ni3",
+          "french": "tu; toi",
+          "english": "you"
+        },
+        {
+          "char": "客",
+          "pinyin": "ke4",
+          "french": "invité",
+          "english": "guest"
+        },
+        {
+          "char": "气",
+          "pinyin": "qi4",
+          "french": "air",
+          "english": "air"
+        }
+      ],
+      "vocabularyWords": [
+        {
+          "hanzi": "礼貌",
+          "pinyin": "li3 mao4",
+          "traditional": "",
+          "french": "politesse",
+          "english": "politeness"
+        },
+        {
+          "hanzi": "对不起",
+          "pinyin": "dui4 bu5 qi3",
+          "traditional": "對不起",
+          "french": "désolé, pardon",
+          "english": "sorry"
+        },
+        {
+          "hanzi": "没关系",
+          "pinyin": "mei2 guan1 xi5",
+          "traditional": "沒關係",
+          "french": "ce n'est rien",
+          "english": "it does not matter"
+        }
+      ]
+    },
+    {
+      "id": "lesson-ask-name",
+      "title": "Leçon 5 - Se présenter",
+      "order": 5,
+      "sourceTextAnnotated": [
+        {
+          "text": "老师：你姓什么？",
+          "characters": [
+            {
+              "char": "老",
+              "pinyin": "lao3",
+              "french": "vieux",
+              "english": "old"
+            },
+            {
+              "char": "师",
+              "pinyin": "shi1",
+              "french": "professeur",
+              "english": "professor"
+            },
+            {
+              "char": "：",
+              "punctuation": true
+            },
+            {
+              "char": "你",
+              "pinyin": "ni3",
+              "french": "tu; toi",
+              "english": "you"
+            },
+            {
+              "char": "姓",
+              "pinyin": "xing4",
+              "french": "nom de famille",
+              "english": "surname"
+            },
+            {
+              "char": "什",
+              "pinyin": "shen2",
+              "french": "quoi",
+              "english": "what"
+            },
+            {
+              "char": "么",
+              "pinyin": "me5",
+              "french": "quoi",
+              "english": "what"
+            },
+            {
+              "char": "？",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "王天一：我姓王。",
+          "characters": [
+            {
+              "char": "王",
+              "pinyin": "wang2",
+              "french": "roi",
+              "english": "king"
+            },
+            {
+              "char": "天",
+              "pinyin": "tian1",
+              "french": "ciel",
+              "english": "sky"
+            },
+            {
+              "char": "一",
+              "pinyin": "yi1",
+              "french": "un",
+              "english": "one"
+            },
+            {
+              "char": "：",
+              "punctuation": true
+            },
+            {
+              "char": "我",
+              "pinyin": "wo3",
+              "french": "je; moi",
+              "english": "I"
+            },
+            {
+              "char": "姓",
+              "pinyin": "xing4",
+              "french": "nom de famille",
+              "english": "surname"
+            },
+            {
+              "char": "王",
+              "pinyin": "wang2",
+              "french": "roi",
+              "english": "king"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "老师：你叫么名字？",
+          "characters": [
+            {
+              "char": "老",
+              "pinyin": "lao3",
+              "french": "vieux",
+              "english": "old"
+            },
+            {
+              "char": "师",
+              "pinyin": "shi1",
+              "french": "professeur",
+              "english": "professor"
+            },
+            {
+              "char": "：",
+              "punctuation": true
+            },
+            {
+              "char": "你",
+              "pinyin": "ni3",
+              "french": "tu; toi",
+              "english": "you"
+            },
+            {
+              "char": "叫",
+              "pinyin": "jiao4",
+              "french": "appeler",
+              "english": "call"
+            },
+            {
+              "char": "么",
+              "pinyin": "me5",
+              "french": "quoi",
+              "english": "what"
+            },
+            {
+              "char": "名",
+              "pinyin": "ming2",
+              "french": "nom",
+              "english": "name"
+            },
+            {
+              "char": "字",
+              "pinyin": "zi4",
+              "french": "caractère chinois",
+              "english": "chinese character"
+            },
+            {
+              "char": "？",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "王天一：我叫天一。",
+          "characters": [
+            {
+              "char": "王",
+              "pinyin": "wang2",
+              "french": "roi",
+              "english": "king"
+            },
+            {
+              "char": "天",
+              "pinyin": "tian1",
+              "french": "ciel",
+              "english": "sky"
+            },
+            {
+              "char": "一",
+              "pinyin": "yi1",
+              "french": "un",
+              "english": "one"
+            },
+            {
+              "char": "：",
+              "punctuation": true
+            },
+            {
+              "char": "我",
+              "pinyin": "wo3",
+              "french": "je; moi",
+              "english": "I"
+            },
+            {
+              "char": "叫",
+              "pinyin": "jiao4",
+              "french": "appeler",
+              "english": "call"
+            },
+            {
+              "char": "天",
+              "pinyin": "tian1",
+              "french": "ciel",
+              "english": "sky"
+            },
+            {
+              "char": "一",
+              "pinyin": "yi1",
+              "french": "un",
+              "english": "one"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        }
+      ],
+      "uniqueCharactersInLesson": [
+        {
+          "char": "老",
+          "pinyin": "lao3",
+          "french": "vieux",
+          "english": "old"
+        },
+        {
+          "char": "师",
+          "pinyin": "shi1",
+          "french": "professeur",
+          "english": "professor"
+        },
+        {
+          "char": "你",
+          "pinyin": "ni3",
+          "french": "tu; toi",
+          "english": "you"
+        },
+        {
+          "char": "姓",
+          "pinyin": "xing4",
+          "french": "nom de famille",
+          "english": "surname"
+        },
+        {
+          "char": "什",
+          "pinyin": "shen2",
+          "french": "quoi",
+          "english": "what"
+        },
+        {
+          "char": "么",
+          "pinyin": "me5",
+          "french": "quoi",
+          "english": "what"
+        },
+        {
+          "char": "王",
+          "pinyin": "wang2",
+          "french": "roi",
+          "english": "king"
+        },
+        {
+          "char": "天",
+          "pinyin": "tian1",
+          "french": "ciel",
+          "english": "sky"
+        },
+        {
+          "char": "一",
+          "pinyin": "yi1",
+          "french": "un",
+          "english": "one"
+        },
+        {
+          "char": "我",
+          "pinyin": "wo3",
+          "french": "je; moi",
+          "english": "I"
+        },
+        {
+          "char": "叫",
+          "pinyin": "jiao4",
+          "french": "appeler",
+          "english": "call"
+        },
+        {
+          "char": "名",
+          "pinyin": "ming2",
+          "french": "nom",
+          "english": "name"
+        },
+        {
+          "char": "字",
+          "pinyin": "zi4",
+          "french": "caractère chinois",
+          "english": "chinese character"
+        }
+      ],
+      "vocabularyWords": []
+    },
+    {
+      "id": "lesson-1781103536062-5bis",
+      "title": "Leçon 5 bis - Se présenter",
+      "order": 6,
+      "sourceTextAnnotated": [
+        {
+          "text": "你叫什么？我叫天一。",
+          "characters": [
+            {
+              "char": "你",
+              "pinyin": "ni3",
+              "french": "tu; toi",
+              "english": "you"
+            },
+            {
+              "char": "叫",
+              "pinyin": "jiao4",
+              "french": "appeler",
+              "english": "call"
+            },
+            {
+              "char": "什",
+              "pinyin": "shen2",
+              "french": "quoi",
+              "english": "what"
+            },
+            {
+              "char": "么",
+              "pinyin": "me5",
+              "french": "quoi",
+              "english": "what"
+            },
+            {
+              "char": "？",
+              "punctuation": true
+            },
+            {
+              "char": "我",
+              "pinyin": "wo3",
+              "french": "je; moi",
+              "english": "I"
+            },
+            {
+              "char": "叫",
+              "pinyin": "jiao4",
+              "french": "appeler",
+              "english": "call"
+            },
+            {
+              "char": "天",
+              "pinyin": "tian1",
+              "french": "ciel",
+              "english": "sky"
+            },
+            {
+              "char": "一",
+              "pinyin": "yi1",
+              "french": "un",
+              "english": "one"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "她叫什么？他叫几米。",
+          "characters": [
+            {
+              "char": "她",
+              "pinyin": "ta1",
+              "french": "elle",
+              "english": "she"
+            },
+            {
+              "char": "叫",
+              "pinyin": "jiao4",
+              "french": "appeler",
+              "english": "call"
+            },
+            {
+              "char": "什",
+              "pinyin": "shen2",
+              "french": "quoi",
+              "english": "what"
+            },
+            {
+              "char": "么",
+              "pinyin": "me5",
+              "french": "quoi",
+              "english": "what"
+            },
+            {
+              "char": "？",
+              "punctuation": true
+            },
+            {
+              "char": "他",
+              "pinyin": "ta1",
+              "french": "il",
+              "english": "he"
+            },
+            {
+              "char": "叫",
+              "pinyin": "jiao4",
+              "french": "appeler",
+              "english": "call"
+            },
+            {
+              "char": "几",
+              "pinyin": "ji3",
+              "french": "combien",
+              "english": "how many"
+            },
+            {
+              "char": "米",
+              "pinyin": "mi3",
+              "french": "riz; mètre",
+              "english": "rice; meter"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "我的名字叫天一。",
+          "characters": [
+            {
+              "char": "我",
+              "pinyin": "wo3",
+              "french": "je; moi",
+              "english": "I"
+            },
+            {
+              "char": "的",
+              "pinyin": "de5",
+              "french": "particule possessive",
+              "english": "possessive particle"
+            },
+            {
+              "char": "名",
+              "pinyin": "ming2",
+              "french": "nom",
+              "english": "name"
+            },
+            {
+              "char": "字",
+              "pinyin": "zi4",
+              "french": "caractère chinois",
+              "english": "chinese character"
+            },
+            {
+              "char": "叫",
+              "pinyin": "jiao4",
+              "french": "appeler",
+              "english": "call"
+            },
+            {
+              "char": "天",
+              "pinyin": "tian1",
+              "french": "ciel",
+              "english": "sky"
+            },
+            {
+              "char": "一",
+              "pinyin": "yi1",
+              "french": "un",
+              "english": "one"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "他的名字叫几米。",
+          "characters": [
+            {
+              "char": "他",
+              "pinyin": "ta1",
+              "french": "il",
+              "english": "he"
+            },
+            {
+              "char": "的",
+              "pinyin": "de5",
+              "french": "particule possessive",
+              "english": "possessive particle"
+            },
+            {
+              "char": "名",
+              "pinyin": "ming2",
+              "french": "nom",
+              "english": "name"
+            },
+            {
+              "char": "字",
+              "pinyin": "zi4",
+              "french": "caractère chinois",
+              "english": "chinese character"
+            },
+            {
+              "char": "叫",
+              "pinyin": "jiao4",
+              "french": "appeler",
+              "english": "call"
+            },
+            {
+              "char": "几",
+              "pinyin": "ji3",
+              "french": "combien",
+              "english": "how many"
+            },
+            {
+              "char": "米",
+              "pinyin": "mi3",
+              "french": "riz; mètre",
+              "english": "rice; meter"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        }
+      ],
+      "uniqueCharactersInLesson": [
+        {
+          "char": "你",
+          "pinyin": "ni3",
+          "french": "tu; toi",
+          "english": "you"
+        },
+        {
+          "char": "叫",
+          "pinyin": "jiao4",
+          "french": "appeler",
+          "english": "call"
+        },
+        {
+          "char": "什",
+          "pinyin": "shen2",
+          "french": "quoi",
+          "english": "what"
+        },
+        {
+          "char": "么",
+          "pinyin": "me5",
+          "french": "quoi",
+          "english": "what"
+        },
+        {
+          "char": "我",
+          "pinyin": "wo3",
+          "french": "je; moi",
+          "english": "I"
+        },
+        {
+          "char": "天",
+          "pinyin": "tian1",
+          "french": "ciel",
+          "english": "sky"
+        },
+        {
+          "char": "一",
+          "pinyin": "yi1",
+          "french": "un",
+          "english": "one"
+        },
+        {
+          "char": "她",
+          "pinyin": "ta1",
+          "french": "elle",
+          "english": "she"
+        },
+        {
+          "char": "他",
+          "pinyin": "ta1",
+          "french": "il",
+          "english": "he"
+        },
+        {
+          "char": "几",
+          "pinyin": "ji3",
+          "french": "combien",
+          "english": "how many"
+        },
+        {
+          "char": "米",
+          "pinyin": "mi3",
+          "french": "riz; mètre",
+          "english": "rice; meter"
+        },
+        {
+          "char": "的",
+          "pinyin": "de5",
+          "french": "particule possessive",
+          "english": "possessive particle"
+        },
+        {
+          "char": "名",
+          "pinyin": "ming2",
+          "french": "nom",
+          "english": "name"
+        },
+        {
+          "char": "字",
+          "pinyin": "zi4",
+          "french": "caractère chinois",
+          "english": "chinese character"
+        }
+      ],
+      "vocabularyWords": []
+    },
+    {
+      "id": "lesson-1773670967675-4jyt",
+      "title": "Leçon 6 - La famille",
+      "order": 7,
+      "sourceTextAnnotated": [
+        {
+          "text": "老师: 你家有几口人?",
+          "characters": [
+            {
+              "char": "老",
+              "pinyin": "lao3",
+              "french": "vieux",
+              "english": "old"
+            },
+            {
+              "char": "师",
+              "pinyin": "shi1",
+              "french": "professeur",
+              "english": "professor"
+            },
+            {
+              "char": ":",
+              "punctuation": true
+            },
+            {
+              "char": "你",
+              "pinyin": "ni3",
+              "french": "tu; toi",
+              "english": "you"
+            },
+            {
+              "char": "家",
+              "pinyin": "jia1",
+              "french": "maison; famille",
+              "english": "home"
+            },
+            {
+              "char": "有",
+              "pinyin": "you3",
+              "french": "avoir",
+              "english": "to have"
+            },
+            {
+              "char": "几",
+              "pinyin": "ji3",
+              "french": "combien",
+              "english": "how many"
+            },
+            {
+              "char": "口",
+              "pinyin": "kou3",
+              "french": "bouche",
+              "english": "mouth"
+            },
+            {
+              "char": "人",
+              "pinyin": "ren2",
+              "french": "personne",
+              "english": "people"
+            },
+            {
+              "char": "?",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "王天一: 四口人。",
+          "characters": [
+            {
+              "char": "王",
+              "pinyin": "wang2",
+              "french": "roi",
+              "english": "king"
+            },
+            {
+              "char": "天",
+              "pinyin": "tian1",
+              "french": "ciel",
+              "english": "sky"
+            },
+            {
+              "char": "一",
+              "pinyin": "yi1",
+              "french": "un",
+              "english": "one"
+            },
+            {
+              "char": ":",
+              "punctuation": true
+            },
+            {
+              "char": "四",
+              "pinyin": "si4",
+              "french": "quatre",
+              "english": "four"
+            },
+            {
+              "char": "口",
+              "pinyin": "kou3",
+              "french": "bouche",
+              "english": "mouth"
+            },
+            {
+              "char": "人",
+              "pinyin": "ren2",
+              "french": "personne",
+              "english": "people"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "老师: 你家有谁?",
+          "characters": [
+            {
+              "char": "老",
+              "pinyin": "lao3",
+              "french": "vieux",
+              "english": "old"
+            },
+            {
+              "char": "师",
+              "pinyin": "shi1",
+              "french": "professeur",
+              "english": "professor"
+            },
+            {
+              "char": ":",
+              "punctuation": true
+            },
+            {
+              "char": "你",
+              "pinyin": "ni3",
+              "french": "tu; toi",
+              "english": "you"
+            },
+            {
+              "char": "家",
+              "pinyin": "jia1",
+              "french": "maison; famille",
+              "english": "home"
+            },
+            {
+              "char": "有",
+              "pinyin": "you3",
+              "french": "avoir",
+              "english": "to have"
+            },
+            {
+              "char": "谁",
+              "pinyin": "shui2",
+              "french": "qui",
+              "english": "who"
+            },
+            {
+              "char": "?",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "王天一: 爸爸、妈妈、妹妹和我。",
+          "characters": [
+            {
+              "char": "王",
+              "pinyin": "wang2",
+              "french": "roi",
+              "english": "king"
+            },
+            {
+              "char": "天",
+              "pinyin": "tian1",
+              "french": "ciel",
+              "english": "sky"
+            },
+            {
+              "char": "一",
+              "pinyin": "yi1",
+              "french": "un",
+              "english": "one"
+            },
+            {
+              "char": ":",
+              "punctuation": true
+            },
+            {
+              "char": "爸",
+              "pinyin": "ba4",
+              "french": "papa",
+              "english": "father"
+            },
+            {
+              "char": "爸",
+              "pinyin": "ba4",
+              "french": "papa",
+              "english": "father"
+            },
+            {
+              "char": "、",
+              "punctuation": true
+            },
+            {
+              "char": "妈",
+              "pinyin": "ma1",
+              "french": "maman",
+              "english": "mother"
+            },
+            {
+              "char": "妈",
+              "pinyin": "ma1",
+              "french": "maman",
+              "english": "mother"
+            },
+            {
+              "char": "、",
+              "punctuation": true
+            },
+            {
+              "char": "妹",
+              "pinyin": "mei4",
+              "french": "petite soeur",
+              "english": "little sister"
+            },
+            {
+              "char": "妹",
+              "pinyin": "mei4",
+              "french": "petite soeur",
+              "english": "little sister"
+            },
+            {
+              "char": "和",
+              "pinyin": "he2",
+              "french": "et, avec",
+              "english": "and, with "
+            },
+            {
+              "char": "我",
+              "pinyin": "wo3",
+              "french": "je; moi",
+              "english": "I"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        }
+      ],
+      "uniqueCharactersInLesson": [
+        {
+          "char": "老",
+          "pinyin": "lao3",
+          "french": "vieux",
+          "english": "old"
+        },
+        {
+          "char": "师",
+          "pinyin": "shi1",
+          "french": "professeur",
+          "english": "professor"
+        },
+        {
+          "char": "你",
+          "pinyin": "ni3",
+          "french": "tu; toi",
+          "english": "you"
+        },
+        {
+          "char": "家",
+          "pinyin": "jia1",
+          "french": "maison; famille",
+          "english": "home"
+        },
+        {
+          "char": "有",
+          "pinyin": "you3",
+          "french": "avoir",
+          "english": "to have"
+        },
+        {
+          "char": "几",
+          "pinyin": "ji3",
+          "french": "combien",
+          "english": "how many"
+        },
+        {
+          "char": "口",
+          "pinyin": "kou3",
+          "french": "bouche",
+          "english": "mouth"
+        },
+        {
+          "char": "人",
+          "pinyin": "ren2",
+          "french": "personne",
+          "english": "people"
+        },
+        {
+          "char": "王",
+          "pinyin": "wang2",
+          "french": "roi",
+          "english": "king"
+        },
+        {
+          "char": "天",
+          "pinyin": "tian1",
+          "french": "ciel",
+          "english": "sky"
+        },
+        {
+          "char": "一",
+          "pinyin": "yi1",
+          "french": "un",
+          "english": "one"
+        },
+        {
+          "char": "四",
+          "pinyin": "si4",
+          "french": "quatre",
+          "english": "four"
+        },
+        {
+          "char": "谁",
+          "pinyin": "shui2",
+          "french": "qui",
+          "english": "who"
+        },
+        {
+          "char": "爸",
+          "pinyin": "ba4",
+          "french": "papa",
+          "english": "father"
+        },
+        {
+          "char": "妈",
+          "pinyin": "ma1",
+          "french": "maman",
+          "english": "mother"
+        },
+        {
+          "char": "妹",
+          "pinyin": "mei4",
+          "french": "petite soeur",
+          "english": "little sister"
+        },
+        {
+          "char": "和",
+          "pinyin": "he2",
+          "french": "et, avec",
+          "english": "and, with "
+        },
+        {
+          "char": "我",
+          "pinyin": "wo3",
+          "french": "je; moi",
+          "english": "I"
+        }
+      ],
+      "vocabularyWords": []
+    },
+    {
+      "id": "lesson-1774430690827-wzys",
+      "title": "Leçon 6 bis - Ma famille, ta famille",
+      "order": 8,
+      "sourceTextAnnotated": [
+        {
+          "text": "我家有我，弟弟，妈妈和爸爸。",
+          "characters": [
+            {
+              "char": "我",
+              "pinyin": "wo3",
+              "french": "je; moi",
+              "english": "I"
+            },
+            {
+              "char": "家",
+              "pinyin": "jia1",
+              "french": "maison; famille",
+              "english": "home"
+            },
+            {
+              "char": "有",
+              "pinyin": "you3",
+              "french": "avoir",
+              "english": "to have"
+            },
+            {
+              "char": "我",
+              "pinyin": "wo3",
+              "french": "je; moi",
+              "english": "I"
+            },
+            {
+              "char": "，",
+              "punctuation": true
+            },
+            {
+              "char": "弟",
+              "pinyin": "di4",
+              "french": "petit frère",
+              "english": "little brother"
+            },
+            {
+              "char": "弟",
+              "pinyin": "di4",
+              "french": "petit frère",
+              "english": "little brother"
+            },
+            {
+              "char": "，",
+              "punctuation": true
+            },
+            {
+              "char": "妈",
+              "pinyin": "ma1",
+              "french": "maman",
+              "english": "mother"
+            },
+            {
+              "char": "妈",
+              "pinyin": "ma1",
+              "french": "maman",
+              "english": "mother"
+            },
+            {
+              "char": "和",
+              "pinyin": "he2",
+              "french": "et, avec",
+              "english": "and, with "
+            },
+            {
+              "char": "爸",
+              "pinyin": "ba4",
+              "french": "papa",
+              "english": "father"
+            },
+            {
+              "char": "爸",
+              "pinyin": "ba4",
+              "french": "papa",
+              "english": "father"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "你家有哥哥和姐姐。",
+          "characters": [
+            {
+              "char": "你",
+              "pinyin": "ni3",
+              "french": "tu; toi",
+              "english": "you"
+            },
+            {
+              "char": "家",
+              "pinyin": "jia1",
+              "french": "maison; famille",
+              "english": "home"
+            },
+            {
+              "char": "有",
+              "pinyin": "you3",
+              "french": "avoir",
+              "english": "to have"
+            },
+            {
+              "char": "哥",
+              "pinyin": "ge1",
+              "french": "grand frère",
+              "english": "big brother"
+            },
+            {
+              "char": "哥",
+              "pinyin": "ge1",
+              "french": "grand frère",
+              "english": "big brother"
+            },
+            {
+              "char": "和",
+              "pinyin": "he2",
+              "french": "et, avec",
+              "english": "and, with "
+            },
+            {
+              "char": "姐",
+              "pinyin": "jie3",
+              "french": "grande soeur",
+              "english": "big sister "
+            },
+            {
+              "char": "姐",
+              "pinyin": "jie3",
+              "french": "grande soeur",
+              "english": "big sister "
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "妈妈的妈妈是外婆，",
+          "characters": [
+            {
+              "char": "妈",
+              "pinyin": "ma1",
+              "french": "maman",
+              "english": "mother"
+            },
+            {
+              "char": "妈",
+              "pinyin": "ma1",
+              "french": "maman",
+              "english": "mother"
+            },
+            {
+              "char": "的",
+              "pinyin": "de5",
+              "french": "particule possessive",
+              "english": "possessive particle"
+            },
+            {
+              "char": "妈",
+              "pinyin": "ma1",
+              "french": "maman",
+              "english": "mother"
+            },
+            {
+              "char": "妈",
+              "pinyin": "ma1",
+              "french": "maman",
+              "english": "mother"
+            },
+            {
+              "char": "是",
+              "pinyin": "shi4",
+              "french": "être",
+              "english": "to be"
+            },
+            {
+              "char": "外",
+              "pinyin": "wai4",
+              "french": "extérieur",
+              "english": "outside"
+            },
+            {
+              "char": "婆",
+              "pinyin": "po2",
+              "french": "grand-mère",
+              "english": "grandmother"
+            },
+            {
+              "char": "，",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "妈妈的爸爸是外公。",
+          "characters": [
+            {
+              "char": "妈",
+              "pinyin": "ma1",
+              "french": "maman",
+              "english": "mother"
+            },
+            {
+              "char": "妈",
+              "pinyin": "ma1",
+              "french": "maman",
+              "english": "mother"
+            },
+            {
+              "char": "的",
+              "pinyin": "de5",
+              "french": "particule possessive",
+              "english": "possessive particle"
+            },
+            {
+              "char": "爸",
+              "pinyin": "ba4",
+              "french": "papa",
+              "english": "father"
+            },
+            {
+              "char": "爸",
+              "pinyin": "ba4",
+              "french": "papa",
+              "english": "father"
+            },
+            {
+              "char": "是",
+              "pinyin": "shi4",
+              "french": "être",
+              "english": "to be"
+            },
+            {
+              "char": "外",
+              "pinyin": "wai4",
+              "french": "extérieur",
+              "english": "outside"
+            },
+            {
+              "char": "公",
+              "pinyin": "gong1",
+              "french": "grand-père",
+              "english": "grandfather"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "爸爸的妈妈是奶奶，",
+          "characters": [
+            {
+              "char": "爸",
+              "pinyin": "ba4",
+              "french": "papa",
+              "english": "father"
+            },
+            {
+              "char": "爸",
+              "pinyin": "ba4",
+              "french": "papa",
+              "english": "father"
+            },
+            {
+              "char": "的",
+              "pinyin": "de5",
+              "french": "particule possessive",
+              "english": "possessive particle"
+            },
+            {
+              "char": "妈",
+              "pinyin": "ma1",
+              "french": "maman",
+              "english": "mother"
+            },
+            {
+              "char": "妈",
+              "pinyin": "ma1",
+              "french": "maman",
+              "english": "mother"
+            },
+            {
+              "char": "是",
+              "pinyin": "shi4",
+              "french": "être",
+              "english": "to be"
+            },
+            {
+              "char": "奶",
+              "pinyin": "nai3",
+              "french": "grand-mère",
+              "english": "grandmother"
+            },
+            {
+              "char": "奶",
+              "pinyin": "nai3",
+              "french": "grand-mère",
+              "english": "grandmother"
+            },
+            {
+              "char": "，",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "爸爸的爸爸是爷爷。",
+          "characters": [
+            {
+              "char": "爸",
+              "pinyin": "ba4",
+              "french": "papa",
+              "english": "father"
+            },
+            {
+              "char": "爸",
+              "pinyin": "ba4",
+              "french": "papa",
+              "english": "father"
+            },
+            {
+              "char": "的",
+              "pinyin": "de5",
+              "french": "particule possessive",
+              "english": "possessive particle"
+            },
+            {
+              "char": "爸",
+              "pinyin": "ba4",
+              "french": "papa",
+              "english": "father"
+            },
+            {
+              "char": "爸",
+              "pinyin": "ba4",
+              "french": "papa",
+              "english": "father"
+            },
+            {
+              "char": "是",
+              "pinyin": "shi4",
+              "french": "être",
+              "english": "to be"
+            },
+            {
+              "char": "爷",
+              "pinyin": "ye2",
+              "french": "grand-père",
+              "english": "grandfather"
+            },
+            {
+              "char": "爷",
+              "pinyin": "ye2",
+              "french": "grand-père",
+              "english": "grandfather"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        }
+      ],
+      "uniqueCharactersInLesson": [
+        {
+          "char": "我",
+          "pinyin": "wo3",
+          "french": "je; moi",
+          "english": "I"
+        },
+        {
+          "char": "家",
+          "pinyin": "jia1",
+          "french": "maison; famille",
+          "english": "home"
+        },
+        {
+          "char": "有",
+          "pinyin": "you3",
+          "french": "avoir",
+          "english": "to have"
+        },
+        {
+          "char": "弟",
+          "pinyin": "di4",
+          "french": "petit frère",
+          "english": "little brother"
+        },
+        {
+          "char": "妈",
+          "pinyin": "ma1",
+          "french": "maman",
+          "english": "mother"
+        },
+        {
+          "char": "和",
+          "pinyin": "he2",
+          "french": "et, avec",
+          "english": "and, with "
+        },
+        {
+          "char": "爸",
+          "pinyin": "ba4",
+          "french": "papa",
+          "english": "father"
+        },
+        {
+          "char": "你",
+          "pinyin": "ni3",
+          "french": "tu; toi",
+          "english": "you"
+        },
+        {
+          "char": "哥",
+          "pinyin": "ge1",
+          "french": "grand frère",
+          "english": "big brother"
+        },
+        {
+          "char": "姐",
+          "pinyin": "jie3",
+          "french": "grande soeur",
+          "english": "big sister "
+        },
+        {
+          "char": "的",
+          "pinyin": "de5",
+          "french": "particule possessive",
+          "english": "possessive particle"
+        },
+        {
+          "char": "是",
+          "pinyin": "shi4",
+          "french": "être",
+          "english": "to be"
+        },
+        {
+          "char": "外",
+          "pinyin": "wai4",
+          "french": "extérieur",
+          "english": "outside"
+        },
+        {
+          "char": "婆",
+          "pinyin": "po2",
+          "french": "grand-mère",
+          "english": "grandmother"
+        },
+        {
+          "char": "公",
+          "pinyin": "gong1",
+          "french": "grand-père",
+          "english": "grandfather"
+        },
+        {
+          "char": "奶",
+          "pinyin": "nai3",
+          "french": "grand-mère",
+          "english": "grandmother"
+        },
+        {
+          "char": "爷",
+          "pinyin": "ye2",
+          "french": "grand-père",
+          "english": "grandfather"
+        }
+      ],
+      "vocabularyWords": []
+    },
+    {
+      "id": "lesson-age",
+      "title": "Leçon 7 - Quel âge as-tu ?",
+      "order": 9,
+      "sourceTextAnnotated": [
+        {
+          "text": "老师：你有哥哥吗？",
+          "characters": [
+            {
+              "char": "老",
+              "pinyin": "lao3",
+              "french": "vieux",
+              "english": "old"
+            },
+            {
+              "char": "师",
+              "pinyin": "shi1",
+              "french": "professeur",
+              "english": "professor"
+            },
+            {
+              "char": "：",
+              "punctuation": true
+            },
+            {
+              "char": "你",
+              "pinyin": "ni3",
+              "french": "tu; toi",
+              "english": "you"
+            },
+            {
+              "char": "有",
+              "pinyin": "you3",
+              "french": "avoir",
+              "english": "to have"
+            },
+            {
+              "char": "哥",
+              "pinyin": "ge1",
+              "french": "grand frère",
+              "english": "big brother"
+            },
+            {
+              "char": "哥",
+              "pinyin": "ge1",
+              "french": "grand frère",
+              "english": "big brother"
+            },
+            {
+              "char": "吗",
+              "pinyin": "ma5",
+              "french": "particule interrogative",
+              "english": "question particle"
+            },
+            {
+              "char": "？",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "王和：有。我有一个哥哥。",
+          "characters": [
+            {
+              "char": "王",
+              "pinyin": "wang2",
+              "french": "roi",
+              "english": "king"
+            },
+            {
+              "char": "和",
+              "pinyin": "he2",
+              "french": "et, avec",
+              "english": "and, with "
+            },
+            {
+              "char": "：",
+              "punctuation": true
+            },
+            {
+              "char": "有",
+              "pinyin": "you3",
+              "french": "avoir",
+              "english": "to have"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            },
+            {
+              "char": "我",
+              "pinyin": "wo3",
+              "french": "je; moi",
+              "english": "I"
+            },
+            {
+              "char": "有",
+              "pinyin": "you3",
+              "french": "avoir",
+              "english": "to have"
+            },
+            {
+              "char": "一",
+              "pinyin": "yi1",
+              "french": "un",
+              "english": "one"
+            },
+            {
+              "char": "个",
+              "pinyin": "ge4",
+              "french": "classificateur",
+              "english": "measure word"
+            },
+            {
+              "char": "哥",
+              "pinyin": "ge1",
+              "french": "grand frère",
+              "english": "big brother"
+            },
+            {
+              "char": "哥",
+              "pinyin": "ge1",
+              "french": "grand frère",
+              "english": "big brother"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "老师：他几岁？",
+          "characters": [
+            {
+              "char": "老",
+              "pinyin": "lao3",
+              "french": "vieux",
+              "english": "old"
+            },
+            {
+              "char": "师",
+              "pinyin": "shi1",
+              "french": "professeur",
+              "english": "professor"
+            },
+            {
+              "char": "：",
+              "punctuation": true
+            },
+            {
+              "char": "他",
+              "pinyin": "ta1",
+              "french": "il",
+              "english": "he"
+            },
+            {
+              "char": "几",
+              "pinyin": "ji3",
+              "french": "combien",
+              "english": "how many"
+            },
+            {
+              "char": "岁",
+              "pinyin": "sui4",
+              "french": "ans",
+              "english": "years old"
+            },
+            {
+              "char": "？",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "王和：八岁。",
+          "characters": [
+            {
+              "char": "王",
+              "pinyin": "wang2",
+              "french": "roi",
+              "english": "king"
+            },
+            {
+              "char": "和",
+              "pinyin": "he2",
+              "french": "et, avec",
+              "english": "and, with "
+            },
+            {
+              "char": "：",
+              "punctuation": true
+            },
+            {
+              "char": "八",
+              "pinyin": "ba1",
+              "french": "huit",
+              "english": "eight"
+            },
+            {
+              "char": "岁",
+              "pinyin": "sui4",
+              "french": "ans",
+              "english": "years old"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "老师：你有弟弟吗？",
+          "characters": [
+            {
+              "char": "老",
+              "pinyin": "lao3",
+              "french": "vieux",
+              "english": "old"
+            },
+            {
+              "char": "师",
+              "pinyin": "shi1",
+              "french": "professeur",
+              "english": "professor"
+            },
+            {
+              "char": "：",
+              "punctuation": true
+            },
+            {
+              "char": "你",
+              "pinyin": "ni3",
+              "french": "tu; toi",
+              "english": "you"
+            },
+            {
+              "char": "有",
+              "pinyin": "you3",
+              "french": "avoir",
+              "english": "to have"
+            },
+            {
+              "char": "弟",
+              "pinyin": "di4",
+              "french": "petit frère",
+              "english": "little brother"
+            },
+            {
+              "char": "弟",
+              "pinyin": "di4",
+              "french": "petit frère",
+              "english": "little brother"
+            },
+            {
+              "char": "吗",
+              "pinyin": "ma5",
+              "french": "particule interrogative",
+              "english": "question particle"
+            },
+            {
+              "char": "？",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "王和：没有。",
+          "characters": [
+            {
+              "char": "王",
+              "pinyin": "wang2",
+              "french": "roi",
+              "english": "king"
+            },
+            {
+              "char": "和",
+              "pinyin": "he2",
+              "french": "et, avec",
+              "english": "and, with "
+            },
+            {
+              "char": "：",
+              "punctuation": true
+            },
+            {
+              "char": "没",
+              "pinyin": "mei2",
+              "french": "il n'y a pas",
+              "english": "not have"
+            },
+            {
+              "char": "有",
+              "pinyin": "you3",
+              "french": "avoir",
+              "english": "to have"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "老师：你几岁？",
+          "characters": [
+            {
+              "char": "老",
+              "pinyin": "lao3",
+              "french": "vieux",
+              "english": "old"
+            },
+            {
+              "char": "师",
+              "pinyin": "shi1",
+              "french": "professeur",
+              "english": "professor"
+            },
+            {
+              "char": "：",
+              "punctuation": true
+            },
+            {
+              "char": "你",
+              "pinyin": "ni3",
+              "french": "tu; toi",
+              "english": "you"
+            },
+            {
+              "char": "几",
+              "pinyin": "ji3",
+              "french": "combien",
+              "english": "how many"
+            },
+            {
+              "char": "岁",
+              "pinyin": "sui4",
+              "french": "ans",
+              "english": "years old"
+            },
+            {
+              "char": "？",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "王和：四岁。",
+          "characters": [
+            {
+              "char": "王",
+              "pinyin": "wang2",
+              "french": "roi",
+              "english": "king"
+            },
+            {
+              "char": "和",
+              "pinyin": "he2",
+              "french": "et, avec",
+              "english": "and, with "
+            },
+            {
+              "char": "：",
+              "punctuation": true
+            },
+            {
+              "char": "四",
+              "pinyin": "si4",
+              "french": "quatre",
+              "english": "four"
+            },
+            {
+              "char": "岁",
+              "pinyin": "sui4",
+              "french": "ans",
+              "english": "years old"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        }
+      ],
+      "uniqueCharactersInLesson": [
+        {
+          "char": "老",
+          "pinyin": "lao3",
+          "french": "vieux",
+          "english": "old"
+        },
+        {
+          "char": "师",
+          "pinyin": "shi1",
+          "french": "professeur",
+          "english": "professor"
+        },
+        {
+          "char": "你",
+          "pinyin": "ni3",
+          "french": "tu; toi",
+          "english": "you"
+        },
+        {
+          "char": "有",
+          "pinyin": "you3",
+          "french": "avoir",
+          "english": "to have"
+        },
+        {
+          "char": "哥",
+          "pinyin": "ge1",
+          "french": "grand frère",
+          "english": "big brother"
+        },
+        {
+          "char": "吗",
+          "pinyin": "ma5",
+          "french": "particule interrogative",
+          "english": "question particle"
+        },
+        {
+          "char": "王",
+          "pinyin": "wang2",
+          "french": "roi",
+          "english": "king"
+        },
+        {
+          "char": "和",
+          "pinyin": "he2",
+          "french": "et, avec",
+          "english": "and, with "
+        },
+        {
+          "char": "我",
+          "pinyin": "wo3",
+          "french": "je; moi",
+          "english": "I"
+        },
+        {
+          "char": "一",
+          "pinyin": "yi1",
+          "french": "un",
+          "english": "one"
+        },
+        {
+          "char": "个",
+          "pinyin": "ge4",
+          "french": "classificateur",
+          "english": "measure word"
+        },
+        {
+          "char": "他",
+          "pinyin": "ta1",
+          "french": "il",
+          "english": "he"
+        },
+        {
+          "char": "几",
+          "pinyin": "ji3",
+          "french": "combien",
+          "english": "how many"
+        },
+        {
+          "char": "岁",
+          "pinyin": "sui4",
+          "french": "ans",
+          "english": "years old"
+        },
+        {
+          "char": "八",
+          "pinyin": "ba1",
+          "french": "huit",
+          "english": "eight"
+        },
+        {
+          "char": "弟",
+          "pinyin": "di4",
+          "french": "petit frère",
+          "english": "little brother"
+        },
+        {
+          "char": "没",
+          "pinyin": "mei2",
+          "french": "il n'y a pas",
+          "english": "not have"
+        },
+        {
+          "char": "四",
+          "pinyin": "si4",
+          "french": "quatre",
+          "english": "four"
+        }
+      ],
+      "vocabularyWords": []
+    },
+    {
+      "id": "lesson-1779277447371-sy2c",
+      "title": "Leçon 8 - Les couleurs",
+      "order": 10,
+      "sourceTextAnnotated": [
+        {
+          "text": "关文文：你喜欢什么颜色？",
+          "characters": [
+            {
+              "char": "关",
+              "pinyin": "guan1",
+              "french": "fermer",
+              "english": "to close"
+            },
+            {
+              "char": "文",
+              "pinyin": "wen2",
+              "french": "écrit, culture",
+              "english": "writing, culture"
+            },
+            {
+              "char": "文",
+              "pinyin": "wen2",
+              "french": "écrit, culture",
+              "english": "writing, culture"
+            },
+            {
+              "char": "：",
+              "punctuation": true
+            },
+            {
+              "char": "你",
+              "pinyin": "ni3",
+              "french": "tu; toi",
+              "english": "you"
+            },
+            {
+              "char": "喜",
+              "pinyin": "xi3",
+              "french": "aimer, bonheur",
+              "english": "to like, joy"
+            },
+            {
+              "char": "欢",
+              "pinyin": "huan1",
+              "french": "joie, aimer",
+              "english": "joy, to like"
+            },
+            {
+              "char": "什",
+              "pinyin": "shen2",
+              "french": "quoi",
+              "english": "what"
+            },
+            {
+              "char": "么",
+              "pinyin": "me5",
+              "french": "quoi",
+              "english": "what"
+            },
+            {
+              "char": "颜",
+              "pinyin": "yan2",
+              "french": "couleur, visage",
+              "english": "color, face"
+            },
+            {
+              "char": "色",
+              "pinyin": "se4",
+              "french": "couleur",
+              "english": "color"
+            },
+            {
+              "char": "？",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "王天一：我喜欢红色、黄色和蓝色。",
+          "characters": [
+            {
+              "char": "王",
+              "pinyin": "wang2",
+              "french": "roi",
+              "english": "king"
+            },
+            {
+              "char": "天",
+              "pinyin": "tian1",
+              "french": "ciel",
+              "english": "sky"
+            },
+            {
+              "char": "一",
+              "pinyin": "yi1",
+              "french": "un",
+              "english": "one"
+            },
+            {
+              "char": "：",
+              "punctuation": true
+            },
+            {
+              "char": "我",
+              "pinyin": "wo3",
+              "french": "je; moi",
+              "english": "I"
+            },
+            {
+              "char": "喜",
+              "pinyin": "xi3",
+              "french": "aimer, bonheur",
+              "english": "to like, joy"
+            },
+            {
+              "char": "欢",
+              "pinyin": "huan1",
+              "french": "joie, aimer",
+              "english": "joy, to like"
+            },
+            {
+              "char": "红",
+              "pinyin": "hong2",
+              "french": "rouge",
+              "english": "red"
+            },
+            {
+              "char": "色",
+              "pinyin": "se4",
+              "french": "couleur",
+              "english": "color"
+            },
+            {
+              "char": "、",
+              "punctuation": true
+            },
+            {
+              "char": "黄",
+              "pinyin": "huang2",
+              "french": "jaune",
+              "english": "yellow"
+            },
+            {
+              "char": "色",
+              "pinyin": "se4",
+              "french": "couleur",
+              "english": "color"
+            },
+            {
+              "char": "和",
+              "pinyin": "he2",
+              "french": "et, avec",
+              "english": "and, with "
+            },
+            {
+              "char": "蓝",
+              "pinyin": "lan2",
+              "french": "bleu",
+              "english": "blue"
+            },
+            {
+              "char": "色",
+              "pinyin": "se4",
+              "french": "couleur",
+              "english": "color"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "关文文：我喜欢白色和黑色。",
+          "characters": [
+            {
+              "char": "关",
+              "pinyin": "guan1",
+              "french": "fermer",
+              "english": "to close"
+            },
+            {
+              "char": "文",
+              "pinyin": "wen2",
+              "french": "écrit, culture",
+              "english": "writing, culture"
+            },
+            {
+              "char": "文",
+              "pinyin": "wen2",
+              "french": "écrit, culture",
+              "english": "writing, culture"
+            },
+            {
+              "char": "：",
+              "punctuation": true
+            },
+            {
+              "char": "我",
+              "pinyin": "wo3",
+              "french": "je; moi",
+              "english": "I"
+            },
+            {
+              "char": "喜",
+              "pinyin": "xi3",
+              "french": "aimer, bonheur",
+              "english": "to like, joy"
+            },
+            {
+              "char": "欢",
+              "pinyin": "huan1",
+              "french": "joie, aimer",
+              "english": "joy, to like"
+            },
+            {
+              "char": "白",
+              "pinyin": "bai2",
+              "french": "blanc",
+              "english": "white"
+            },
+            {
+              "char": "色",
+              "pinyin": "se4",
+              "french": "couleur",
+              "english": "color"
+            },
+            {
+              "char": "和",
+              "pinyin": "he2",
+              "french": "et, avec",
+              "english": "and, with "
+            },
+            {
+              "char": "黑",
+              "pinyin": "hei1",
+              "french": "noir",
+              "english": "black"
+            },
+            {
+              "char": "色",
+              "pinyin": "se4",
+              "french": "couleur",
+              "english": "color"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        }
+      ],
+      "uniqueCharactersInLesson": [
+        {
+          "char": "关",
+          "pinyin": "guan1",
+          "french": "fermer",
+          "english": "to close"
+        },
+        {
+          "char": "文",
+          "pinyin": "wen2",
+          "french": "écrit, culture",
+          "english": "writing, culture"
+        },
+        {
+          "char": "你",
+          "pinyin": "ni3",
+          "french": "tu; toi",
+          "english": "you"
+        },
+        {
+          "char": "喜",
+          "pinyin": "xi3",
+          "french": "aimer, bonheur",
+          "english": "to like, joy"
+        },
+        {
+          "char": "欢",
+          "pinyin": "huan1",
+          "french": "joie, aimer",
+          "english": "joy, to like"
+        },
+        {
+          "char": "什",
+          "pinyin": "shen2",
+          "french": "quoi",
+          "english": "what"
+        },
+        {
+          "char": "么",
+          "pinyin": "me5",
+          "french": "quoi",
+          "english": "what"
+        },
+        {
+          "char": "颜",
+          "pinyin": "yan2",
+          "french": "couleur, visage",
+          "english": "color, face"
+        },
+        {
+          "char": "色",
+          "pinyin": "se4",
+          "french": "couleur",
+          "english": "color"
+        },
+        {
+          "char": "王",
+          "pinyin": "wang2",
+          "french": "roi",
+          "english": "king"
+        },
+        {
+          "char": "天",
+          "pinyin": "tian1",
+          "french": "ciel",
+          "english": "sky"
+        },
+        {
+          "char": "一",
+          "pinyin": "yi1",
+          "french": "un",
+          "english": "one"
+        },
+        {
+          "char": "我",
+          "pinyin": "wo3",
+          "french": "je; moi",
+          "english": "I"
+        },
+        {
+          "char": "红",
+          "pinyin": "hong2",
+          "french": "rouge",
+          "english": "red"
+        },
+        {
+          "char": "黄",
+          "pinyin": "huang2",
+          "french": "jaune",
+          "english": "yellow"
+        },
+        {
+          "char": "和",
+          "pinyin": "he2",
+          "french": "et, avec",
+          "english": "and, with "
+        },
+        {
+          "char": "蓝",
+          "pinyin": "lan2",
+          "french": "bleu",
+          "english": "blue"
+        },
+        {
+          "char": "白",
+          "pinyin": "bai2",
+          "french": "blanc",
+          "english": "white"
+        },
+        {
+          "char": "黑",
+          "pinyin": "hei1",
+          "french": "noir",
+          "english": "black"
+        }
+      ],
+      "vocabularyWords": []
+    },
+    {
+      "id": "lesson-1781103536063-8bis",
+      "title": "Leçon 8 bis - Plus de couleurs",
+      "order": 11,
+      "sourceTextAnnotated": [
+        {
+          "text": "气球，气球，什么颜色？",
+          "characters": [
+            {
+              "char": "气",
+              "pinyin": "qi4",
+              "french": "air",
+              "english": "air"
+            },
+            {
+              "char": "球",
+              "pinyin": "qiu2",
+              "french": "ballon, balle",
+              "english": "ball"
+            },
+            {
+              "char": "，",
+              "punctuation": true
+            },
+            {
+              "char": "气",
+              "pinyin": "qi4",
+              "french": "air",
+              "english": "air"
+            },
+            {
+              "char": "球",
+              "pinyin": "qiu2",
+              "french": "ballon, balle",
+              "english": "ball"
+            },
+            {
+              "char": "，",
+              "punctuation": true
+            },
+            {
+              "char": "什",
+              "pinyin": "shen2",
+              "french": "quoi",
+              "english": "what"
+            },
+            {
+              "char": "么",
+              "pinyin": "me5",
+              "french": "quoi",
+              "english": "what"
+            },
+            {
+              "char": "颜",
+              "pinyin": "yan2",
+              "french": "couleur, visage",
+              "english": "color, face"
+            },
+            {
+              "char": "色",
+              "pinyin": "se4",
+              "french": "couleur",
+              "english": "color"
+            },
+            {
+              "char": "？",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "红色、黄色、蓝色、白色。",
+          "characters": [
+            {
+              "char": "红",
+              "pinyin": "hong2",
+              "french": "rouge",
+              "english": "red"
+            },
+            {
+              "char": "色",
+              "pinyin": "se4",
+              "french": "couleur",
+              "english": "color"
+            },
+            {
+              "char": "、",
+              "punctuation": true
+            },
+            {
+              "char": "黄",
+              "pinyin": "huang2",
+              "french": "jaune",
+              "english": "yellow"
+            },
+            {
+              "char": "色",
+              "pinyin": "se4",
+              "french": "couleur",
+              "english": "color"
+            },
+            {
+              "char": "、",
+              "punctuation": true
+            },
+            {
+              "char": "蓝",
+              "pinyin": "lan2",
+              "french": "bleu",
+              "english": "blue"
+            },
+            {
+              "char": "色",
+              "pinyin": "se4",
+              "french": "couleur",
+              "english": "color"
+            },
+            {
+              "char": "、",
+              "punctuation": true
+            },
+            {
+              "char": "白",
+              "pinyin": "bai2",
+              "french": "blanc",
+              "english": "white"
+            },
+            {
+              "char": "色",
+              "pinyin": "se4",
+              "french": "couleur",
+              "english": "color"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "气球，气球，什么颜色？",
+          "characters": [
+            {
+              "char": "气",
+              "pinyin": "qi4",
+              "french": "air",
+              "english": "air"
+            },
+            {
+              "char": "球",
+              "pinyin": "qiu2",
+              "french": "ballon, balle",
+              "english": "ball"
+            },
+            {
+              "char": "，",
+              "punctuation": true
+            },
+            {
+              "char": "气",
+              "pinyin": "qi4",
+              "french": "air",
+              "english": "air"
+            },
+            {
+              "char": "球",
+              "pinyin": "qiu2",
+              "french": "ballon, balle",
+              "english": "ball"
+            },
+            {
+              "char": "，",
+              "punctuation": true
+            },
+            {
+              "char": "什",
+              "pinyin": "shen2",
+              "french": "quoi",
+              "english": "what"
+            },
+            {
+              "char": "么",
+              "pinyin": "me5",
+              "french": "quoi",
+              "english": "what"
+            },
+            {
+              "char": "颜",
+              "pinyin": "yan2",
+              "french": "couleur, visage",
+              "english": "color, face"
+            },
+            {
+              "char": "色",
+              "pinyin": "se4",
+              "french": "couleur",
+              "english": "color"
+            },
+            {
+              "char": "？",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "红色、黄色、蓝色、白色。",
+          "characters": [
+            {
+              "char": "红",
+              "pinyin": "hong2",
+              "french": "rouge",
+              "english": "red"
+            },
+            {
+              "char": "色",
+              "pinyin": "se4",
+              "french": "couleur",
+              "english": "color"
+            },
+            {
+              "char": "、",
+              "punctuation": true
+            },
+            {
+              "char": "黄",
+              "pinyin": "huang2",
+              "french": "jaune",
+              "english": "yellow"
+            },
+            {
+              "char": "色",
+              "pinyin": "se4",
+              "french": "couleur",
+              "english": "color"
+            },
+            {
+              "char": "、",
+              "punctuation": true
+            },
+            {
+              "char": "蓝",
+              "pinyin": "lan2",
+              "french": "bleu",
+              "english": "blue"
+            },
+            {
+              "char": "色",
+              "pinyin": "se4",
+              "french": "couleur",
+              "english": "color"
+            },
+            {
+              "char": "、",
+              "punctuation": true
+            },
+            {
+              "char": "白",
+              "pinyin": "bai2",
+              "french": "blanc",
+              "english": "white"
+            },
+            {
+              "char": "色",
+              "pinyin": "se4",
+              "french": "couleur",
+              "english": "color"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "橙、紫、粉红色。",
+          "characters": [
+            {
+              "char": "橙",
+              "pinyin": "cheng2",
+              "french": "orange",
+              "english": "orange"
+            },
+            {
+              "char": "、",
+              "punctuation": true
+            },
+            {
+              "char": "紫",
+              "pinyin": "zi3",
+              "french": "violet",
+              "english": "purple"
+            },
+            {
+              "char": "、",
+              "punctuation": true
+            },
+            {
+              "char": "粉",
+              "pinyin": "fen3",
+              "french": "rose",
+              "english": "pink"
+            },
+            {
+              "char": "红",
+              "pinyin": "hong2",
+              "french": "rouge",
+              "english": "red"
+            },
+            {
+              "char": "色",
+              "pinyin": "se4",
+              "french": "couleur",
+              "english": "color"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "绿、灰、棕色。",
+          "characters": [
+            {
+              "char": "绿",
+              "pinyin": "lv4",
+              "french": "vert",
+              "english": "green"
+            },
+            {
+              "char": "、",
+              "punctuation": true
+            },
+            {
+              "char": "灰",
+              "pinyin": "hui1",
+              "french": "gris",
+              "english": "gray"
+            },
+            {
+              "char": "、",
+              "punctuation": true
+            },
+            {
+              "char": "棕",
+              "pinyin": "zong1",
+              "french": "brun, marron",
+              "english": "brown"
+            },
+            {
+              "char": "色",
+              "pinyin": "se4",
+              "french": "couleur",
+              "english": "color"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        }
+      ],
+      "uniqueCharactersInLesson": [
+        {
+          "char": "气",
+          "pinyin": "qi4",
+          "french": "air",
+          "english": "air"
+        },
+        {
+          "char": "球",
+          "pinyin": "qiu2",
+          "french": "ballon, balle",
+          "english": "ball"
+        },
+        {
+          "char": "什",
+          "pinyin": "shen2",
+          "french": "quoi",
+          "english": "what"
+        },
+        {
+          "char": "么",
+          "pinyin": "me5",
+          "french": "quoi",
+          "english": "what"
+        },
+        {
+          "char": "颜",
+          "pinyin": "yan2",
+          "french": "couleur, visage",
+          "english": "color, face"
+        },
+        {
+          "char": "色",
+          "pinyin": "se4",
+          "french": "couleur",
+          "english": "color"
+        },
+        {
+          "char": "红",
+          "pinyin": "hong2",
+          "french": "rouge",
+          "english": "red"
+        },
+        {
+          "char": "黄",
+          "pinyin": "huang2",
+          "french": "jaune",
+          "english": "yellow"
+        },
+        {
+          "char": "蓝",
+          "pinyin": "lan2",
+          "french": "bleu",
+          "english": "blue"
+        },
+        {
+          "char": "白",
+          "pinyin": "bai2",
+          "french": "blanc",
+          "english": "white"
+        },
+        {
+          "char": "橙",
+          "pinyin": "cheng2",
+          "french": "orange",
+          "english": "orange"
+        },
+        {
+          "char": "紫",
+          "pinyin": "zi3",
+          "french": "violet",
+          "english": "purple"
+        },
+        {
+          "char": "粉",
+          "pinyin": "fen3",
+          "french": "rose",
+          "english": "pink"
+        },
+        {
+          "char": "绿",
+          "pinyin": "lv4",
+          "french": "vert",
+          "english": "green"
+        },
+        {
+          "char": "灰",
+          "pinyin": "hui1",
+          "french": "gris",
+          "english": "gray"
+        },
+        {
+          "char": "棕",
+          "pinyin": "zong1",
+          "french": "brun, marron",
+          "english": "brown"
+        }
+      ],
+      "vocabularyWords": []
+    },
+    {
+      "id": "lesson-1781083583182-unif",
+      "title": "Leçon 9 - L'uniforme scolaire",
+      "order": 12,
+      "sourceTextAnnotated": [
+        {
+          "text": "这是我们学校的校服。",
+          "characters": [
+            {
+              "char": "这",
+              "pinyin": "zhe4",
+              "french": "ce; ceci",
+              "english": "this"
+            },
+            {
+              "char": "是",
+              "pinyin": "shi4",
+              "french": "être",
+              "english": "to be"
+            },
+            {
+              "char": "我",
+              "pinyin": "wo3",
+              "french": "je; moi",
+              "english": "I"
+            },
+            {
+              "char": "们",
+              "pinyin": "men0",
+              "french": "pronom pluriel",
+              "english": "pronoum plural "
+            },
+            {
+              "char": "学",
+              "pinyin": "xue2",
+              "french": "apprendre",
+              "english": "learn"
+            },
+            {
+              "char": "校",
+              "pinyin": "xiao4",
+              "french": "école",
+              "english": "school"
+            },
+            {
+              "char": "的",
+              "pinyin": "de5",
+              "french": "particule possessive",
+              "english": "possessive particle"
+            },
+            {
+              "char": "校",
+              "pinyin": "xiao4",
+              "french": "école",
+              "english": "school"
+            },
+            {
+              "char": "服",
+              "pinyin": "fu2",
+              "french": "vêtement; uniforme",
+              "english": "clothing; uniform"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "女生穿白色的衬衫和蓝色的裙子。",
+          "characters": [
+            {
+              "char": "女",
+              "pinyin": "nv3",
+              "french": "fille; femme",
+              "english": "girl; woman; female"
+            },
+            {
+              "char": "生",
+              "pinyin": "sheng1",
+              "french": "élève; vivre",
+              "english": "student; life"
+            },
+            {
+              "char": "穿",
+              "pinyin": "chuan1",
+              "french": "porter (vêtement)",
+              "english": "to wear"
+            },
+            {
+              "char": "白",
+              "pinyin": "bai2",
+              "french": "blanc",
+              "english": "white"
+            },
+            {
+              "char": "色",
+              "pinyin": "se4",
+              "french": "couleur",
+              "english": "color"
+            },
+            {
+              "char": "的",
+              "pinyin": "de5",
+              "french": "particule possessive",
+              "english": "possessive particle"
+            },
+            {
+              "char": "衬",
+              "pinyin": "chen4",
+              "french": "chemise (composant)",
+              "english": "shirt (component)"
+            },
+            {
+              "char": "衫",
+              "pinyin": "shan1",
+              "french": "chemise; haut",
+              "english": "shirt; top"
+            },
+            {
+              "char": "和",
+              "pinyin": "he2",
+              "french": "et, avec",
+              "english": "and, with "
+            },
+            {
+              "char": "蓝",
+              "pinyin": "lan2",
+              "french": "bleu",
+              "english": "blue"
+            },
+            {
+              "char": "色",
+              "pinyin": "se4",
+              "french": "couleur",
+              "english": "color"
+            },
+            {
+              "char": "的",
+              "pinyin": "de5",
+              "french": "particule possessive",
+              "english": "possessive particle"
+            },
+            {
+              "char": "裙",
+              "pinyin": "qun2",
+              "french": "jupe",
+              "english": "skirt"
+            },
+            {
+              "char": "子",
+              "pinyin": "zi5",
+              "french": "enfant; suffixe",
+              "english": "child; suffix"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "男生白衬衫和蓝裤子。",
+          "characters": [
+            {
+              "char": "男",
+              "pinyin": "nan2",
+              "french": "garçon; homme",
+              "english": "boy; man; male"
+            },
+            {
+              "char": "生",
+              "pinyin": "sheng1",
+              "french": "élève; vivre",
+              "english": "student; life"
+            },
+            {
+              "char": "白",
+              "pinyin": "bai2",
+              "french": "blanc",
+              "english": "white"
+            },
+            {
+              "char": "衬",
+              "pinyin": "chen4",
+              "french": "chemise (composant)",
+              "english": "shirt (component)"
+            },
+            {
+              "char": "衫",
+              "pinyin": "shan1",
+              "french": "chemise; haut",
+              "english": "shirt; top"
+            },
+            {
+              "char": "和",
+              "pinyin": "he2",
+              "french": "et, avec",
+              "english": "and, with "
+            },
+            {
+              "char": "蓝",
+              "pinyin": "lan2",
+              "french": "bleu",
+              "english": "blue"
+            },
+            {
+              "char": "裤",
+              "pinyin": "ku4",
+              "french": "pantalon",
+              "english": "trousers; pants"
+            },
+            {
+              "char": "子",
+              "pinyin": "zi5",
+              "french": "enfant; suffixe",
+              "english": "child; suffix"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        }
+      ],
+      "uniqueCharactersInLesson": [
+        {
+          "char": "这",
+          "pinyin": "zhe4",
+          "french": "ce; ceci",
+          "english": "this"
+        },
+        {
+          "char": "是",
+          "pinyin": "shi4",
+          "french": "être",
+          "english": "to be"
+        },
+        {
+          "char": "我",
+          "pinyin": "wo3",
+          "french": "je; moi",
+          "english": "I"
+        },
+        {
+          "char": "们",
+          "pinyin": "men0",
+          "french": "pronom pluriel",
+          "english": "pronoum plural "
+        },
+        {
+          "char": "学",
+          "pinyin": "xue2",
+          "french": "apprendre",
+          "english": "learn"
+        },
+        {
+          "char": "校",
+          "pinyin": "xiao4",
+          "french": "école",
+          "english": "school"
+        },
+        {
+          "char": "的",
+          "pinyin": "de5",
+          "french": "particule possessive",
+          "english": "possessive particle"
+        },
+        {
+          "char": "服",
+          "pinyin": "fu2",
+          "french": "vêtement; uniforme",
+          "english": "clothing; uniform"
+        },
+        {
+          "char": "女",
+          "pinyin": "nv3",
+          "french": "fille; femme",
+          "english": "girl; woman; female"
+        },
+        {
+          "char": "生",
+          "pinyin": "sheng1",
+          "french": "élève; vivre",
+          "english": "student; life"
+        },
+        {
+          "char": "穿",
+          "pinyin": "chuan1",
+          "french": "porter (vêtement)",
+          "english": "to wear"
+        },
+        {
+          "char": "白",
+          "pinyin": "bai2",
+          "french": "blanc",
+          "english": "white"
+        },
+        {
+          "char": "色",
+          "pinyin": "se4",
+          "french": "couleur",
+          "english": "color"
+        },
+        {
+          "char": "衬",
+          "pinyin": "chen4",
+          "french": "chemise (composant)",
+          "english": "shirt (component)"
+        },
+        {
+          "char": "衫",
+          "pinyin": "shan1",
+          "french": "chemise; haut",
+          "english": "shirt; top"
+        },
+        {
+          "char": "和",
+          "pinyin": "he2",
+          "french": "et, avec",
+          "english": "and, with "
+        },
+        {
+          "char": "蓝",
+          "pinyin": "lan2",
+          "french": "bleu",
+          "english": "blue"
+        },
+        {
+          "char": "裙",
+          "pinyin": "qun2",
+          "french": "jupe",
+          "english": "skirt"
+        },
+        {
+          "char": "子",
+          "pinyin": "zi5",
+          "french": "enfant; suffixe",
+          "english": "child; suffix"
+        },
+        {
+          "char": "男",
+          "pinyin": "nan2",
+          "french": "garçon; homme",
+          "english": "boy; man; male"
+        },
+        {
+          "char": "裤",
+          "pinyin": "ku4",
+          "french": "pantalon",
+          "english": "trousers; pants"
+        }
+      ],
+      "vocabularyWords": []
+    },
+    {
+      "id": "lesson-1781103536064-9bis",
+      "title": "Leçon 9 bis - L'uniforme scolaire encore",
+      "order": 13,
+      "sourceTextAnnotated": [
+        {
+          "text": "我们穿校服，我们穿校服，",
+          "characters": [
+            {
+              "char": "我",
+              "pinyin": "wo3",
+              "french": "je; moi",
+              "english": "I"
+            },
+            {
+              "char": "们",
+              "pinyin": "men0",
+              "french": "pronom pluriel",
+              "english": "pronoum plural "
+            },
+            {
+              "char": "穿",
+              "pinyin": "chuan1",
+              "french": "porter (vêtement)",
+              "english": "to wear"
+            },
+            {
+              "char": "校",
+              "pinyin": "xiao4",
+              "french": "école",
+              "english": "school"
+            },
+            {
+              "char": "服",
+              "pinyin": "fu2",
+              "french": "vêtement; uniforme",
+              "english": "clothing; uniform"
+            },
+            {
+              "char": "，",
+              "punctuation": true
+            },
+            {
+              "char": "我",
+              "pinyin": "wo3",
+              "french": "je; moi",
+              "english": "I"
+            },
+            {
+              "char": "们",
+              "pinyin": "men0",
+              "french": "pronom pluriel",
+              "english": "pronoum plural "
+            },
+            {
+              "char": "穿",
+              "pinyin": "chuan1",
+              "french": "porter (vêtement)",
+              "english": "to wear"
+            },
+            {
+              "char": "校",
+              "pinyin": "xiao4",
+              "french": "école",
+              "english": "school"
+            },
+            {
+              "char": "服",
+              "pinyin": "fu2",
+              "french": "vêtement; uniforme",
+              "english": "clothing; uniform"
+            },
+            {
+              "char": "，",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "男生、女生穿校服。",
+          "characters": [
+            {
+              "char": "男",
+              "pinyin": "nan2",
+              "french": "garçon; homme",
+              "english": "boy; man; male"
+            },
+            {
+              "char": "生",
+              "pinyin": "sheng1",
+              "french": "élève; vivre",
+              "english": "student; life"
+            },
+            {
+              "char": "、",
+              "punctuation": true
+            },
+            {
+              "char": "女",
+              "pinyin": "nv3",
+              "french": "fille; femme",
+              "english": "girl; woman; female"
+            },
+            {
+              "char": "生",
+              "pinyin": "sheng1",
+              "french": "élève; vivre",
+              "english": "student; life"
+            },
+            {
+              "char": "穿",
+              "pinyin": "chuan1",
+              "french": "porter (vêtement)",
+              "english": "to wear"
+            },
+            {
+              "char": "校",
+              "pinyin": "xiao4",
+              "french": "école",
+              "english": "school"
+            },
+            {
+              "char": "服",
+              "pinyin": "fu2",
+              "french": "vêtement; uniforme",
+              "english": "clothing; uniform"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "我们穿衬衫，我们穿裤子，",
+          "characters": [
+            {
+              "char": "我",
+              "pinyin": "wo3",
+              "french": "je; moi",
+              "english": "I"
+            },
+            {
+              "char": "们",
+              "pinyin": "men0",
+              "french": "pronom pluriel",
+              "english": "pronoum plural "
+            },
+            {
+              "char": "穿",
+              "pinyin": "chuan1",
+              "french": "porter (vêtement)",
+              "english": "to wear"
+            },
+            {
+              "char": "衬",
+              "pinyin": "chen4",
+              "french": "chemise (composant)",
+              "english": "shirt (component)"
+            },
+            {
+              "char": "衫",
+              "pinyin": "shan1",
+              "french": "chemise; haut",
+              "english": "shirt; top"
+            },
+            {
+              "char": "，",
+              "punctuation": true
+            },
+            {
+              "char": "我",
+              "pinyin": "wo3",
+              "french": "je; moi",
+              "english": "I"
+            },
+            {
+              "char": "们",
+              "pinyin": "men0",
+              "french": "pronom pluriel",
+              "english": "pronoum plural "
+            },
+            {
+              "char": "穿",
+              "pinyin": "chuan1",
+              "french": "porter (vêtement)",
+              "english": "to wear"
+            },
+            {
+              "char": "裤",
+              "pinyin": "ku4",
+              "french": "pantalon",
+              "english": "trousers; pants"
+            },
+            {
+              "char": "子",
+              "pinyin": "zi5",
+              "french": "enfant; suffixe",
+              "english": "child; suffix"
+            },
+            {
+              "char": "，",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "衬衫和裤子。",
+          "characters": [
+            {
+              "char": "衬",
+              "pinyin": "chen4",
+              "french": "chemise (composant)",
+              "english": "shirt (component)"
+            },
+            {
+              "char": "衫",
+              "pinyin": "shan1",
+              "french": "chemise; haut",
+              "english": "shirt; top"
+            },
+            {
+              "char": "和",
+              "pinyin": "he2",
+              "french": "et, avec",
+              "english": "and, with "
+            },
+            {
+              "char": "裤",
+              "pinyin": "ku4",
+              "french": "pantalon",
+              "english": "trousers; pants"
+            },
+            {
+              "char": "子",
+              "pinyin": "zi5",
+              "french": "enfant; suffixe",
+              "english": "child; suffix"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        }
+      ],
+      "uniqueCharactersInLesson": [
+        {
+          "char": "我",
+          "pinyin": "wo3",
+          "french": "je; moi",
+          "english": "I"
+        },
+        {
+          "char": "们",
+          "pinyin": "men0",
+          "french": "pronom pluriel",
+          "english": "pronoum plural "
+        },
+        {
+          "char": "穿",
+          "pinyin": "chuan1",
+          "french": "porter (vêtement)",
+          "english": "to wear"
+        },
+        {
+          "char": "校",
+          "pinyin": "xiao4",
+          "french": "école",
+          "english": "school"
+        },
+        {
+          "char": "服",
+          "pinyin": "fu2",
+          "french": "vêtement; uniforme",
+          "english": "clothing; uniform"
+        },
+        {
+          "char": "男",
+          "pinyin": "nan2",
+          "french": "garçon; homme",
+          "english": "boy; man; male"
+        },
+        {
+          "char": "生",
+          "pinyin": "sheng1",
+          "french": "élève; vivre",
+          "english": "student; life"
+        },
+        {
+          "char": "女",
+          "pinyin": "nv3",
+          "french": "fille; femme",
+          "english": "girl; woman; female"
+        },
+        {
+          "char": "衬",
+          "pinyin": "chen4",
+          "french": "chemise (composant)",
+          "english": "shirt (component)"
+        },
+        {
+          "char": "衫",
+          "pinyin": "shan1",
+          "french": "chemise; haut",
+          "english": "shirt; top"
+        },
+        {
+          "char": "裤",
+          "pinyin": "ku4",
+          "french": "pantalon",
+          "english": "trousers; pants"
+        },
+        {
+          "char": "子",
+          "pinyin": "zi5",
+          "french": "enfant; suffixe",
+          "english": "child; suffix"
+        },
+        {
+          "char": "和",
+          "pinyin": "he2",
+          "french": "et, avec",
+          "english": "and, with "
+        }
+      ],
+      "vocabularyWords": []
+    },
+    {
+      "id": "lesson-1",
+      "title": "Test 1 - Animaux de base",
+      "order": 99,
+      "sourceTextAnnotated": [
+        {
+          "text": "猫。",
+          "characters": [
+            {
+              "char": "猫",
+              "pinyin": "māo",
+              "french": "chat",
+              "english": "cat"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "狗。",
+          "characters": [
+            {
+              "char": "狗",
+              "pinyin": "gǒu",
+              "french": "chien",
+              "english": "dog"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        },
+        {
+          "text": "鸟。",
+          "characters": [
+            {
+              "char": "鸟",
+              "pinyin": "niǎo",
+              "french": "oiseau",
+              "english": "bird"
+            },
+            {
+              "char": "。",
+              "punctuation": true
+            }
+          ]
+        }
+      ],
+      "uniqueCharactersInLesson": [
+        {
+          "char": "猫",
+          "pinyin": "māo",
+          "french": "chat",
+          "english": "cat"
+        },
+        {
+          "char": "狗",
+          "pinyin": "gǒu",
+          "french": "chien",
+          "english": "dog"
+        },
+        {
+          "char": "鸟",
+          "pinyin": "niǎo",
+          "french": "oiseau",
+          "english": "bird"
+        }
+      ],
+      "vocabularyWords": []
+    }
+  ],
+  "section4_notionOutputFormat": {
+    "note": "Deux tables Notion, liees par lesson_id (texte exact, pas le titre) pour une reinjection sans ambiguite. Pas de JSON imbrique dans une cellule.",
+    "tables": [
+      {
+        "name": "Lecons (Lessons)",
+        "oneRowPer": "une lecon",
+        "columns": [
+          {
+            "name": "lesson_id",
+            "type": "text",
+            "note": "ID exact de lessons-v2.json, ex lesson-1772116323479-krfe. Cle de reinjection, NE PAS modifier dans Notion."
+          },
+          {
+            "name": "title",
+            "type": "text",
+            "note": "lecture seule / reference humaine"
+          },
+          {
+            "name": "order",
+            "type": "number"
+          },
+          {
+            "name": "character_count",
+            "type": "number",
+            "note": "lecture seule, deja dans characterRefs"
+          },
+          {
+            "name": "vocabulary_count",
+            "type": "number",
+            "note": "formule = count des lignes liees dans la table Vocabulaire (rollup)"
+          },
+          {
+            "name": "vocab_status",
+            "type": "select: vide | en cours | a valider | complet",
+            "note": "suivi manuel par Anna, remplace le _starterExample perdu"
+          }
+        ]
+      },
+      {
+        "name": "Vocabulaire (VocabularyWords)",
+        "oneRowPer": "un mot de vocabulaire",
+        "columns": [
+          {
+            "name": "lesson_id",
+            "type": "text",
+            "note": "DOIT correspondre exactement a un lesson_id de la table Lecons - texte simple, pas une relation Notion si le sync se fait par script (plus simple a parser). Une relation Notion native est une option si le script d'import sait la resoudre."
+          },
+          {
+            "name": "hanzi",
+            "type": "text",
+            "note": "un ou plusieurs caracteres, ex 对不起"
+          },
+          {
+            "name": "pinyin",
+            "type": "text",
+            "note": "garder le format numerote (dui4 bu5 qi3) pour coller au reste des donnees, ou accentue si prefere - juste etre COHERENT sur tout le tableau"
+          },
+          {
+            "name": "traditional",
+            "type": "text",
+            "note": "laisser vide si identique au simplifie"
+          },
+          {
+            "name": "french",
+            "type": "text"
+          },
+          {
+            "name": "english",
+            "type": "text"
+          },
+          {
+            "name": "status",
+            "type": "select: brouillon | a verifier | valide",
+            "note": "remplace le flag _starterExample perdu lors de la migration"
+          }
+        ]
+      }
+    ],
+    "reinjectionNote": "Un script de reinjection devra: 1) regrouper les lignes Vocabulaire par lesson_id, 2) verifier que chaque caractere du hanzi existe deja dans characterRefs de la lecon correspondante (meme regle de validation que resolveVocabWord dans LessonsContext.jsx), 3) ecrire/mettre a jour vocabulary-database.json (upsert par hanzi, merge appearsInLessons) et lessons-v2.json (vocabularyRefs = liste des hanzi valides pour cette lecon)."
+  },
+  "section3_note": "sourceTextAnnotated: le texte de la lecon ligne par ligne, chaque caractere chinois annote avec pinyin/french/english dans l'ORDRE OU IL APPARAIT DANS LA PHRASE (repetitions incluses, pas dedupliquees) - pour lire la phrase et reperer visuellement quels caracteres adjacents forment un mot de vocabulaire. La ponctuation est gardee comme marqueur ({punctuation:true}) pour ne pas casser la lecture. uniqueCharactersInLesson reste la liste deduplicquee (= characterRefs) pour reference rapide."
+}

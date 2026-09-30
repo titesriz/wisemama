@@ -24,7 +24,7 @@ export default function ColorsWordPage({
       cardIndex={wordIndex}
       totalCards={totalWords}
       activeModule="flashcards"
-      modes={['flashcards', 'writing', 'quiz']}
+      modes={['flashcards', 'writing', 'dictée', 'quiz']}
       onBack={onBack}
       onPrev={onPrev}
       onNext={onNext}

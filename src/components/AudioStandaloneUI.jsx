@@ -16,6 +16,7 @@ export default function AudioStandaloneUI({
   onOpenLessonText,
   onSelectLesson,
   onSwitchModule,
+  onOpenPicker,
   onBack,
 }) {
   if (!card) {
@@ -38,6 +39,7 @@ export default function AudioStandaloneUI({
       onPrev={onPrev}
       onNext={onNext}
       onSwitchModule={onSwitchModule}
+      onOpenPicker={onOpenPicker}
     >
       <div className="module-audio-center wm-enter-fade">
         <AudioPracticePanel cardKey={cardKey} mode={mode} />

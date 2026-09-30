@@ -3809,6 +3809,17 @@ body {
   text-align: center;
 }
 
+.module-card-type-badge {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #ff6b6b;
+  background: #fff0f0;
+  border-radius: 999px;
+  padding: 4px 14px;
+}
+
 .module-hanzi-large {
   font-size: 220px;
   line-height: 0.95;

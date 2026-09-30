@@ -83,6 +83,7 @@ export default function LessonTextView({
   onStartPractice,
   onStartQuiz,
   onPracticeVocabulary,
+  onOpenAllFlashcards,
   onOpenRadicalDiscovery,
 }) {
   const [pinyinMode, setPinyinMode] = useState('all');
@@ -409,6 +410,16 @@ export default function LessonTextView({
                 >
                   Difficile
                 </button>
+                {onOpenAllFlashcards ? (
+                  <button
+                    type="button"
+                    className="lesson-difficulty-star ui-pressable"
+                    onClick={() => onOpenAllFlashcards()}
+                    aria-label="Flashcards"
+                  >
+                    Flashcards
+                  </button>
+                ) : null}
                 {lessonVocabWords.length > 0 ? (
                   <button
                     type="button"

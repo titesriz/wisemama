@@ -16,6 +16,7 @@ export default function LessonVocabWordPage({
   onNext,
   onBack,
   onSwitchModule,
+  onOpenPicker,
 }) {
   const characters = useMemo(() => Array.from(word?.hanzi || ''), [word?.hanzi]);
   const isCompound = characters.length > 1;
@@ -38,8 +39,12 @@ export default function LessonVocabWordPage({
       onPrev={onPrev}
       onNext={onNext}
       onSwitchModule={onSwitchModule}
+      onOpenPicker={onOpenPicker}
     >
       <div className="module-card-center wm-enter-fade">
+        <div className="module-card-type-badge">
+          {isCompound ? 'Vocabulaire' : 'Caractère'}
+        </div>
         <div className="module-hanzi-large">
           {isCompound
             ? characters.map((char, index) => (

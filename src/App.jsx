@@ -28,6 +28,7 @@ import HskWordSelectionPage from './components/HskWordSelectionPage.jsx';
 import ColorsWordPage from './components/ColorsWordPage.jsx';
 import ColorsWritingPage from './components/ColorsWritingPage.jsx';
 import ColorsQuizPage from './components/ColorsQuizPage.jsx';
+import ColorsWritingTest from './components/ColorsWritingTest.jsx';
 import HskQuizPage from './components/HskQuizPage.jsx';
 import LessonQuizPage from './components/LessonQuizPage.jsx';
 import LessonVocabWordPage from './components/LessonVocabWordPage.jsx';
@@ -81,9 +82,12 @@ const STANDALONE_VIEW = {
   LESSON_QUIZ: 'lesson-quiz',
   LESSON_VOCAB_WORDS: 'lesson-vocab-words',
   LESSON_VOCAB_WRITING: 'lesson-vocab-writing',
+  LESSON_WORD_SELECT: 'lesson-word-select',
   COLORS_WORDS: 'colors-words',
   COLORS_WRITING: 'colors-writing',
   COLORS_QUIZ: 'colors-quiz',
+  COLORS_WRITING_TEST: 'colors-writing-test',
+  LESSON_EDITOR: 'lesson-editor',
 };
 
 const hskProgressStorageKey = 'wisemama-hsk1-progress-v1';
@@ -103,6 +107,42 @@ function readHskProgress() {
 
 function getCardKey(lessonId, cardId) {
   return `${lessonId}:${cardId}`;
+}
+
+// Combine a lesson's characters and vocabulary into one browsing order,
+// weaving each vocabulary word in right after the last of its component
+// characters instead of appending all vocabulary after every character -
+// otherwise a lesson with many characters buries its vocabulary at the very
+// end of the deck, several clicks past where a reader would stop looking.
+function buildLessonWordSet(lesson) {
+  const cards = lesson?.cards || [];
+  const vocabulary = lesson?.vocabulary || [];
+  const cardOrderIndex = new Map(cards.map((card, index) => [card.hanzi, index]));
+  const vocabByLastCharIndex = new Map();
+  const unplacedVocab = [];
+
+  vocabulary.forEach((word) => {
+    const charIndices = Array.from(word?.hanzi || '')
+      .map((char) => cardOrderIndex.get(char))
+      .filter((index) => index !== undefined);
+    if (!charIndices.length) {
+      unplacedVocab.push(word);
+      return;
+    }
+    const lastIndex = Math.max(...charIndices);
+    if (!vocabByLastCharIndex.has(lastIndex)) vocabByLastCharIndex.set(lastIndex, []);
+    vocabByLastCharIndex.get(lastIndex).push(word);
+  });
+
+  const result = [];
+  cards.forEach((card, index) => {
+    result.push(card);
+    if (vocabByLastCharIndex.has(index)) {
+      result.push(...vocabByLastCharIndex.get(index));
+    }
+  });
+  result.push(...unplacedVocab);
+  return result;
 }
 
 function getLessonTextRouteId(pathname) {
@@ -416,9 +456,19 @@ export default function App() {
   const goToNextColorsWord = () => setColorsWordIndex((prev) => (prev + 1) % colorsWords.length);
   const goToPrevColorsWord = () => setColorsWordIndex((prev) => (prev - 1 + colorsWords.length) % colorsWords.length);
 
+  // The lesson's full learnable set for browse-through flashcards: every
+  // new character (characterRefs) plus every multi-char vocabulary word
+  // (vocabularyRefs), woven together via buildLessonWordSet - vocabulary is
+  // additive, not a subset of characters, so both must be shown.
+  const lessonAllWords = activeLesson ? buildLessonWordSet(activeLesson) : [];
+  const currentAllWordsCard = lessonAllWords[vocabWordIndex] || null;
+  const currentAllWordsCardKey = currentAllWordsCard && activeLesson
+    ? getCardKey(activeLesson.id, currentAllWordsCard.id)
+    : '';
+  const earnedAllWordsStars = currentAllWordsCardKey ? currentStarsMap[currentAllWordsCardKey] ?? 0 : 0;
+
   const handleLessonVocabWritingSuccess = (mistakes) => {
-    const vocabWords = activeLesson?.vocabulary || [];
-    const vocabWord = vocabWords[vocabWordIndex];
+    const vocabWord = lessonAllWords[vocabWordIndex];
     if (!vocabWord || !activeLesson || !currentProfileKey) return;
 
     const cardKey = getCardKey(activeLesson.id, vocabWord.id);
@@ -438,12 +488,12 @@ export default function App() {
   };
 
   const goToNextVocabWord = () => {
-    const total = activeLesson?.vocabulary?.length || 0;
+    const total = lessonAllWords.length;
     if (!total) return;
     setVocabWordIndex((prev) => (prev + 1) % total);
   };
   const goToPrevVocabWord = () => {
-    const total = activeLesson?.vocabulary?.length || 0;
+    const total = lessonAllWords.length;
     if (!total) return;
     setVocabWordIndex((prev) => (prev - 1 + total) % total);
   };
@@ -639,10 +689,23 @@ export default function App() {
   const openVocabPracticeFromLessonText = (wordId) => {
     const targetLesson = lessonOptions.find((lesson) => lesson.id === lessonTextLessonId);
     if (!targetLesson || !wordId) return;
-    const targetIndex = (targetLesson.vocabulary || []).findIndex((word) => word.id === wordId);
+    const combined = buildLessonWordSet(targetLesson);
+    const targetIndex = combined.findIndex((word) => word.id === wordId);
     if (targetIndex < 0) return;
     setActiveLesson(targetLesson.id);
     setVocabWordIndex(targetIndex);
+    setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS);
+    setShowDailyRituel(false);
+    setEnteredApp(false);
+  };
+
+  const openAllFlashcardsFromLessonText = () => {
+    const targetLesson = lessonOptions.find((lesson) => lesson.id === lessonTextLessonId);
+    if (!targetLesson) return;
+    const combined = buildLessonWordSet(targetLesson);
+    if (!combined.length) return;
+    setActiveLesson(targetLesson.id);
+    setVocabWordIndex(0);
     setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS);
     setShowDailyRituel(false);
     setEnteredApp(false);
@@ -704,6 +767,12 @@ export default function App() {
     setActiveProfileId(childProfile.id);
     switchToChild();
     openStandaloneModule(STANDALONE_VIEW.WRITING, MODULES.WRITING);
+  };
+
+  const openLessonEditorFromLanding = () => {
+    setShowDailyRituel(false);
+    setStandaloneView(STANDALONE_VIEW.LESSON_EDITOR);
+    setEnteredApp(false);
   };
 
   const openHskDeckFromLanding = () => {
@@ -828,6 +897,7 @@ export default function App() {
           }}
           onPracticeCharacter={openCharacterPracticeFromLessonText}
           onPracticeVocabulary={openVocabPracticeFromLessonText}
+          onOpenAllFlashcards={openAllFlashcardsFromLessonText}
           onBack={closeLessonTextView}
           onStartPractice={startJourneyFromLessonText}
           onStartQuiz={startQuizFromLessonText}
@@ -1022,13 +1092,31 @@ export default function App() {
     );
   }
 
+  if (standaloneView === STANDALONE_VIEW.LESSON_EDITOR) {
+    return (
+      <section className="module-pane">
+        <LessonEditorBeta
+          onBack={() => {
+            setStandaloneView(STANDALONE_VIEW.NONE);
+            setEnteredApp(false);
+          }}
+          onSelectLesson={(id) => {
+            if (!id) return;
+            setActiveLesson(id);
+            setCardIndex(0);
+          }}
+        />
+      </section>
+    );
+  }
+
   if (standaloneView === STANDALONE_VIEW.LESSON_QUIZ) {
     return (
       <LessonQuizPage
         profile={activeProfile}
         lessonId={activeLesson?.id}
         lessonTitle={activeLesson?.title}
-        words={[...(activeLesson?.cards || []), ...(activeLesson?.vocabulary || [])]}
+        words={lessonAllWords}
         onBack={() => {
           setStandaloneView(STANDALONE_VIEW.NONE);
           setEnteredApp(false);
@@ -1043,7 +1131,7 @@ export default function App() {
   }
 
   if (standaloneView === STANDALONE_VIEW.LESSON_VOCAB_WORDS) {
-    const vocabWords = activeLesson?.vocabulary || [];
+    const vocabWords = lessonAllWords;
     return (
       <LessonVocabWordPage
         profile={activeProfile}
@@ -1065,12 +1153,27 @@ export default function App() {
             setStandaloneView(STANDALONE_VIEW.LESSON_QUIZ);
           }
         }}
+        onOpenPicker={() => setStandaloneView(STANDALONE_VIEW.LESSON_WORD_SELECT)}
+      />
+    );
+  }
+
+  if (standaloneView === STANDALONE_VIEW.LESSON_WORD_SELECT) {
+    return (
+      <HskWordSelectionPage
+        words={lessonAllWords}
+        activeWordId={lessonAllWords[vocabWordIndex]?.id || ''}
+        onSelectWord={(index) => {
+          setVocabWordIndex(index);
+          setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS);
+        }}
+        onBack={() => setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS)}
       />
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.LESSON_VOCAB_WRITING) {
-    const vocabWords = activeLesson?.vocabulary || [];
+    const vocabWords = lessonAllWords;
     return (
       <LessonVocabWritingPage
         profile={activeProfile}
@@ -1109,9 +1212,27 @@ export default function App() {
         onSwitchModule={(module) => {
           if (module === 'writing') {
             setStandaloneView(STANDALONE_VIEW.COLORS_WRITING);
+          } else if (module === 'dictée') {
+            setStandaloneView(STANDALONE_VIEW.COLORS_WRITING_TEST);
           } else if (module === 'quiz') {
             setStandaloneView(STANDALONE_VIEW.COLORS_QUIZ);
           }
+        }}
+      />
+    );
+  }
+
+  if (standaloneView === STANDALONE_VIEW.COLORS_WRITING_TEST) {
+    return (
+      <ColorsWritingTest
+        profile={activeProfile}
+        onBack={() => {
+          setStandaloneView(STANDALONE_VIEW.NONE);
+          setEnteredApp(false);
+        }}
+        onComplete={() => {
+          setStandaloneView(STANDALONE_VIEW.NONE);
+          setEnteredApp(false);
         }}
       />
     );
@@ -1376,6 +1497,7 @@ export default function App() {
           setCardIndex(0);
         }}
         onOpenLessonTextUi={openLessonTextFromLanding}
+        onOpenLessonEditorUi={openLessonEditorFromLanding}
         onOpenFlashcardsUi={openFlashcardsFromLanding}
         onOpenAudioUi={openAudioFromLanding}
         onOpenWritingUi={openWritingFromLanding}
@@ -1653,19 +1775,19 @@ export default function App() {
             </section>
           ) : null}
 
-          {activeModule === MODULES.FLASHCARDS && currentCard ? (
+          {activeModule === MODULES.FLASHCARDS && currentAllWordsCard ? (
             <section className="module-pane">
               <FlashcardStandaloneUI
                 profile={activeProfile}
                 lessonId={activeLesson?.id}
                 lessonTitle={activeLesson?.title}
                 lessons={lessonOptions}
-                card={currentCard}
-                cardIndex={cardIndex}
-                totalCards={totalCards}
-                earnedStars={earnedStars}
-                onPrev={goPrev}
-                onNext={goNext}
+                card={currentAllWordsCard}
+                cardIndex={vocabWordIndex}
+                totalCards={lessonAllWords.length}
+                earnedStars={earnedAllWordsStars}
+                onPrev={goToPrevVocabWord}
+                onNext={goToNextVocabWord}
                 onOpenLessonText={(lessonId) => {
                   const targetId = lessonId || activeLesson?.id;
                   if (targetId) openLessonTextView(targetId);
@@ -1673,28 +1795,37 @@ export default function App() {
                 onSelectLesson={(lessonId) => {
                   if (!lessonId) return;
                   setActiveLesson(lessonId);
-                  setCardIndex(0);
+                  setVocabWordIndex(0);
                 }}
-                onSwitchModule={setActiveModule}
+                onSwitchModule={(module) => {
+                  if (module === 'writing') {
+                    setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WRITING);
+                  } else if (module === 'quiz') {
+                    setStandaloneView(STANDALONE_VIEW.LESSON_QUIZ);
+                  } else {
+                    setActiveModule(module);
+                  }
+                }}
+                onOpenPicker={() => setStandaloneView(STANDALONE_VIEW.LESSON_WORD_SELECT)}
                 onBack={goToLanding}
               />
             </section>
           ) : null}
 
-          {activeModule === MODULES.AUDIO && currentCard ? (
+          {activeModule === MODULES.AUDIO && currentAllWordsCard ? (
             <section className="module-pane">
               <AudioStandaloneUI
                 profile={activeProfile}
                 lessonId={activeLesson?.id}
                 lessonTitle={activeLesson?.title}
                 lessons={lessonOptions}
-                card={currentCard}
-                cardIndex={cardIndex}
-                totalCards={totalCards}
+                card={currentAllWordsCard}
+                cardIndex={vocabWordIndex}
+                totalCards={lessonAllWords.length}
                 mode={mode}
-                cardKey={currentCardKey}
-                onPrev={goPrev}
-                onNext={goNext}
+                cardKey={currentAllWordsCardKey}
+                onPrev={goToPrevVocabWord}
+                onNext={goToNextVocabWord}
                 onOpenLessonText={(lessonId) => {
                   const targetId = lessonId || activeLesson?.id;
                   if (targetId) openLessonTextView(targetId);
@@ -1702,9 +1833,18 @@ export default function App() {
                 onSelectLesson={(lessonId) => {
                   if (!lessonId) return;
                   setActiveLesson(lessonId);
-                  setCardIndex(0);
+                  setVocabWordIndex(0);
                 }}
-                onSwitchModule={setActiveModule}
+                onSwitchModule={(module) => {
+                  if (module === 'writing') {
+                    setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WRITING);
+                  } else if (module === 'quiz') {
+                    setStandaloneView(STANDALONE_VIEW.LESSON_QUIZ);
+                  } else {
+                    setActiveModule(module);
+                  }
+                }}
+                onOpenPicker={() => setStandaloneView(STANDALONE_VIEW.LESSON_WORD_SELECT)}
                 onBack={goToLanding}
               />
             </section>
@@ -1745,7 +1885,7 @@ export default function App() {
                 profile={activeProfile}
                 lessonId={activeLesson.id}
                 lessonTitle={activeLesson.title}
-                words={activeLesson.cards || []}
+                words={lessonAllWords}
                 onBack={goToLanding}
                 onSwitchModule={setActiveModule}
               />

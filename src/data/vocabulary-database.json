@@ -6,11 +6,14 @@
     "traditional": "",
     "french": "papa",
     "english": "(coll.) father; dad",
-    "appearsInLessons": [],
+    "appearsInLessons": [
+      "lesson-1773670967675-4jyt"
+    ],
     "hskLevel": 1,
     "hskOrder": 3,
     "decks": [],
     "sources": [
+      "lesson:lesson-1773670967675-4jyt",
       "hsk1"
     ]
   },
@@ -171,11 +174,14 @@
     "traditional": "",
     "french": "petit frère",
     "english": "younger brother",
-    "appearsInLessons": [],
+    "appearsInLessons": [
+      "lesson-1774430690827-wzys"
+    ],
     "hskLevel": 1,
     "hskOrder": 48,
     "decks": [],
     "sources": [
+      "lesson:lesson-1774430690827-wzys",
       "hsk1",
       "cedict-mini"
     ]
@@ -457,11 +463,14 @@
     "traditional": "",
     "french": "grand frère",
     "english": "older brother",
-    "appearsInLessons": [],
+    "appearsInLessons": [
+      "lesson-1774430690827-wzys"
+    ],
     "hskLevel": 1,
     "hskOrder": 86,
     "decks": [],
     "sources": [
+      "lesson:lesson-1774430690827-wzys",
       "hsk1",
       "cedict-mini"
     ]
@@ -758,11 +767,14 @@
     "traditional": "",
     "french": "grande sœur",
     "english": "older sister",
-    "appearsInLessons": [],
+    "appearsInLessons": [
+      "lesson-1774430690827-wzys"
+    ],
     "hskLevel": 1,
     "hskOrder": 134,
     "decks": [],
     "sources": [
+      "lesson:lesson-1774430690827-wzys",
       "hsk1",
       "cedict-mini"
     ]
@@ -984,11 +996,14 @@
     "traditional": "老師",
     "french": "professeur; enseignant",
     "english": "teacher",
-    "appearsInLessons": [],
+    "appearsInLessons": [
+      "lesson-1771504726854-cyhe"
+    ],
     "hskLevel": 1,
     "hskOrder": 162,
     "decks": [],
     "sources": [
+      "lesson:lesson-1771504726854-cyhe",
       "hsk1",
       "cedict-mini"
     ]
@@ -1045,11 +1060,14 @@
     "traditional": "媽媽",
     "french": "maman",
     "english": "mama",
-    "appearsInLessons": [],
+    "appearsInLessons": [
+      "lesson-1773670967675-4jyt"
+    ],
     "hskLevel": 1,
     "hskOrder": 176,
     "decks": [],
     "sources": [
+      "lesson:lesson-1773670967675-4jyt",
       "hsk1"
     ]
   },
@@ -1108,11 +1126,14 @@
     "traditional": "",
     "french": "petite sœur",
     "english": "younger sister",
-    "appearsInLessons": [],
+    "appearsInLessons": [
+      "lesson-1773670967675-4jyt"
+    ],
     "hskLevel": 1,
     "hskOrder": 187,
     "decks": [],
     "sources": [
+      "lesson:lesson-1773670967675-4jyt",
       "hsk1",
       "cedict-mini"
     ]
@@ -1305,11 +1326,14 @@
     "traditional": "",
     "french": "grand-mère (paternelle)",
     "english": "(informal) grandma (paternal grandmother)",
-    "appearsInLessons": [],
+    "appearsInLessons": [
+      "lesson-1774430690827-wzys"
+    ],
     "hskLevel": 1,
     "hskOrder": 206,
     "decks": [],
     "sources": [
+      "lesson:lesson-1774430690827-wzys",
       "hsk1"
     ]
   },
@@ -1335,11 +1359,14 @@
     "traditional": "",
     "french": "élève (garçon)",
     "english": "schoolboy",
-    "appearsInLessons": [],
+    "appearsInLessons": [
+      "lesson-1781083583182-unif"
+    ],
     "hskLevel": 1,
     "hskOrder": 209,
     "decks": [],
     "sources": [
+      "lesson:lesson-1781083583182-unif",
       "hsk1"
     ]
   },
@@ -1365,11 +1392,14 @@
     "traditional": "你們",
     "french": "vous",
     "english": "you (plural)",
-    "appearsInLessons": [],
+    "appearsInLessons": [
+      "lesson-ask-name"
+    ],
     "hskLevel": 1,
     "hskOrder": 216,
     "decks": [],
     "sources": [
+      "lesson:lesson-ask-name",
       "hsk1"
     ]
   },
@@ -1470,11 +1500,14 @@
     "traditional": "",
     "french": "élève (fille)",
     "english": "schoolgirl",
-    "appearsInLessons": [],
+    "appearsInLessons": [
+      "lesson-1781083583182-unif"
+    ],
     "hskLevel": 1,
     "hskOrder": 226,
     "decks": [],
     "sources": [
+      "lesson:lesson-1781083583182-unif",
       "hsk1"
     ]
   },
@@ -2195,11 +2228,14 @@
     "traditional": "什麼",
     "french": "quoi; que",
     "english": "what?",
-    "appearsInLessons": [],
+    "appearsInLessons": [
+      "lesson-ask-name"
+    ],
     "hskLevel": 1,
     "hskOrder": 291,
     "decks": [],
     "sources": [
+      "lesson:lesson-ask-name",
       "hsk1",
       "cedict-mini"
     ]
@@ -2481,11 +2517,14 @@
     "traditional": "他們",
     "french": "ils",
     "english": "they",
-    "appearsInLessons": [],
+    "appearsInLessons": [
+      "lesson-ask-name"
+    ],
     "hskLevel": 1,
     "hskOrder": 325,
     "decks": [],
     "sources": [
+      "lesson:lesson-ask-name",
       "hsk1"
     ]
   },
@@ -2496,11 +2535,14 @@
     "traditional": "她們",
     "french": "elles",
     "english": "they",
-    "appearsInLessons": [],
+    "appearsInLessons": [
+      "lesson-ask-name"
+    ],
     "hskLevel": 1,
     "hskOrder": 327,
     "decks": [],
     "sources": [
+      "lesson:lesson-ask-name",
       "hsk1"
     ]
   },
@@ -2859,11 +2901,14 @@
     "traditional": "我們",
     "french": "nous",
     "english": "we",
-    "appearsInLessons": [],
+    "appearsInLessons": [
+      "lesson-ask-name"
+    ],
     "hskLevel": 1,
     "hskOrder": 359,
     "decks": [],
     "sources": [
+      "lesson:lesson-ask-name",
       "hsk1"
     ]
   },
@@ -2904,11 +2949,14 @@
     "traditional": "喜歡",
     "french": "aimer",
     "english": "to like; to be fond of",
-    "appearsInLessons": [],
+    "appearsInLessons": [
+      "lesson-1779277447371-sy2c"
+    ],
     "hskLevel": 1,
     "hskOrder": 364,
     "decks": [],
     "sources": [
+      "lesson:lesson-1779277447371-sy2c",
       "hsk1"
     ]
   },
@@ -3099,11 +3147,14 @@
     "traditional": "",
     "french": "enfant",
     "english": "child",
-    "appearsInLessons": [],
+    "appearsInLessons": [
+      "lesson-1771504726854-cyhe"
+    ],
     "hskLevel": 1,
     "hskOrder": 382,
     "decks": [],
     "sources": [
+      "lesson:lesson-1771504726854-cyhe",
       "hsk1"
     ]
   },
@@ -3341,11 +3392,14 @@
     "traditional": "學生",
     "french": "élève; étudiant",
     "english": "student",
-    "appearsInLessons": [],
+    "appearsInLessons": [
+      "lesson-1771504726854-cyhe"
+    ],
     "hskLevel": 1,
     "hskOrder": 403,
     "decks": [],
     "sources": [
+      "lesson:lesson-1771504726854-cyhe",
       "hsk1",
       "cedict-mini"
     ]
@@ -3402,11 +3456,14 @@
     "traditional": "學校",
     "french": "école",
     "english": "school",
-    "appearsInLessons": [],
+    "appearsInLessons": [
+      "lesson-1781083583182-unif"
+    ],
     "hskLevel": 1,
     "hskOrder": 407,
     "decks": [],
     "sources": [
+      "lesson:lesson-1781083583182-unif",
       "hsk1",
       "cedict-mini"
     ]
@@ -3433,11 +3490,14 @@
     "traditional": "爺爺",
     "french": "grand-père (paternel)",
     "english": "(coll.) father's father",
-    "appearsInLessons": [],
+    "appearsInLessons": [
+      "lesson-1774430690827-wzys"
+    ],
     "hskLevel": 1,
     "hskOrder": 412,
     "decks": [],
     "sources": [
+      "lesson:lesson-1774430690827-wzys",
       "hsk1"
     ]
   },
@@ -3628,11 +3688,14 @@
     "traditional": "",
     "french": "pas besoin de",
     "english": "need not",
-    "appearsInLessons": [],
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
     "hskLevel": 1,
     "hskOrder": 427,
     "decks": [],
     "sources": [
+      "lesson:lesson-1772116323479-krfe",
       "hsk1"
     ]
   },
@@ -3643,11 +3706,14 @@
     "traditional": "還有",
     "french": "et aussi; en plus",
     "english": "furthermore",
-    "appearsInLessons": [],
+    "appearsInLessons": [
+      "lesson-1774430690827-wzys"
+    ],
     "hskLevel": 1,
     "hskOrder": 429,
     "decks": [],
     "sources": [
+      "lesson:lesson-1774430690827-wzys",
       "hsk1"
     ]
   },
@@ -3658,11 +3724,14 @@
     "traditional": "沒有",
     "french": "ne pas avoir",
     "english": "haven't",
-    "appearsInLessons": [],
+    "appearsInLessons": [
+      "lesson-age"
+    ],
     "hskLevel": 1,
     "hskOrder": 430,
     "decks": [],
     "sources": [
+      "lesson:lesson-age",
       "hsk1",
       "cedict-mini"
     ]
@@ -3809,11 +3878,14 @@
     "traditional": "再見",
     "french": "au revoir",
     "english": "goodbye",
-    "appearsInLessons": [],
+    "appearsInLessons": [
+      "lesson-1771504726854-cyhe"
+    ],
     "hskLevel": 1,
     "hskOrder": 446,
     "decks": [],
     "sources": [
+      "lesson:lesson-1771504726854-cyhe",
       "hsk1",
       "cedict-mini"
     ]
@@ -4219,11 +4291,14 @@
     "traditional": "",
     "french": "nom",
     "english": "name (of a person or thing)",
-    "appearsInLessons": [],
+    "appearsInLessons": [
+      "lesson-ask-name"
+    ],
     "hskLevel": 1,
     "hskOrder": 485,
     "decks": [],
     "sources": [
+      "lesson:lesson-ask-name",
       "hsk1"
     ]
   },
@@ -4445,11 +4520,14 @@
     "traditional": "",
     "french": "bonjour",
     "english": "hello; hi",
-    "appearsInLessons": [],
+    "appearsInLessons": [
+      "lesson-1771504726854-cyhe"
+    ],
     "hskLevel": 1,
     "hskOrder": null,
     "decks": [],
     "sources": [
+      "lesson:lesson-1771504726854-cyhe",
       "cedict-mini"
     ]
   },
@@ -4543,6 +4621,567 @@
     "decks": [],
     "sources": [
       "lesson:lesson-1772116323479-krfe"
+    ]
+  },
+  {
+    "id": "十二",
+    "hanzi": "十二",
+    "pinyin": "shi2 er4",
+    "traditional": "",
+    "french": "douze",
+    "english": "twelve",
+    "appearsInLessons": [
+      "lesson-1772113797148-y9pq"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1772113797148-y9pq"
+    ]
+  },
+  {
+    "id": "十九",
+    "hanzi": "十九",
+    "pinyin": "shi2 jiu3",
+    "traditional": "",
+    "french": "dix-neuf",
+    "english": "nineteen",
+    "appearsInLessons": [
+      "lesson-1772113797148-y9pq"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1772113797148-y9pq"
+    ]
+  },
+  {
+    "id": "二十",
+    "hanzi": "二十",
+    "pinyin": "er4 shi2",
+    "traditional": "",
+    "french": "vingt",
+    "english": "twenty",
+    "appearsInLessons": [
+      "lesson-1772113797148-y9pq"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1772113797148-y9pq"
+    ]
+  },
+  {
+    "id": "二十二",
+    "hanzi": "二十二",
+    "pinyin": "er4 shi2 er4",
+    "traditional": "",
+    "french": "vingt-deux",
+    "english": "twenty-two",
+    "appearsInLessons": [
+      "lesson-1772113797148-y9pq"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1772113797148-y9pq"
+    ]
+  },
+  {
+    "id": "二十五",
+    "hanzi": "二十五",
+    "pinyin": "er4 shi2 wu3",
+    "traditional": "",
+    "french": "vingt-cinq",
+    "english": "twenty-five",
+    "appearsInLessons": [
+      "lesson-1772113797148-y9pq"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1772113797148-y9pq"
+    ]
+  },
+  {
+    "id": "三十",
+    "hanzi": "三十",
+    "pinyin": "san1 shi2",
+    "traditional": "",
+    "french": "trente",
+    "english": "thirty",
+    "appearsInLessons": [
+      "lesson-1772113797148-y9pq"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1772113797148-y9pq"
+    ]
+  },
+  {
+    "id": "我爱你",
+    "hanzi": "我爱你",
+    "pinyin": "wo3 ai4 ni3",
+    "traditional": "",
+    "french": "je t'aime",
+    "english": "I love you",
+    "appearsInLessons": [
+      "lesson-1770786071099-zy4z"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1770786071099-zy4z"
+    ]
+  },
+  {
+    "id": "您早",
+    "hanzi": "您早",
+    "pinyin": "nin2 zao3",
+    "traditional": "",
+    "french": "bonjour (tôt le matin)",
+    "english": "good morning (early)",
+    "appearsInLessons": [
+      "lesson-1771504726854-cyhe"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1771504726854-cyhe"
+    ]
+  },
+  {
+    "id": "同学们",
+    "hanzi": "同学们",
+    "pinyin": "tong2 xue2 men0",
+    "traditional": "",
+    "french": "camarade de classe",
+    "english": "schoolmate",
+    "appearsInLessons": [
+      "lesson-1771504726854-cyhe"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1771504726854-cyhe"
+    ]
+  },
+  {
+    "id": "关系",
+    "hanzi": "关系",
+    "pinyin": "guan1 xi4",
+    "traditional": "",
+    "french": "relation",
+    "english": "relation",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1772116323479-krfe"
+    ]
+  },
+  {
+    "id": "不用谢",
+    "hanzi": "不用谢",
+    "pinyin": "bu4 yong4 xie4",
+    "traditional": "",
+    "french": "je vous en prie",
+    "english": "you're welcome",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1772116323479-krfe"
+    ]
+  },
+  {
+    "id": "多谢",
+    "hanzi": "多谢",
+    "pinyin": "duo1 xie4",
+    "traditional": "",
+    "french": "merci beaucoup",
+    "english": "thank you very much",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1772116323479-krfe"
+    ]
+  },
+  {
+    "id": "谢谢你",
+    "hanzi": "谢谢你",
+    "pinyin": "xie4 xie4 ni3",
+    "traditional": "",
+    "french": "je te remercie",
+    "english": "thank you",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1772116323479-krfe"
+    ]
+  },
+  {
+    "id": "记牢",
+    "hanzi": "记牢",
+    "pinyin": "ji4 lao2",
+    "traditional": "",
+    "french": "à retenir",
+    "english": "to remember",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1772116323479-krfe"
+    ]
+  },
+  {
+    "id": "时刻",
+    "hanzi": "时刻",
+    "pinyin": "shi2 ke4",
+    "traditional": "",
+    "french": "instant",
+    "english": "a moment",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1772116323479-krfe"
+    ]
+  },
+  {
+    "id": "时时刻刻",
+    "hanzi": "时时刻刻",
+    "pinyin": "shi2 shi2 ke4 ke4",
+    "traditional": "",
+    "french": "à chaque instant",
+    "english": "in each moment",
+    "appearsInLessons": [
+      "lesson-1772116323479-krfe"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1772116323479-krfe"
+    ]
+  },
+  {
+    "id": "口人",
+    "hanzi": "口人",
+    "pinyin": "kou3 ren2",
+    "traditional": "",
+    "french": "Membre de la famille",
+    "english": "family member",
+    "appearsInLessons": [
+      "lesson-1774430690827-wzys"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1774430690827-wzys"
+    ]
+  },
+  {
+    "id": "外婆",
+    "hanzi": "外婆",
+    "pinyin": "wai4 po2",
+    "traditional": "",
+    "french": "grand-mère maternelle",
+    "english": "maternal grandmother",
+    "appearsInLessons": [
+      "lesson-1774430690827-wzys"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1774430690827-wzys"
+    ]
+  },
+  {
+    "id": "外公",
+    "hanzi": "外公",
+    "pinyin": "wai4 gong1",
+    "traditional": "",
+    "french": "grand-père maternel",
+    "english": "maternal grandfather",
+    "appearsInLessons": [
+      "lesson-1774430690827-wzys"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1774430690827-wzys"
+    ]
+  },
+  {
+    "id": "几岁",
+    "hanzi": "几岁",
+    "pinyin": "ji3 sui4",
+    "traditional": "",
+    "french": "quel âge",
+    "english": "how old",
+    "appearsInLessons": [
+      "lesson-age"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-age"
+    ]
+  },
+  {
+    "id": "颜色",
+    "hanzi": "颜色",
+    "pinyin": "yan2 se4",
+    "traditional": "",
+    "french": "couleur",
+    "english": "color",
+    "appearsInLessons": [
+      "lesson-1779277447371-sy2c"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1779277447371-sy2c"
+    ]
+  },
+  {
+    "id": "校服",
+    "hanzi": "校服",
+    "pinyin": "xiao4 fu2",
+    "traditional": "",
+    "french": "uniforme scolaire",
+    "english": "school uniform",
+    "appearsInLessons": [
+      "lesson-1781083583182-unif"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1781083583182-unif"
+    ]
+  },
+  {
+    "id": "衬衫",
+    "hanzi": "衬衫",
+    "pinyin": "chen4 shan1",
+    "traditional": "",
+    "french": "chemise",
+    "english": "shirt",
+    "appearsInLessons": [
+      "lesson-1781083583182-unif"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1781083583182-unif"
+    ]
+  },
+  {
+    "id": "裙子",
+    "hanzi": "裙子",
+    "pinyin": "qun2 zi5",
+    "traditional": "",
+    "french": "jupe",
+    "english": "skirt",
+    "appearsInLessons": [
+      "lesson-1781083583182-unif"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1781083583182-unif"
+    ]
+  },
+  {
+    "id": "裤子",
+    "hanzi": "裤子",
+    "pinyin": "ku4 zi5",
+    "traditional": "",
+    "french": "pantalon",
+    "english": "pants",
+    "appearsInLessons": [
+      "lesson-1781083583182-unif"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1781083583182-unif"
+    ]
+  },
+  {
+    "id": "气球",
+    "hanzi": "气球",
+    "pinyin": "qi4 qiu2",
+    "traditional": "",
+    "french": "Ballon",
+    "english": "balloon",
+    "appearsInLessons": [
+      "lesson-1781103536063-8bis"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1781103536063-8bis"
+    ]
+  },
+  {
+    "id": "粉红",
+    "hanzi": "粉红",
+    "pinyin": "fen3 hong2",
+    "traditional": "",
+    "french": "rose",
+    "english": "pink",
+    "appearsInLessons": [
+      "lesson-1781103536063-8bis"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1781103536063-8bis"
+    ]
+  },
+  {
+    "id": "汗衫",
+    "hanzi": "汗衫",
+    "pinyin": "han4 shan1",
+    "traditional": "",
+    "french": "T-shirt",
+    "english": "T-shirt",
+    "appearsInLessons": [
+      "lesson-1781103536064-9bis"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1781103536064-9bis"
+    ]
+  },
+  {
+    "id": "毛衣",
+    "hanzi": "毛衣",
+    "pinyin": "máo yi1",
+    "traditional": "",
+    "french": "pull",
+    "english": "pullover",
+    "appearsInLessons": [
+      "lesson-1781103536064-9bis"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1781103536064-9bis"
+    ]
+  },
+  {
+    "id": "牛仔裤",
+    "hanzi": "牛仔裤",
+    "pinyin": "niu2 zai3 ku4",
+    "traditional": "",
+    "french": "jean",
+    "english": "jeans",
+    "appearsInLessons": [
+      "lesson-1781103536064-9bis"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1781103536064-9bis"
+    ]
+  },
+  {
+    "id": "外套",
+    "hanzi": "外套",
+    "pinyin": "wai4 tao4",
+    "traditional": "",
+    "french": "veste",
+    "english": "jacket",
+    "appearsInLessons": [
+      "lesson-1781103536064-9bis"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1781103536064-9bis"
+    ]
+  },
+  {
+    "id": "大衣",
+    "hanzi": "大衣",
+    "pinyin": "da4 yi1",
+    "traditional": "",
+    "french": "manteau",
+    "english": "coat",
+    "appearsInLessons": [
+      "lesson-1781103536064-9bis"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1781103536064-9bis"
+    ]
+  },
+  {
+    "id": "连衣裙",
+    "hanzi": "连衣裙",
+    "pinyin": "lian2 yi1 qun2",
+    "traditional": "",
+    "french": "robe",
+    "english": "dress",
+    "appearsInLessons": [
+      "lesson-1781103536064-9bis"
+    ],
+    "hskLevel": null,
+    "hskOrder": null,
+    "decks": [],
+    "sources": [
+      "lesson:lesson-1781103536064-9bis"
     ]
   }
 ]

@@ -14,6 +14,7 @@ export default function LandingPage({
   onOpenDailyRituel,
   onOpenAvatarEditor,
   onRefreshLessons,
+  onOpenLessonEditorUi,
   onOpenLessonTextUi,
   onOpenFlashcardsUi,
   onOpenAudioUi,
@@ -277,6 +278,15 @@ export default function LandingPage({
           Mettre à jour les leçons
         </button>
         {refreshStatus ? <span className="landing-refresh-status">{refreshStatus}</span> : null}
+        {onOpenLessonEditorUi ? (
+          <button
+            type="button"
+            className="landing-refresh-link"
+            onClick={() => onOpenLessonEditorUi()}
+          >
+            Éditer une leçon
+          </button>
+        ) : null}
       </div>
     </section>
   );

@@ -856,7 +856,7 @@ export default function LessonEditorBeta({ onBack, onSelectLesson, initialLesson
           </div>
 
           <div className="lesson-preview-vocab">
-            <h4>Vocabulaire ({cardsDraft.length})</h4>
+            <h4>Caractères ({cardsDraft.length})</h4>
             <div className="lesson-preview-vocab-list">
               {cardsDraft.map((card, idx) => (
                 <button
@@ -868,6 +868,24 @@ export default function LessonEditorBeta({ onBack, onSelectLesson, initialLesson
                   {card.hanzi}
                 </button>
               ))}
+            </div>
+          </div>
+
+          <div className="lesson-preview-vocab">
+            <h4>Vocabulaire ({selectedLesson?.vocabulary?.length || 0})</h4>
+            <div className="lesson-preview-vocab-list">
+              {(selectedLesson?.vocabulary || []).map((word) => (
+                <span
+                  key={word.id}
+                  className="lesson-text-vocab-chip"
+                  title={`${formatPinyinDisplay(word.pinyin || '')} · ${word.french || word.english || ''}`}
+                >
+                  {word.hanzi}
+                </span>
+              ))}
+              {!selectedLesson?.vocabulary?.length ? (
+                <span className="parent-empty">Aucun mot de vocabulaire pour cette leçon.</span>
+              ) : null}
             </div>
           </div>
 

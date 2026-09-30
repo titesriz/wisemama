@@ -19,6 +19,7 @@ export default function FlashcardStandaloneUI({
   onOpenLessonText,
   onSelectLesson,
   onSwitchModule,
+  onOpenPicker,
   onBack,
 }) {
   const audioRef = useRef(null);
@@ -55,8 +56,12 @@ export default function FlashcardStandaloneUI({
       onPrev={onPrev}
       onNext={onNext}
       onSwitchModule={onSwitchModule}
+      onOpenPicker={onOpenPicker}
     >
       <div className="module-card-center wm-enter-fade">
+        <div className="module-card-type-badge">
+          {Array.from(card.hanzi || '').length > 1 ? 'Vocabulaire' : 'Caractère'}
+        </div>
         <div className="module-hanzi-large">{card.hanzi}</div>
         <div className="module-pinyin-large">{card.pinyinEnabled === false ? '' : formatPinyinDisplay(card.pinyin || '')}</div>
 

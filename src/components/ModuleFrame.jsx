@@ -274,6 +274,19 @@ export default function ModuleFrame({
             Ecrire
           </button>
         ) : null}
+        {modes.includes('dictée') ? (
+          <button
+            type="button"
+            className={`writing-mode-btn ui-pressable ${activeModule === 'dictée' ? 'active' : ''}`}
+            onClick={() => {
+              sounds.playTap();
+              onSwitchModule?.('dictée');
+            }}
+            disabled={activeModule === 'dictée'}
+          >
+            Dictée
+          </button>
+        ) : null}
         {modes.includes('quiz') ? (
           <button
             type="button"
