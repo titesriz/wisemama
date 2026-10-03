@@ -1,0 +1,22 @@
+[
+  { "id": "口", "hanzi": "口", "pinyin": "kǒu", "french": "bouche", "english": "mouth", "iconUrl": null },
+  { "id": "女", "hanzi": "女", "pinyin": "nǚ", "french": "fille, femme", "english": "woman", "iconUrl": null },
+  { "id": "讠", "hanzi": "讠", "pinyin": "yán", "french": "radical de la parole (言)", "english": "speech radical (言)", "iconUrl": null },
+  { "id": "一", "hanzi": "一", "pinyin": "yī", "french": "un", "english": "one", "iconUrl": null },
+  { "id": "木", "hanzi": "木", "pinyin": "mù", "french": "bois, arbre", "english": "wood, tree", "iconUrl": null },
+  { "id": "亻", "hanzi": "亻", "pinyin": "rén", "french": "radical de la personne (人)", "english": "person radical (人)", "iconUrl": null },
+  { "id": "辶", "hanzi": "辶", "pinyin": "chuò", "french": "radical du mouvement (辵)", "english": "movement radical (辵)", "iconUrl": null },
+  { "id": "十", "hanzi": "十", "pinyin": "shí", "french": "dix", "english": "ten", "iconUrl": null },
+  { "id": "大", "hanzi": "大", "pinyin": "dà", "french": "grand", "english": "big", "iconUrl": null },
+  { "id": "日", "hanzi": "日", "pinyin": "rì", "french": "soleil, jour", "english": "sun, day", "iconUrl": null },
+  { "id": "土", "hanzi": "土", "pinyin": "tǔ", "french": "terre", "english": "earth", "iconUrl": null },
+  { "id": "月", "hanzi": "月", "pinyin": "yuè", "french": "lune, mois", "english": "moon, month", "iconUrl": null },
+  { "id": "刂", "hanzi": "刂", "pinyin": "dāo", "french": "radical du couteau (刀)", "english": "knife radical (刀)", "iconUrl": null },
+  { "id": "氵", "hanzi": "氵", "pinyin": "shuǐ", "french": "radical de l'eau (水)", "english": "water radical (水)", "iconUrl": null },
+  { "id": "艹", "hanzi": "艹", "pinyin": "cǎo", "french": "radical de l'herbe (艸)", "english": "grass radical (艸)", "iconUrl": null },
+  { "id": "衤", "hanzi": "衤", "pinyin": "yī", "french": "radical du vêtement (衣)", "english": "clothing radical (衣)", "iconUrl": null },
+  { "id": "目", "hanzi": "目", "pinyin": "mù", "french": "œil", "english": "eye", "iconUrl": null },
+  { "id": "囗", "hanzi": "囗", "pinyin": "wéi", "french": "enclos, entourer", "english": "enclosure", "iconUrl": null },
+  { "id": "八", "hanzi": "八", "pinyin": "bā", "french": "huit", "english": "eight", "iconUrl": null },
+  { "id": "宀", "hanzi": "宀", "pinyin": "mián", "french": "toit", "english": "roof", "iconUrl": null }
+]

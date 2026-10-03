@@ -32,6 +32,9 @@ import ColorsWritingTest from './components/ColorsWritingTest.jsx';
 import ClothingWordPage from './components/ClothingWordPage.jsx';
 import ClothingWritingPage from './components/ClothingWritingPage.jsx';
 import ClothingQuizPage from './components/ClothingQuizPage.jsx';
+import RadicalWordPage from './components/RadicalWordPage.jsx';
+import RadicalWritingPage from './components/RadicalWritingPage.jsx';
+import RadicalQuizPage from './components/RadicalQuizPage.jsx';
 import HskQuizPage from './components/HskQuizPage.jsx';
 import LessonQuizPage from './components/LessonQuizPage.jsx';
 import LessonVocabWordPage from './components/LessonVocabWordPage.jsx';
@@ -39,6 +42,7 @@ import LessonVocabWritingPage from './components/LessonVocabWritingPage.jsx';
 import hskWords from './data/hsk1-words.json';
 import colorsWords from './data/colors-words.json';
 import clothingWords from './data/clothing-words.json';
+import radicalsWords from './data/radicals-words.json';
 import { useAvatar } from './context/AvatarContext.jsx';
 import { useLessons } from './context/LessonsContext.jsx';
 import { useMode } from './context/ModeContext.jsx';
@@ -94,6 +98,9 @@ const STANDALONE_VIEW = {
   CLOTHING_WORDS: 'clothing-words',
   CLOTHING_WRITING: 'clothing-writing',
   CLOTHING_QUIZ: 'clothing-quiz',
+  RADICAL_WORDS: 'radical-words',
+  RADICAL_WRITING: 'radical-writing',
+  RADICAL_QUIZ: 'radical-quiz',
   LESSON_EDITOR: 'lesson-editor',
 };
 
@@ -203,6 +210,7 @@ export default function App() {
   const [hskWordIndex, setHskWordIndex] = useState(() => readHskProgress());
   const [colorsWordIndex, setColorsWordIndex] = useState(0);
   const [clothingWordIndex, setClothingWordIndex] = useState(0);
+  const [radicalWordIndex, setRadicalWordIndex] = useState(0);
   const [vocabWordIndex, setVocabWordIndex] = useState(0);
   const [activeModule, setActiveModule] = useState(MODULES.LESSONS);
   const [showAvatarEditorModal, setShowAvatarEditorModal] = useState(false);
@@ -486,6 +494,29 @@ export default function App() {
 
   const goToNextClothingWord = () => setClothingWordIndex((prev) => (prev + 1) % clothingWords.length);
   const goToPrevClothingWord = () => setClothingWordIndex((prev) => (prev - 1 + clothingWords.length) % clothingWords.length);
+
+  const handleRadicalWritingSuccess = (mistakes) => {
+    const radicalWord = radicalsWords[radicalWordIndex];
+    if (!radicalWord || !currentProfileKey) return;
+
+    const cardKey = getCardKey('radical-deck', radicalWord.id);
+    const earned = mistakes === 0 ? 3 : mistakes === 1 ? 2 : 1;
+
+    setStarsByProfile((prev) => {
+      const map = prev[currentProfileKey] || {};
+      const current = map[cardKey] ?? 0;
+      return {
+        ...prev,
+        [currentProfileKey]: {
+          ...map,
+          [cardKey]: Math.max(current, earned),
+        },
+      };
+    });
+  };
+
+  const goToNextRadicalWord = () => setRadicalWordIndex((prev) => (prev + 1) % radicalsWords.length);
+  const goToPrevRadicalWord = () => setRadicalWordIndex((prev) => (prev - 1 + radicalsWords.length) % radicalsWords.length);
 
   // The lesson's full learnable set for browse-through flashcards: every
   // new character (characterRefs) plus every multi-char vocabulary word
@@ -827,6 +858,12 @@ export default function App() {
   const openClothingDeckFromLanding = () => {
     setShowDailyRituel(false);
     setStandaloneView(STANDALONE_VIEW.CLOTHING_WORDS);
+    setEnteredApp(false);
+  };
+
+  const openRadicalDeckFromLanding = () => {
+    setShowDailyRituel(false);
+    setStandaloneView(STANDALONE_VIEW.RADICAL_WORDS);
     setEnteredApp(false);
   };
 
@@ -1377,6 +1414,69 @@ export default function App() {
     );
   }
 
+  if (standaloneView === STANDALONE_VIEW.RADICAL_WORDS) {
+    return (
+      <RadicalWordPage
+        profile={activeProfile}
+        word={radicalsWords[radicalWordIndex] || null}
+        wordIndex={radicalWordIndex}
+        totalWords={radicalsWords.length}
+        onPrev={goToPrevRadicalWord}
+        onNext={goToNextRadicalWord}
+        onBack={() => {
+          setStandaloneView(STANDALONE_VIEW.NONE);
+          setEnteredApp(false);
+        }}
+        onSwitchModule={(module) => {
+          if (module === 'writing') {
+            setStandaloneView(STANDALONE_VIEW.RADICAL_WRITING);
+          } else if (module === 'quiz') {
+            setStandaloneView(STANDALONE_VIEW.RADICAL_QUIZ);
+          }
+        }}
+      />
+    );
+  }
+
+  if (standaloneView === STANDALONE_VIEW.RADICAL_WRITING) {
+    return (
+      <RadicalWritingPage
+        profile={activeProfile}
+        word={radicalsWords[radicalWordIndex] || null}
+        onBack={() => {
+          setStandaloneView(STANDALONE_VIEW.NONE);
+          setEnteredApp(false);
+        }}
+        onSwitchModule={(module) => {
+          if (module === 'flashcards') {
+            setStandaloneView(STANDALONE_VIEW.RADICAL_WORDS);
+          }
+        }}
+        onSuccess={handleRadicalWritingSuccess}
+        onPrevWord={goToPrevRadicalWord}
+        onNextWord={goToNextRadicalWord}
+      />
+    );
+  }
+
+  if (standaloneView === STANDALONE_VIEW.RADICAL_QUIZ) {
+    return (
+      <RadicalQuizPage
+        profile={activeProfile}
+        words={radicalsWords}
+        onBack={() => {
+          setStandaloneView(STANDALONE_VIEW.NONE);
+          setEnteredApp(false);
+        }}
+        onSwitchModule={(module) => {
+          if (module === 'flashcards') {
+            setStandaloneView(STANDALONE_VIEW.RADICAL_WORDS);
+          }
+        }}
+      />
+    );
+  }
+
   if (standaloneView === STANDALONE_VIEW.FLASHCARDS) {
     return (
       <FlashcardOnlyPage
@@ -1605,6 +1705,7 @@ export default function App() {
         onOpenHskWordSelectUi={openHskWordSelectFromLanding}
         onOpenColorsDeckUi={openColorsDeckFromLanding}
         onOpenClothingDeckUi={openClothingDeckFromLanding}
+        onOpenRadicalDeckUi={openRadicalDeckFromLanding}
         onOpenAvatarEditor={() => setShowAvatarEditorModal(true)}
         onStartProfile={startWithProfile}
         onRefreshLessons={refreshBundledLessons}
