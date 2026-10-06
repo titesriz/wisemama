@@ -101,6 +101,7 @@ export default function LessonQuizPage({
   allowedTypes = QUESTION_TYPES,
   onBack,
   onSwitchModule,
+  shellHeader = false,
 }) {
   const sounds = useUiSounds();
   const [session, setSession] = useState(() => buildSession(words, allowedTypes));
@@ -240,7 +241,8 @@ export default function LessonQuizPage({
   const promptLabel = PROMPT_LABELS[round.questionType];
 
   return (
-    <section className="writing-screen module-screen lesson-quiz-screen" aria-label={`Quiz ${lessonTitle || 'lecon'}`}>
+    <section className="writing-screen module-screen lesson-quiz-screen" aria-label={`Évaluation ${lessonTitle || 'lecon'}`}>
+      {shellHeader ? null : (
       <div className="writing-top-banner">
         <button
           type="button"
@@ -264,8 +266,10 @@ export default function LessonQuizPage({
           Lire
         </button>
       </div>
+      )}
 
       <div className="lesson-quiz-body">
+        {shellHeader ? <div className="lesson-quiz-score">Q{roundIndex + 1}/{totalRounds} · {score.correct}/{score.total}</div> : null}
         <p className="lesson-quiz-prompt-label">{promptLabel}</p>
 
         {round.questionType === 'translation-to-char' ? (

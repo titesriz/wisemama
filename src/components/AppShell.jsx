@@ -65,7 +65,7 @@ export default function AppShell({
         </button>
 
         <nav className="app-shell-crumbs" aria-label="Fil d'Ariane">
-          {hasHiddenCrumbs ? <span className="app-shell-crumb-ellipsis" aria-hidden="true">…<span className="app-shell-sep">›</span></span> : null}
+          {hasHiddenCrumbs ? <span className="app-shell-crumb-ellipsis" aria-hidden="true">…</span> : null}
           {crumbs.map((crumb, index) => {
             const isLast = index === crumbs.length - 1;
             const isHiddenOnNarrow = hasHiddenCrumbs && index < crumbs.length - 2;

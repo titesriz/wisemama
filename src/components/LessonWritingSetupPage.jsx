@@ -29,6 +29,7 @@ export default function LessonWritingSetupPage({
   onGoHome,
   onSelectLesson,
   onOpenAvatarEditor,
+  shellHeader = false,
 }) {
   const [selectedCardIds, setSelectedCardIds] = useState(() => new Set((lesson?.cards || []).map((card) => card.id)));
   const [showLessonPicker, setShowLessonPicker] = useState(false);
@@ -118,6 +119,7 @@ export default function LessonWritingSetupPage({
     <section className="lesson-text-page">
       <div className="landing-new-shell lesson-text-shell">
         <article ref={lessonPickerRef} className="profile-card-kid lesson-text-frame">
+          {shellHeader ? null : (
           <div className="current-lesson-card lesson-text-current-card lesson-text-sticky-header">
             <div className="lesson-header lesson-header-with-avatar lesson-text-topbar">
               <button type="button" className="lesson-home-logo app-logo ui-pressable" onClick={onGoHome} aria-label="Retour landing">
@@ -180,6 +182,7 @@ export default function LessonWritingSetupPage({
               </div>
             ) : null}
           </div>
+          )}
 
       <div className="vocabulary-section lesson-text-vocab writing-setup-section">
         <div className="vocab-section-header">

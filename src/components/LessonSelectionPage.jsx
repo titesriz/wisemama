@@ -7,6 +7,7 @@ export default function LessonSelectionPage({
   activeLessonId = '',
   onSelectLesson,
   onBack,
+  shellHeader = false,
 }) {
   const [showOtherLessons, setShowOtherLessons] = useState(true);
   const sortedLessons = getLessonsByOrder(lessons);
@@ -17,14 +18,16 @@ export default function LessonSelectionPage({
     <section className="lesson-select-page">
       <div className="lesson-select-shell">
         <header className="lesson-select-head">
-          <div className="hub-header-top-row">
-            <button type="button" className="hub-logo-btn ui-pressable" onClick={onBack} aria-label="Retour">
-              文
-            </button>
-            <button type="button" className="lesson-select-back ui-pressable" onClick={onBack}>
-              ← Retour
-            </button>
-          </div>
+          {shellHeader ? null : (
+            <div className="hub-header-top-row">
+              <button type="button" className="hub-logo-btn ui-pressable" onClick={onBack} aria-label="Retour">
+                文
+              </button>
+              <button type="button" className="lesson-select-back ui-pressable" onClick={onBack}>
+                ← Retour
+              </button>
+            </div>
+          )}
           <h1>Choisir une leçon</h1>
         </header>
 

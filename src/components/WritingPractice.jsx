@@ -127,6 +127,7 @@ export default function WritingPractice({
   onBack,
   onGoHome,
   onOpenAvatarEditor,
+  shellHeader = false,
   standalone = false,
   embedded = false,
   onSuccess,
@@ -554,7 +555,7 @@ export default function WritingPractice({
       className={`writing-screen ${embedded ? 'writing-screen-embedded' : ''}`}
       aria-label={isRadicalMode ? 'Atelier radical tablette' : 'Atelier d ecriture tablette'}
     >
-      {!embedded ? (
+      {!embedded && !shellHeader ? (
         <section ref={lessonPickerRef} className="writing-header-shell">
           <div className="current-lesson-card writing-header-card">
             <div className="lesson-header lesson-header-with-avatar lesson-text-topbar">

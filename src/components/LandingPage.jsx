@@ -7,7 +7,7 @@ const HUB_BUTTONS = [
   { key: 'lessons', label: 'Leçons' },
   { key: 'vocabulary', label: 'Vocabulaire' },
   { key: 'writing', label: 'Écriture' },
-  { key: 'test', label: 'Test' },
+  { key: 'test', label: 'Évaluation' },
 ];
 
 const GREETING_SEQUENCE = ['greet', 'reply', 'ask'];

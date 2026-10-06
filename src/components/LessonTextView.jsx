@@ -83,6 +83,7 @@ export default function LessonTextView({
   onOpenLessonsHub,
   onOpenVocabularyHub,
   onOpenTestHub,
+  shellHeader = false,
 }) {
   const [pinyinMode, setPinyinMode] = useState('all');
   const [manuallyToggledIds, setManuallyToggledIds] = useState(() => new Set());
@@ -198,6 +199,7 @@ export default function LessonTextView({
     <section className="lesson-text-page">
       <div className="landing-new-shell lesson-text-shell">
         <article ref={lessonPickerRef} className="profile-card-kid lesson-text-frame">
+          {shellHeader ? null : (
           <div className="current-lesson-card lesson-text-current-card lesson-text-sticky-header">
             <div className="lesson-header lesson-header-with-avatar lesson-text-topbar">
               <button type="button" className="lesson-home-logo app-logo ui-pressable" onClick={onGoHome} aria-label="Retour landing">
@@ -260,6 +262,7 @@ export default function LessonTextView({
               </div>
             ) : null}
           </div>
+          )}
 
           <div className="lesson-text-content">
           <section className="text-source-section">
@@ -389,13 +392,15 @@ export default function LessonTextView({
           </div>
         </article>
       </div>
-      <PersistentFooterNav
-        active="lessons"
-        onOpenLessonsHub={onOpenLessonsHub}
-        onOpenVocabularyHub={onOpenVocabularyHub}
-        onOpenWritingHub={() => onOpenWritingSetup?.()}
-        onOpenTestHub={onOpenTestHub}
-      />
+      {shellHeader ? null : (
+        <PersistentFooterNav
+          active="lessons"
+          onOpenLessonsHub={onOpenLessonsHub}
+          onOpenVocabularyHub={onOpenVocabularyHub}
+          onOpenWritingHub={() => onOpenWritingSetup?.()}
+          onOpenTestHub={onOpenTestHub}
+        />
+      )}
     </section>
   );
 }

@@ -16,6 +16,7 @@ export default function WritingOnlyPage({
   onBack,
   onGoHome,
   onOpenAvatarEditor,
+  shellHeader = false,
   onOpenLessonText,
   onSelectLesson,
   onSwitchModule,
@@ -76,6 +77,7 @@ export default function WritingOnlyPage({
         onBack={onBack}
         onGoHome={onGoHome}
         onOpenAvatarEditor={onOpenAvatarEditor}
+        shellHeader={shellHeader}
         standalone
         onSuccess={onSuccess}
       />

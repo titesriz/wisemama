@@ -1,17 +1,19 @@
 import '../styles/choice-hub.css';
 
-export default function ChoiceHubPage({ title, subtitle, choices = [], onBack }) {
+export default function ChoiceHubPage({ title, subtitle, choices = [], onBack, shellHeader = false }) {
   return (
     <section className="hub-page">
       <header className="hub-header">
-        <div className="hub-header-top-row">
-          <button type="button" className="hub-logo-btn ui-pressable" onClick={onBack} aria-label="Retour">
-            文
-          </button>
-          <button type="button" className="hub-back-btn ui-pressable" onClick={onBack}>
-            ← Retour
-          </button>
-        </div>
+        {shellHeader ? null : (
+          <div className="hub-header-top-row">
+            <button type="button" className="hub-logo-btn ui-pressable" onClick={onBack} aria-label="Retour">
+              文
+            </button>
+            <button type="button" className="hub-back-btn ui-pressable" onClick={onBack}>
+              ← Retour
+            </button>
+          </div>
+        )}
         <div className="hub-header-text">
           <h1>{title}</h1>
           {subtitle ? <p>{subtitle}</p> : null}

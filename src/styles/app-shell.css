@@ -152,6 +152,25 @@
   color: var(--wm-color-surface);
 }
 
+/* Hubs keep their own titles but no longer stick: the shell header is the sticky one. */
+.app-shell .hub-header,
+.app-shell .lesson-select-head {
+  position: static;
+  z-index: auto;
+  margin-top: 0;
+  padding-top: 16px;
+  background: none;
+  backdrop-filter: none;
+}
+
+.app-shell .hub-page {
+  min-height: 0;
+}
+
+.app-shell .lesson-text-top-row.lesson-text-sticky-instructions {
+  top: var(--shell-header-h);
+}
+
 /* Narrow: keep only the last two crumbs, the leading "…" stands for the rest. */
 @media (max-width: 767px) {
   .app-shell-crumb.is-hidden-narrow {

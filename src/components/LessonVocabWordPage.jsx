@@ -19,6 +19,7 @@ export default function LessonVocabWordPage({
   onSwitchModule,
   onOpenPicker,
   onOpenAvatarEditor,
+  shellHeader = false,
 }) {
   const characters = useMemo(() => Array.from(word?.hanzi || ''), [word?.hanzi]);
   const isCompound = characters.length > 1;
@@ -29,6 +30,7 @@ export default function LessonVocabWordPage({
 
   return (
     <ModuleFrame
+      shellHeader={shellHeader}
       profile={profile}
       lessonId={lessonId}
       lessonTitle={lessonTitle}

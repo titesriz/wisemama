@@ -26,6 +26,7 @@ export default function ModuleFrame({
   modes = ['flashcards', 'audio', 'writing'],
   onOpenPicker,
   onOpenAvatarEditor,
+  shellHeader = false,
   children,
 }) {
   const sounds = useUiSounds();
@@ -120,6 +121,7 @@ export default function ModuleFrame({
 
   return (
     <section className="writing-screen module-screen" aria-label="Module harmonise" {...swipeHandlers}>
+      {shellHeader ? null : (
       <div className="writing-top-banner">
         <button
           type="button"
@@ -183,6 +185,7 @@ export default function ModuleFrame({
           </button>
         ) : null}
       </div>
+      )}
 
       {showLessonPicker ? (
         <div className="writing-lesson-picker">
@@ -312,7 +315,7 @@ export default function ModuleFrame({
             }}
             disabled={activeModule === 'quiz'}
           >
-            Quiz
+            Évaluation
           </button>
         ) : null}
       </div>
