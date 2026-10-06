@@ -94,7 +94,7 @@ export default function ModuleFrame({
         }
       }
       if (!recordingBlob) {
-        resolvedSrc = card?.audioUrl || '';
+        resolvedSrc = card?.audioUrl?.startsWith('indexeddb://') ? '' : card?.audioUrl || '';
       }
 
       if (!isMounted) return;
