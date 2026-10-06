@@ -55,6 +55,7 @@ import {
 } from './lib/ftueStorage.js';
 import { applyHanziFontPreference, getHanziFontPreference } from './lib/hanziFont.js';
 import { isDevMode } from './config.js';
+import { SCREEN } from './lib/screens.js';
 
 const appTitle = 'WiseMama - Apprendre le chinois';
 const progressStorageKey = 'wisemama-progress-v1';
@@ -113,23 +114,6 @@ const STANDALONE_VIEW = {
   LESSON_WRITING_SETUP: 'lesson-writing-setup',
   TEST_HUB: 'test-hub',
   LESSON_EDITOR: 'lesson-editor',
-};
-
-// Browser history discriminator: tracks which logical screen the user is on
-// without changing the URL (hubs and landing share "/", lesson subviews
-// share "/lesson/:id/text") - popstate reads history.state.screen to know
-// what to restore, instead of guessing from the URL alone.
-const SCREEN = {
-  LANDING: 'landing',
-  HUB_LESSONS: 'hub-lessons',
-  HUB_VOCAB: 'hub-vocab',
-  HUB_WRITING: 'hub-writing',
-  HUB_TEST: 'hub-test',
-  LESSON_TEXT: 'lesson-text',
-  LESSON_VOCAB: 'lesson-vocab',
-  LESSON_WRITING_SETUP: 'lesson-writing-setup',
-  LESSON_WRITING_PRACTICE: 'lesson-writing-practice',
-  LESSON_QUIZ: 'lesson-quiz',
 };
 
 const hskProgressStorageKey = 'wisemama-hsk1-progress-v1';

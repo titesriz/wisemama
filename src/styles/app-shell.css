@@ -1,0 +1,176 @@
+:root {
+  --shell-header-h: 64px;
+  --shell-footer-h: 64px;
+}
+
+.app-shell {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--wm-color-surface-soft);
+}
+
+.app-shell-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  height: var(--shell-header-h);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--wm-color-surface);
+  border-bottom: 1px solid var(--wm-color-border);
+  box-shadow: 0 6px 12px -8px rgba(45, 52, 54, 0.18);
+}
+
+.app-shell-logo {
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: var(--wm-radius-sm);
+  background: linear-gradient(135deg, var(--wm-color-primary) 0%, #ff8e8e 100%);
+  color: var(--wm-color-surface);
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.app-shell-crumbs {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--wm-color-text-soft);
+}
+
+.app-shell-crumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+.app-shell-crumb > span:not(.app-shell-sep),
+.app-shell-crumb-link {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-shell-crumb.is-current > span {
+  color: var(--wm-color-text-main);
+}
+
+.app-shell-crumb-link {
+  border: none;
+  background: transparent;
+  padding: 4px 0;
+  font: inherit;
+  color: var(--wm-color-accent-hover);
+  cursor: pointer;
+}
+
+.app-shell-sep {
+  color: var(--wm-color-border);
+  flex: 0 0 auto;
+}
+
+.app-shell-crumb-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+}
+
+.app-shell-avatar {
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 2px solid var(--wm-color-accent);
+  border-radius: var(--wm-radius-pill);
+  background: transparent;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.app-shell-main {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.app-shell-footer {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  padding: 8px 16px calc(8px + env(safe-area-inset-bottom, 0px));
+  background: var(--wm-color-surface);
+  border-top: 1px solid var(--wm-color-border);
+}
+
+.app-shell-footer-btn {
+  min-height: 44px;
+  padding: 8px;
+  border: 2px solid var(--wm-color-border);
+  border-radius: var(--wm-radius-sm);
+  background: var(--wm-color-surface);
+  color: var(--wm-color-text-main);
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.app-shell-footer-lessons.is-active {
+  background: var(--wm-color-accent);
+  border-color: var(--wm-color-accent-hover);
+  color: var(--wm-color-surface);
+}
+
+.app-shell-footer-vocab.is-active {
+  background: var(--wm-color-secondary);
+  border-color: var(--wm-color-warning);
+  color: var(--wm-color-text-main);
+}
+
+.app-shell-footer-writing.is-active {
+  background: var(--wm-color-primary);
+  border-color: var(--wm-color-primary-hover);
+  color: var(--wm-color-surface);
+}
+
+.app-shell-footer-test.is-active {
+  background: var(--wm-color-info);
+  border-color: var(--wm-color-info);
+  color: var(--wm-color-surface);
+}
+
+/* Narrow: keep only the last two crumbs, the leading "…" stands for the rest. */
+@media (max-width: 767px) {
+  .app-shell-crumb.is-hidden-narrow {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .app-shell-crumb-ellipsis {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .app-shell-header {
+    padding: 8px 32px;
+  }
+
+  .app-shell-footer {
+    padding: 8px 32px calc(8px + env(safe-area-inset-bottom, 0px));
+  }
+}
