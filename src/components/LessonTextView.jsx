@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import AvatarRenderer from './AvatarRenderer.jsx';
 import CharacterGlossChar from './CharacterGlossChar.jsx';
+import PersistentFooterNav from './PersistentFooterNav.jsx';
 import '../styles/radical-discovery.css';
 import { formatPinyinDisplay, extractToneAccent } from '../lib/pinyinDisplay.js';
 import { segmentLessonText } from '../lib/lessonTextSegmentation.js';
@@ -73,24 +74,22 @@ export default function LessonTextView({
   lesson,
   lessons = [],
   profile,
-  parentProfile,
   progressMap = {},
-  writingDifficulty = 1,
-  onChangeWritingDifficulty,
   onSelectLesson,
-  onPracticeCharacter,
-  onBack,
-  onStartPractice,
-  onStartQuiz,
+  onGoHome,
+  onOpenAvatarEditor,
   onPracticeVocabulary,
-  onOpenAllFlashcards,
-  onOpenRadicalDiscovery,
+  onOpenWritingSetup,
+  onOpenLessonsHub,
+  onOpenVocabularyHub,
+  onOpenTestHub,
 }) {
   const [pinyinMode, setPinyinMode] = useState('all');
   const [manuallyToggledIds, setManuallyToggledIds] = useState(() => new Set());
   const [playingSentenceIndex, setPlayingSentenceIndex] = useState(-1);
   const [showLessonPicker, setShowLessonPicker] = useState(false);
-  const [selectedCardIds, setSelectedCardIds] = useState(() => new Set((lesson?.cards || []).map((card) => card.id)));
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [pinyinCapsuleExpanded, setPinyinCapsuleExpanded] = useState(false);
   const lessonPickerRef = useRef(null);
   const availableLessons = useMemo(() => {
     if (lessons.length) return getLessonsByOrder(lessons);
@@ -108,8 +107,15 @@ export default function LessonTextView({
   }, [pinyinMode]);
 
   useEffect(() => {
-    setSelectedCardIds(new Set((lesson?.cards || []).map((card) => card.id)));
-  }, [lesson?.id, lesson?.cards]);
+    const SCROLL_THRESHOLD = 24;
+    const handleScroll = () => {
+      const scrolled = window.scrollY > SCROLL_THRESHOLD;
+      setIsScrolled(scrolled);
+      if (!scrolled) setPinyinCapsuleExpanded(false);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     if (!showLessonPicker) return undefined;
@@ -147,49 +153,11 @@ export default function LessonTextView({
     return segmentLessonText(baseText);
   }, [lesson?.cards, lesson?.sourceText]);
 
-  const vocabulary = useMemo(() => {
-    return (lesson?.cards || []).filter((card) => card?.hanzi).map((card, index) => ({
-      id: card.id,
-      index,
-      hanzi: card.hanzi,
-      pinyin: card.pinyin || '',
-      french: card.french || '',
-      english: card.english || '',
-      status: getCharacterStatus(lesson.id, card, progressMap, seenCharsBeforeSet),
-      stars: getCardProgressStars(lesson.id, card.id, progressMap),
-    }));
-  }, [lesson?.cards, lesson?.id, progressMap, seenCharsBeforeSet]);
-
-  const selectedVocabulary = useMemo(
-    () => vocabulary.filter((item) => selectedCardIds.has(item.id)),
-    [selectedCardIds, vocabulary],
-  );
-
   // Optional multi-character vocabulary words (e.g. 礼貌) authored per
-  // lesson - distinct from `vocabulary` above, which is the per-character
-  // grid. Empty for every lesson that hasn't been given word data yet.
+  // lesson - distinct from the per-character writing selection, which now
+  // lives on its own screen (LessonWritingSetupPage). Empty for every
+  // lesson that hasn't been given word data yet.
   const lessonVocabWords = lesson?.vocabulary || [];
-
-  const journeyStartIndex = useMemo(() => {
-    const firstNew = selectedVocabulary.find((item) => item.status !== 'learned');
-    return firstNew ? firstNew.index : 0;
-  }, [selectedVocabulary]);
-
-  const journeyStartCard = lesson?.cards?.[journeyStartIndex] || null;
-  const allSelected = vocabulary.length > 0 && selectedCardIds.size === vocabulary.length;
-
-  const toggleVocabularySelection = (cardId) => {
-    setSelectedCardIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(cardId)) next.delete(cardId);
-      else next.add(cardId);
-      return next;
-    });
-  };
-
-  const setAllVocabularySelection = (shouldSelect) => {
-    setSelectedCardIds(shouldSelect ? new Set(vocabulary.map((item) => item.id)) : new Set());
-  };
 
   const playSentence = async (sentence, sentenceIndex) => {
     if (!sentence || playingSentenceIndex >= 0) return;
@@ -230,43 +198,37 @@ export default function LessonTextView({
     <section className="lesson-text-page">
       <div className="landing-new-shell lesson-text-shell">
         <article ref={lessonPickerRef} className="profile-card-kid lesson-text-frame">
-          <div className="current-lesson-card lesson-text-current-card">
+          <div className="current-lesson-card lesson-text-current-card lesson-text-sticky-header">
             <div className="lesson-header lesson-header-with-avatar lesson-text-topbar">
-              <button type="button" className="lesson-home-logo app-logo ui-pressable" onClick={onBack} aria-label="Retour landing">
+              <button type="button" className="lesson-home-logo app-logo ui-pressable" onClick={onGoHome} aria-label="Retour landing">
                 文
               </button>
-              <div className="lesson-avatar lesson-avatar-single" aria-label="Profil enfant">
+              <div className="lesson-info lesson-text-title-block">
+                <span className="lesson-text-mode-label">Leçon</span>
+                <h3 className="lesson-title lesson-text-card-title">{lesson?.title || 'Lecon'}</h3>
+              </div>
+              <button
+                type="button"
+                className="change-lesson-btn icon-only ui-pressable"
+                onClick={() => setShowLessonPicker((prev) => !prev)}
+                aria-label="Changer de lecon"
+              >
+                🗂️
+              </button>
+              <button
+                type="button"
+                className="lesson-avatar lesson-avatar-single lesson-avatar-btn ui-pressable"
+                aria-label="Modifier l'avatar de l'enfant"
+                onClick={() => onOpenAvatarEditor?.()}
+              >
                 <AvatarRenderer
                   config={profile?.avatar}
-                  size={56}
+                  size={48}
                   className="landing-avatar-circle"
                   alt={`Avatar ${profile?.name || 'Enfant'}`}
                   loading="eager"
                 />
-              </div>
-              <div className="lesson-avatar lesson-avatar-single lesson-parent-avatar" aria-label="Profil parent">
-                <AvatarRenderer
-                  config={parentProfile?.avatar}
-                  size={56}
-                  className="landing-avatar-circle"
-                  alt={`Avatar ${parentProfile?.name || 'Parent'}`}
-                  loading="eager"
-                />
-              </div>
-              <div className="lesson-info lesson-text-title-block">
-                <h3 className="lesson-title lesson-text-card-title">{lesson?.title || 'Lecon'}</h3>
-                {lesson?.description ? <p className="lesson-description lesson-text-card-description">{lesson.description}</p> : null}
-              </div>
-              <div className="lesson-actions lesson-text-topbar-actions">
-                <button
-                  type="button"
-                  className="change-lesson-btn icon-only ui-pressable"
-                  onClick={() => setShowLessonPicker((prev) => !prev)}
-                  aria-label="Changer de lecon"
-                >
-                  🗂️
-                </button>
-              </div>
+              </button>
             </div>
             {showLessonPicker ? (
               <div
@@ -301,23 +263,45 @@ export default function LessonTextView({
 
           <div className="lesson-text-content">
           <section className="text-source-section">
-            <div className="lesson-text-top-row">
-              <span className="lesson-section-marker">① Lis la leçon</span>
-              <div className="pinyin-toggle" role="radiogroup" aria-label="Mode pinyin">
-                <label className="toggle-option">
-                  <input type="radio" name="pinyinMode" value="all" checked={pinyinMode === 'all'} onChange={() => setPinyinMode('all')} />
-                  <span className="radio-label"><span className="radio-icon">🟢</span>Tous les pinyin</span>
-                </label>
-                <label className="toggle-option">
-                  <input type="radio" name="pinyinMode" value="tone" checked={pinyinMode === 'tone'} onChange={() => setPinyinMode('tone')} />
-                  <span className="radio-label"><span className="radio-icon">🎵</span>Aide tonalité</span>
-                </label>
-                <label className="toggle-option">
-                  <input type="radio" name="pinyinMode" value="none" checked={pinyinMode === 'none'} onChange={() => setPinyinMode('none')} />
-                  <span className="radio-label"><span className="radio-icon">⚪</span>Aucun pinyin</span>
-                </label>
+            {isScrolled && !pinyinCapsuleExpanded ? (
+              <button
+                type="button"
+                className="pinyin-capsule-edge-tab ui-pressable"
+                onClick={() => setPinyinCapsuleExpanded(true)}
+                aria-label="Afficher les options pinyin"
+                aria-expanded="false"
+              >
+                ›
+              </button>
+            ) : (
+              <div className="lesson-text-top-row lesson-text-sticky-instructions">
+                <div className="pinyin-toggle" role="radiogroup" aria-label="Mode pinyin">
+                  <label className="toggle-option">
+                    <input type="radio" name="pinyinMode" value="all" checked={pinyinMode === 'all'} onChange={() => setPinyinMode('all')} />
+                    <span className="radio-label"><span className="radio-icon">🟢</span>Tous les pinyin</span>
+                  </label>
+                  <label className="toggle-option">
+                    <input type="radio" name="pinyinMode" value="tone" checked={pinyinMode === 'tone'} onChange={() => setPinyinMode('tone')} />
+                    <span className="radio-label"><span className="radio-icon">🎵</span>Aide tonalité</span>
+                  </label>
+                  <label className="toggle-option">
+                    <input type="radio" name="pinyinMode" value="none" checked={pinyinMode === 'none'} onChange={() => setPinyinMode('none')} />
+                    <span className="radio-label"><span className="radio-icon">⚪</span>Aucun pinyin</span>
+                  </label>
+                </div>
+                {isScrolled ? (
+                  <button
+                    type="button"
+                    className="pinyin-capsule-toggle ui-pressable"
+                    onClick={() => setPinyinCapsuleExpanded(false)}
+                    aria-label="Reduire les options pinyin"
+                    aria-expanded="true"
+                  >
+                    ▲
+                  </button>
+                ) : null}
               </div>
-            </div>
+            )}
             <div className="text-display">
               {sentences.map((sentence, sentenceIndex) => (
                 <div key={`${sentence}-${sentenceIndex}`} className="sentence-line">
@@ -377,100 +361,11 @@ export default function LessonTextView({
             </div>
           </section>
 
-          <section className="vocabulary-section lesson-text-vocab">
-            <div className="vocab-section-header">
-              <span className="lesson-section-marker">② Entraîne-toi à écrire</span>
-              <span className="vocab-count">
-                {selectedVocabulary.length === 0
-                  ? 'Sélectionne au moins 1 caractère'
-                  : `${selectedVocabulary.length} caractère${selectedVocabulary.length !== 1 ? 's' : ''} sélectionné${selectedVocabulary.length !== 1 ? 's' : ''}`}
-              </span>
-              <div className="vocab-difficulty-btns">
-                <button
-                  type="button"
-                  className={`lesson-difficulty-star ui-pressable ${writingDifficulty === 1 ? 'active' : ''}`}
-                  onClick={() => {
-                    onChangeWritingDifficulty?.(1);
-                    onStartPractice?.(selectedVocabulary.map((item) => item.id));
-                  }}
-                  aria-label="Difficulte 1"
-                  disabled={!journeyStartCard || selectedVocabulary.length === 0}
-                >
-                  Facile
-                </button>
-                <button
-                  type="button"
-                  className={`lesson-difficulty-star ui-pressable ${writingDifficulty === 3 ? 'active' : ''}`}
-                  onClick={() => {
-                    onChangeWritingDifficulty?.(3);
-                    onStartPractice?.(selectedVocabulary.map((item) => item.id));
-                  }}
-                  aria-label="Difficulte 3"
-                  disabled={!journeyStartCard || selectedVocabulary.length === 0}
-                >
-                  Difficile
-                </button>
-                {onOpenAllFlashcards ? (
-                  <button
-                    type="button"
-                    className="lesson-difficulty-star ui-pressable"
-                    onClick={() => onOpenAllFlashcards()}
-                    aria-label="Flashcards"
-                  >
-                    Flashcards
-                  </button>
-                ) : null}
-                {lessonVocabWords.length > 0 ? (
-                  <button
-                    type="button"
-                    className="lesson-difficulty-star ui-pressable"
-                    onClick={() => onStartQuiz?.()}
-                    aria-label="Quiz"
-                  >
-                    Quiz
-                  </button>
-                ) : null}
-              </div>
-            </div>
-            <div className="vocab-grid-with-controls">
-              <div className="vocab-select-btns">
-                <button
-                  type="button"
-                  className="vocab-select-btn ui-pressable"
-                  onClick={() => setAllVocabularySelection(true)}
-                >
-                  Tous
-                </button>
-                <button
-                  type="button"
-                  className="vocab-select-btn ui-pressable"
-                  onClick={() => setAllVocabularySelection(false)}
-                >
-                  Aucun
-                </button>
-              </div>
-              <div className="vocabulary-grid">
-                {vocabulary.map((item) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    className={`vocab-card ${item.status} ${selectedCardIds.has(item.id) ? 'selected' : 'unselected'}`}
-                    title={`${item.hanzi} (${formatPinyinDisplay(item.pinyin)}) - ${item.french || item.english || ''}`}
-                    onClick={() => toggleVocabularySelection(item.id)}
-                  >
-                    <div className="vocab-hanzi">{item.hanzi}</div>
-                    <div className="vocab-status">{selectedCardIds.has(item.id) ? '✓' : '○'}</div>
-                    <div className="vocab-pinyin-hint">{formatPinyinDisplay(item.pinyin)}</div>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </section>
 
           {lessonVocabWords.length > 0 ? (
             <section className="vocabulary-section lesson-text-vocab">
               <div className="vocab-section-header">
-                <span className="lesson-section-marker">③ Vocabulaire</span>
+                <span className="lesson-section-marker">② Vocabulaire</span>
                 <span className="vocab-count">
                   {lessonVocabWords.length} mot{lessonVocabWords.length !== 1 ? 's' : ''}
                 </span>
@@ -494,6 +389,13 @@ export default function LessonTextView({
           </div>
         </article>
       </div>
+      <PersistentFooterNav
+        active="lessons"
+        onOpenLessonsHub={onOpenLessonsHub}
+        onOpenVocabularyHub={onOpenVocabularyHub}
+        onOpenWritingHub={() => onOpenWritingSetup?.()}
+        onOpenTestHub={onOpenTestHub}
+      />
     </section>
   );
 }

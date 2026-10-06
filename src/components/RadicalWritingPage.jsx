@@ -4,6 +4,7 @@ import WritingPractice from './WritingPractice.jsx';
 export default function RadicalWritingPage({
   profile,
   word,
+  writingDifficulty = 1,
   onBack,
   onSwitchModule,
   onSuccess,
@@ -54,7 +55,7 @@ export default function RadicalWritingPage({
         card={word}
         lessonId="radical-deck"
         lessonTitle="Radicaux"
-        writingDifficulty={1}
+        writingDifficulty={writingDifficulty}
         profile={profile}
         cardIndex={charPosition}
         totalCards={charQueue.length}

@@ -1,59 +1,64 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import AvatarRenderer from './AvatarRenderer.jsx';
-import { getLessonsByOrder } from '../utils/lessons/lessonOrder.js';
 import { isDevMode } from '../config.js';
+import '../styles/landing-hub.css';
+
+const HUB_BUTTONS = [
+  { key: 'lessons', label: 'Leçons' },
+  { key: 'vocabulary', label: 'Vocabulaire' },
+  { key: 'writing', label: 'Écriture' },
+  { key: 'test', label: 'Test' },
+];
+
+const GREETING_SEQUENCE = ['greet', 'reply', 'ask'];
 
 export default function LandingPage({
   profiles,
-  lessons = [],
-  activeLessonId = '',
-  activeLesson,
-  lessonProgressMap = {},
   onStartProfile,
-  onSelectLesson,
-  onOpenDailyRituel,
   onOpenAvatarEditor,
   onRefreshLessons,
   onOpenLessonEditorUi,
-  onOpenLessonTextUi,
-  onOpenFlashcardsUi,
-  onOpenAudioUi,
-  onOpenWritingUi,
-  onOpenHskDeckUi,
-  onOpenHskWordSelectUi,
-  onOpenColorsDeckUi,
-  onOpenClothingDeckUi,
-  onOpenRadicalDeckUi,
+  onOpenLessonsHubUi,
+  onOpenVocabularyHubUi,
+  onOpenWritingHubUi,
+  onOpenTestHubUi,
+  onResumeLastLesson,
+  lastActivity,
 }) {
-  const [showLessonPicker, setShowLessonPicker] = useState(false);
   const [refreshStatus, setRefreshStatus] = useState('');
-  const lessonPickerRef = useRef(null);
-  const sortedLessons = getLessonsByOrder(lessons);
+  // 3-step dialogue: Maman greets, the child replies, Maman asks what to
+  // do - each step can be tapped through immediately, but also advances on
+  // its own after a short pause. The choice grid is visible from the start
+  // regardless of the dialogue's progress.
+  const [greetingPhase, setGreetingPhase] = useState('greet');
   const childProfile = profiles.find((profile) => profile.role === 'child') || profiles[0] || null;
   const parentProfile = profiles.find((profile) => profile.role === 'parent') || profiles[0] || null;
+
+  const advanceGreeting = () => {
+    setGreetingPhase((prev) => {
+      const index = GREETING_SEQUENCE.indexOf(prev);
+      return GREETING_SEQUENCE[Math.min(index + 1, GREETING_SEQUENCE.length - 1)];
+    });
+  };
+
   useEffect(() => {
-    if (!showLessonPicker) return undefined;
-
-    const handlePointerDown = (event) => {
-      if (!lessonPickerRef.current?.contains(event.target)) {
-        setShowLessonPicker(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handlePointerDown);
-    document.addEventListener('touchstart', handlePointerDown);
-
-    return () => {
-      document.removeEventListener('mousedown', handlePointerDown);
-      document.removeEventListener('touchstart', handlePointerDown);
-    };
-  }, [showLessonPicker]);
+    if (greetingPhase === 'ask') return undefined;
+    const timeout = window.setTimeout(advanceGreeting, 1400);
+    return () => window.clearTimeout(timeout);
+  }, [greetingPhase]);
 
   useEffect(() => {
     if (!refreshStatus) return undefined;
     const timeout = window.setTimeout(() => setRefreshStatus(''), 2600);
     return () => window.clearTimeout(timeout);
   }, [refreshStatus]);
+
+  const hubHandlers = {
+    lessons: onOpenLessonsHubUi,
+    vocabulary: onOpenVocabularyHubUi,
+    writing: onOpenWritingHubUi,
+    test: onOpenTestHubUi,
+  };
 
   return (
     <section className="landing" aria-label="Page d accueil">
@@ -72,243 +77,106 @@ export default function LandingPage({
           </div>
         </div>
 
-        <article ref={lessonPickerRef} className="profile-card-kid">
-          {activeLesson ? (
-            <>
-              <h3 className="child-greeting">Bonjour {childProfile?.name || 'Eli'}</h3>
-              <div className="child-avatar">
-                {childProfile ? (
-                  <AvatarRenderer
-                    config={childProfile.avatar}
-                    size={92}
-                    className="landing-avatar-circle"
-                    alt={`Avatar ${childProfile.name || 'Enfant'}`}
-                    loading="eager"
-                  />
-                ) : null}
-              </div>
-              <div className="lesson-card-with-picker">
-                <div
-                  className="current-lesson-card child-lesson-card ui-pressable"
-                  onClick={onOpenLessonTextUi}
-                  onKeyDown={(event) => {
-                    if (event.key === 'Enter' || event.key === ' ') {
-                      event.preventDefault();
-                      onOpenLessonTextUi?.();
-                    }
-                  }}
-                  role="button"
-                  tabIndex={0}
-                  aria-label="Ouvrir la lecon"
-                >
-                  <div className="lesson-header child-lesson-header child-lesson-header-fixed">
-                    <div className="child-lesson-main">
-                      <div className="lesson-info child-lesson-info">
-                        <h3 className="lesson-title child-lesson-title">{activeLesson.title}</h3>
-                        {activeLesson.description ? (
-                          <p className="lesson-description child-lesson-description">{activeLesson.description}</p>
-                        ) : null}
-                      </div>
-                    </div>
-                    <div className="lesson-actions child-lesson-actions">
-                      <button
-                        type="button"
-                        className="change-lesson-btn icon-only ui-pressable"
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          setShowLessonPicker((prev) => !prev);
-                        }}
-                        aria-label="Changer de lecon"
-                      >
-                        🗂️
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                {showLessonPicker ? (
-                  <div
-                    className="lesson-picker-dropdown"
-                    onClick={(event) => event.stopPropagation()}
-                    onKeyDown={(event) => event.stopPropagation()}
-                  >
-                    {sortedLessons.map((lesson) => (
-                      <button
-                        key={lesson.id}
-                        type="button"
-                        className={`lesson-option ui-pressable ${lesson.id === activeLessonId ? 'active' : ''}`}
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          onSelectLesson?.(lesson.id);
-                          setShowLessonPicker(false);
-                        }}
-                      >
-                        <div className="option-preview">{lesson.coverImage ? <img src={lesson.coverImage} alt="" /> : <span>📘</span>}</div>
-                        <div className="option-info">
-                          <strong>{lesson.order ? `${lesson.order}. ` : ''}{lesson.title}</strong>
-                          <span className="option-meta">{lesson.cards.length} cartes</span>
-                        </div>
-                        {lesson.id === activeLessonId ? <span className="checkmark">✓</span> : null}
-                      </button>
-                    ))}
-                  </div>
-                ) : null}
-              </div>
-            </>
-          ) : (
-            <div className="landing-active-lesson">
-              <span className="landing-active-lesson-title">
-                {isDevMode
-                  ? 'Aucune lecon disponible'
-                  : 'Les lecons arrivent bientot. Appuie sur "Mettre a jour" ci-dessous.'}
-              </span>
-              {isDevMode ? (
-                <button
-                  type="button"
-                  className="button secondary button-sm"
-                  onClick={() => parentProfile && onStartProfile(parentProfile.id)}
-                >
-                  Gerer pour creer une lecon
-                </button>
-              ) : null}
-            </div>
-          )}
-        </article>
-
-        <article className="profile-card-kid">
-          <div
-            className="current-lesson-card child-lesson-card ui-pressable"
-            onClick={onOpenHskDeckUi}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                onOpenHskDeckUi?.();
-              }
-            }}
-            role="button"
-            tabIndex={0}
-            aria-label="Preparer le HSK1"
-          >
-            <div className="lesson-header child-lesson-header child-lesson-header-fixed">
-              <div className="child-lesson-main">
-                <div className="lesson-info child-lesson-info">
-                  <h3 className="lesson-title child-lesson-title">Préparer le HSK1</h3>
-                  <p className="lesson-description child-lesson-description">
-                    500 mots du référentiel HSK 3.0, indépendant des leçons
-                  </p>
-                </div>
-              </div>
-              <div className="lesson-actions child-lesson-actions">
-                <button
-                  type="button"
-                  className="change-lesson-btn icon-only ui-pressable"
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    onOpenHskWordSelectUi?.();
-                  }}
-                  aria-label="Choisir un mot HSK1"
-                >
-                  🗂️
-                </button>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article className="profile-card-kid">
-          <div
-            className="current-lesson-card child-lesson-card ui-pressable"
-            onClick={onOpenColorsDeckUi}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                onOpenColorsDeckUi?.();
-              }
-            }}
-            role="button"
-            tabIndex={0}
-            aria-label="Decouvrir les couleurs"
-          >
-            <div className="lesson-header child-lesson-header child-lesson-header-fixed">
-              <div className="child-lesson-main">
-                <div className="lesson-info child-lesson-info">
-                  <h3 className="lesson-title child-lesson-title">Découvrir les couleurs</h3>
-                  <p className="lesson-description child-lesson-description">
-                    Lire, écrire et un quiz - indépendant des leçons
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article className="profile-card-kid">
-          <div
-            className="current-lesson-card child-lesson-card ui-pressable"
-            onClick={onOpenClothingDeckUi}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                onOpenClothingDeckUi?.();
-              }
-            }}
-            role="button"
-            tabIndex={0}
-            aria-label="Decouvrir les vetements"
-          >
-            <div className="lesson-header child-lesson-header child-lesson-header-fixed">
-              <div className="child-lesson-main">
-                <div className="lesson-info child-lesson-info">
-                  <h3 className="lesson-title child-lesson-title">Découvrir les vêtements</h3>
-                  <p className="lesson-description child-lesson-description">
-                    Lire, écrire et un quiz - indépendant des leçons
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article className="profile-card-kid">
-          <div
-            className="current-lesson-card child-lesson-card ui-pressable"
-            onClick={onOpenRadicalDeckUi}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                onOpenRadicalDeckUi?.();
-              }
-            }}
-            role="button"
-            tabIndex={0}
-            aria-label="Decouvrir les radicaux"
-          >
-            <div className="lesson-header child-lesson-header child-lesson-header-fixed">
-              <div className="child-lesson-main">
-                <div className="lesson-info child-lesson-info">
-                  <h3 className="lesson-title child-lesson-title">Découvrir les radicaux</h3>
-                  <p className="lesson-description child-lesson-description">
-                    Lire, écrire et un quiz - indépendant des leçons
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article className="profile-card-parent">
-          <div className="companion-row">
+        <button
+          type="button"
+          className="profile-card-kid hero-chat-card hero-chat-card-btn ui-pressable"
+          onClick={advanceGreeting}
+          aria-label="Continuer la conversation"
+          disabled={greetingPhase === 'ask'}
+        >
+          <div className="hero-chat-row hero-chat-row-parent">
             {parentProfile ? (
               <AvatarRenderer
                 config={parentProfile.avatar}
-                size={52}
-                className="landing-avatar-circle"
+                size={72}
+                className="landing-avatar-circle hero-chat-avatar"
                 alt={`Avatar ${parentProfile.name || 'Maman'}`}
+                loading="eager"
               />
             ) : null}
-            <p className="companion-message">
-              Tu apprends avec {parentProfile?.name || 'Maman'} aujourd'hui 🌸
-            </p>
+            <div className="hero-speech-bubble hero-speech-bubble-parent">
+              {greetingPhase === 'ask' ? (
+                <span className="hero-prompt-text">Que veux-tu faire aujourd'hui ?</span>
+              ) : (
+                <span className="hero-prompt-text">Bonjour {childProfile?.name || 'Eli'}</span>
+              )}
+            </div>
           </div>
+
+          <div className="hero-chat-row hero-chat-row-child">
+            {greetingPhase === 'reply' ? (
+              <div className="hero-speech-bubble hero-speech-bubble-child">
+                <span className="hero-prompt-text">Bonjour {parentProfile?.name || 'Maman'}</span>
+              </div>
+            ) : null}
+            {greetingPhase === 'ask' ? (
+              <div className="hero-speech-bubble hero-speech-bubble-child">
+                <span className="hero-thinking-dots" aria-label="...">
+                  <span />
+                  <span />
+                  <span />
+                </span>
+              </div>
+            ) : null}
+            {childProfile ? (
+              <span
+                role="button"
+                tabIndex={0}
+                className="hero-chat-avatar-btn ui-pressable"
+                aria-label="Modifier l'avatar de l'enfant"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onOpenAvatarEditor?.();
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    onOpenAvatarEditor?.();
+                  }
+                }}
+              >
+                <AvatarRenderer
+                  config={childProfile.avatar}
+                  size={72}
+                  className="landing-avatar-circle hero-chat-avatar"
+                  alt={`Avatar ${childProfile.name || 'Enfant'}`}
+                />
+              </span>
+            ) : null}
+          </div>
+        </button>
+
+        <div className="hub-grid-2x2 visible">
+          {HUB_BUTTONS.map((button) => (
+            <button
+              key={button.key}
+              type="button"
+              className="hub-pentagon-btn ui-pressable"
+              onClick={() => hubHandlers[button.key]?.()}
+            >
+              {button.label}
+            </button>
+          ))}
+        </div>
+
+        <article className="profile-card-parent">
+          <button
+            type="button"
+            className="resume-card-btn ui-pressable"
+            onClick={() => onResumeLastLesson?.()}
+          >
+            <span className="resume-card-icon">↻</span>
+            <span className="resume-card-text">
+              <span className="resume-card-label">Reprendre</span>
+              {lastActivity ? (
+                <span className="resume-card-detail">
+                  {lastActivity.contentLabel}
+                  {lastActivity.modeLabel ? ` · ${lastActivity.modeLabel}` : ''}
+                </span>
+              ) : null}
+            </span>
+          </button>
           {isDevMode ? (
             <button
               type="button"

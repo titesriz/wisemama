@@ -4,6 +4,7 @@ import WritingPractice from './WritingPractice.jsx';
 export default function HskWritingPage({
   profile,
   word,
+  writingDifficulty = 1,
   onBack,
   onSwitchModule,
   onSuccess,
@@ -54,7 +55,7 @@ export default function HskWritingPage({
         card={word}
         lessonId="hsk1-deck"
         lessonTitle="HSK1"
-        writingDifficulty={1}
+        writingDifficulty={writingDifficulty}
         profile={profile}
         cardIndex={charPosition}
         totalCards={charQueue.length}

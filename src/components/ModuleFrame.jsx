@@ -9,6 +9,7 @@ import { speakHanzi } from '../lib/ttsFallback.js';
 export default function ModuleFrame({
   profile,
   lessonTitle,
+  modeLabel = '',
   lessonId = '',
   lessons = [],
   card,
@@ -16,6 +17,7 @@ export default function ModuleFrame({
   totalCards = 0,
   activeModule = 'flashcards',
   onBack,
+  onGoHome,
   onOpenLessonText,
   onSelectLesson,
   onPrev,
@@ -23,6 +25,7 @@ export default function ModuleFrame({
   onSwitchModule,
   modes = ['flashcards', 'audio', 'writing'],
   onOpenPicker,
+  onOpenAvatarEditor,
   children,
 }) {
   const sounds = useUiSounds();
@@ -34,7 +37,6 @@ export default function ModuleFrame({
   const autoPlayRef = useRef(false);
   const isFirstCardRef = useRef(true);
   const targetChar = useMemo(() => Array.from(card?.hanzi || '')[0] || '', [card?.hanzi]);
-  const profileLabel = profile?.role === 'parent' ? 'Parent' : 'Kid';
   const availableLessons = lessons.length ? lessons : [{ id: lessonId || 'current', title: lessonTitle || 'Lecon', cards: [] }];
 
   useEffect(() => {
@@ -124,25 +126,25 @@ export default function ModuleFrame({
           className="writing-logo ui-pressable"
           onClick={() => {
             sounds.playTap();
-            onBack?.();
+            if (onGoHome) {
+              onGoHome();
+            } else {
+              onBack?.();
+            }
           }}
+          aria-label="Retour a l'accueil"
         >
           文
         </button>
 
-        <div className="writing-profile-section">
-          <div className="writing-avatar-tile">
-            <AvatarRenderer config={profile?.avatar} size={52} alt="Avatar profil" loading="eager" />
-          </div>
-          <div className="writing-profile-name">
-            <strong>{profile?.name || 'Profil'}</strong>
-            <span>{profileLabel}</span>
-          </div>
+        <div className="writing-title-block">
+          {modeLabel ? <span className="writing-mode-label">{modeLabel}</span> : null}
+          <strong className="writing-title-text">{lessonTitle || 'Lecon'}</strong>
         </div>
 
         <button
           type="button"
-          className="writing-lesson-selector ui-pressable"
+          className="writing-folder-btn ui-pressable"
           onClick={() => {
             sounds.playTap();
             if (onOpenPicker) {
@@ -151,10 +153,23 @@ export default function ModuleFrame({
               setShowLessonPicker((prev) => !prev);
             }
           }}
+          aria-label="Changer de theme"
         >
-          <span className="writing-lesson-selector-label">{lessonTitle || 'Lecon'}</span>
-          <span className="writing-lesson-selector-icon" aria-hidden="true">🗂️</span>
+          🗂️
         </button>
+
+        <button
+          type="button"
+          className="writing-avatar-btn ui-pressable"
+          onClick={() => {
+            sounds.playTap();
+            onOpenAvatarEditor?.();
+          }}
+          aria-label="Modifier l'avatar"
+        >
+          <AvatarRenderer config={profile?.avatar} size={44} alt="Avatar profil" loading="eager" />
+        </button>
+
         {onOpenLessonText ? (
           <button
             type="button"

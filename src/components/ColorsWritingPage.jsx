@@ -4,6 +4,7 @@ import WritingPractice from './WritingPractice.jsx';
 export default function ColorsWritingPage({
   profile,
   word,
+  writingDifficulty = 1,
   onBack,
   onSwitchModule,
   onSuccess,
@@ -54,7 +55,7 @@ export default function ColorsWritingPage({
         card={word}
         lessonId="colors-deck"
         lessonTitle="Couleurs"
-        writingDifficulty={1}
+        writingDifficulty={writingDifficulty}
         profile={profile}
         cardIndex={charPosition}
         totalCards={charQueue.length}

@@ -36,8 +36,29 @@ const COMPETENCY_LABELS = {
   signification: 'Signification',
 };
 
+// What text an option actually shows for a given question type - used to
+// keep distractors from duplicating the correct answer's displayed text.
+// Several characters share a French gloss with their own compound word
+// (e.g. 爸 and 爸爸 both "papa"), so filtering by id alone isn't enough -
+// two different words can still render as the same visible answer.
+function getOptionDisplayKey(word, questionType) {
+  return CHAR_OPTION_TYPES.includes(questionType)
+    ? word.hanzi
+    : String(word.french || '').trim().toLowerCase();
+}
+
 function buildRound(word, questionType, words) {
-  const distractors = shuffle(words.filter((w) => w.id !== word.id)).slice(0, 3);
+  const correctKey = getOptionDisplayKey(word, questionType);
+  const pool = shuffle(words.filter((w) => w.id !== word.id));
+  const seenKeys = new Set([correctKey]);
+  const distractors = [];
+  for (const candidate of pool) {
+    if (distractors.length >= 3) break;
+    const key = getOptionDisplayKey(candidate, questionType);
+    if (!key || seenKeys.has(key)) continue;
+    seenKeys.add(key);
+    distractors.push(candidate);
+  }
   const options = shuffle([...distractors, word]);
   return { correctWord: word, questionType, options };
 }
@@ -52,25 +73,37 @@ function buildWordSequence(words) {
 // Spreads the question types as evenly as possible across totalRounds
 // (a lesson's card count rarely divides evenly by 4), randomizing which
 // types get the extra round(s).
-function buildTypeSequence(totalRounds) {
-  const typeOrder = shuffle(QUESTION_TYPES);
+function buildTypeSequence(totalRounds, allowedTypes) {
+  const typeOrder = shuffle(allowedTypes);
   const sequence = Array.from({ length: totalRounds }, (_, i) => typeOrder[i % typeOrder.length]);
   return shuffle(sequence);
 }
 
-function buildSessionRounds(words) {
+function buildSessionRounds(words, allowedTypes) {
   const wordSequence = buildWordSequence(words);
-  const typeSequence = buildTypeSequence(wordSequence.length);
+  const typeSequence = buildTypeSequence(wordSequence.length, allowedTypes);
   return wordSequence.map((word, i) => buildRound(word, typeSequence[i], words));
 }
 
-function buildSession(words) {
-  return { id: createSessionId(), rounds: buildSessionRounds(words) };
+function buildSession(words, allowedTypes) {
+  return { id: createSessionId(), rounds: buildSessionRounds(words, allowedTypes) };
 }
 
-export default function LessonQuizPage({ profile, lessonId, lessonTitle, words = [], onBack, onSwitchModule }) {
+// allowedTypes restricts which question types a session draws from - the
+// "Comprehension" (char/translation only) and "Ecouter" (sound only) test
+// modes both reuse this same quiz engine, just with a narrower type set;
+// defaults to every type for the original combined quiz.
+export default function LessonQuizPage({
+  profile,
+  lessonId,
+  lessonTitle,
+  words = [],
+  allowedTypes = QUESTION_TYPES,
+  onBack,
+  onSwitchModule,
+}) {
   const sounds = useUiSounds();
-  const [session, setSession] = useState(() => buildSession(words));
+  const [session, setSession] = useState(() => buildSession(words, allowedTypes));
   const [roundIndex, setRoundIndex] = useState(0);
   const [selectedId, setSelectedId] = useState(null);
   const [score, setScore] = useState({ correct: 0, total: 0 });
@@ -132,7 +165,7 @@ export default function LessonQuizPage({ profile, lessonId, lessonTitle, words =
 
   const restartSession = () => {
     sounds.playTap();
-    setSession(buildSession(words));
+    setSession(buildSession(words, allowedTypes));
     setRoundIndex(0);
     setSelectedId(null);
     setScore({ correct: 0, total: 0 });
@@ -146,7 +179,7 @@ export default function LessonQuizPage({ profile, lessonId, lessonTitle, words =
 
   if (isSessionComplete) {
     const sessionEvents = filterBySession(getDeckEvents(profile?.id, lessonId), session.id);
-    const byType = summarizeByType(sessionEvents, QUESTION_TYPES);
+    const byType = summarizeByType(sessionEvents, allowedTypes);
     const byCompetency = summarizeByCompetency(sessionEvents);
 
     return (
@@ -179,7 +212,7 @@ export default function LessonQuizPage({ profile, lessonId, lessonTitle, words =
           <p className="lesson-quiz-results-score">{score.correct}/{score.total}</p>
 
           <div className="lesson-quiz-results-breakdown">
-            {QUESTION_TYPES.map((type) => (
+            {allowedTypes.map((type) => (
               <div key={type} className="lesson-quiz-results-row">
                 <span>{TYPE_SHORT_LABELS[type]}</span>
                 <span>{byType[type]?.correct ?? 0}/{byType[type]?.total ?? 0}</span>

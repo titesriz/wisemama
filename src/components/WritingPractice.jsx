@@ -9,6 +9,12 @@ import { findCharacterStructure } from '../lib/characterStructure.js';
 import { getTopLevelComponents } from '../lib/characterDecomposition.js';
 import { isDevMode } from '../config.js';
 
+const CELEBRATION_EMOJIS = ['🎉', '👏', '🤩', '🙌', '🎊', '🥳', '✨', '🌟', '⭐️', '🏆', '🎆', '💫'];
+
+function pickRandomCelebrationEmoji() {
+  return CELEBRATION_EMOJIS[Math.floor(Math.random() * CELEBRATION_EMOJIS.length)];
+}
+
 function createStaticCharDataLoader(data) {
   return (_char, onLoad) => {
     onLoad(data);
@@ -119,6 +125,8 @@ export default function WritingPractice({
   onOpenRadical,
   onOpenWriting,
   onBack,
+  onGoHome,
+  onOpenAvatarEditor,
   standalone = false,
   embedded = false,
   onSuccess,
@@ -145,11 +153,14 @@ export default function WritingPractice({
   const [showStrokeArrows, setShowStrokeArrows] = useState(writingDifficulty === 1);
   const [showWorksheet, setShowWorksheet] = useState(false);
   const [worksheetSize, setWorksheetSize] = useState('medium');
+  const [showCelebration, setShowCelebration] = useState(false);
+  const [celebrationEmoji, setCelebrationEmoji] = useState('');
   // Index of the *next* stroke to draw (highlighted in the preview band), not
   // the one just completed - starts at 0 (first stroke) so there's always a
   // clear "draw this one next" indicator.
   const [currentStrokeIndex, setCurrentStrokeIndex] = useState(0);
   const strokeStepRefs = useRef([]);
+  const celebrationStepRef = useRef(null);
   const sounds = useUiSounds();
   const isRadicalMode = variant === 'radical';
   const targetChar = useMemo(() => {
@@ -178,6 +189,15 @@ export default function WritingPractice({
   );
 
   const handleQuizCompleteRef = useRef(null);
+
+  const triggerCelebration = () => {
+    setCelebrationEmoji(pickRandomCelebrationEmoji());
+    setShowCelebration(true);
+    window.setTimeout(() => {
+      celebrationStepRef.current?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }, 50);
+  };
+
   // TODO: manual tablet test needed before sharing — hanzi-writer leniency on last stroke behaves
   // differently with stylus vs finger, especially in difficulty-3 (no hint) mode. Verify onComplete
   // fires correctly and does not misfire on lift-off events on iPad/Android tablet.
@@ -189,6 +209,7 @@ export default function WritingPractice({
         if (isLastComponent) {
           setFeedback('Bravo ! Structure terminee.');
           sounds.playSuccess();
+          triggerCelebration();
           onSuccess?.(totalMistakes);
         } else {
           const nextComponent = componentExercises[componentStepIndex + 1];
@@ -206,6 +227,7 @@ export default function WritingPractice({
     if (totalMistakes <= 2) {
       setFeedback('Bravo ! Etoile gagnee.');
       sounds.playSuccess();
+      triggerCelebration();
       onSuccess?.(totalMistakes);
     } else {
       setFeedback('Bon effort. Reessaie pour gagner une etoile.');
@@ -265,6 +287,7 @@ export default function WritingPractice({
 
   useEffect(() => {
     setComponentStepIndex(0);
+    setShowCelebration(false);
   }, [lessonId, card?.id, hanzi]);
 
   useEffect(() => {
@@ -352,6 +375,7 @@ export default function WritingPractice({
     ghostWriterRef.current = ghostWriter;
     writerRef.current = writer;
     setCurrentStrokeIndex(0);
+    setShowCelebration(false);
     setFeedback(
       isRadicalMode
         ? `Trace le composant ${activeComponentExercise?.label || ''}.`
@@ -442,6 +466,7 @@ export default function WritingPractice({
 
     setQuizActive(true);
     setCurrentStrokeIndex(0);
+    setShowCelebration(false);
     setFeedback(isRadicalMode ? `A toi de tracer ${activeComponentExercise?.label || 'ce composant'}.` : 'A toi de tracer dans le bon ordre.');
 
     writerRef.current.quiz({
@@ -537,52 +562,47 @@ export default function WritingPractice({
                 type="button"
                 className="lesson-home-logo app-logo ui-pressable"
                 onClick={() => {
-                  if (onBack) onBack();
+                  sounds.playTap();
+                  if (onGoHome) onGoHome();
+                  else if (onBack) onBack();
                   else onSwitchModule?.('flashcards');
                 }}
                 aria-label="Retour landing"
               >
                 文
               </button>
-              <div className="lesson-avatar lesson-avatar-single" aria-label="Profil enfant">
+              <div className="lesson-info lesson-text-title-block">
+                <span className="lesson-text-mode-label">{isRadicalMode ? 'Radical' : 'Écriture'}</span>
+                <h3 className="lesson-title lesson-text-card-title">{lessonTitle || 'Lecon'}</h3>
+              </div>
+              <button
+                type="button"
+                className="change-lesson-btn icon-only ui-pressable"
+                onClick={() => {
+                  sounds.playTap();
+                  setShowLessonPicker((prev) => !prev);
+                }}
+                aria-label="Changer de lecon"
+              >
+                🗂️
+              </button>
+              <button
+                type="button"
+                className="lesson-avatar lesson-avatar-single lesson-avatar-btn ui-pressable"
+                aria-label="Modifier l'avatar de l'enfant"
+                onClick={() => {
+                  sounds.playTap();
+                  onOpenAvatarEditor?.();
+                }}
+              >
                 <AvatarRenderer
                   config={profile?.avatar}
-                  size={56}
+                  size={48}
                   className="landing-avatar-circle"
                   alt={`Avatar ${profile?.name || profileLabel}`}
                   loading="eager"
                 />
-              </div>
-              <div className="lesson-avatar lesson-avatar-single lesson-parent-avatar" aria-label="Profil parent">
-                <AvatarRenderer
-                  config={parentProfile?.avatar}
-                  size={56}
-                  className="landing-avatar-circle"
-                  alt={`Avatar ${parentProfile?.name || 'Parent'}`}
-                  loading="eager"
-                />
-              </div>
-              <div className="lesson-info lesson-text-title-block">
-                <h3 className="lesson-title lesson-text-card-title">{lessonTitle || 'Lecon'}</h3>
-                {onOpenLessonText ? (
-                  <p className="lesson-description lesson-text-card-description">
-                    {isRadicalMode ? 'Atelier radical' : 'Atelier d ecriture'}
-                  </p>
-                ) : null}
-              </div>
-              <div className="lesson-actions lesson-text-topbar-actions">
-                <button
-                  type="button"
-                  className="change-lesson-btn icon-only ui-pressable"
-                  onClick={() => {
-                    sounds.playTap();
-                    setShowLessonPicker((prev) => !prev);
-                  }}
-                  aria-label="Changer de lecon"
-                >
-                  🗂️
-                </button>
-              </div>
+              </button>
             </div>
             {showLessonPicker ? (
               <div
@@ -817,7 +837,7 @@ export default function WritingPractice({
             <div
               key={step.index}
               ref={(el) => { strokeStepRefs.current[step.index] = el; }}
-              className={`radical-stroke-step ${step.index === currentStrokeIndex ? 'radical-stroke-step-current' : ''}`}
+              className={`radical-stroke-step ${step.index === currentStrokeIndex && !showCelebration ? 'radical-stroke-step-current' : ''}`}
             >
               <div className="radical-stroke-step-count">{step.index + 1}</div>
               <svg viewBox="0 0 92 92" className="radical-stroke-step-canvas" aria-label={`Trait ${step.index + 1}`}>
@@ -839,6 +859,14 @@ export default function WritingPractice({
               </svg>
             </div>
           )) : null}
+          {showCelebration ? (
+            <div ref={celebrationStepRef} className="radical-stroke-step writing-celebration-step">
+              <div className="radical-stroke-step-count writing-celebration-step-count">✓</div>
+              <div className="radical-stroke-step-canvas writing-celebration-step-canvas" aria-label="Bravo">
+                <span className="writing-celebration-emoji">{celebrationEmoji}</span>
+              </div>
+            </div>
+          ) : null}
         </div>
       ) : null}
 

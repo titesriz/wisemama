@@ -15,8 +15,10 @@ export default function LessonVocabWordPage({
   onPrev,
   onNext,
   onBack,
+  onGoHome,
   onSwitchModule,
   onOpenPicker,
+  onOpenAvatarEditor,
 }) {
   const characters = useMemo(() => Array.from(word?.hanzi || ''), [word?.hanzi]);
   const isCompound = characters.length > 1;
@@ -30,16 +32,19 @@ export default function LessonVocabWordPage({
       profile={profile}
       lessonId={lessonId}
       lessonTitle={lessonTitle}
+      modeLabel="Vocabulaire"
       card={word}
       cardIndex={wordIndex}
       totalCards={totalWords}
       activeModule="flashcards"
       modes={['flashcards', 'writing', 'quiz']}
       onBack={onBack}
+      onGoHome={onGoHome}
       onPrev={onPrev}
       onNext={onNext}
       onSwitchModule={onSwitchModule}
       onOpenPicker={onOpenPicker}
+      onOpenAvatarEditor={onOpenAvatarEditor}
     >
       <div className="module-card-center wm-enter-fade">
         <div className="module-card-type-badge">

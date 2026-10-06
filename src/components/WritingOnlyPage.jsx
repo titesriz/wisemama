@@ -14,6 +14,8 @@ export default function WritingOnlyPage({
   onPrev,
   onNext,
   onBack,
+  onGoHome,
+  onOpenAvatarEditor,
   onOpenLessonText,
   onSelectLesson,
   onSwitchModule,
@@ -72,6 +74,8 @@ export default function WritingOnlyPage({
         onSwitchModule={onSwitchModule}
         onOpenRadical={onOpenRadical}
         onBack={onBack}
+        onGoHome={onGoHome}
+        onOpenAvatarEditor={onOpenAvatarEditor}
         standalone
         onSuccess={onSuccess}
       />

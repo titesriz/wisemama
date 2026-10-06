@@ -6,7 +6,10 @@ export default function LessonVocabWritingPage({
   lessonId,
   lessonTitle,
   word,
+  writingDifficulty = 1,
   onBack,
+  onGoHome,
+  onOpenAvatarEditor,
   onSwitchModule,
   onSuccess,
   onPrevWord,
@@ -56,7 +59,7 @@ export default function LessonVocabWritingPage({
         card={word}
         lessonId={lessonId}
         lessonTitle={lessonTitle}
-        writingDifficulty={1}
+        writingDifficulty={writingDifficulty}
         profile={profile}
         cardIndex={charPosition}
         totalCards={charQueue.length}
@@ -64,6 +67,8 @@ export default function LessonVocabWritingPage({
         onNext={handleNext}
         onSwitchModule={onSwitchModule}
         onBack={onBack}
+        onGoHome={onGoHome}
+        onOpenAvatarEditor={onOpenAvatarEditor}
         standalone
         onSuccess={onSuccess}
       />

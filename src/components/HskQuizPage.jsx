@@ -42,8 +42,28 @@ const COMPETENCY_LABELS = {
   signification: 'Signification',
 };
 
+// What text an option actually shows for a given question type - used to
+// keep distractors from duplicating the correct answer's displayed text.
+// With 506 words, many share a short French gloss, so filtering by id
+// alone isn't enough - two different words can still render identically.
+function getOptionDisplayKey(word, questionType) {
+  return CHAR_OPTION_TYPES.includes(questionType)
+    ? word.hanzi
+    : String(word.french || '').trim().toLowerCase();
+}
+
 function buildRound(word, questionType, words) {
-  const distractors = shuffle(words.filter((w) => w.id !== word.id)).slice(0, 3);
+  const correctKey = getOptionDisplayKey(word, questionType);
+  const pool = shuffle(words.filter((w) => w.id !== word.id));
+  const seenKeys = new Set([correctKey]);
+  const distractors = [];
+  for (const candidate of pool) {
+    if (distractors.length >= 3) break;
+    const key = getOptionDisplayKey(candidate, questionType);
+    if (!key || seenKeys.has(key)) continue;
+    seenKeys.add(key);
+    distractors.push(candidate);
+  }
   const options = shuffle([...distractors, word]);
   return { correctWord: word, questionType, options };
 }

@@ -1,0 +1,126 @@
+.lesson-select-page {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(circle at top, var(--bg-top) 0%, var(--bg-mid) 40%, var(--bg-bottom) 100%);
+  padding: 20px 16px 40px;
+}
+
+.lesson-select-shell {
+  width: min(600px, 100%);
+  margin: 0 auto;
+}
+
+.lesson-select-head {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  padding-top: 20px;
+  margin-top: -20px;
+  background: rgba(255, 246, 230, 0.92);
+  backdrop-filter: blur(6px);
+}
+
+.hub-header-top-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hub-logo-btn {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+  color: #fff;
+  font-size: 20px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.lesson-select-back {
+  justify-self: start;
+  border: none;
+  background: transparent;
+  color: var(--text-soft, #636e72);
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 6px 0;
+}
+
+.lesson-select-head h1 {
+  margin: 0;
+  font-size: 28px;
+  color: var(--text-main, #2d3436);
+}
+
+.lesson-select-resume-label {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--text-soft, #636e72);
+}
+
+.lesson-select-card {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  text-align: left;
+  background: #ffffff;
+  border: 2px solid var(--soft-border, #e8ecff);
+  border-radius: var(--wm-radius-md, 16px);
+  padding: 16px 18px;
+  cursor: pointer;
+  box-shadow: var(--wm-shadow-card, 0 8px 24px rgba(45, 52, 54, 0.12));
+}
+
+.lesson-select-card strong {
+  font-size: 18px;
+  color: var(--text-main, #2d3436);
+}
+
+.lesson-select-card span {
+  font-size: 13px;
+  color: var(--text-soft, #636e72);
+}
+
+.lesson-select-card.active {
+  border-color: var(--accent-orange, #ff6b6b);
+}
+
+.lesson-select-resume-card {
+  background: linear-gradient(135deg, #ffe66d, #ffed9f);
+  border-color: #f0d685;
+  margin-bottom: 22px;
+}
+
+.lesson-select-other {
+  display: grid;
+  gap: 14px;
+}
+
+.lesson-select-toggle {
+  justify-self: start;
+  border: none;
+  background: transparent;
+  color: var(--accent-orange, #ff6b6b);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+.lesson-select-list {
+  display: grid;
+  gap: 12px;
+}
