@@ -10,6 +10,7 @@ import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
 import { normalizeLessonText, segmentLessonText } from '../lib/lessonTextSegmentation.js';
 import { speakHanzi } from '../lib/ttsFallback.js';
 import { getLessonsByOrder, normalizeLessonOrder } from '../utils/lessons/lessonOrder.js';
+import { getAllWords as getAllVocabWords } from '../utils/database/vocabularyDB.js';
 
 function makeDraftCardId() {
   return `card-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
@@ -239,6 +240,7 @@ export default function LessonEditorBeta({ onBack, onSelectLesson, initialLesson
   const [status, setStatus] = useState('');
   const [statusType, setStatusType] = useState('success');
   const [statusTick, setStatusTick] = useState(0);
+  const [vocabQuery, setVocabQuery] = useState('');
 
   const selectedLesson = useMemo(
     () => lessons.find((lesson) => lesson.id === selectedLessonId) || null,
@@ -262,6 +264,39 @@ export default function LessonEditorBeta({ onBack, onSelectLesson, initialLesson
   }, [cardsDraft]);
 
   const currentCard = cardsDraft[currentCardIndex] || null;
+
+  const lessonKnownChars = useMemo(
+    () => new Set(cardsDraft.map((card) => card.hanzi).filter(Boolean)),
+    [cardsDraft],
+  );
+  const vocabularyRefs = selectedLesson?.vocabularyRefs || [];
+  const vocabCandidates = useMemo(() => {
+    const query = vocabQuery.trim().toLowerCase();
+    if (!query) return [];
+    return getAllVocabWords()
+      .filter((word) => !vocabularyRefs.includes(word.hanzi))
+      .filter((word) => Array.from(word.hanzi || '').every((char) => lessonKnownChars.has(char)))
+      .filter((word) =>
+        word.hanzi.includes(query) ||
+        (word.pinyin || '').toLowerCase().includes(query) ||
+        (word.french || '').toLowerCase().includes(query) ||
+        (word.english || '').toLowerCase().includes(query),
+      )
+      .slice(0, 8);
+  }, [vocabQuery, vocabularyRefs, lessonKnownChars]);
+
+  const addVocabWord = (hanzi) => {
+    if (!selectedLessonId || !hanzi || vocabularyRefs.includes(hanzi)) return;
+    updateLesson(selectedLessonId, { vocabularyRefs: [...vocabularyRefs, hanzi] });
+    setVocabQuery('');
+    applyStatus('Mot de vocabulaire ajoute.');
+  };
+
+  const removeVocabWord = (hanzi) => {
+    if (!selectedLessonId) return;
+    updateLesson(selectedLessonId, { vocabularyRefs: vocabularyRefs.filter((ref) => ref !== hanzi) });
+    applyStatus('Mot de vocabulaire retire.');
+  };
 
   useEffect(() => {
     setCurrentCardIndex((prev) => {
@@ -875,18 +910,53 @@ export default function LessonEditorBeta({ onBack, onSelectLesson, initialLesson
             <h4>Vocabulaire ({selectedLesson?.vocabulary?.length || 0})</h4>
             <div className="lesson-preview-vocab-list">
               {(selectedLesson?.vocabulary || []).map((word) => (
-                <span
+                <button
                   key={word.id}
-                  className="lesson-text-vocab-chip"
-                  title={`${formatPinyinDisplay(word.pinyin || '')} · ${word.french || word.english || ''}`}
+                  type="button"
+                  className="lesson-text-vocab-chip ui-pressable vocab-chip-removable"
+                  title={`${formatPinyinDisplay(word.pinyin || '')} · ${word.french || word.english || ''} - cliquer pour retirer`}
+                  onClick={() => removeVocabWord(word.hanzi)}
                 >
-                  {word.hanzi}
-                </span>
+                  {word.hanzi} <span aria-hidden="true">×</span>
+                </button>
               ))}
               {!selectedLesson?.vocabulary?.length ? (
                 <span className="parent-empty">Aucun mot de vocabulaire pour cette leçon.</span>
               ) : null}
             </div>
+            {selectedLessonId ? (
+              <div className="lesson-vocab-add">
+                <input
+                  type="text"
+                  value={vocabQuery}
+                  onChange={(event) => setVocabQuery(event.target.value)}
+                  placeholder="Chercher un mot (hanzi, pinyin, traduction)..."
+                />
+                {vocabQuery.trim() ? (
+                  vocabCandidates.length ? (
+                    <div className="lesson-vocab-suggestions">
+                      {vocabCandidates.map((word) => (
+                        <button
+                          key={word.id}
+                          type="button"
+                          className="lesson-vocab-suggestion ui-pressable"
+                          onClick={() => addVocabWord(word.hanzi)}
+                        >
+                          <strong>{word.hanzi}</strong>
+                          <span>{formatPinyinDisplay(word.pinyin || '')} · {word.french || word.english || ''}</span>
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="parent-empty">
+                      Aucun mot ne correspond (seuls les mots dont tous les caracteres sont deja dans cette leçon peuvent etre ajoutes).
+                    </p>
+                  )
+                ) : null}
+              </div>
+            ) : (
+              <p className="parent-empty">Sauvegarde la leçon avant d'ajouter du vocabulaire.</p>
+            )}
           </div>
 
           <p className="preview-note">💡 Meme structure que la vue enfant "Lire la lecon".</p>

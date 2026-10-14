@@ -4709,6 +4709,66 @@ body {
   background: #fff2ee;
 }
 
+.vocab-chip-removable {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid #e0e0e0;
+  border-radius: 999px;
+  padding: 4px 10px;
+  background: #fff;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.vocab-chip-removable span {
+  color: #ff6b6b;
+  font-weight: 800;
+}
+
+.lesson-vocab-add {
+  margin-top: 10px;
+  display: grid;
+  gap: 6px;
+}
+
+.lesson-vocab-add input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.lesson-vocab-suggestions {
+  display: grid;
+  gap: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.lesson-vocab-suggestion {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 6px 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #fff;
+  text-align: left;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.lesson-vocab-suggestion strong {
+  font-family: var(--wm-font-hanzi);
+  font-size: 16px;
+}
+
+.lesson-vocab-suggestion span {
+  color: #636e72;
+}
+
 .preview-note {
   margin: 0;
   font-size: 12px;
