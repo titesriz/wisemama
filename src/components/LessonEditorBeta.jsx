@@ -10,7 +10,11 @@ import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
 import { normalizeLessonText, segmentLessonText } from '../lib/lessonTextSegmentation.js';
 import { speakHanzi } from '../lib/ttsFallback.js';
 import { getLessonsByOrder, normalizeLessonOrder } from '../utils/lessons/lessonOrder.js';
-import { getAllWords as getAllVocabWords } from '../utils/database/vocabularyDB.js';
+import { getAllWords as getAllVocabWords, upsertWord as upsertVocabWord } from '../utils/database/vocabularyDB.js';
+
+function isHanziOnly(value) {
+  return /^[㐀-鿿]+$/.test(String(value || '').trim());
+}
 
 function makeDraftCardId() {
   return `card-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
@@ -241,6 +245,9 @@ export default function LessonEditorBeta({ onBack, onSelectLesson, initialLesson
   const [statusType, setStatusType] = useState('success');
   const [statusTick, setStatusTick] = useState(0);
   const [vocabQuery, setVocabQuery] = useState('');
+  const [newWordPinyin, setNewWordPinyin] = useState('');
+  const [newWordFrench, setNewWordFrench] = useState('');
+  const [newWordEnglish, setNewWordEnglish] = useState('');
 
   const selectedLesson = useMemo(
     () => lessons.find((lesson) => lesson.id === selectedLessonId) || null,
@@ -306,6 +313,37 @@ export default function LessonEditorBeta({ onBack, onSelectLesson, initialLesson
     if (!selectedLessonId) return;
     updateLesson(selectedLessonId, { vocabularyRefs: vocabularyRefs.filter((ref) => ref !== hanzi) });
     applyStatus('Mot de vocabulaire retire.');
+  };
+
+  const trimmedVocabQuery = vocabQuery.trim();
+  const canOfferNewWord =
+    selectedLessonId &&
+    isHanziOnly(trimmedVocabQuery) &&
+    !vocabularyRefs.includes(trimmedVocabQuery) &&
+    !getAllVocabWords().some((word) => word.hanzi === trimmedVocabQuery) &&
+    Array.from(trimmedVocabQuery).every((char) => lessonKnownChars.has(char)) &&
+    vocabCandidates.length === 0;
+
+  const createAndAddWord = () => {
+    const hanzi = trimmedVocabQuery;
+    if (!hanzi || !selectedLessonId) return;
+    if (!newWordPinyin.trim() && !newWordFrench.trim() && !newWordEnglish.trim()) {
+      applyStatus('Ajoute au moins le pinyin ou une traduction.', 'error');
+      return;
+    }
+    upsertVocabWord(hanzi, {
+      pinyin: newWordPinyin.trim(),
+      french: newWordFrench.trim(),
+      english: newWordEnglish.trim(),
+      appearsInLessons: [selectedLessonId],
+      sources: ['manual'],
+    });
+    updateLesson(selectedLessonId, { vocabularyRefs: [...vocabularyRefs, hanzi] });
+    setVocabQuery('');
+    setNewWordPinyin('');
+    setNewWordFrench('');
+    setNewWordEnglish('');
+    applyStatus(`${hanzi} cree et ajoute a la lecon.`);
   };
 
   useEffect(() => {
@@ -956,6 +994,33 @@ export default function LessonEditorBeta({ onBack, onSelectLesson, initialLesson
                           <span>{formatPinyinDisplay(word.pinyin || '')} · {word.french || word.english || ''}</span>
                         </button>
                       ))}
+                    </div>
+                  ) : canOfferNewWord ? (
+                    <div className="lesson-vocab-create">
+                      <p className="parent-empty">
+                        « {trimmedVocabQuery} » n'existe pas encore dans la base. L'ajouter :
+                      </p>
+                      <input
+                        type="text"
+                        value={newWordPinyin}
+                        onChange={(event) => setNewWordPinyin(event.target.value)}
+                        placeholder="Pinyin (ex: bi2 zi5)"
+                      />
+                      <input
+                        type="text"
+                        value={newWordFrench}
+                        onChange={(event) => setNewWordFrench(event.target.value)}
+                        placeholder="Francais"
+                      />
+                      <input
+                        type="text"
+                        value={newWordEnglish}
+                        onChange={(event) => setNewWordEnglish(event.target.value)}
+                        placeholder="Anglais (optionnel)"
+                      />
+                      <button type="button" className="button ui-pressable" onClick={createAndAddWord}>
+                        Creer « {trimmedVocabQuery} » et ajouter a la leçon
+                      </button>
                     </div>
                   ) : (
                     <p className="parent-empty">
