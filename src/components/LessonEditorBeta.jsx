@@ -271,14 +271,24 @@ export default function LessonEditorBeta({ onBack, onSelectLesson, initialLesson
   );
   const vocabularyRefs = selectedLesson?.vocabularyRefs || [];
   const vocabCandidates = useMemo(() => {
+    // Typed pinyin rarely has tone marks or syllable spaces ("bizi"), while
+    // stored pinyin always does ("bí zi") - strip both sides down to plain
+    // ASCII so a search matches the way a parent actually types.
+    const normalizePinyin = (value) =>
+      String(value || '')
+        .normalize('NFD')
+        .replace(/[̀-ͯ]/g, '')
+        .replace(/\s+/g, '')
+        .toLowerCase();
     const query = vocabQuery.trim().toLowerCase();
+    const queryPinyin = normalizePinyin(vocabQuery);
     if (!query) return [];
     return getAllVocabWords()
       .filter((word) => !vocabularyRefs.includes(word.hanzi))
       .filter((word) => Array.from(word.hanzi || '').every((char) => lessonKnownChars.has(char)))
       .filter((word) =>
         word.hanzi.includes(query) ||
-        (word.pinyin || '').toLowerCase().includes(query) ||
+        normalizePinyin(word.pinyin).includes(queryPinyin) ||
         (word.french || '').toLowerCase().includes(query) ||
         (word.english || '').toLowerCase().includes(query),
       )
