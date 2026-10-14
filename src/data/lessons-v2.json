@@ -2829,5 +2829,872 @@
       "大衣",
       "连衣裙"
     ]
+  },
+  {
+    "id": "lesson-1791965792699-msoe",
+    "globalLessonId": "0f883237-0b57-4926-9054-17de89b8c01c",
+    "order": 14,
+    "title": "Leçon 14 - Ma sœur",
+    "description": "Ma sœur",
+    "sourceText": "我有一个姐姐。\n她不胖不瘦。\n她有大大的眼睛、高高的鼻子和小小的嘴巴。\n我和姐姐都长头发。",
+    "cards": [
+      {
+        "id": "card-1791965435088-0-y4je",
+        "lessonId": "lesson-1791965792699-msoe",
+        "source": "auto-generated",
+        "generatedAt": "2026-10-14T08:10:35.085Z",
+        "hanzi": "我",
+        "pinyinEnabled": true,
+        "pinyin": "wo3",
+        "translation": {
+          "en": "I",
+          "fr": "je; moi"
+        },
+        "french": "je; moi",
+        "english": "I",
+        "meanings": [
+          "I"
+        ],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "imageUrl": null,
+        "audioUrl": null,
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        }
+      },
+      {
+        "id": "card-1791965435090-1-frmf",
+        "lessonId": "lesson-1791965792699-msoe",
+        "source": "auto-generated",
+        "generatedAt": "2026-10-14T08:10:35.085Z",
+        "hanzi": "有",
+        "pinyinEnabled": true,
+        "pinyin": "you3",
+        "translation": {
+          "en": "to have",
+          "fr": "avoir"
+        },
+        "french": "avoir",
+        "english": "to have",
+        "meanings": [
+          "to have"
+        ],
+        "classifiers": [],
+        "partOfSpeech": "verb",
+        "exampleSentence": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "imageUrl": null,
+        "audioUrl": null,
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        }
+      },
+      {
+        "id": "card-1791965435091-2-4u0q",
+        "lessonId": "lesson-1791965792699-msoe",
+        "source": "auto-generated",
+        "generatedAt": "2026-10-14T08:10:35.085Z",
+        "hanzi": "一",
+        "pinyinEnabled": true,
+        "pinyin": "yi1",
+        "translation": {
+          "en": "one",
+          "fr": "un"
+        },
+        "french": "un",
+        "english": "one",
+        "meanings": [
+          "one"
+        ],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "imageUrl": null,
+        "audioUrl": null,
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        }
+      },
+      {
+        "id": "card-1791965435092-3-q4f1",
+        "lessonId": "lesson-1791965792699-msoe",
+        "source": "auto-generated",
+        "generatedAt": "2026-10-14T08:10:35.085Z",
+        "hanzi": "个",
+        "pinyinEnabled": true,
+        "pinyin": "ge4",
+        "translation": {
+          "en": "measure word",
+          "fr": "classificateur"
+        },
+        "french": "classificateur",
+        "english": "measure word",
+        "meanings": [
+          "measure word"
+        ],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "imageUrl": null,
+        "audioUrl": null,
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        }
+      },
+      {
+        "id": "card-1791965435095-4-uc7l",
+        "lessonId": "lesson-1791965792699-msoe",
+        "source": "auto-generated",
+        "generatedAt": "2026-10-14T08:10:35.085Z",
+        "hanzi": "姐",
+        "pinyinEnabled": true,
+        "pinyin": "jie3",
+        "translation": {
+          "en": "big sister",
+          "fr": "grande soeur"
+        },
+        "french": "grande soeur",
+        "english": "big sister",
+        "meanings": [
+          "big sister"
+        ],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "relatedWords": [
+          {
+            "hanzi": "姐姐",
+            "pinyin": "jiě jie",
+            "en": "older sister"
+          }
+        ],
+        "relatedVocabulary": [
+          "姐姐"
+        ],
+        "relatedVocabularyText": "姐姐",
+        "meta": {
+          "dictFound": true
+        },
+        "imageUrl": null,
+        "audioUrl": null,
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        }
+      },
+      {
+        "id": "card-1791965435095-5-rn0m",
+        "lessonId": "lesson-1791965792699-msoe",
+        "source": "auto-generated",
+        "generatedAt": "2026-10-14T08:10:35.085Z",
+        "hanzi": "她",
+        "pinyinEnabled": true,
+        "pinyin": "ta1",
+        "translation": {
+          "en": "she",
+          "fr": "elle"
+        },
+        "french": "elle",
+        "english": "she",
+        "meanings": [
+          "she"
+        ],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "imageUrl": null,
+        "audioUrl": null,
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        }
+      },
+      {
+        "id": "card-1791965435097-6-vvwd",
+        "lessonId": "lesson-1791965792699-msoe",
+        "source": "auto-generated",
+        "generatedAt": "2026-10-14T08:10:35.085Z",
+        "hanzi": "不",
+        "pinyinEnabled": true,
+        "pinyin": "bu4",
+        "translation": {
+          "en": "not",
+          "fr": "ne pas; non"
+        },
+        "french": "ne pas; non",
+        "english": "not",
+        "meanings": [
+          "not"
+        ],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "imageUrl": null,
+        "audioUrl": null,
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        }
+      },
+      {
+        "id": "card-1791965435100-7-u5si",
+        "lessonId": "lesson-1791965792699-msoe",
+        "source": "auto-generated",
+        "generatedAt": "2026-10-14T08:10:35.085Z",
+        "hanzi": "胖",
+        "pinyinEnabled": true,
+        "pinyin": "pang4",
+        "translation": {
+          "en": "",
+          "fr": ""
+        },
+        "french": "",
+        "english": "",
+        "meanings": [],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": false
+        },
+        "imageUrl": null,
+        "audioUrl": null,
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        }
+      },
+      {
+        "id": "card-1791965435102-8-h4nt",
+        "lessonId": "lesson-1791965792699-msoe",
+        "source": "auto-generated",
+        "generatedAt": "2026-10-14T08:10:35.085Z",
+        "hanzi": "瘦",
+        "pinyinEnabled": true,
+        "pinyin": "shou4",
+        "translation": {
+          "en": "",
+          "fr": ""
+        },
+        "french": "",
+        "english": "",
+        "meanings": [],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": false
+        },
+        "imageUrl": null,
+        "audioUrl": null,
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        }
+      },
+      {
+        "id": "card-1791965435103-9-cimc",
+        "lessonId": "lesson-1791965792699-msoe",
+        "source": "auto-generated",
+        "generatedAt": "2026-10-14T08:10:35.085Z",
+        "hanzi": "大",
+        "pinyinEnabled": true,
+        "pinyin": "da4",
+        "translation": {
+          "en": "Big",
+          "fr": "Grand"
+        },
+        "french": "Grand",
+        "english": "Big",
+        "meanings": [
+          "Big"
+        ],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "imageUrl": null,
+        "audioUrl": null,
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        }
+      },
+      {
+        "id": "card-1791965435104-10-wsy5",
+        "lessonId": "lesson-1791965792699-msoe",
+        "source": "auto-generated",
+        "generatedAt": "2026-10-14T08:10:35.085Z",
+        "hanzi": "的",
+        "pinyinEnabled": true,
+        "pinyin": "de5",
+        "translation": {
+          "en": "possessive particle",
+          "fr": "particule possessive"
+        },
+        "french": "particule possessive",
+        "english": "possessive particle",
+        "meanings": [
+          "possessive particle"
+        ],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "imageUrl": null,
+        "audioUrl": null,
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        }
+      },
+      {
+        "id": "card-1791965435106-11-lhvb",
+        "lessonId": "lesson-1791965792699-msoe",
+        "source": "auto-generated",
+        "generatedAt": "2026-10-14T08:10:35.085Z",
+        "hanzi": "眼",
+        "pinyinEnabled": true,
+        "pinyin": "yan3",
+        "translation": {
+          "en": "",
+          "fr": ""
+        },
+        "french": "",
+        "english": "",
+        "meanings": [],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": false
+        },
+        "imageUrl": null,
+        "audioUrl": null,
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        }
+      },
+      {
+        "id": "card-1791965435108-12-gwg7",
+        "lessonId": "lesson-1791965792699-msoe",
+        "source": "auto-generated",
+        "generatedAt": "2026-10-14T08:10:35.085Z",
+        "hanzi": "睛",
+        "pinyinEnabled": true,
+        "pinyin": "jing1",
+        "translation": {
+          "en": "",
+          "fr": ""
+        },
+        "french": "",
+        "english": "",
+        "meanings": [],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": false
+        },
+        "imageUrl": null,
+        "audioUrl": null,
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        }
+      },
+      {
+        "id": "card-1791965435108-13-dpv2",
+        "lessonId": "lesson-1791965792699-msoe",
+        "source": "auto-generated",
+        "generatedAt": "2026-10-14T08:10:35.085Z",
+        "hanzi": "高",
+        "pinyinEnabled": true,
+        "pinyin": "gāo",
+        "translation": {
+          "en": "tall",
+          "fr": "grand; haut"
+        },
+        "french": "grand; haut",
+        "english": "tall",
+        "meanings": [
+          "tall",
+          "high"
+        ],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "imageUrl": null,
+        "audioUrl": null,
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        }
+      },
+      {
+        "id": "card-1791965435110-14-xei7",
+        "lessonId": "lesson-1791965792699-msoe",
+        "source": "auto-generated",
+        "generatedAt": "2026-10-14T08:10:35.085Z",
+        "hanzi": "鼻",
+        "pinyinEnabled": true,
+        "pinyin": "bi2",
+        "translation": {
+          "en": "",
+          "fr": ""
+        },
+        "french": "",
+        "english": "",
+        "meanings": [],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": false
+        },
+        "imageUrl": null,
+        "audioUrl": null,
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        }
+      },
+      {
+        "id": "card-1791965435111-15-742b",
+        "lessonId": "lesson-1791965792699-msoe",
+        "source": "auto-generated",
+        "generatedAt": "2026-10-14T08:10:35.085Z",
+        "hanzi": "子",
+        "pinyinEnabled": true,
+        "pinyin": "zi5",
+        "translation": {
+          "en": "child",
+          "fr": "enfant; suffixe"
+        },
+        "french": "enfant; suffixe",
+        "english": "child",
+        "meanings": [
+          "child",
+          "suffix"
+        ],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "imageUrl": null,
+        "audioUrl": null,
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        }
+      },
+      {
+        "id": "card-1791965435112-16-7xxw",
+        "lessonId": "lesson-1791965792699-msoe",
+        "source": "auto-generated",
+        "generatedAt": "2026-10-14T08:10:35.085Z",
+        "hanzi": "和",
+        "pinyinEnabled": true,
+        "pinyin": "he2",
+        "translation": {
+          "en": "and, with",
+          "fr": "et, avec"
+        },
+        "french": "et, avec",
+        "english": "and, with",
+        "meanings": [
+          "and, with"
+        ],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "imageUrl": null,
+        "audioUrl": null,
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        }
+      },
+      {
+        "id": "card-1791965435113-17-g8kb",
+        "lessonId": "lesson-1791965792699-msoe",
+        "source": "auto-generated",
+        "generatedAt": "2026-10-14T08:10:35.085Z",
+        "hanzi": "小",
+        "pinyinEnabled": true,
+        "pinyin": "xiao3",
+        "translation": {
+          "en": "Small",
+          "fr": "Petit"
+        },
+        "french": "Petit",
+        "english": "Small",
+        "meanings": [
+          "Small"
+        ],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "imageUrl": null,
+        "audioUrl": null,
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        }
+      },
+      {
+        "id": "card-1791965435115-18-61ut",
+        "lessonId": "lesson-1791965792699-msoe",
+        "source": "auto-generated",
+        "generatedAt": "2026-10-14T08:10:35.085Z",
+        "hanzi": "嘴",
+        "pinyinEnabled": true,
+        "pinyin": "zui3",
+        "translation": {
+          "en": "",
+          "fr": ""
+        },
+        "french": "",
+        "english": "",
+        "meanings": [],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": false
+        },
+        "imageUrl": null,
+        "audioUrl": null,
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        }
+      },
+      {
+        "id": "card-1791965435117-19-p2lx",
+        "lessonId": "lesson-1791965792699-msoe",
+        "source": "auto-generated",
+        "generatedAt": "2026-10-14T08:10:35.085Z",
+        "hanzi": "巴",
+        "pinyinEnabled": true,
+        "pinyin": "ba1",
+        "translation": {
+          "en": "",
+          "fr": ""
+        },
+        "french": "",
+        "english": "",
+        "meanings": [],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": false
+        },
+        "imageUrl": null,
+        "audioUrl": null,
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        }
+      },
+      {
+        "id": "card-1791965435118-20-l25c",
+        "lessonId": "lesson-1791965792699-msoe",
+        "source": "auto-generated",
+        "generatedAt": "2026-10-14T08:10:35.085Z",
+        "hanzi": "都",
+        "pinyinEnabled": true,
+        "pinyin": "dou1",
+        "translation": {
+          "en": "all",
+          "fr": "tous"
+        },
+        "french": "tous",
+        "english": "all",
+        "meanings": [
+          "all"
+        ],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": true
+        },
+        "imageUrl": null,
+        "audioUrl": null,
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        }
+      },
+      {
+        "id": "card-1791965435119-21-r8s7",
+        "lessonId": "lesson-1791965792699-msoe",
+        "source": "auto-generated",
+        "generatedAt": "2026-10-14T08:10:35.085Z",
+        "hanzi": "长",
+        "pinyinEnabled": true,
+        "pinyin": "chang2",
+        "translation": {
+          "en": "",
+          "fr": ""
+        },
+        "french": "",
+        "english": "",
+        "meanings": [],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": false
+        },
+        "imageUrl": null,
+        "audioUrl": null,
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        }
+      },
+      {
+        "id": "card-1791965435121-22-awa8",
+        "lessonId": "lesson-1791965792699-msoe",
+        "source": "auto-generated",
+        "generatedAt": "2026-10-14T08:10:35.085Z",
+        "hanzi": "头",
+        "pinyinEnabled": true,
+        "pinyin": "tou2",
+        "translation": {
+          "en": "",
+          "fr": ""
+        },
+        "french": "",
+        "english": "",
+        "meanings": [],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": false
+        },
+        "imageUrl": null,
+        "audioUrl": null,
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        }
+      },
+      {
+        "id": "card-1791965435123-23-j2jf",
+        "lessonId": "lesson-1791965792699-msoe",
+        "source": "auto-generated",
+        "generatedAt": "2026-10-14T08:10:35.085Z",
+        "hanzi": "发",
+        "pinyinEnabled": true,
+        "pinyin": "fa1",
+        "translation": {
+          "en": "",
+          "fr": ""
+        },
+        "french": "",
+        "english": "",
+        "meanings": [],
+        "classifiers": [],
+        "partOfSpeech": "",
+        "exampleSentence": "",
+        "relatedWords": [],
+        "relatedVocabulary": [],
+        "relatedVocabularyText": "",
+        "meta": {
+          "dictFound": false
+        },
+        "imageUrl": null,
+        "audioUrl": null,
+        "manualOverrides": {
+          "pinyin": false,
+          "french": false,
+          "english": false,
+          "exampleSentence": false,
+          "relatedVocabulary": false
+        }
+      }
+    ],
+    "notes": "",
+    "createdDate": "2026-10-14T08:16:32.699Z",
+    "lastUpdated": "2026-10-14T08:16:32.699Z"
   }
 ]
