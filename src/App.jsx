@@ -56,6 +56,7 @@ import { applyHanziFontPreference, getHanziFontPreference } from './lib/hanziFon
 import { isDevMode } from './config.js';
 import { SCREEN } from './lib/screens.js';
 import AppShell, { AvatarEditorModal } from './components/AppShell.jsx';
+import ParentSpacePage from './components/ParentSpacePage.jsx';
 
 const appTitle = 'WiseMama - Apprendre le chinois';
 const progressStorageKey = 'wisemama-progress-v1';
@@ -233,6 +234,7 @@ export default function App() {
     }
   }, [enteredApp, profiles, activeProfileId, setActiveProfileId]);
   const [standaloneView, setStandaloneView] = useState(STANDALONE_VIEW.NONE);
+  const [showParentSpace, setShowParentSpace] = useState(false);
   const [lessonTextLessonId, setLessonTextLessonId] = useState(() => getLessonTextRouteId(window.location.pathname));
   const [returnToLessonText, setReturnToLessonText] = useState(false);
   const [lessonJourneyQueue, setLessonJourneyQueue] = useState([]);
@@ -1313,6 +1315,17 @@ export default function App() {
     }
     setTutorialStep((prev) => prev + 1);
   };
+
+  if (showParentSpace) {
+    return (
+      <ParentSpacePage
+        profiles={profiles}
+        lessons={lessonOptions}
+        progressMap={childMap}
+        onClose={() => setShowParentSpace(false)}
+      />
+    );
+  }
 
   if (!showFtue && lessonTextLessonId && standaloneView === STANDALONE_VIEW.NONE) {
     const lessonForText = lessonOptions.find((lesson) => lesson.id === lessonTextLessonId);
@@ -2453,6 +2466,7 @@ export default function App() {
           onResumeLastLesson={lastActivity?.resume || openLessonTextFromLanding}
           lastActivity={lastActivity}
           onOpenAvatarEditor={openAvatarEditorForChildFromLanding}
+          onOpenParentSpace={() => setShowParentSpace(true)}
           onStartProfile={startWithProfile}
           onRefreshLessons={refreshBundledLessons}
         />

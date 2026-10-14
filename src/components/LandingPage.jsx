@@ -16,6 +16,7 @@ export default function LandingPage({
   profiles,
   onStartProfile,
   onOpenAvatarEditor,
+  onOpenParentSpace,
   onRefreshLessons,
   onOpenLessonEditorUi,
   onOpenLessonsHubUi,
@@ -86,13 +87,31 @@ export default function LandingPage({
         >
           <div className="hero-chat-row hero-chat-row-parent">
             {parentProfile ? (
-              <AvatarRenderer
-                config={parentProfile.avatar}
-                size={72}
-                className="landing-avatar-circle hero-chat-avatar"
-                alt={`Avatar ${parentProfile.name || 'Maman'}`}
-                loading="eager"
-              />
+              <span
+                role="button"
+                tabIndex={0}
+                className="hero-chat-avatar-btn ui-pressable"
+                aria-label="Espace parent"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onOpenParentSpace?.();
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    onOpenParentSpace?.();
+                  }
+                }}
+              >
+                <AvatarRenderer
+                  config={parentProfile.avatar}
+                  size={72}
+                  className="landing-avatar-circle hero-chat-avatar"
+                  alt={`Avatar ${parentProfile.name || 'Maman'}`}
+                  loading="eager"
+                />
+              </span>
             ) : null}
             <div className="hero-speech-bubble hero-speech-bubble-parent">
               {greetingPhase === 'ask' ? (
