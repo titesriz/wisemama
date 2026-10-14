@@ -1323,6 +1323,15 @@ export default function App() {
         lessons={lessonOptions}
         progressMap={childMap}
         onClose={() => setShowParentSpace(false)}
+        onCreateLesson={createLesson}
+        onUpdateLesson={updateLesson}
+        onDeleteLesson={removeLesson}
+        onDuplicateLesson={duplicateLesson}
+        onSelectLesson={(id) => {
+          if (!id) return;
+          setActiveLesson(id);
+          setCardIndex(0);
+        }}
       />
     );
   }

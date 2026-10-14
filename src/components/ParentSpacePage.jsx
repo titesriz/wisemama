@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import UnifiedLessonEditor from './UnifiedLessonEditor.jsx';
 import { HANZI_FONT_OPTIONS, getHanziFontPreference, applyHanziFontPreference } from '../lib/hanziFont.js';
 import '../styles/choice-hub.css';
 import '../styles/parent-mode.css';
@@ -7,7 +8,17 @@ function getCardKey(lessonId, cardId) {
   return `${lessonId}:${cardId}`;
 }
 
-export default function ParentSpacePage({ profiles = [], lessons = [], progressMap = {}, onClose }) {
+export default function ParentSpacePage({
+  profiles = [],
+  lessons = [],
+  progressMap = {},
+  onClose,
+  onCreateLesson,
+  onUpdateLesson,
+  onDeleteLesson,
+  onDuplicateLesson,
+  onSelectLesson,
+}) {
   const [fontChoice, setFontChoice] = useState(getHanziFontPreference());
   const childProfile = profiles.find((profile) => profile.role === 'child') || profiles[0] || null;
 
@@ -46,6 +57,15 @@ export default function ParentSpacePage({ profiles = [], lessons = [], progressM
           <p>Progrès de {childProfile?.name || 'l’enfant'} et réglages simples.</p>
         </div>
       </header>
+
+      <UnifiedLessonEditor
+        lessons={lessons}
+        onCreateLesson={onCreateLesson}
+        onUpdateLesson={onUpdateLesson}
+        onDeleteLesson={onDeleteLesson}
+        onDuplicateLesson={onDuplicateLesson}
+        onSelectLesson={onSelectLesson}
+      />
 
       <section className="parent-panel" aria-label="Progres par lecon">
         <div className="parent-panel-head">
