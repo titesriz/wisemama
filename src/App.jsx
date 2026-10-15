@@ -1465,7 +1465,7 @@ export default function App() {
       />
     );
     if (returnToLessonText) {
-      const writingLabel = writingDifficulty === 1 ? 'Facile' : 'Difficile';
+      const writingLabel = writingDifficulty === 1 ? 'Écriture' : 'Dictée';
       return withShell(writingPage, {
         crumbs: [
           { label: 'Leçons', onClick: () => navigateTo(SCREEN.HUB_LESSONS) },

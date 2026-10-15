@@ -3,6 +3,15 @@ import AvatarRenderer from './AvatarRenderer.jsx';
 import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
 import { getAllSeenCharsBefore, getLessonsByOrder } from '../utils/lessons/lessonOrder.js';
 
+function shuffle(list) {
+  const next = [...list];
+  for (let i = next.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [next[i], next[j]] = [next[j], next[i]];
+  }
+  return next;
+}
+
 function getCardProgressStars(lessonId, cardId, progressMap) {
   const key = `${lessonId}:${cardId}`;
   return Number(progressMap?.[key] || 0);
@@ -104,6 +113,21 @@ export default function LessonWritingSetupPage({
     setSelectedCardIds(shouldSelect ? new Set(vocabulary.map((item) => item.id)) : new Set());
   };
 
+  const startWriting = () => {
+    onChangeWritingDifficulty?.(1);
+    onStartPractice?.(selectedVocabulary.map((item) => item.id));
+  };
+
+  const startDicteeGuided = () => {
+    onChangeWritingDifficulty?.(3);
+    onStartPractice?.(selectedVocabulary.map((item) => item.id));
+  };
+
+  const startDicteeRandom = () => {
+    onChangeWritingDifficulty?.(3);
+    onStartPractice?.(shuffle(vocabulary.map((item) => item.id)));
+  };
+
   if (!lesson) {
     return (
       <section className="writing-setup-page">
@@ -194,27 +218,38 @@ export default function LessonWritingSetupPage({
           <div className="vocab-difficulty-btns">
             <button
               type="button"
-              className={`lesson-difficulty-star ui-pressable ${writingDifficulty === 1 ? 'active' : ''}`}
-              onClick={() => {
-                onChangeWritingDifficulty?.(1);
-                onStartPractice?.(selectedVocabulary.map((item) => item.id));
-              }}
-              aria-label="Difficulte 1"
+              className="lesson-difficulty-star ui-pressable"
+              onClick={startWriting}
+              aria-label="Ecriture"
               disabled={!journeyStartCard || selectedVocabulary.length === 0}
             >
-              Facile
+              ✏️ Écriture
+            </button>
+          </div>
+        </div>
+        <div className="vocab-dictee-section">
+          <div className="vocab-dictee-head">
+            <strong>Dictée</strong>
+            <span className="parent-empty">Caractère caché, à l'oreille.</span>
+          </div>
+          <div className="vocab-difficulty-btns">
+            <button
+              type="button"
+              className="lesson-difficulty-star ui-pressable"
+              onClick={startDicteeGuided}
+              aria-label="Dictee guidee"
+              disabled={!journeyStartCard || selectedVocabulary.length === 0}
+            >
+              🎯 Guidée
             </button>
             <button
               type="button"
-              className={`lesson-difficulty-star ui-pressable ${writingDifficulty === 3 ? 'active' : ''}`}
-              onClick={() => {
-                onChangeWritingDifficulty?.(3);
-                onStartPractice?.(selectedVocabulary.map((item) => item.id));
-              }}
-              aria-label="Difficulte 3"
-              disabled={!journeyStartCard || selectedVocabulary.length === 0}
+              className="lesson-difficulty-star ui-pressable"
+              onClick={startDicteeRandom}
+              aria-label="Dictee aleatoire"
+              disabled={!vocabulary.length}
             >
-              Difficile
+              🎲 Aléatoire
             </button>
           </div>
         </div>
