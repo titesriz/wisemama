@@ -936,11 +936,13 @@ export default function App() {
     const targetLesson = lessonOptions.find((lesson) => lesson.id === lessonTextLessonId);
     if (!targetLesson) return;
     const selectedIds = Array.isArray(selection) ? selection.filter(Boolean) : [];
+    // Walk `selectedIds` in the order it was given (not targetLesson.cards'
+    // own order) so a shuffled selection - dictée's "random" mode - actually
+    // plays back shuffled, instead of silently snapping back to card order.
     const queue = selectedIds.length
-      ? targetLesson.cards
-          .map((card, index) => ({ id: card?.id, index }))
-          .filter((item) => selectedIds.includes(item.id))
-          .map((item) => item.index)
+      ? selectedIds
+          .map((id) => targetLesson.cards.findIndex((card) => card?.id === id))
+          .filter((index) => index !== -1)
       : targetLesson.cards.map((_, index) => index);
     const startIndex = queue[0] ?? 0;
     pushScreen(SCREEN.LESSON_WRITING_PRACTICE, targetLesson.id);

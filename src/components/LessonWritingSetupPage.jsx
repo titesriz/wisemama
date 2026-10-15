@@ -120,7 +120,7 @@ export default function LessonWritingSetupPage({
 
   const startDicteeGuided = () => {
     onChangeWritingDifficulty?.(3);
-    onStartPractice?.(selectedVocabulary.map((item) => item.id));
+    onStartPractice?.(shuffle(selectedVocabulary.map((item) => item.id)));
   };
 
   const startDicteeRandom = () => {
