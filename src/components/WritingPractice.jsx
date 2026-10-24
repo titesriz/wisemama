@@ -552,6 +552,47 @@ export default function WritingPractice({
     };
   }, [showLessonPicker]);
 
+  const strokeBand = !isRadicalMode ? (
+    <div className="stroke-preview-band">
+      {showStrokeArrows && strokePreviewSteps.length ? strokePreviewSteps.map((step) => (
+        <div
+          key={step.index}
+          ref={(el) => { strokeStepRefs.current[step.index] = el; }}
+          className={`radical-stroke-step ${step.index === currentStrokeIndex && !showCelebration ? 'radical-stroke-step-current' : ''}`}
+        >
+          <div className="radical-stroke-step-count">{step.index + 1}</div>
+          <svg viewBox="0 0 92 92" className="radical-stroke-step-canvas" aria-label={`Trait ${step.index + 1}`}>
+            <rect x="1" y="1" width="90" height="90" rx="14" fill="#fff" stroke="#e7ebf2" />
+            <line x1="46" y1="8" x2="46" y2="84" stroke="#e7ebf2" strokeDasharray="4 4" />
+            <line x1="8" y1="46" x2="84" y2="46" stroke="#e7ebf2" strokeDasharray="4 4" />
+            <g transform={strokePreviewTransform.transform}>
+              <g transform="translate(512 388) scale(0.7) translate(-512 -388)">
+                {step.strokes.map((strokePath, strokeIndex) => (
+                  <path
+                    key={`${step.index}-${strokeIndex}`}
+                    d={strokePath}
+                    fill={strokeIndex === step.index ? '#ff6b6b' : '#111111'}
+                    stroke="none"
+                  />
+                ))}
+              </g>
+            </g>
+          </svg>
+        </div>
+      )) : null}
+      {showCelebration ? (
+        <div ref={celebrationStepRef} className="radical-stroke-step writing-celebration-step">
+          <div className="radical-stroke-step-count writing-celebration-step-count">✓</div>
+          <div className="radical-stroke-step-canvas writing-celebration-step-canvas" aria-label="Bravo">
+            <span className="writing-celebration-emoji">{celebrationEmoji}</span>
+          </div>
+        </div>
+      ) : null}
+    </div>
+  ) : null;
+
+  const isFacileLayout = writingDifficulty === 1 && !embedded && !isRadicalMode;
+
   return (
     <section
       className={`writing-screen ${embedded ? 'writing-screen-embedded' : ''}`}
@@ -639,7 +680,35 @@ export default function WritingPractice({
         </section>
       ) : null}
 
-      {!embedded ? (
+      {isFacileLayout ? (
+        <div className="writing-top-row">
+          <button
+            type="button"
+            className="writing-char-reveal writing-char-reveal-full ui-pressable"
+            onClick={() => {
+              sounds.playTap();
+              setShowCharInfo((prev) => !prev);
+            }}
+          >
+            <span className="writing-char-reveal-pinyin">
+              {card?.pinyinEnabled === false ? '' : formatPinyinDisplay(card?.pinyin || '')}
+            </span>
+            {showCharInfo ? (
+              <span className="writing-char-reveal-hanzi">{convert(targetChar)}</span>
+            ) : (
+              <span className="writing-char-reveal-label">Voir le caractere</span>
+            )}
+            <span className="writing-char-reveal-french">{card?.french || ''}</span>
+          </button>
+          <div className="writing-stroke-count" aria-label="Nombre de traits">
+            {totalStrokes ? `${totalStrokes} ${totalStrokes > 1 ? 'traits' : 'trait'}` : '…'}
+          </div>
+          {strokeBand}
+          {audioSrc ? <audio ref={audioRef} src={audioSrc} preload="auto" /> : null}
+        </div>
+      ) : null}
+
+      {!embedded && !isFacileLayout ? (
         <div className="writing-card-info">
           <button
             type="button"
@@ -834,44 +903,7 @@ export default function WritingPractice({
         </section>
       ) : null}
 
-      {!isRadicalMode ? (
-        <div className="stroke-preview-band">
-          {showStrokeArrows && strokePreviewSteps.length ? strokePreviewSteps.map((step) => (
-            <div
-              key={step.index}
-              ref={(el) => { strokeStepRefs.current[step.index] = el; }}
-              className={`radical-stroke-step ${step.index === currentStrokeIndex && !showCelebration ? 'radical-stroke-step-current' : ''}`}
-            >
-              <div className="radical-stroke-step-count">{step.index + 1}</div>
-              <svg viewBox="0 0 92 92" className="radical-stroke-step-canvas" aria-label={`Trait ${step.index + 1}`}>
-                <rect x="1" y="1" width="90" height="90" rx="14" fill="#fff" stroke="#e7ebf2" />
-                <line x1="46" y1="8" x2="46" y2="84" stroke="#e7ebf2" strokeDasharray="4 4" />
-                <line x1="8" y1="46" x2="84" y2="46" stroke="#e7ebf2" strokeDasharray="4 4" />
-                <g transform={strokePreviewTransform.transform}>
-                  <g transform="translate(512 388) scale(0.7) translate(-512 -388)">
-                    {step.strokes.map((strokePath, strokeIndex) => (
-                      <path
-                        key={`${step.index}-${strokeIndex}`}
-                        d={strokePath}
-                        fill={strokeIndex === step.index ? '#ff6b6b' : '#111111'}
-                        stroke="none"
-                      />
-                    ))}
-                  </g>
-                </g>
-              </svg>
-            </div>
-          )) : null}
-          {showCelebration ? (
-            <div ref={celebrationStepRef} className="radical-stroke-step writing-celebration-step">
-              <div className="radical-stroke-step-count writing-celebration-step-count">✓</div>
-              <div className="radical-stroke-step-canvas writing-celebration-step-canvas" aria-label="Bravo">
-                <span className="writing-celebration-emoji">{celebrationEmoji}</span>
-              </div>
-            </div>
-          ) : null}
-        </div>
-      ) : null}
+      {isFacileLayout ? null : strokeBand}
 
       <div className="writing-area">
         <div className="writing-canvas-container" ref={canvasWrapRef}>
