@@ -102,6 +102,19 @@
   cursor: pointer;
 }
 
+.app-shell-header-action {
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--wm-color-accent);
+  border-radius: var(--wm-radius-sm);
+  background: var(--wm-color-surface);
+  font-size: 18px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
 .app-shell-main {
   flex: 1 1 auto;
   min-width: 0;
@@ -138,28 +151,47 @@
   cursor: pointer;
 }
 
+/* Same 4 colors as the landing page's hub-pentagon buttons
+   (.hub-pentagon-btn:nth-child in landing-hub.css), in the same order, so
+   the footer reads as the same navigation identity everywhere. */
+.app-shell-footer-lessons {
+  border-color: #ff6b6b;
+}
+
+.app-shell-footer-vocab {
+  border-color: #4ecdc4;
+}
+
+.app-shell-footer-writing {
+  border-color: #a78bfa;
+}
+
+.app-shell-footer-test {
+  border-color: #ffb648;
+}
+
 .app-shell-footer-lessons.is-active {
-  background: var(--wm-color-accent);
-  border-color: var(--wm-color-accent-hover);
+  background: #ff6b6b;
+  border-color: #ff6b6b;
   color: var(--wm-color-surface);
 }
 
 .app-shell-footer-vocab.is-active {
-  background: var(--wm-color-secondary);
-  border-color: var(--wm-color-warning);
-  color: var(--wm-color-text-main);
+  background: #4ecdc4;
+  border-color: #4ecdc4;
+  color: var(--wm-color-surface);
 }
 
 .app-shell-footer-writing.is-active {
-  background: var(--wm-color-primary);
-  border-color: var(--wm-color-primary-hover);
+  background: #a78bfa;
+  border-color: #a78bfa;
   color: var(--wm-color-surface);
 }
 
 .app-shell-footer-test.is-active {
-  background: var(--wm-color-info);
-  border-color: var(--wm-color-info);
-  color: var(--wm-color-surface);
+  background: #ffb648;
+  border-color: #ffb648;
+  color: var(--wm-color-text-main);
 }
 
 /* Hubs keep their own titles but no longer stick: the shell header is the sticky one. */

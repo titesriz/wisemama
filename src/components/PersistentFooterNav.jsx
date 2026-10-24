@@ -2,7 +2,7 @@ import '../styles/persistent-footer-nav.css';
 
 const BUTTONS = [
   { key: 'lessons', label: 'Leçon' },
-  { key: 'vocabulary', label: 'Vocabulaire' },
+  { key: 'vocabulary', label: 'Fiche' },
   { key: 'writing', label: 'Écriture' },
   { key: 'test', label: 'Évaluation' },
 ];

@@ -239,6 +239,9 @@ export default function App() {
   const [standaloneView, setStandaloneView] = useState(STANDALONE_VIEW.NONE);
   const [showParentSpace, setShowParentSpace] = useState(false);
   const [lessonTextLessonId, setLessonTextLessonId] = useState(() => getLessonTextRouteId(window.location.pathname));
+  // Lifted out of LessonTextView so the AppShell header's folder icon
+  // (outside LessonTextView's own DOM subtree) can toggle the same picker.
+  const [showLessonTextPicker, setShowLessonTextPicker] = useState(false);
   const [returnToLessonText, setReturnToLessonText] = useState(false);
   const [lessonJourneyQueue, setLessonJourneyQueue] = useState([]);
   const [lessonJourneyPosition, setLessonJourneyPosition] = useState(0);
@@ -1091,7 +1094,7 @@ export default function App() {
     setShowDailyRituel(false);
     setStandaloneView(STANDALONE_VIEW.HSK_WORDS);
     setEnteredApp(false);
-    setLastActivity({ contentLabel: 'HSK1', modeLabel: 'Vocabulaire', resume: openHskDeckFromLanding });
+    setLastActivity({ contentLabel: 'HSK1', modeLabel: 'Fiche', resume: openHskDeckFromLanding });
   };
 
   const openHskWordSelectFromLanding = () => {
@@ -1104,21 +1107,21 @@ export default function App() {
     setShowDailyRituel(false);
     setStandaloneView(STANDALONE_VIEW.COLORS_WORDS);
     setEnteredApp(false);
-    setLastActivity({ contentLabel: 'Couleurs', modeLabel: 'Vocabulaire', resume: openColorsDeckFromLanding });
+    setLastActivity({ contentLabel: 'Couleurs', modeLabel: 'Fiche', resume: openColorsDeckFromLanding });
   };
 
   const openClothingDeckFromLanding = () => {
     setShowDailyRituel(false);
     setStandaloneView(STANDALONE_VIEW.CLOTHING_WORDS);
     setEnteredApp(false);
-    setLastActivity({ contentLabel: 'Vêtements', modeLabel: 'Vocabulaire', resume: openClothingDeckFromLanding });
+    setLastActivity({ contentLabel: 'Vêtements', modeLabel: 'Fiche', resume: openClothingDeckFromLanding });
   };
 
   const openRadicalDeckFromLanding = () => {
     setShowDailyRituel(false);
     setStandaloneView(STANDALONE_VIEW.RADICAL_WORDS);
     setEnteredApp(false);
-    setLastActivity({ contentLabel: 'Radicaux', modeLabel: 'Vocabulaire', resume: openRadicalDeckFromLanding });
+    setLastActivity({ contentLabel: 'Radicaux', modeLabel: 'Fiche', resume: openRadicalDeckFromLanding });
   };
 
   // Shared lesson picker used by the Lecons/Ecriture, Vocabulaire ("Par
@@ -1396,8 +1399,11 @@ export default function App() {
           lessons={lessonOptions}
           profile={activeProfile}
           progressMap={currentStarsMap}
+          showLessonPicker={showLessonTextPicker}
+          onToggleLessonPicker={() => setShowLessonTextPicker((prev) => !prev)}
           onSelectLesson={(lessonId) => {
             if (!lessonId) return;
+            setShowLessonTextPicker(false);
             setActiveLesson(lessonId);
             setCardIndex(0);
             openLessonTextView(lessonId);
@@ -1419,7 +1425,7 @@ export default function App() {
             setEnteredApp(false);
             setLastActivity({
               contentLabel: lessonForText.title,
-              modeLabel: 'Vocabulaire',
+              modeLabel: 'Fiche',
               resume: () => {
                 setActiveLesson(lessonForText.id);
                 setVocabWordIndex(0);
@@ -1434,6 +1440,11 @@ export default function App() {
           crumbs: [{ label: 'Leçons', onClick: () => navigateTo(SCREEN.HUB_LESSONS) }, { label: lessonForText.title || 'Leçon' }],
           scope: { type: 'lesson', lessonId: lessonForText.id },
           activeHub: 'lessons',
+          headerAction: {
+            icon: '🗂️',
+            label: 'Changer de leçon',
+            onClick: () => setShowLessonTextPicker((prev) => !prev),
+          },
         },
       );
     }
@@ -1597,7 +1608,7 @@ export default function App() {
       />,
       {
         crumbs: [
-          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
           { label: 'HSK1' },
         ],
         scope: { type: 'global' },
@@ -1620,7 +1631,7 @@ export default function App() {
       />,
       {
         crumbs: [
-          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
           { label: 'HSK1', onClick: () => setStandaloneView(STANDALONE_VIEW.HSK_WORDS) },
           { label: 'Choisir' },
         ],
@@ -1653,7 +1664,7 @@ export default function App() {
       />,
       {
         crumbs: [
-          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
           { label: 'HSK1', onClick: () => setStandaloneView(STANDALONE_VIEW.HSK_WORDS) },
           { label: deckWritingDifficulty === 3 ? 'Dictée' : 'Écriture' },
         ],
@@ -1681,7 +1692,7 @@ export default function App() {
       />,
       {
         crumbs: [
-          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
           { label: 'HSK1', onClick: () => setStandaloneView(STANDALONE_VIEW.HSK_WORDS) },
           { label: 'Évaluation' },
         ],
@@ -1788,7 +1799,7 @@ export default function App() {
         crumbs: [
           { label: 'Leçons', onClick: () => navigateTo(SCREEN.HUB_LESSONS) },
           { label: activeLesson?.title || 'Leçon', onClick: () => navigateTo(SCREEN.LESSON_TEXT, activeLesson?.id) },
-          { label: 'Vocabulaire' },
+          { label: 'Fiche' },
         ],
         scope: { type: 'lesson', lessonId: activeLesson?.id || '' },
         activeHub: 'vocab',
@@ -1812,7 +1823,7 @@ export default function App() {
         crumbs: [
           { label: 'Leçons', onClick: () => navigateTo(SCREEN.HUB_LESSONS) },
           { label: activeLesson?.title || 'Leçon', onClick: () => navigateTo(SCREEN.LESSON_TEXT, activeLesson?.id) },
-          { label: 'Vocabulaire', onClick: () => setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS) },
+          { label: 'Fiche', onClick: () => setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS) },
           { label: 'Choisir' },
         ],
         scope: { type: 'lesson', lessonId: activeLesson?.id || '' },
@@ -1861,7 +1872,7 @@ export default function App() {
             crumbs: [
               { label: 'Leçons', onClick: () => navigateTo(SCREEN.HUB_LESSONS) },
               { label: activeLesson?.title || 'Leçon', onClick: () => navigateTo(SCREEN.LESSON_TEXT, activeLesson?.id) },
-              { label: 'Vocabulaire', onClick: () => setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS) },
+              { label: 'Fiche', onClick: () => setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS) },
               { label: 'Écriture' },
             ],
             scope: { type: 'lesson', lessonId: activeLesson?.id || '' },
@@ -1897,7 +1908,7 @@ export default function App() {
       />,
       {
         crumbs: [
-          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
           { label: 'Couleurs' },
         ],
         scope: { type: 'global' },
@@ -1922,7 +1933,7 @@ export default function App() {
       />,
       {
         crumbs: [
-          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
           { label: 'Couleurs', onClick: () => setStandaloneView(STANDALONE_VIEW.COLORS_WORDS) },
           { label: 'Dictée' },
         ],
@@ -1954,7 +1965,7 @@ export default function App() {
       />,
       {
         crumbs: [
-          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
           { label: 'Couleurs', onClick: () => setStandaloneView(STANDALONE_VIEW.COLORS_WORDS) },
           { label: deckWritingDifficulty === 3 ? 'Dictée' : 'Écriture' },
         ],
@@ -1982,7 +1993,7 @@ export default function App() {
       />,
       {
         crumbs: [
-          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
           { label: 'Couleurs', onClick: () => setStandaloneView(STANDALONE_VIEW.COLORS_WORDS) },
           { label: 'Évaluation' },
         ],
@@ -2017,7 +2028,7 @@ export default function App() {
       />,
       {
         crumbs: [
-          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
           { label: 'Vêtements' },
         ],
         scope: { type: 'global' },
@@ -2048,7 +2059,7 @@ export default function App() {
       />,
       {
         crumbs: [
-          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
           { label: 'Vêtements', onClick: () => setStandaloneView(STANDALONE_VIEW.CLOTHING_WORDS) },
           { label: deckWritingDifficulty === 3 ? 'Dictée' : 'Écriture' },
         ],
@@ -2076,7 +2087,7 @@ export default function App() {
       />,
       {
         crumbs: [
-          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
           { label: 'Vêtements', onClick: () => setStandaloneView(STANDALONE_VIEW.CLOTHING_WORDS) },
           { label: 'Évaluation' },
         ],
@@ -2111,7 +2122,7 @@ export default function App() {
       />,
       {
         crumbs: [
-          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
           { label: 'Radicaux' },
         ],
         scope: { type: 'global' },
@@ -2142,7 +2153,7 @@ export default function App() {
       />,
       {
         crumbs: [
-          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
           { label: 'Radicaux', onClick: () => setStandaloneView(STANDALONE_VIEW.RADICAL_WORDS) },
           { label: deckWritingDifficulty === 3 ? 'Dictée' : 'Écriture' },
         ],
@@ -2170,7 +2181,7 @@ export default function App() {
       />,
       {
         crumbs: [
-          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
           { label: 'Radicaux', onClick: () => setStandaloneView(STANDALONE_VIEW.RADICAL_WORDS) },
           { label: 'Évaluation' },
         ],
@@ -2190,7 +2201,7 @@ export default function App() {
         setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS);
         setLastActivity({
           contentLabel: pickedTitle,
-          modeLabel: 'Vocabulaire',
+          modeLabel: 'Fiche',
           resume: () => {
             setActiveLesson(id);
             setVocabWordIndex(0);
@@ -2282,7 +2293,7 @@ export default function App() {
       text: { crumbs: [{ label: 'Leçons' }], activeHub: 'lessons' },
       vocab: {
         crumbs: [
-          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
           { label: 'Par leçon' },
         ],
         activeHub: 'vocab',
@@ -2361,7 +2372,7 @@ export default function App() {
     return withShell(
       <ChoiceHubPage
         shellHeader
-        title="Vocabulaire"
+        title="Fiche"
         choices={[
           {
             key: 'by-lesson',
@@ -2381,7 +2392,7 @@ export default function App() {
           setEnteredApp(false);
         }}
       />,
-      { crumbs: [{ label: 'Vocabulaire' }], scope: { type: 'global' }, activeHub: 'vocab' },
+      { crumbs: [{ label: 'Fiche' }], scope: { type: 'global' }, activeHub: 'vocab' },
     );
   }
 
@@ -2406,7 +2417,7 @@ export default function App() {
       />,
       {
         crumbs: [
-          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
           { label: 'Par thème' },
         ],
         scope: { type: 'global' },

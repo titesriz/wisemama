@@ -3450,6 +3450,26 @@ body {
   line-height: 1;
 }
 
+.lesson-text-pinyin-floating {
+  flex-wrap: nowrap;
+}
+
+.pinyin-float-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 2px solid #4ecdc4;
+  background: #ecfffb;
+  color: #22665f;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1;
+}
+
 .lesson-text-top-row {
   display: flex;
   align-items: center;
@@ -5094,6 +5114,15 @@ body {
   gap: 6px;
   padding: 8px;
   animation: lesson-picker-in 180ms ease-out;
+}
+
+/* Opened via the AppShell header's folder icon (shellHeader mode) - that
+   icon lives outside this dropdown's own header div, which may not even
+   render, so top: 100% (anchored to that div) no longer places it
+   correctly. Anchor to the top of the lesson card instead, which sits
+   right under the AppShell header. */
+.lesson-picker-dropdown-standalone {
+  top: 0;
 }
 
 .lesson-option {

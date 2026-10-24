@@ -5,7 +5,7 @@ import '../styles/landing-hub.css';
 
 const HUB_BUTTONS = [
   { key: 'lessons', label: 'Leçons' },
-  { key: 'vocabulary', label: 'Vocabulaire' },
+  { key: 'vocabulary', label: 'Fiche' },
   { key: 'writing', label: 'Écriture' },
   { key: 'test', label: 'Évaluation' },
 ];

@@ -34,7 +34,7 @@ export default function LessonVocabWordPage({
       profile={profile}
       lessonId={lessonId}
       lessonTitle={lessonTitle}
-      modeLabel="Vocabulaire"
+      modeLabel="Fiche"
       card={word}
       cardIndex={wordIndex}
       totalCards={totalWords}

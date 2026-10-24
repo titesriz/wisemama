@@ -86,12 +86,23 @@ export default function LessonTextView({
   onOpenVocabularyHub,
   onOpenTestHub,
   shellHeader = false,
+  showLessonPicker: showLessonPickerProp,
+  onToggleLessonPicker,
 }) {
   const { convert } = useScriptMode();
   const [pinyinMode, setPinyinMode] = useState('all');
   const [manuallyToggledIds, setManuallyToggledIds] = useState(() => new Set());
   const [playingSentenceIndex, setPlayingSentenceIndex] = useState(-1);
-  const [showLessonPicker, setShowLessonPicker] = useState(false);
+  // The picker can be opened from the AppShell header (outside this
+  // component's own DOM subtree) when shellHeader is on, so its open state
+  // is controlled by the parent in that case; otherwise this component's
+  // own (now-hidden) header button manages it locally.
+  const [internalShowLessonPicker, setInternalShowLessonPicker] = useState(false);
+  const showLessonPicker = shellHeader ? Boolean(showLessonPickerProp) : internalShowLessonPicker;
+  const closeLessonPicker = () => {
+    if (shellHeader) onToggleLessonPicker?.();
+    else setInternalShowLessonPicker(false);
+  };
   const [isScrolled, setIsScrolled] = useState(false);
   const [pinyinCapsuleExpanded, setPinyinCapsuleExpanded] = useState(false);
   const lessonPickerRef = useRef(null);
@@ -126,7 +137,7 @@ export default function LessonTextView({
 
     const handlePointerDown = (event) => {
       if (!lessonPickerRef.current?.contains(event.target)) {
-        setShowLessonPicker(false);
+        closeLessonPicker();
       }
     };
 
@@ -195,6 +206,7 @@ export default function LessonTextView({
     if (!card || card.pinyinEnabled === false) return false;
     if (manuallyToggledIds.has(card.id)) return true;
     if (pinyinMode === 'all') return true;
+    if (pinyinMode === 'new') return status === 'new';
     return false;
   };
 
@@ -215,7 +227,7 @@ export default function LessonTextView({
               <button
                 type="button"
                 className="change-lesson-btn icon-only ui-pressable"
-                onClick={() => setShowLessonPicker((prev) => !prev)}
+                onClick={() => setInternalShowLessonPicker((prev) => !prev)}
                 aria-label="Changer de lecon"
               >
                 🗂️
@@ -235,56 +247,84 @@ export default function LessonTextView({
                 />
               </button>
             </div>
-            {showLessonPicker ? (
-              <div
-                className="lesson-picker-dropdown"
-                onClick={(event) => event.stopPropagation()}
-                onKeyDown={(event) => event.stopPropagation()}
-              >
-                {availableLessons.map((item) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    className={`lesson-option ui-pressable ${item.id === lesson?.id ? 'active' : ''}`}
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      setShowLessonPicker(false);
-                      onSelectLesson?.(item.id);
-                    }}
-                  >
-                    <div className="option-preview">
-                      {item.coverImage ? <img src={item.coverImage} alt="" /> : <span>📘</span>}
-                    </div>
-                    <div className="option-info">
-                      <strong>{item.order ? `${item.order}. ` : ''}{item.title || 'Lecon'}</strong>
-                      <span className="option-meta">{item.cards?.length || 0} cartes</span>
-                    </div>
-                    {item.id === lesson?.id ? <span className="checkmark">✓</span> : null}
-                  </button>
-                ))}
-              </div>
-            ) : null}
           </div>
           )}
 
+          {showLessonPicker ? (
+            <div
+              className="lesson-picker-dropdown lesson-picker-dropdown-standalone"
+              onClick={(event) => event.stopPropagation()}
+              onKeyDown={(event) => event.stopPropagation()}
+            >
+              {availableLessons.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={`lesson-option ui-pressable ${item.id === lesson?.id ? 'active' : ''}`}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    closeLessonPicker();
+                    onSelectLesson?.(item.id);
+                  }}
+                >
+                  <div className="option-preview">
+                    {item.coverImage ? <img src={item.coverImage} alt="" /> : <span>📘</span>}
+                  </div>
+                  <div className="option-info">
+                    <strong>{item.order ? `${item.order}. ` : ''}{item.title || 'Lecon'}</strong>
+                    <span className="option-meta">{item.cards?.length || 0} cartes</span>
+                  </div>
+                  {item.id === lesson?.id ? <span className="checkmark">✓</span> : null}
+                </button>
+              ))}
+            </div>
+          ) : null}
+
           <div className="lesson-text-content">
           <section className="text-source-section">
-            {isScrolled && !pinyinCapsuleExpanded ? (
-              <button
-                type="button"
-                className="pinyin-capsule-edge-tab ui-pressable"
-                onClick={() => setPinyinCapsuleExpanded(true)}
-                aria-label="Afficher les options pinyin"
-                aria-expanded="false"
-              >
-                ›
-              </button>
+            <span className="lesson-section-marker">① Lis la leçon</span>
+            {isScrolled ? (
+              <div className="lesson-text-top-row lesson-text-sticky-instructions lesson-text-pinyin-floating">
+                <button
+                  type="button"
+                  className="pinyin-float-btn ui-pressable"
+                  onClick={() => setPinyinCapsuleExpanded((prev) => !prev)}
+                  aria-label="Options pinyin"
+                  aria-expanded={pinyinCapsuleExpanded}
+                >
+                  <span aria-hidden="true">🔤</span> Pinyin
+                </button>
+                {pinyinCapsuleExpanded ? (
+                  <div className="pinyin-toggle" role="radiogroup" aria-label="Mode pinyin">
+                    <label className="toggle-option">
+                      <input type="radio" name="pinyinMode" value="all" checked={pinyinMode === 'all'} onChange={() => setPinyinMode('all')} />
+                      <span className="radio-label"><span className="radio-icon">🟢</span>Tous</span>
+                    </label>
+                    <label className="toggle-option">
+                      <input type="radio" name="pinyinMode" value="new" checked={pinyinMode === 'new'} onChange={() => setPinyinMode('new')} />
+                      <span className="radio-label"><span className="radio-icon">🆕</span>Nouveaux</span>
+                    </label>
+                    <label className="toggle-option">
+                      <input type="radio" name="pinyinMode" value="tone" checked={pinyinMode === 'tone'} onChange={() => setPinyinMode('tone')} />
+                      <span className="radio-label"><span className="radio-icon">🎵</span>Tonalités</span>
+                    </label>
+                    <label className="toggle-option">
+                      <input type="radio" name="pinyinMode" value="none" checked={pinyinMode === 'none'} onChange={() => setPinyinMode('none')} />
+                      <span className="radio-label"><span className="radio-icon">⚪</span>Aucun</span>
+                    </label>
+                  </div>
+                ) : null}
+              </div>
             ) : (
               <div className="lesson-text-top-row lesson-text-sticky-instructions">
                 <div className="pinyin-toggle" role="radiogroup" aria-label="Mode pinyin">
                   <label className="toggle-option">
                     <input type="radio" name="pinyinMode" value="all" checked={pinyinMode === 'all'} onChange={() => setPinyinMode('all')} />
                     <span className="radio-label"><span className="radio-icon">🟢</span>Tous les pinyin</span>
+                  </label>
+                  <label className="toggle-option">
+                    <input type="radio" name="pinyinMode" value="new" checked={pinyinMode === 'new'} onChange={() => setPinyinMode('new')} />
+                    <span className="radio-label"><span className="radio-icon">🆕</span>Nouveaux</span>
                   </label>
                   <label className="toggle-option">
                     <input type="radio" name="pinyinMode" value="tone" checked={pinyinMode === 'tone'} onChange={() => setPinyinMode('tone')} />
@@ -295,17 +335,6 @@ export default function LessonTextView({
                     <span className="radio-label"><span className="radio-icon">⚪</span>Aucun pinyin</span>
                   </label>
                 </div>
-                {isScrolled ? (
-                  <button
-                    type="button"
-                    className="pinyin-capsule-toggle ui-pressable"
-                    onClick={() => setPinyinCapsuleExpanded(false)}
-                    aria-label="Reduire les options pinyin"
-                    aria-expanded="true"
-                  >
-                    ▲
-                  </button>
-                ) : null}
               </div>
             )}
             <div className="text-display">
@@ -371,7 +400,7 @@ export default function LessonTextView({
           {lessonVocabWords.length > 0 ? (
             <section className="vocabulary-section lesson-text-vocab">
               <div className="vocab-section-header">
-                <span className="lesson-section-marker">② Vocabulaire</span>
+                <span className="lesson-section-marker">② Nouveau vocabulaire</span>
                 <span className="vocab-count">
                   {lessonVocabWords.length} mot{lessonVocabWords.length !== 1 ? 's' : ''}
                 </span>

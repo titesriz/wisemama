@@ -5,7 +5,7 @@ import '../styles/app-shell.css';
 
 const FOOTER_BUTTONS = [
   { key: 'lessons', label: 'Leçons' },
-  { key: 'vocab', label: 'Vocabulaire' },
+  { key: 'vocab', label: 'Fiche' },
   { key: 'writing', label: 'Écriture' },
   { key: 'test', label: 'Évaluation' },
 ];
@@ -51,6 +51,7 @@ export default function AppShell({
   onOpenAvatarEditor,
   avatarOpen = false,
   onCloseAvatarEditor,
+  headerAction = null,
   children,
 }) {
   const footerTargets = FOOTER_TARGETS[scope.type === 'lesson' ? 'lesson' : 'global'];
@@ -84,6 +85,17 @@ export default function AppShell({
             );
           })}
         </nav>
+
+        {headerAction ? (
+          <button
+            type="button"
+            className="app-shell-header-action ui-pressable"
+            onClick={headerAction.onClick}
+            aria-label={headerAction.label}
+          >
+            {headerAction.icon}
+          </button>
+        ) : null}
 
         <button
           type="button"
