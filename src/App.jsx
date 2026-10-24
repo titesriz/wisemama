@@ -2068,6 +2068,7 @@ export default function App() {
       <LessonSelectionPage
         shellHeader={lessonPickerIntent === 'text'}
         lessons={lessonOptions}
+        packs={getPacks()}
         activeLessonId={activeLessonId || ''}
         onSelectLesson={handlePickLesson}
         onBack={() => setStandaloneView(lessonPickerReturnTo)}
@@ -2457,6 +2458,7 @@ export default function App() {
     return (
       <LessonSelectionPage
         lessons={lessonOptions}
+        packs={getPacks()}
         activeLessonId={activeLessonId || ''}
         onSelectLesson={(id) => {
           setActiveLesson(id);

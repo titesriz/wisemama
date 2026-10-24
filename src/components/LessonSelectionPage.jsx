@@ -4,15 +4,42 @@ import '../styles/lesson-select.css';
 
 export default function LessonSelectionPage({
   lessons = [],
+  packs = [],
   activeLessonId = '',
   onSelectLesson,
   onBack,
   shellHeader = false,
 }) {
-  const [showOtherLessons, setShowOtherLessons] = useState(true);
+  const [expandedPackIds, setExpandedPackIds] = useState([]);
   const sortedLessons = getLessonsByOrder(lessons);
   const resumeLesson = sortedLessons.find((lesson) => lesson.id === activeLessonId) || sortedLessons[0] || null;
   const otherLessons = sortedLessons.filter((lesson) => lesson.id !== resumeLesson?.id);
+
+  // Only packs the account currently has switched on in Espace parent show up
+  // here - a disabled pack's lessons stay reachable from the editor, just not
+  // from this picker.
+  const packGroups = packs
+    .filter((pack) => pack.enabled)
+    .map((pack) => ({
+      id: pack.id,
+      name: pack.name || pack.id,
+      lessons: otherLessons.filter((lesson) => lesson.packId === pack.id),
+    }))
+    .filter((group) => group.lessons.length > 0);
+
+  // Lessons with no packId (hand-created via the editor, never assigned to a
+  // pack) aren't gated by the pack toggle - keep them reachable under their
+  // own group instead of silently dropping them from the picker.
+  const unpackedLessons = otherLessons.filter((lesson) => !lesson.packId);
+  if (unpackedLessons.length) {
+    packGroups.push({ id: '__unpacked', name: 'Autres leçons', lessons: unpackedLessons });
+  }
+
+  const togglePack = (packId) => {
+    setExpandedPackIds((prev) => (
+      prev.includes(packId) ? prev.filter((id) => id !== packId) : [...prev, packId]
+    ));
+  };
 
   return (
     <section className="lesson-select-page">
@@ -45,31 +72,42 @@ export default function LessonSelectionPage({
           </>
         ) : null}
 
-        {otherLessons.length ? (
-          <div className="lesson-select-other">
-            <button
-              type="button"
-              className="lesson-select-toggle ui-pressable"
-              onClick={() => setShowOtherLessons((prev) => !prev)}
-              aria-expanded={showOtherLessons}
-            >
-              Choisir une autre leçon {showOtherLessons ? '▴' : '▾'}
-            </button>
-            {showOtherLessons ? (
-              <div className="lesson-select-list">
-                {otherLessons.map((lesson) => (
+        {packGroups.length ? (
+          <div className="lesson-select-packs">
+            {packGroups.map((group) => {
+              const isExpanded = expandedPackIds.includes(group.id);
+              return (
+                <div key={group.id} className="lesson-select-pack">
                   <button
-                    key={lesson.id}
                     type="button"
-                    className={`lesson-select-card ui-pressable ${activeLessonId === lesson.id ? 'active' : ''}`}
-                    onClick={() => onSelectLesson?.(lesson.id)}
+                    className="lesson-select-pack-toggle ui-pressable"
+                    onClick={() => togglePack(group.id)}
+                    aria-expanded={isExpanded}
                   >
-                    <strong>{lesson.order ? `${lesson.order}. ` : ''}{lesson.title || 'Leçon sans titre'}</strong>
-                    <span>{lesson.cards?.length || 0} fiches</span>
+                    <span className="lesson-select-pack-name">{group.name}</span>
+                    <span className="lesson-select-pack-count">{group.lessons.length} leçons</span>
+                    <span className={`lesson-select-pack-chevron ${isExpanded ? 'is-open' : ''}`} aria-hidden="true">
+                      ▾
+                    </span>
                   </button>
-                ))}
-              </div>
-            ) : null}
+                  {isExpanded ? (
+                    <div className="lesson-select-list">
+                      {group.lessons.map((lesson) => (
+                        <button
+                          key={lesson.id}
+                          type="button"
+                          className={`lesson-select-card ui-pressable ${activeLessonId === lesson.id ? 'active' : ''}`}
+                          onClick={() => onSelectLesson?.(lesson.id)}
+                        >
+                          <strong>{lesson.order ? `${lesson.order}. ` : ''}{lesson.title || 'Leçon sans titre'}</strong>
+                          <span>{lesson.cards?.length || 0} fiches</span>
+                        </button>
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
+              );
+            })}
           </div>
         ) : null}
 
