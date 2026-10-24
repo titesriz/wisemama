@@ -3433,6 +3433,10 @@ body {
   color: #a0aab8;
   letter-spacing: 0.03em;
   white-space: nowrap;
+  /* .profile-card-kid (the lesson card's own wrapper) sets text-align:
+     center for its own layout - this marker is standalone text, not a
+     centered card title, so it needs to opt back out explicitly. */
+  text-align: left;
 }
 
 .pinyin-capsule-toggle {
@@ -3623,6 +3627,13 @@ body {
 
 .pinyin-toggle {
   display: flex;
+  /* Shrink-wraps to its own content by default (a flex row with no grow),
+     which only happened to match .text-display's width at narrow phone
+     widths where the 4 options wrap to 2 rows anyway - on anything wider
+     (iPad, landscape) it stayed noticeably narrower than the lesson text
+     box below it. flex: 1 makes it fill its row (alone in the normal
+     layout, or next to .pinyin-float-btn in the floating one) instead. */
+  flex: 1;
   flex-wrap: wrap;
   gap: 6px;
   justify-content: flex-start;
@@ -3661,6 +3672,9 @@ body {
   color: #fff;
 }
 
+/* Used by LessonWritingSetupPage's character-selection grid, not the
+   lesson text view's vocabulary list below (.vocabulary-list/.vocab-row) -
+   kept as-is, a different screen's different UI. */
 .vocabulary-grid {
   display: flex;
   flex-direction: row;
@@ -3674,6 +3688,66 @@ body {
   padding-bottom: 2px;
   flex: 1;
   min-width: 0;
+}
+
+.vocabulary-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.vocab-row {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  background: #fff;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+.vocab-row-main {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+}
+
+.vocab-row-hanzi {
+  font-size: 24px;
+  font-weight: 700;
+  font-family: var(--wm-font-hanzi);
+  color: #2d3436;
+}
+
+.vocab-row-pinyin {
+  font-size: 14px;
+  font-weight: 600;
+  color: #636e72;
+}
+
+.vocab-row-meaning {
+  font-size: 15px;
+  font-weight: 700;
+  color: #22665f;
+}
+
+.vocab-row-breakdown {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 4px;
+  font-size: 13px;
+  color: #a0aab8;
+  font-family: var(--wm-font-hanzi);
+}
+
+.vocab-row-breakdown-sep {
+  margin-right: 4px;
+  color: #c7cdd6;
+  font-family: var(--wm-font-base);
 }
 
 .vocab-card {

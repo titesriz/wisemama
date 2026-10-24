@@ -400,19 +400,49 @@ export default function LessonTextView({
                   {lessonVocabWords.length} mot{lessonVocabWords.length !== 1 ? 's' : ''}
                 </span>
               </div>
-              <div className="vocabulary-grid">
-                {lessonVocabWords.map((word) => (
-                  <button
-                    key={word.id}
-                    type="button"
-                    className="vocab-card vocab-card-word learning unselected"
-                    title={`${word.hanzi} (${formatPinyinDisplay(word.pinyin)}) - ${word.french || word.english || ''}`}
-                    onClick={() => onPracticeVocabulary?.(word.id)}
-                  >
-                    <div className="vocab-hanzi">{convert(word.hanzi)}</div>
-                    <div className="vocab-pinyin-hint">{formatPinyinDisplay(word.pinyin)}</div>
-                  </button>
-                ))}
+              <div className="vocabulary-list">
+                {lessonVocabWords.map((word) => {
+                  const characters = Array.from(word.hanzi || '');
+                  const seenChars = new Set();
+                  const breakdown = characters.length > 1
+                    ? characters
+                        .filter((char) => {
+                          if (seenChars.has(char)) return false;
+                          seenChars.add(char);
+                          return true;
+                        })
+                        .map((char) => {
+                          const meaning = cardByHanzi.get(char)?.card?.french || cardByHanzi.get(char)?.card?.english || '';
+                          return meaning ? { char, meaning } : null;
+                        })
+                        .filter(Boolean)
+                    : [];
+                  return (
+                    <button
+                      key={word.id}
+                      type="button"
+                      className="vocab-row ui-pressable"
+                      title={`${word.hanzi} (${formatPinyinDisplay(word.pinyin)}) - ${word.french || word.english || ''}`}
+                      onClick={() => onPracticeVocabulary?.(word.id)}
+                    >
+                      <div className="vocab-row-main">
+                        <span className="vocab-row-hanzi">{convert(word.hanzi)}</span>
+                        <span className="vocab-row-pinyin">{formatPinyinDisplay(word.pinyin)}</span>
+                        <span className="vocab-row-meaning">{word.french || word.english || ''}</span>
+                      </div>
+                      {breakdown.length > 0 ? (
+                        <div className="vocab-row-breakdown">
+                          {breakdown.map((item, index) => (
+                            <span key={item.char} className="vocab-row-breakdown-item">
+                              {index > 0 ? <span className="vocab-row-breakdown-sep" aria-hidden="true">；</span> : null}
+                              {convert(item.char)} {item.meaning}
+                            </span>
+                          ))}
+                        </div>
+                      ) : null}
+                    </button>
+                  );
+                })}
               </div>
             </section>
           ) : null}
