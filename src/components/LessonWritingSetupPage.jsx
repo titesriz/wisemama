@@ -4,6 +4,8 @@ import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
 import { getAllSeenCharsBefore, getLessonsByOrder } from '../utils/lessons/lessonOrder.js';
 import { getSavedWritingSelection, saveWritingSelection } from '../lib/writingSelection.js';
 
+const WRITING_LEVELS = ['facile', 'moyen', 'difficile'];
+
 function shuffle(list) {
   const next = [...list];
   for (let i = next.length - 1; i > 0; i -= 1) {
@@ -149,11 +151,6 @@ export default function LessonWritingSetupPage({
     onStartPractice?.(shuffle(selectedVocabulary.map((item) => item.id)));
   };
 
-  const startDicteeRandom = () => {
-    onChangeWritingDifficulty?.(3);
-    onStartPractice?.(shuffle(vocabulary.map((item) => item.id)));
-  };
-
   if (!lesson) {
     return (
       <section className="writing-setup-page">
@@ -250,50 +247,6 @@ export default function LessonWritingSetupPage({
             </button>
           ))}
         </div>
-        <div className="vocab-section-header">
-          <span className="vocab-count">
-            {selectedVocabulary.length === 0
-              ? 'Sélectionne au moins 1 caractère'
-              : `${selectedVocabulary.length} caractère${selectedVocabulary.length !== 1 ? 's' : ''} sélectionné${selectedVocabulary.length !== 1 ? 's' : ''}`}
-          </span>
-          <div className="vocab-difficulty-btns">
-            <button
-              type="button"
-              className="lesson-difficulty-star ui-pressable"
-              onClick={startWriting}
-              aria-label="Ecriture"
-              disabled={!journeyStartCard || selectedVocabulary.length === 0}
-            >
-              ✏️ Écriture
-            </button>
-          </div>
-        </div>
-        <div className="vocab-dictee-section">
-          <div className="vocab-dictee-head">
-            <strong>Dictée</strong>
-            <span className="parent-empty">Caractère caché, à l'oreille.</span>
-          </div>
-          <div className="vocab-difficulty-btns">
-            <button
-              type="button"
-              className="lesson-difficulty-star ui-pressable"
-              onClick={startDicteeGuided}
-              aria-label="Dictee guidee"
-              disabled={!journeyStartCard || selectedVocabulary.length === 0}
-            >
-              🎯 Guidée
-            </button>
-            <button
-              type="button"
-              className="lesson-difficulty-star ui-pressable"
-              onClick={startDicteeRandom}
-              aria-label="Dictee aleatoire"
-              disabled={!vocabulary.length}
-            >
-              🎲 Aléatoire
-            </button>
-          </div>
-        </div>
         <div className="vocab-grid-with-controls">
           <div className="vocabulary-grid">
             {vocabulary.map((item) => (
@@ -310,6 +263,36 @@ export default function LessonWritingSetupPage({
               </button>
             ))}
           </div>
+        </div>
+        <p className="writing-setup-count">
+          {selectedVocabulary.length === 0
+            ? 'Sélectionne au moins 1 caractère'
+            : `${selectedVocabulary.length} caractère${selectedVocabulary.length !== 1 ? 's' : ''} sélectionné${selectedVocabulary.length !== 1 ? 's' : ''}`}
+        </p>
+        <h2 className="writing-setup-step-title">2) Choisis le mode</h2>
+        <div className="writing-setup-modes">
+          <div className="writing-setup-mode-group" role="group" aria-label="Écriture">
+            <span className="writing-setup-mode-label">✏️ Écriture</span>
+            {WRITING_LEVELS.map((level) => (
+              <button
+                key={level}
+                type="button"
+                className="writing-setup-mode-btn ui-pressable"
+                onClick={startWriting}
+                disabled={!journeyStartCard || selectedVocabulary.length === 0}
+              >
+                {level}
+              </button>
+            ))}
+          </div>
+          <button
+            type="button"
+            className="writing-setup-mode-btn writing-setup-dictee-btn ui-pressable"
+            onClick={startDicteeGuided}
+            disabled={!journeyStartCard || selectedVocabulary.length === 0}
+          >
+            Dictée
+          </button>
         </div>
       </div>
         </article>

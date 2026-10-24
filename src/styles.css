@@ -4000,9 +4000,70 @@ body {
 
 .writing-setup-step-title {
   margin: 0 0 10px;
+  text-align: left;
   font-size: 20px;
   font-weight: 700;
   color: #2d3436;
+}
+
+.writing-setup-count {
+  margin: 12px 0 20px;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 600;
+  color: #636e72;
+}
+
+.writing-setup-modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.writing-setup-mode-group {
+  flex: 1 1 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 10px;
+  border-radius: 18px;
+  background: #eef1f6;
+}
+
+.writing-setup-mode-label {
+  flex-basis: 100%;
+  text-align: left;
+  padding: 0 4px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #636e72;
+}
+
+.writing-setup-mode-btn {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 38px;
+  padding: 0 12px;
+  border-radius: 12px;
+  border: 2px solid #d8deea;
+  background: #fff;
+  color: #2d3436;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.writing-setup-mode-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.writing-setup-dictee-btn {
+  flex: 0 0 auto;
+  min-width: 110px;
+  border-color: #f3b0b0;
 }
 
 .writing-setup-presets {
@@ -4014,7 +4075,8 @@ body {
 
 .writing-setup-preset {
   flex: 1 1 0;
-  min-width: 84px;
+  min-width: 0;
+  padding: 0 6px;
   height: 38px;
   border-radius: 12px;
   border: 2px solid #d8deea;
