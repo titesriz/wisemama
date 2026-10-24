@@ -1,6 +1,6 @@
 :root {
   --shell-header-h: 64px;
-  --shell-footer-h: 96px;
+  --shell-footer-h: 72px;
 }
 
 .app-shell {
@@ -140,7 +140,7 @@
 }
 
 .app-shell-footer-btn {
-  min-height: 66px;
+  min-height: 49.5px;
   padding: 8px;
   border: 2px solid var(--wm-color-border);
   border-radius: var(--wm-radius-sm);
