@@ -860,6 +860,14 @@ export default function App() {
     return () => window.removeEventListener('popstate', onPopState);
   }, []);
 
+  // Every screen change should open at the top, not wherever the previous
+  // screen had been scrolled to - this app is a single window-scrolling
+  // document (no inner scroll container per screen), so a plain
+  // window.scrollTo covers every page the if-chain below can render.
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [standaloneView, lessonTextLessonId, showParentSpace, showFtue, enteredApp, showDailyRituel, isParentMode]);
+
   const navigateTo = (screen, lessonId = '') => {
     pushScreen(screen, lessonId);
     applyScreenState(screen, lessonId);
