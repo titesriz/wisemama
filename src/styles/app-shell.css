@@ -1,6 +1,6 @@
 :root {
   --shell-header-h: 64px;
-  --shell-footer-h: 64px;
+  --shell-footer-h: 96px;
 }
 
 .app-shell {
@@ -105,11 +105,21 @@
 .app-shell-main {
   flex: 1 1 auto;
   min-width: 0;
+  /* The footer is fixed (not in flow), so reserve space for it here or
+     the last bit of scrollable content would render underneath it. */
+  padding-bottom: calc(var(--shell-footer-h) + env(safe-area-inset-bottom, 0px));
 }
 
 .app-shell-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
+  min-height: var(--shell-footer-h);
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: center;
   gap: 8px;
   padding: 8px 16px calc(8px + env(safe-area-inset-bottom, 0px));
   background: var(--wm-color-surface);
@@ -117,7 +127,7 @@
 }
 
 .app-shell-footer-btn {
-  min-height: 44px;
+  min-height: 66px;
   padding: 8px;
   border: 2px solid var(--wm-color-border);
   border-radius: var(--wm-radius-sm);
