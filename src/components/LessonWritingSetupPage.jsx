@@ -34,8 +34,6 @@ export default function LessonWritingSetupPage({
   lesson,
   lessons = [],
   progressMap = {},
-  writingDifficulty = 1,
-  onChangeWritingDifficulty,
   onStartPractice,
   onBack,
   onGoHome,
@@ -141,14 +139,12 @@ export default function LessonWritingSetupPage({
     return match?.id || null;
   }, [selectionPresets, selectedCardIds]);
 
-  const startWriting = () => {
-    onChangeWritingDifficulty?.(1);
-    onStartPractice?.(selectedVocabulary.map((item) => item.id));
+  const startWriting = (level) => {
+    onStartPractice?.(selectedVocabulary.map((item) => item.id), level);
   };
 
   const startDicteeGuided = () => {
-    onChangeWritingDifficulty?.(3);
-    onStartPractice?.(shuffle(selectedVocabulary.map((item) => item.id)));
+    onStartPractice?.(shuffle(selectedVocabulary.map((item) => item.id)), 'dictee');
   };
 
   if (!lesson) {
@@ -278,7 +274,7 @@ export default function LessonWritingSetupPage({
                 key={level}
                 type="button"
                 className="writing-setup-mode-btn ui-pressable"
-                onClick={startWriting}
+                onClick={() => startWriting(level)}
                 disabled={!journeyStartCard || selectedVocabulary.length === 0}
               >
                 {level}

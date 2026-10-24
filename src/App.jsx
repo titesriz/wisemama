@@ -186,6 +186,9 @@ function getDefaultModuleByRole(role) {
   return role === 'parent' ? MODULES.PARENT_HOME : MODULES.FLASHCARDS;
 }
 
+const WRITING_MODE_DIFFICULTY = { facile: 1, moyen: 2, difficile: 3, dictee: 3 };
+const WRITING_MODE_LABEL = { facile: 'Facile', moyen: 'Moyen', difficile: 'Difficile', dictee: 'Dictée' };
+
 export default function App() {
   const { mode, isParentMode, switchToChild, switchToParent } = useMode();
   const {
@@ -247,6 +250,9 @@ export default function App() {
   const [lessonJourneyPosition, setLessonJourneyPosition] = useState(0);
   const [unifiedFlowStepIndex, setUnifiedFlowStepIndex] = useState(0);
   const [writingDifficulty, setWritingDifficulty] = useState(1);
+  // Mode picked on the writing setup screen; drives the breadcrumb label.
+  // Dictée and difficile both run at writingDifficulty 3.
+  const [lessonWritingMode, setLessonWritingMode] = useState('facile');
   const [hskWordIndex, setHskWordIndex] = useState(() => readHskProgress());
   const [colorsWordIndex, setColorsWordIndex] = useState(0);
   const [clothingWordIndex, setClothingWordIndex] = useState(0);
@@ -400,7 +406,7 @@ export default function App() {
   }, [activeModule, isParentMode]);
 
   useEffect(() => {
-    if (writingDifficulty !== 1 && writingDifficulty !== 3) {
+    if (![1, 2, 3].includes(writingDifficulty)) {
       setWritingDifficulty(1);
     }
   }, [writingDifficulty]);
@@ -958,7 +964,7 @@ export default function App() {
     }
   };
 
-  const startJourneyFromLessonText = (selection = []) => {
+  const startJourneyFromLessonText = (selection = [], mode = 'facile') => {
     const targetLesson = lessonOptions.find((lesson) => lesson.id === lessonTextLessonId);
     if (!targetLesson) return;
     const selectedIds = Array.isArray(selection) ? selection.filter(Boolean) : [];
@@ -971,6 +977,8 @@ export default function App() {
           .filter((index) => index !== -1)
       : targetLesson.cards.map((_, index) => index);
     const startIndex = queue[0] ?? 0;
+    setLessonWritingMode(mode);
+    setWritingDifficulty(WRITING_MODE_DIFFICULTY[mode] || 1);
     pushScreen(SCREEN.LESSON_WRITING_PRACTICE, targetLesson.id);
     setActiveLesson(targetLesson.id);
     setLessonJourneyQueue(queue);
@@ -1527,7 +1535,7 @@ export default function App() {
       />
     );
     if (returnToLessonText) {
-      const writingLabel = writingDifficulty === 1 ? 'Écriture' : 'Dictée';
+      const writingLabel = WRITING_MODE_LABEL[lessonWritingMode] || 'Écriture';
       return withShell(writingPage, {
         crumbs: [
           { label: 'Leçons', onClick: () => navigateTo(SCREEN.HUB_LESSONS) },
@@ -2326,8 +2334,6 @@ export default function App() {
         lesson={targetLesson}
         lessons={lessonOptions}
         progressMap={childMap}
-        writingDifficulty={writingDifficulty}
-        onChangeWritingDifficulty={setWritingDifficulty}
         onStartPractice={startJourneyFromLessonText}
         onBack={() => {
           setStandaloneView(STANDALONE_VIEW.NONE);
