@@ -4066,7 +4066,7 @@ body {
 }
 
 .module-hanzi-large {
-  font-size: 220px;
+  font-size: 440px;
   line-height: 0.95;
   color: #2d3436;
   font-weight: 800;
@@ -4074,8 +4074,8 @@ body {
 }
 
 .module-pinyin-large {
-  font-size: 24px;
-  line-height: 28px;
+  font-size: 48px;
+  line-height: 56px;
   color: #ff6b6b;
   font-weight: 800;
 }
@@ -4535,11 +4535,11 @@ body {
   }
 
   .module-hanzi-large {
-    font-size: 160px;
+    font-size: 320px;
   }
 
   .module-pinyin-large {
-    font-size: 20px;
+    font-size: 40px;
   }
 
   .module-translation-panels {
