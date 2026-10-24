@@ -75,6 +75,30 @@ export default function LandingPage({
     return () => window.clearTimeout(timeout);
   }, [refreshStatus]);
 
+  // iOS Safari's 100dvh does not reliably match the actually-visible area
+  // the moment the page paints (it can settle on the address bar's
+  // expanded-height value even once the bar has shrunk), and since the
+  // landing page blocks scrolling (overflow: hidden) there's no scroll
+  // event left to force Safari to recompute it - the symptom is a solid
+  // block of dead white space between the page's real content and the
+  // browser chrome. Measure the actually-visible height in JS instead and
+  // feed it in as a CSS variable the stylesheet can rely on.
+  useEffect(() => {
+    const setRealViewportHeight = () => {
+      const height = window.visualViewport?.height || window.innerHeight;
+      document.documentElement.style.setProperty('--landing-vh', `${height}px`);
+    };
+    setRealViewportHeight();
+    window.addEventListener('resize', setRealViewportHeight);
+    window.addEventListener('orientationchange', setRealViewportHeight);
+    window.visualViewport?.addEventListener('resize', setRealViewportHeight);
+    return () => {
+      window.removeEventListener('resize', setRealViewportHeight);
+      window.removeEventListener('orientationchange', setRealViewportHeight);
+      window.visualViewport?.removeEventListener('resize', setRealViewportHeight);
+    };
+  }, []);
+
   const hubHandlers = {
     lessons: onOpenLessonsHubUi,
     vocabulary: onOpenVocabularyHubUi,

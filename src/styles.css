@@ -11,8 +11,21 @@ body {
   transition: background 280ms ease, color 280ms ease;
 }
 
+:root {
+  /* iOS Safari's 100dvh can settle on the wrong value at first paint
+     (particularly once scrolling - and the recompute it normally
+     triggers - is blocked by overflow: hidden), leaving a dead gap
+     between the landing page and the browser chrome. LandingPage.jsx
+     measures the real visible height in JS and overwrites this via
+     inline style on <html>; the dvh value here is only the fallback for
+     the instant before that effect runs. --vh1 is 1% of it, so every
+     "Ndvh" below can be written as calc(var(--vh1) * N) instead. */
+  --landing-vh: 100dvh;
+  --vh1: calc(var(--landing-vh) / 100);
+}
+
 .landing {
-  height: 100dvh;
+  height: var(--landing-vh);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -30,7 +43,7 @@ body {
 @media (max-height: 500px) {
   .landing {
     height: auto;
-    min-height: 100dvh;
+    min-height: var(--landing-vh);
     overflow: visible;
   }
 }
@@ -497,7 +510,7 @@ body {
   background: none;
   border: none;
   color: #999;
-  font-size: 12px;
+  font-size: clamp(12px, calc(var(--vh1) * 1.5), 14px);
   cursor: pointer;
   text-decoration: underline;
   text-underline-offset: 2px;
@@ -509,7 +522,7 @@ body {
 }
 
 .landing-refresh-status {
-  font-size: 12px;
+  font-size: clamp(12px, calc(var(--vh1) * 1.5), 14px);
   color: #00b894;
 }
 
@@ -5209,43 +5222,45 @@ body {
 }
 
 /* Landing page only: the whole page is locked to one screen (.landing has
-   height: 100dvh; overflow: hidden - see above), so every size here scales
-   continuously with available viewport HEIGHT (dvh), not width. A width
-   breakpoint would miss a wide-but-short case like an iPad in landscape;
-   dvh-based clamp() fits phone and iPad, portrait or landscape, without
-   needing separate tiers. Scoped under .landing so the other three users
-   of .landing-new-shell/.profile-card-kid (LessonTextView,
-   LessonWritingSetupPage) - which scroll normally and get their own footer
-   clearance from .app-shell-main - are untouched. */
+   height: var(--landing-vh); overflow: hidden - see above), so every size
+   here scales continuously with available viewport HEIGHT, not width. A
+   width breakpoint would miss a wide-but-short case like an iPad in
+   landscape; clamp() against --vh1 (1% of the JS-measured real height)
+   fits phone and iPad, portrait or landscape, without needing separate
+   tiers - and without iOS Safari's raw `dvh` unit going stale the way
+   .landing's own height did (see --landing-vh above). Scoped under
+   .landing so the other three users of .landing-new-shell/.profile-card-kid
+   (LessonTextView, LessonWritingSetupPage) - which scroll normally and get
+   their own footer clearance from .app-shell-main - are untouched. */
 .landing .landing-new-shell {
   flex: 1 1 auto;
   min-height: 0;
   align-content: space-evenly;
-  gap: clamp(6px, 1.8dvh, 18px);
-  padding: clamp(8px, 2.5dvh, 30px) 16px clamp(8px, 2dvh, 24px);
+  gap: clamp(6px, calc(var(--vh1) * 1.8), 18px);
+  padding: clamp(8px, calc(var(--vh1) * 2.5), 30px) 16px clamp(8px, calc(var(--vh1) * 2), 24px);
   overflow: hidden;
 }
 
 .landing .app-logo {
-  width: clamp(56px, 10dvh, 120px);
-  height: clamp(56px, 10dvh, 120px);
-  border-radius: clamp(16px, 2.5dvh, 30px);
-  font-size: clamp(32px, 6dvh, 72px);
+  width: clamp(56px, calc(var(--vh1) * 10), 120px);
+  height: clamp(56px, calc(var(--vh1) * 10), 120px);
+  border-radius: clamp(16px, calc(var(--vh1) * 2.5), 30px);
+  font-size: clamp(32px, calc(var(--vh1) * 6), 72px);
 }
 
 .landing .logo-area {
-  padding: clamp(4px, 1.2dvh, 16px) 0 clamp(2px, 0.8dvh, 10px);
-  gap: clamp(8px, 1.5dvh, 14px);
+  padding: clamp(4px, calc(var(--vh1) * 1.2), 16px) 0 clamp(2px, calc(var(--vh1) * 0.8), 10px);
+  gap: clamp(8px, calc(var(--vh1) * 1.5), 14px);
 }
 
 .landing .app-subtitle {
-  font-size: clamp(16px, 2.6dvh, 26px);
+  font-size: clamp(16px, calc(var(--vh1) * 2.6), 26px);
 }
 
 .landing .profile-card-parent {
-  padding: clamp(10px, 1.8dvh, 16px) clamp(12px, 3vw, 20px);
+  padding: clamp(10px, calc(var(--vh1) * 1.8), 16px) clamp(12px, 3vw, 20px);
 }
 
 .landing .landing-footer {
-  padding: clamp(6px, 1.2dvh, 16px) 0 clamp(10px, 2dvh, 24px);
+  padding: clamp(6px, calc(var(--vh1) * 1.2), 16px) 0 clamp(10px, calc(var(--vh1) * 2), 24px);
 }

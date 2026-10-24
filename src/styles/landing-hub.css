@@ -1,7 +1,7 @@
 .hero-chat-card {
   display: grid;
-  gap: clamp(8px, 1.8dvh, 18px);
-  padding: clamp(12px, 2.5dvh, 24px) clamp(14px, 4vw, 20px);
+  gap: clamp(8px, calc(var(--vh1) * 1.8), 18px);
+  padding: clamp(12px, calc(var(--vh1) * 2.5), 24px) clamp(14px, 4vw, 20px);
   /* Overrides .profile-card-kid's 280px min-height - the landing page is
      locked to one screen (see .landing in styles.css) and sizes every
      element off available height instead of enforcing a fixed minimum. */
@@ -35,8 +35,8 @@
 
 .hero-chat-avatar {
   flex: 0 0 auto;
-  width: clamp(48px, 9dvh, 72px);
-  height: clamp(48px, 9dvh, 72px);
+  width: clamp(48px, calc(var(--vh1) * 9), 72px);
+  height: clamp(48px, calc(var(--vh1) * 9), 72px);
 }
 
 .hero-chat-avatar-btn {
@@ -65,8 +65,8 @@
   position: relative;
   background: #ffffff;
   border-radius: 20px;
-  padding: clamp(10px, 1.6dvh, 14px) clamp(14px, 4vw, 20px);
-  font-size: clamp(15px, 2.6dvh, 19px);
+  padding: clamp(10px, calc(var(--vh1) * 1.6), 14px) clamp(14px, 4vw, 20px);
+  font-size: clamp(15px, calc(var(--vh1) * 2.6), 19px);
   font-weight: 700;
   color: #2d3436;
   box-shadow: 0 4px 14px rgba(45, 52, 54, 0.12);
@@ -152,10 +152,10 @@
 
 .hub-grid-2x2 {
   width: min(640px, 100%);
-  margin: clamp(4px, 1dvh, 10px) auto 0;
+  margin: clamp(4px, calc(var(--vh1) * 1), 10px) auto 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(10px, 2dvh, 22px) clamp(10px, 3vw, 20px);
+  gap: clamp(10px, calc(var(--vh1) * 2), 22px) clamp(10px, 3vw, 20px);
   transition: opacity 320ms ease, transform 320ms ease;
 }
 
@@ -179,14 +179,14 @@
   border: none;
   background: transparent;
   color: #fff;
-  font-size: 18px;
+  font-size: clamp(18px, calc(var(--vh1) * 2.2), 22px);
   font-weight: 800;
   padding: 6px;
   cursor: pointer;
 }
 
 .resume-card-icon {
-  font-size: 20px;
+  font-size: clamp(20px, calc(var(--vh1) * 2.4), 24px);
   line-height: 1;
 }
 
@@ -199,12 +199,12 @@
 }
 
 .resume-card-label {
-  font-size: 18px;
+  font-size: clamp(18px, calc(var(--vh1) * 2.2), 22px);
   font-weight: 800;
 }
 
 .resume-card-detail {
-  font-size: 13px;
+  font-size: clamp(13px, calc(var(--vh1) * 1.6), 15px);
   font-weight: 600;
   opacity: 0.85;
 }
@@ -212,12 +212,12 @@
 .hub-pentagon-btn {
   --hub-color: #ff6b6b;
   position: relative;
-  min-height: clamp(64px, 11dvh, 110px);
+  min-height: clamp(64px, calc(var(--vh1) * 11), 110px);
   background: #ffffff;
   border: 3px solid var(--hub-color);
   border-radius: 18px;
   padding-bottom: 14px;
-  font-size: clamp(15px, 2.2dvh, 20px);
+  font-size: clamp(15px, calc(var(--vh1) * 2.2), 20px);
   font-family: var(--wm-font-base);
   font-weight: 800;
   color: #2d3436;
