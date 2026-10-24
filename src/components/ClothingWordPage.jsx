@@ -10,7 +10,9 @@ export default function ClothingWordPage({
   onPrev,
   onNext,
   onBack,
+  onGoHome,
   onSwitchModule,
+  shellHeader = false,
 }) {
   if (!word) {
     return <p className="empty">Aucun vetement disponible.</p>;
@@ -26,9 +28,11 @@ export default function ClothingWordPage({
       activeModule="flashcards"
       modes={['flashcards', 'writing', 'quiz']}
       onBack={onBack}
+      onGoHome={onGoHome}
       onPrev={onPrev}
       onNext={onNext}
       onSwitchModule={onSwitchModule}
+      shellHeader={shellHeader}
     >
       <div className="module-card-center wm-enter-fade">
         {word.iconUrl ? (

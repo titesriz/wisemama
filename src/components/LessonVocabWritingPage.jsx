@@ -14,6 +14,7 @@ export default function LessonVocabWritingPage({
   onSuccess,
   onPrevWord,
   onNextWord,
+  shellHeader = false,
 }) {
   const [charPosition, setCharPosition] = useState(0);
 
@@ -69,6 +70,7 @@ export default function LessonVocabWritingPage({
         onBack={onBack}
         onGoHome={onGoHome}
         onOpenAvatarEditor={onOpenAvatarEditor}
+        shellHeader={shellHeader}
         standalone
         onSuccess={onSuccess}
       />

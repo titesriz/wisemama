@@ -6,10 +6,12 @@ export default function HskWritingPage({
   word,
   writingDifficulty = 1,
   onBack,
+  onGoHome,
   onSwitchModule,
   onSuccess,
   onPrevWord,
   onNextWord,
+  shellHeader = false,
 }) {
   const [charPosition, setCharPosition] = useState(0);
 
@@ -63,6 +65,8 @@ export default function HskWritingPage({
         onNext={handleNext}
         onSwitchModule={onSwitchModule}
         onBack={onBack}
+        onGoHome={onGoHome}
+        shellHeader={shellHeader}
         standalone
         onSuccess={onSuccess}
       />

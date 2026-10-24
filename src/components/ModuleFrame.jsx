@@ -234,6 +234,23 @@ export default function ModuleFrame({
           >
             🔊
           </button>
+          {shellHeader && (onOpenPicker || availableLessons.length > 1) ? (
+            <button
+              type="button"
+              className="writing-folder-btn ui-pressable"
+              onClick={() => {
+                sounds.playTap();
+                if (onOpenPicker) {
+                  onOpenPicker();
+                } else {
+                  setShowLessonPicker((prev) => !prev);
+                }
+              }}
+              aria-label="Changer de theme"
+            >
+              🗂️
+            </button>
+          ) : null}
         </div>
         {audioSrc ? <audio ref={audioRef} src={audioSrc} preload="auto" /> : null}
       </div>

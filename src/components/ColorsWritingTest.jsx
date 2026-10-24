@@ -22,6 +22,7 @@ export default function ColorsWritingTest({
   profile,
   onComplete,
   onBack,
+  shellHeader = false,
 }) {
   const containerRef = useRef(null);
   const ghostContainerRef = useRef(null);
@@ -265,14 +266,16 @@ export default function ColorsWritingTest({
 
   return (
     <div style={styles.container}>
-      <div style={styles.header}>
-        <h3 style={styles.progress}>
-          {colorIndex + 1} / {colorsData.length}
-        </h3>
-        <button style={styles.closeButton} onClick={onBack}>
-          ✕
-        </button>
-      </div>
+      {shellHeader ? null : (
+        <div style={styles.header}>
+          <h3 style={styles.progress}>
+            {colorIndex + 1} / {colorsData.length}
+          </h3>
+          <button style={styles.closeButton} onClick={onBack}>
+            ✕
+          </button>
+        </div>
+      )}
 
       <div style={styles.prompt}>
         <p style={styles.promptText}>

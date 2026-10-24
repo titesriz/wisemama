@@ -10,7 +10,9 @@ export default function RadicalWordPage({
   onPrev,
   onNext,
   onBack,
+  onGoHome,
   onSwitchModule,
+  shellHeader = false,
 }) {
   if (!word) {
     return <p className="empty">Aucun radical disponible.</p>;
@@ -26,9 +28,11 @@ export default function RadicalWordPage({
       activeModule="flashcards"
       modes={['flashcards', 'writing', 'quiz']}
       onBack={onBack}
+      onGoHome={onGoHome}
       onPrev={onPrev}
       onNext={onNext}
       onSwitchModule={onSwitchModule}
+      shellHeader={shellHeader}
     >
       <div className="module-card-center wm-enter-fade">
         {word.iconUrl ? (

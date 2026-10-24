@@ -103,7 +103,7 @@ function buildSession(words) {
   return { id: createSessionId(), rounds: buildSessionRounds(words) };
 }
 
-export default function ClothingQuizPage({ profile, words = [], onBack, onSwitchModule }) {
+export default function ClothingQuizPage({ profile, words = [], onBack, onGoHome, onSwitchModule, shellHeader = false }) {
   const sounds = useUiSounds();
   const [session, setSession] = useState(() => buildSession(words));
   const [roundIndex, setRoundIndex] = useState(0);
@@ -189,13 +189,18 @@ export default function ClothingQuizPage({ profile, words = [], onBack, onSwitch
 
     return (
       <section className="writing-screen module-screen colors-quiz-screen" aria-label="Resultat quiz vetements">
+        {shellHeader ? null : (
         <div className="writing-top-banner">
           <button
             type="button"
             className="writing-logo ui-pressable"
             onClick={() => {
               sounds.playTap();
-              onBack?.();
+              if (onGoHome) {
+                onGoHome();
+              } else {
+                onBack?.();
+              }
             }}
           >
             文
@@ -212,6 +217,7 @@ export default function ClothingQuizPage({ profile, words = [], onBack, onSwitch
             Lire
           </button>
         </div>
+        )}
 
         <div className="colors-quiz-results">
           <p className="colors-quiz-results-score">{score.correct}/{score.total}</p>
@@ -246,13 +252,18 @@ export default function ClothingQuizPage({ profile, words = [], onBack, onSwitch
 
   return (
     <section className="writing-screen module-screen colors-quiz-screen" aria-label="Quiz vetements">
+      {shellHeader ? null : (
       <div className="writing-top-banner">
         <button
           type="button"
           className="writing-logo ui-pressable"
           onClick={() => {
             sounds.playTap();
-            onBack?.();
+            if (onGoHome) {
+              onGoHome();
+            } else {
+              onBack?.();
+            }
           }}
         >
           文
@@ -269,6 +280,7 @@ export default function ClothingQuizPage({ profile, words = [], onBack, onSwitch
           Lire
         </button>
       </div>
+      )}
 
       <div className="colors-quiz-body">
         <p className="colors-quiz-prompt-label">{promptLabel}</p>

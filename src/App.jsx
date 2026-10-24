@@ -1588,8 +1588,9 @@ export default function App() {
   }
 
   if (standaloneView === STANDALONE_VIEW.HSK_SELECT) {
-    return (
+    return withShell(
       <HskWordSelectionPage
+        shellHeader
         words={hskWords}
         activeWordId={hskWords[hskWordIndex]?.id || ''}
         onSelectWord={(index) => {
@@ -1597,13 +1598,23 @@ export default function App() {
           setStandaloneView(STANDALONE_VIEW.HSK_WORDS);
         }}
         onBack={() => setStandaloneView(STANDALONE_VIEW.HSK_WORDS)}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'HSK1', onClick: () => setStandaloneView(STANDALONE_VIEW.HSK_WORDS) },
+          { label: 'Choisir' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.HSK_WRITING) {
-    return (
+    return withShell(
       <HskWritingPage
+        shellHeader
         profile={activeProfile}
         word={hskWords[hskWordIndex] || null}
         writingDifficulty={deckWritingDifficulty}
@@ -1620,7 +1631,16 @@ export default function App() {
         onSuccess={handleHskWritingSuccess}
         onPrevWord={goToPrevHskWord}
         onNextWord={goToNextHskWord}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'HSK1', onClick: () => setStandaloneView(STANDALONE_VIEW.HSK_WORDS) },
+          { label: deckWritingDifficulty === 3 ? 'Dictée' : 'Écriture' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 
@@ -1673,7 +1693,7 @@ export default function App() {
   if (standaloneView === STANDALONE_VIEW.LESSON_QUIZ) {
     const quizPage = (
       <LessonQuizPage
-        shellHeader={!quizAllowedTypes && Boolean(lessonTextLessonId)}
+        shellHeader
         profile={activeProfile}
         lessonId={activeLesson?.id}
         lessonTitle={activeLesson?.title}
@@ -1701,7 +1721,18 @@ export default function App() {
         activeHub: 'test',
       });
     }
-    return quizPage;
+    if (quizAllowedTypes) {
+      const isListening = quizAllowedTypes.includes('sound-to-char');
+      return withShell(quizPage, {
+        crumbs: [
+          { label: 'Évaluation', onClick: () => navigateTo(SCREEN.HUB_TEST) },
+          { label: isListening ? 'Écouter' : 'Compréhension' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'test',
+      });
+    }
+    return withShell(quizPage, { crumbs: [{ label: 'Évaluation' }], scope: { type: 'global' }, activeHub: 'test' });
   }
 
   if (standaloneView === STANDALONE_VIEW.LESSON_VOCAB_WORDS) {
@@ -1747,8 +1778,9 @@ export default function App() {
   }
 
   if (standaloneView === STANDALONE_VIEW.LESSON_WORD_SELECT) {
-    return (
+    return withShell(
       <HskWordSelectionPage
+        shellHeader
         words={lessonAllWords}
         activeWordId={lessonAllWords[vocabWordIndex]?.id || ''}
         onSelectWord={(index) => {
@@ -1756,15 +1788,26 @@ export default function App() {
           setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS);
         }}
         onBack={() => setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS)}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Leçons', onClick: () => navigateTo(SCREEN.HUB_LESSONS) },
+          { label: activeLesson?.title || 'Leçon', onClick: () => navigateTo(SCREEN.LESSON_TEXT, activeLesson?.id) },
+          { label: 'Vocabulaire', onClick: () => setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS) },
+          { label: 'Choisir' },
+        ],
+        scope: { type: 'lesson', lessonId: activeLesson?.id || '' },
+        activeHub: 'vocab',
+      },
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.LESSON_VOCAB_WRITING) {
     const vocabWords = lessonAllWords;
-    return (
-      <>
+    const isDictee = deckWritingDifficulty === 3;
+    return withShell(
       <LessonVocabWritingPage
+        shellHeader
         profile={activeProfile}
         lessonId={activeLesson?.id}
         lessonTitle={activeLesson?.title}
@@ -1784,15 +1827,34 @@ export default function App() {
         onSuccess={handleLessonVocabWritingSuccess}
         onPrevWord={goToPrevVocabWord}
         onNextWord={goToNextVocabWord}
-      />
-      {showAvatarEditorModal ? <AvatarEditorModal onClose={() => setShowAvatarEditorModal(false)} /> : null}
-      </>
+      />,
+      isDictee
+        ? {
+            crumbs: [
+              { label: 'Évaluation', onClick: () => navigateTo(SCREEN.HUB_TEST) },
+              { label: 'Dictée', onClick: () => setStandaloneView(STANDALONE_VIEW.DICTEE_HUB) },
+              { label: activeLesson?.title || 'Leçon' },
+            ],
+            scope: { type: 'global' },
+            activeHub: 'test',
+          }
+        : {
+            crumbs: [
+              { label: 'Leçons', onClick: () => navigateTo(SCREEN.HUB_LESSONS) },
+              { label: activeLesson?.title || 'Leçon', onClick: () => navigateTo(SCREEN.LESSON_TEXT, activeLesson?.id) },
+              { label: 'Vocabulaire', onClick: () => setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS) },
+              { label: 'Écriture' },
+            ],
+            scope: { type: 'lesson', lessonId: activeLesson?.id || '' },
+            activeHub: 'vocab',
+          },
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.COLORS_WORDS) {
-    return (
+    return withShell(
       <ColorsWordPage
+        shellHeader
         profile={activeProfile}
         word={colorsWords[colorsWordIndex] || null}
         wordIndex={colorsWordIndex}
@@ -1813,13 +1875,22 @@ export default function App() {
             setStandaloneView(STANDALONE_VIEW.COLORS_QUIZ);
           }
         }}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Couleurs' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.COLORS_WRITING_TEST) {
-    return (
+    return withShell(
       <ColorsWritingTest
+        shellHeader
         profile={activeProfile}
         onBack={() => {
           setStandaloneView(STANDALONE_VIEW.NONE);
@@ -1829,13 +1900,23 @@ export default function App() {
           setStandaloneView(STANDALONE_VIEW.NONE);
           setEnteredApp(false);
         }}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Couleurs', onClick: () => setStandaloneView(STANDALONE_VIEW.COLORS_WORDS) },
+          { label: 'Dictée' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.COLORS_WRITING) {
-    return (
+    return withShell(
       <ColorsWritingPage
+        shellHeader
         profile={activeProfile}
         word={colorsWords[colorsWordIndex] || null}
         writingDifficulty={deckWritingDifficulty}
@@ -1851,13 +1932,23 @@ export default function App() {
         onSuccess={handleColorsWritingSuccess}
         onPrevWord={goToPrevColorsWord}
         onNextWord={goToNextColorsWord}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Couleurs', onClick: () => setStandaloneView(STANDALONE_VIEW.COLORS_WORDS) },
+          { label: deckWritingDifficulty === 3 ? 'Dictée' : 'Écriture' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.COLORS_QUIZ) {
-    return (
+    return withShell(
       <ColorsQuizPage
+        shellHeader
         profile={activeProfile}
         words={colorsWords}
         onBack={() => {
@@ -1869,13 +1960,23 @@ export default function App() {
             setStandaloneView(STANDALONE_VIEW.COLORS_WORDS);
           }
         }}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Couleurs', onClick: () => setStandaloneView(STANDALONE_VIEW.COLORS_WORDS) },
+          { label: 'Évaluation' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.CLOTHING_WORDS) {
-    return (
+    return withShell(
       <ClothingWordPage
+        shellHeader
         profile={activeProfile}
         word={clothingWords[clothingWordIndex] || null}
         wordIndex={clothingWordIndex}
@@ -1894,13 +1995,22 @@ export default function App() {
             setStandaloneView(STANDALONE_VIEW.CLOTHING_QUIZ);
           }
         }}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Vêtements' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.CLOTHING_WRITING) {
-    return (
+    return withShell(
       <ClothingWritingPage
+        shellHeader
         profile={activeProfile}
         word={clothingWords[clothingWordIndex] || null}
         writingDifficulty={deckWritingDifficulty}
@@ -1916,13 +2026,23 @@ export default function App() {
         onSuccess={handleClothingWritingSuccess}
         onPrevWord={goToPrevClothingWord}
         onNextWord={goToNextClothingWord}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Vêtements', onClick: () => setStandaloneView(STANDALONE_VIEW.CLOTHING_WORDS) },
+          { label: deckWritingDifficulty === 3 ? 'Dictée' : 'Écriture' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.CLOTHING_QUIZ) {
-    return (
+    return withShell(
       <ClothingQuizPage
+        shellHeader
         profile={activeProfile}
         words={clothingWords}
         onBack={() => {
@@ -1934,13 +2054,23 @@ export default function App() {
             setStandaloneView(STANDALONE_VIEW.CLOTHING_WORDS);
           }
         }}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Vêtements', onClick: () => setStandaloneView(STANDALONE_VIEW.CLOTHING_WORDS) },
+          { label: 'Évaluation' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.RADICAL_WORDS) {
-    return (
+    return withShell(
       <RadicalWordPage
+        shellHeader
         profile={activeProfile}
         word={radicalsWords[radicalWordIndex] || null}
         wordIndex={radicalWordIndex}
@@ -1959,13 +2089,22 @@ export default function App() {
             setStandaloneView(STANDALONE_VIEW.RADICAL_QUIZ);
           }
         }}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Radicaux' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.RADICAL_WRITING) {
-    return (
+    return withShell(
       <RadicalWritingPage
+        shellHeader
         profile={activeProfile}
         word={radicalsWords[radicalWordIndex] || null}
         writingDifficulty={deckWritingDifficulty}
@@ -1981,13 +2120,23 @@ export default function App() {
         onSuccess={handleRadicalWritingSuccess}
         onPrevWord={goToPrevRadicalWord}
         onNextWord={goToNextRadicalWord}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Radicaux', onClick: () => setStandaloneView(STANDALONE_VIEW.RADICAL_WORDS) },
+          { label: deckWritingDifficulty === 3 ? 'Dictée' : 'Écriture' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.RADICAL_QUIZ) {
-    return (
+    return withShell(
       <RadicalQuizPage
+        shellHeader
         profile={activeProfile}
         words={radicalsWords}
         onBack={() => {
@@ -1999,7 +2148,16 @@ export default function App() {
             setStandaloneView(STANDALONE_VIEW.RADICAL_WORDS);
           }
         }}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Radicaux', onClick: () => setStandaloneView(STANDALONE_VIEW.RADICAL_WORDS) },
+          { label: 'Évaluation' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 
@@ -2093,7 +2251,7 @@ export default function App() {
     };
     const pickerPage = (
       <LessonSelectionPage
-        shellHeader={lessonPickerIntent === 'text'}
+        shellHeader
         lessons={lessonOptions}
         packs={getPacks()}
         activeLessonId={activeLessonId || ''}
@@ -2101,10 +2259,47 @@ export default function App() {
         onBack={() => setStandaloneView(lessonPickerReturnTo)}
       />
     );
-    if (lessonPickerIntent === 'text') {
-      return withShell(pickerPage, { crumbs: [{ label: 'Leçons' }], scope: { type: 'global' }, activeHub: 'lessons' });
-    }
-    return pickerPage;
+    const pickerShellByIntent = {
+      text: { crumbs: [{ label: 'Leçons' }], activeHub: 'lessons' },
+      vocab: {
+        crumbs: [
+          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Par leçon' },
+        ],
+        activeHub: 'vocab',
+      },
+      'quiz-comprehension': {
+        crumbs: [
+          { label: 'Évaluation', onClick: () => navigateTo(SCREEN.HUB_TEST) },
+          { label: 'Compréhension' },
+        ],
+        activeHub: 'test',
+      },
+      'quiz-listening': {
+        crumbs: [
+          { label: 'Évaluation', onClick: () => navigateTo(SCREEN.HUB_TEST) },
+          { label: 'Écouter' },
+        ],
+        activeHub: 'test',
+      },
+      dictee: {
+        crumbs: [
+          { label: 'Évaluation', onClick: () => navigateTo(SCREEN.HUB_TEST) },
+          { label: 'Dictée', onClick: () => setStandaloneView(STANDALONE_VIEW.DICTEE_HUB) },
+          { label: 'Par leçon' },
+        ],
+        activeHub: 'test',
+      },
+      'writing-setup': {
+        crumbs: [
+          { label: 'Écriture', onClick: () => navigateTo(SCREEN.HUB_WRITING) },
+          { label: 'Par leçon' },
+        ],
+        activeHub: 'writing',
+      },
+    };
+    const pickerShell = pickerShellByIntent[lessonPickerIntent] || pickerShellByIntent.text;
+    return withShell(pickerPage, { ...pickerShell, scope: { type: 'global' } });
   }
 
   if (standaloneView === STANDALONE_VIEW.LESSON_WRITING_SETUP) {
@@ -2230,8 +2425,9 @@ export default function App() {
   }
 
   if (standaloneView === STANDALONE_VIEW.WRITING_THEME_SELECT) {
-    return (
+    return withShell(
       <ChoiceHubPage
+        shellHeader
         title="Écriture par thème"
         choices={[
           { key: 'hsk', label: 'HSK1', onSelect: openHskWritingFromLanding },
@@ -2240,7 +2436,15 @@ export default function App() {
           { key: 'radicals', label: 'Radicaux', onSelect: openRadicalWritingFromLanding },
         ]}
         onBack={() => setStandaloneView(STANDALONE_VIEW.WRITING_HUB)}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Écriture', onClick: () => navigateTo(SCREEN.HUB_WRITING) },
+          { label: 'Par thème' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'writing',
+      },
     );
   }
 
@@ -2279,8 +2483,9 @@ export default function App() {
   }
 
   if (standaloneView === STANDALONE_VIEW.DICTEE_HUB) {
-    return (
+    return withShell(
       <ChoiceHubPage
+        shellHeader
         title="Dictée"
         subtitle="Le caractère reste caché - seuls le pinyin et la traduction sont affichés"
         choices={[
@@ -2300,13 +2505,22 @@ export default function App() {
         onBack={() => {
           setStandaloneView(STANDALONE_VIEW.TEST_HUB);
         }}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Évaluation', onClick: () => navigateTo(SCREEN.HUB_TEST) },
+          { label: 'Dictée' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'test',
+      },
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.DICTEE_THEME_SELECT) {
-    return (
+    return withShell(
       <ChoiceHubPage
+        shellHeader
         title="Dictée par thème"
         choices={[
           { key: 'hsk', label: 'HSK1', onSelect: openHskDicteeFromLanding },
@@ -2315,7 +2529,16 @@ export default function App() {
           { key: 'radicals', label: 'Radicaux', onSelect: openRadicalDicteeFromLanding },
         ]}
         onBack={() => setStandaloneView(STANDALONE_VIEW.DICTEE_HUB)}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Évaluation', onClick: () => navigateTo(SCREEN.HUB_TEST) },
+          { label: 'Dictée', onClick: () => setStandaloneView(STANDALONE_VIEW.DICTEE_HUB) },
+          { label: 'Par thème' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'test',
+      },
     );
   }
 

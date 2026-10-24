@@ -10,7 +10,9 @@ export default function ColorsWordPage({
   onPrev,
   onNext,
   onBack,
+  onGoHome,
   onSwitchModule,
+  shellHeader = false,
 }) {
   if (!word) {
     return <p className="empty">Aucune couleur disponible.</p>;
@@ -26,9 +28,11 @@ export default function ColorsWordPage({
       activeModule="flashcards"
       modes={['flashcards', 'writing', 'dictée', 'quiz']}
       onBack={onBack}
+      onGoHome={onGoHome}
       onPrev={onPrev}
       onNext={onNext}
       onSwitchModule={onSwitchModule}
+      shellHeader={shellHeader}
     >
       <div className="module-card-center wm-enter-fade">
         <div className="color-swatch" style={{ background: word.colorHex }} aria-hidden="true" />
