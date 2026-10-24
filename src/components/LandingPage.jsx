@@ -11,6 +11,23 @@ const HUB_BUTTONS = [
 ];
 
 const GREETING_SEQUENCE = ['greet', 'reply', 'ask'];
+const GREETING_SESSION_KEY = 'wisemama-greeting-shown';
+
+function hasShownGreetingThisSession() {
+  try {
+    return sessionStorage.getItem(GREETING_SESSION_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
+
+function markGreetingShown() {
+  try {
+    sessionStorage.setItem(GREETING_SESSION_KEY, '1');
+  } catch {
+    // no-op
+  }
+}
 
 export default function LandingPage({
   profiles,
@@ -30,8 +47,9 @@ export default function LandingPage({
   // 3-step dialogue: Maman greets, the child replies, Maman asks what to
   // do - each step can be tapped through immediately, but also advances on
   // its own after a short pause. The choice grid is visible from the start
-  // regardless of the dialogue's progress.
-  const [greetingPhase, setGreetingPhase] = useState('greet');
+  // regardless of the dialogue's progress. Played once per session only -
+  // a returning visit (sessionStorage still set) opens straight on 'ask'.
+  const [greetingPhase, setGreetingPhase] = useState(() => (hasShownGreetingThisSession() ? 'ask' : 'greet'));
   const childProfile = profiles.find((profile) => profile.role === 'child') || profiles[0] || null;
   const parentProfile = profiles.find((profile) => profile.role === 'parent') || profiles[0] || null;
 
@@ -43,7 +61,10 @@ export default function LandingPage({
   };
 
   useEffect(() => {
-    if (greetingPhase === 'ask') return undefined;
+    if (greetingPhase === 'ask') {
+      markGreetingShown();
+      return undefined;
+    }
     const timeout = window.setTimeout(advanceGreeting, 1400);
     return () => window.clearTimeout(timeout);
   }, [greetingPhase]);
