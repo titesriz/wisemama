@@ -27,7 +27,6 @@ export default function ModuleFrame({
   beforeHanzi = null,
   hanziContent = null,
   hanziHint = null,
-  activeModule = 'flashcards',
   onBack,
   onGoHome,
   onOpenLessonText,
@@ -226,22 +225,6 @@ export default function ModuleFrame({
     };
   }, [lessonId, currentWord?.id, currentWord?.audioUrl]);
 
-  const modeButton = (key, label) => (
-    modes.includes(key) ? (
-      <button
-        type="button"
-        className={`writing-mode-btn ui-pressable ${activeModule === key ? 'active' : ''}`}
-        onClick={() => {
-          sounds.playTap();
-          onSwitchModule?.(key);
-        }}
-        disabled={activeModule === key}
-      >
-        {label}
-      </button>
-    ) : null
-  );
-
   return (
     <section className="writing-screen module-screen" aria-label="Module harmonise" {...(isComplete ? {} : swipeHandlers)}>
       {shellHeader ? null : (
@@ -436,16 +419,6 @@ export default function ModuleFrame({
             </button>
           </div>
         </>
-      )}
-
-      {isComplete ? null : (
-        <div className="writing-mode-selector">
-          {modeButton('flashcards', 'Lire')}
-          {modeButton('audio', 'Parler')}
-          {modeButton('writing', 'Ecrire')}
-          {modeButton('dictée', 'Dictée')}
-          {modeButton('quiz', 'Évaluation')}
-        </div>
       )}
     </section>
   );

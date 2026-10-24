@@ -34,7 +34,6 @@ export default function RadicalWordPage({
       selectedId={word.id}
       singleLabel="Radical"
       beforeHanzi={renderIcon}
-      activeModule="flashcards"
       modes={['flashcards', 'writing', 'quiz']}
       onBack={onBack}
       onGoHome={onGoHome}

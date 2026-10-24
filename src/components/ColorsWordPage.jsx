@@ -30,7 +30,6 @@ export default function ColorsWordPage({
       selectedId={word.id}
       singleLabel="Couleur"
       beforeHanzi={renderSwatch}
-      activeModule="flashcards"
       modes={['flashcards', 'writing', 'dictée', 'quiz']}
       onBack={onBack}
       onGoHome={onGoHome}

@@ -56,7 +56,6 @@ export default function HskWordPage({
       compoundLabel="Mot"
       hanziContent={renderCompoundHanzi}
       hanziHint={renderCompoundHint}
-      activeModule="flashcards"
       modes={['flashcards', 'writing', 'quiz']}
       onBack={onBack}
       onGoHome={onGoHome}

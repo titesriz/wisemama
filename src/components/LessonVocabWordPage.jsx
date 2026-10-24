@@ -47,7 +47,6 @@ export default function LessonVocabWordPage({
       compoundLabel="Vocabulaire"
       hanziContent={renderCompoundHanzi}
       hanziHint={renderCompoundHint}
-      activeModule="flashcards"
       modes={['flashcards', 'writing', 'quiz']}
       onBack={onBack}
       onGoHome={onGoHome}

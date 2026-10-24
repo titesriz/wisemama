@@ -34,7 +34,6 @@ export default function ClothingWordPage({
       selectedId={word.id}
       singleLabel="Vêtement"
       beforeHanzi={renderIcon}
-      activeModule="flashcards"
       modes={['flashcards', 'writing', 'quiz']}
       onBack={onBack}
       onGoHome={onGoHome}
