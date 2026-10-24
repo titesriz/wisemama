@@ -732,7 +732,7 @@ export default function App() {
   // Mirrors what each navigation action already sets, so popstate (browser
   // back/forward) can restore the same screen without re-deriving it from
   // the URL alone. Deliberately separate from the action handlers below
-  // (openLessonsHubFromLanding, startQuizFromLessonText, etc.) rather than
+  // (openLessonsHubFromLanding, openVocabPracticeFromLessonText, etc.) rather than
   // sharing one implementation - those also handle things restoration
   // shouldn't redo (setLastActivity, etc.), and keeping them independent
   // means a browser back press can never accidentally push a new history
@@ -971,22 +971,6 @@ export default function App() {
     setShowDailyRituel(false);
     setEnteredApp(false);
     setActiveModule(MODULES.WRITING);
-  };
-
-  const startQuizFromLessonText = () => {
-    const targetLesson = lessonOptions.find((lesson) => lesson.id === lessonTextLessonId);
-    if (!targetLesson) return;
-    pushScreen(SCREEN.LESSON_QUIZ, targetLesson.id);
-    setActiveLesson(targetLesson.id);
-    setQuizAllowedTypes(null);
-    setStandaloneView(STANDALONE_VIEW.LESSON_QUIZ);
-    setShowDailyRituel(false);
-    setEnteredApp(false);
-    setLastActivity({
-      contentLabel: targetLesson.title,
-      modeLabel: 'Évaluation',
-      resume: startQuizFromLessonText,
-    });
   };
 
   const openVocabPracticeFromLessonText = (wordId) => {
@@ -1411,30 +1395,6 @@ export default function App() {
           onPracticeVocabulary={openVocabPracticeFromLessonText}
           onGoHome={goToLanding}
           onOpenAvatarEditor={openAvatarEditorForChildFromLanding}
-          onOpenWritingSetup={() => {
-            pushScreen(SCREEN.LESSON_WRITING_SETUP, lessonForText.id);
-            setStandaloneView(STANDALONE_VIEW.LESSON_WRITING_SETUP);
-            setEnteredApp(false);
-          }}
-          onOpenLessonsHub={openLessonsHubFromLanding}
-          onOpenVocabularyHub={() => {
-            pushScreen(SCREEN.LESSON_VOCAB, lessonForText.id);
-            setActiveLesson(lessonForText.id);
-            setVocabWordIndex(0);
-            setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS);
-            setEnteredApp(false);
-            setLastActivity({
-              contentLabel: lessonForText.title,
-              modeLabel: 'Fiche',
-              resume: () => {
-                setActiveLesson(lessonForText.id);
-                setVocabWordIndex(0);
-                setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS);
-                setEnteredApp(false);
-              },
-            });
-          }}
-          onOpenTestHub={startQuizFromLessonText}
         />,
         {
           crumbs: [{ label: 'Leçons', onClick: () => navigateTo(SCREEN.HUB_LESSONS) }, { label: lessonForText.title || 'Leçon' }],
