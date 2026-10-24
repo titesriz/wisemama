@@ -12,12 +12,27 @@ body {
 }
 
 .landing {
-  min-height: 100dvh;
+  height: 100dvh;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 0;
   background: #ffffff;
+}
+
+/* Below ~500px of height (phones in landscape - portrait phones and every
+   iPad orientation stay comfortably above this), even the tightest clamp
+   floors below can't fit all 4 landing sections. Falling back to a normal
+   scrollable page keeps every button reachable; the alternative
+   (overflow: hidden with nothing fitting) silently clips Lecons/
+   Vocabulaire/Ecriture/Evaluation and Reprendre off-screen entirely. */
+@media (max-height: 500px) {
+  .landing {
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+  }
 }
 
 .landing-new-shell {
@@ -5183,10 +5198,6 @@ body {
 }
 
 @media (max-width: 720px) {
-  .landing-new-shell {
-    padding: 20px 12px 20px;
-  }
-
   .logo-area {
     width: min(640px, 100%);
   }
@@ -5197,35 +5208,44 @@ body {
   }
 }
 
-/* Smallest phones (iPhone SE class): tighten the landing page's chrome -
-   logo, card padding, row gaps - so the freed space can go to bigger text
-   in landing-hub.css instead of the page just being shorter. */
-@media (max-width: 480px) {
-  .landing .app-logo {
-    width: 68px;
-    height: 68px;
-    border-radius: 18px;
-    font-size: 38px;
-  }
+/* Landing page only: the whole page is locked to one screen (.landing has
+   height: 100dvh; overflow: hidden - see above), so every size here scales
+   continuously with available viewport HEIGHT (dvh), not width. A width
+   breakpoint would miss a wide-but-short case like an iPad in landscape;
+   dvh-based clamp() fits phone and iPad, portrait or landscape, without
+   needing separate tiers. Scoped under .landing so the other three users
+   of .landing-new-shell/.profile-card-kid (LessonTextView,
+   LessonWritingSetupPage) - which scroll normally and get their own footer
+   clearance from .app-shell-main - are untouched. */
+.landing .landing-new-shell {
+  flex: 1 1 auto;
+  min-height: 0;
+  align-content: space-evenly;
+  gap: clamp(6px, 1.8dvh, 18px);
+  padding: clamp(8px, 2.5dvh, 30px) 16px clamp(8px, 2dvh, 24px);
+  overflow: hidden;
+}
 
-  .landing .logo-area {
-    padding: 8px 0 4px;
-    gap: 10px;
-  }
+.landing .app-logo {
+  width: clamp(56px, 10dvh, 120px);
+  height: clamp(56px, 10dvh, 120px);
+  border-radius: clamp(16px, 2.5dvh, 30px);
+  font-size: clamp(32px, 6dvh, 72px);
+}
 
-  .landing .landing-new-shell {
-    gap: 12px;
-  }
+.landing .logo-area {
+  padding: clamp(4px, 1.2dvh, 16px) 0 clamp(2px, 0.8dvh, 10px);
+  gap: clamp(8px, 1.5dvh, 14px);
+}
 
-  .landing .profile-card-kid.hero-chat-card {
-    min-height: 0;
-  }
+.landing .app-subtitle {
+  font-size: clamp(16px, 2.6dvh, 26px);
+}
 
-  .landing .profile-card-parent {
-    padding: 12px 16px;
-  }
+.landing .profile-card-parent {
+  padding: clamp(10px, 1.8dvh, 16px) clamp(12px, 3vw, 20px);
+}
 
-  .landing .landing-footer {
-    padding: 8px 0 14px;
-  }
+.landing .landing-footer {
+  padding: clamp(6px, 1.2dvh, 16px) 0 clamp(10px, 2dvh, 24px);
 }
