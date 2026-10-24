@@ -8,6 +8,7 @@ export default function WritingOnlyPage({
   lessons = [],
   cardIndex,
   writingDifficulty = 1,
+  writingMode = null,
   journeyMode = false,
   journeyQueue = [],
   journeyPosition = 0,
@@ -66,6 +67,7 @@ export default function WritingOnlyPage({
         profile={profile}
         parentProfile={parentProfile}
         writingDifficulty={writingDifficulty}
+        writingMode={writingMode}
         cardIndex={displayIndex}
         totalCards={totalCards}
         onPrev={onPrev}

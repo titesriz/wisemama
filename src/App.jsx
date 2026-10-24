@@ -1480,6 +1480,7 @@ export default function App() {
         lessons={lessonOptions}
         cardIndex={cardIndex}
         writingDifficulty={writingDifficulty}
+        writingMode={returnToLessonText ? lessonWritingMode : null}
         journeyMode={returnToLessonText}
         journeyQueue={lessonJourneyQueue}
         journeyPosition={lessonJourneyPosition}

@@ -5629,3 +5629,35 @@ body {
   background: transparent;
   border: 0;
 }
+
+/* Moyen: tips panel standing in for the stroke guide. */
+.writing-analysis {
+  padding: 12px 18px;
+  background: #f9fafb;
+  border-top: 1px solid #e7ebf2;
+  border-bottom: 1px solid #e7ebf2;
+  text-align: left;
+}
+
+.writing-analysis-title {
+  font-size: 15px;
+  color: #2d3436;
+}
+
+.writing-analysis-status {
+  margin: 4px 0 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #636e72;
+}
+
+.writing-analysis-tips {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 14px;
+  color: #636e72;
+}
+
+.stroke-preview-band:empty {
+  display: none;
+}

@@ -116,6 +116,8 @@ export default function WritingPractice({
   profile,
   parentProfile,
   writingDifficulty = 1,
+  // 'facile' | 'moyen' | 'difficile' | 'dictee' from the lesson writing setup; null keeps the legacy per-difficulty behavior.
+  writingMode = null,
   cardIndex = 0,
   totalCards = 0,
   onPrev,
@@ -161,6 +163,7 @@ export default function WritingPractice({
   // the one just completed - starts at 0 (first stroke) so there's always a
   // clear "draw this one next" indicator.
   const [currentStrokeIndex, setCurrentStrokeIndex] = useState(0);
+  const [mistakeCount, setMistakeCount] = useState(0);
   const strokeStepRefs = useRef([]);
   const celebrationStepRef = useRef(null);
   const sounds = useUiSounds();
@@ -378,6 +381,7 @@ export default function WritingPractice({
     ghostWriterRef.current = ghostWriter;
     writerRef.current = writer;
     setCurrentStrokeIndex(0);
+    setMistakeCount(0);
     setShowCelebration(false);
     setFeedback(
       isRadicalMode
@@ -389,6 +393,7 @@ export default function WritingPractice({
       leniency: 1,
       showHintAfterMisses: writingDifficulty === 1 ? 1 : writingDifficulty === 2 ? 3 : false,
       onMistake: () => {
+        setMistakeCount((count) => count + 1);
         setFeedback(isRadicalMode ? 'Continue, tu es presque sur ce composant.' : 'Continue, tu es presque.');
       },
       onCorrectStroke: (strokeData) => {
@@ -528,8 +533,8 @@ export default function WritingPractice({
   }, [lessonId, card?.id, card?.audioUrl]);
 
   useEffect(() => {
-    setShowCharInfo(writingDifficulty === 1);
-  }, [lessonId, card?.id, hanzi, writingDifficulty]);
+    setShowCharInfo(writingMode ? writingMode !== 'dictee' : writingDifficulty === 1);
+  }, [lessonId, card?.id, hanzi, writingDifficulty, writingMode]);
 
   const profileLabel = profile?.role === 'parent' ? 'Parent' : 'Kid';
   const availableLessons = lessons.length ? lessons : [{ id: lessonId || 'current', title: lessonTitle || 'Lecon', cards: [] }];
@@ -592,6 +597,26 @@ export default function WritingPractice({
   ) : null;
 
   const isFacileLayout = writingDifficulty === 1 && !embedded && !isRadicalMode;
+  // Facile keeps every aid; the other lesson modes strip them progressively.
+  const showGuideAndAnimate = !writingMode || writingMode === 'facile';
+  const showModelToggle = !writingMode || writingMode === 'facile' || writingMode === 'moyen';
+  const isDicteeMode = writingMode === 'dictee';
+  const analysisPanel = writingMode === 'moyen' && !isRadicalMode && !embedded ? (
+    <section className="writing-analysis" aria-label="Pour progresser">
+      <strong className="writing-analysis-title">Pour progresser</strong>
+      <p className="writing-analysis-status">
+        {mistakeCount === 0
+          ? 'Aucune erreur pour l\'instant, continue comme ça.'
+          : `${mistakeCount} erreur${mistakeCount > 1 ? 's' : ''} sur ce caractère.`}
+      </p>
+      {/* Placeholder tips: to be replaced by an analysis of the actual mistakes. */}
+      <ul className="writing-analysis-tips">
+        <li>Attention à l'ordre des traits</li>
+        <li>Attention à la position et à la taille</li>
+        <li>Attention au sens de chaque trait</li>
+      </ul>
+    </section>
+  ) : null;
 
   return (
     <section
@@ -714,6 +739,7 @@ export default function WritingPractice({
             type="button"
             className="writing-char-reveal ui-pressable"
             onClick={() => {
+              if (isDicteeMode) return;
               sounds.playTap();
               setShowCharInfo((prev) => !prev);
             }}
@@ -721,7 +747,7 @@ export default function WritingPractice({
             <span className="writing-char-reveal-pinyin">
               {card?.pinyinEnabled === false ? '' : formatPinyinDisplay(card?.pinyin || '')}
             </span>
-            {showCharInfo ? (
+            {isDicteeMode ? null : showCharInfo ? (
               <>
                 <span className="writing-char-reveal-hanzi">{convert(targetChar)}</span>
               </>
@@ -903,7 +929,7 @@ export default function WritingPractice({
         </section>
       ) : null}
 
-      {isFacileLayout ? null : strokeBand}
+      {isFacileLayout ? null : analysisPanel || strokeBand}
 
       <div className="writing-area">
         <div className="writing-canvas-container" ref={canvasWrapRef}>
@@ -928,6 +954,7 @@ export default function WritingPractice({
         </div>
 
         <div className="writing-action-buttons">
+          {showGuideAndAnimate ? (
           <button
             type="button"
             className={`writing-action-btn ui-pressable ${showStrokeArrows ? 'active' : ''}`}
@@ -940,6 +967,8 @@ export default function WritingPractice({
             <span>✏️</span>
             <small>Guide</small>
           </button>
+          ) : null}
+          {showModelToggle ? (
           <button
             type="button"
             className={`writing-action-btn ui-pressable ${showModel ? 'model-on' : ''}`}
@@ -948,10 +977,13 @@ export default function WritingPractice({
             <span>👁️</span>
             <small>Modèle</small>
           </button>
+          ) : null}
+          {showGuideAndAnimate ? (
           <button type="button" className="writing-action-btn ui-pressable" onClick={showStrokeOrder}>
             <span>▶️</span>
             <small>Animer</small>
           </button>
+          ) : null}
           <button type="button" className="writing-action-btn ui-pressable" onClick={clearCanvas}>
             <span>🔄</span>
             <small>Effacer</small>
