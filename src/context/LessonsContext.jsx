@@ -136,6 +136,7 @@ function normalizeLesson(lesson, index = 0) {
     updatedAt: safeString(lesson?.updatedAt, ''),
     cards,
     vocabulary,
+    vocabularyRefs: Array.isArray(lesson?.vocabularyRefs) ? lesson.vocabularyRefs : [],
   };
 }
 
