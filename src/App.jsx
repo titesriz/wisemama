@@ -1585,11 +1585,8 @@ export default function App() {
       <HskWordPage
         shellHeader
         profile={activeProfile}
+        words={hskWords}
         word={hskWords[hskWordIndex] || null}
-        wordIndex={hskWordIndex}
-        totalWords={hskWords.length}
-        onPrev={goToPrevHskWord}
-        onNext={goToNextHskWord}
         onBack={() => {
           setStandaloneView(STANDALONE_VIEW.NONE);
           setEnteredApp(false);
@@ -1771,11 +1768,8 @@ export default function App() {
         profile={activeProfile}
         lessonId={activeLesson?.id}
         lessonTitle={activeLesson?.title}
+        words={vocabWords}
         word={vocabWords[vocabWordIndex] || null}
-        wordIndex={vocabWordIndex}
-        totalWords={vocabWords.length}
-        onPrev={goToPrevVocabWord}
-        onNext={goToNextVocabWord}
         onBack={() => {
           setStandaloneView(STANDALONE_VIEW.NONE);
           setEnteredApp(false);
@@ -1884,11 +1878,8 @@ export default function App() {
       <ColorsWordPage
         shellHeader
         profile={activeProfile}
+        words={colorsWords}
         word={colorsWords[colorsWordIndex] || null}
-        wordIndex={colorsWordIndex}
-        totalWords={colorsWords.length}
-        onPrev={goToPrevColorsWord}
-        onNext={goToNextColorsWord}
         onBack={() => {
           setStandaloneView(STANDALONE_VIEW.NONE);
           setEnteredApp(false);
@@ -2006,11 +1997,8 @@ export default function App() {
       <ClothingWordPage
         shellHeader
         profile={activeProfile}
+        words={clothingWords}
         word={clothingWords[clothingWordIndex] || null}
-        wordIndex={clothingWordIndex}
-        totalWords={clothingWords.length}
-        onPrev={goToPrevClothingWord}
-        onNext={goToNextClothingWord}
         onBack={() => {
           setStandaloneView(STANDALONE_VIEW.NONE);
           setEnteredApp(false);
@@ -2100,11 +2088,8 @@ export default function App() {
       <RadicalWordPage
         shellHeader
         profile={activeProfile}
+        words={radicalsWords}
         word={radicalsWords[radicalWordIndex] || null}
-        wordIndex={radicalWordIndex}
-        totalWords={radicalsWords.length}
-        onPrev={goToPrevRadicalWord}
-        onNext={goToNextRadicalWord}
         onBack={() => {
           setStandaloneView(STANDALONE_VIEW.NONE);
           setEnteredApp(false);

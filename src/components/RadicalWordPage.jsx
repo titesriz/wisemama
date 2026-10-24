@@ -1,19 +1,27 @@
 import ModuleFrame from './ModuleFrame.jsx';
-import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
+import radicalsWords from '../data/radicals-words.json';
 import '../styles/colors-deck.css';
+
+function renderIcon(currentWord) {
+  if (!currentWord?.iconUrl) return null;
+  return (
+    <div className="clothing-icon-wrap">
+      <img src={currentWord.iconUrl} alt={currentWord.french || currentWord.english || currentWord.hanzi} />
+    </div>
+  );
+}
 
 export default function RadicalWordPage({
   profile,
+  words,
   word,
-  wordIndex,
-  totalWords,
-  onPrev,
-  onNext,
   onBack,
   onGoHome,
   onSwitchModule,
   shellHeader = false,
 }) {
+  const deck = words || radicalsWords;
+
   if (!word) {
     return <p className="empty">Aucun radical disponible.</p>;
   }
@@ -22,38 +30,16 @@ export default function RadicalWordPage({
     <ModuleFrame
       profile={profile}
       lessonTitle="Radicaux"
-      card={word}
-      cardIndex={wordIndex}
-      totalCards={totalWords}
+      words={deck}
+      selectedId={word.id}
+      singleLabel="Radical"
+      beforeHanzi={renderIcon}
       activeModule="flashcards"
       modes={['flashcards', 'writing', 'quiz']}
       onBack={onBack}
       onGoHome={onGoHome}
-      onPrev={onPrev}
-      onNext={onNext}
       onSwitchModule={onSwitchModule}
       shellHeader={shellHeader}
-    >
-      <div className="module-card-center wm-enter-fade">
-        {word.iconUrl ? (
-          <div className="clothing-icon-wrap">
-            <img src={word.iconUrl} alt={word.french || word.english || word.hanzi} />
-          </div>
-        ) : null}
-        <div className="module-hanzi-large">{word.hanzi}</div>
-        <div className="module-pinyin-large">{formatPinyinDisplay(word.pinyin || '')}</div>
-
-        <div className="module-translation-panels">
-          <article>
-            <strong>Francais</strong>
-            <span>{word.french}</span>
-          </article>
-          <article>
-            <strong>Anglais</strong>
-            <span>{word.english}</span>
-          </article>
-        </div>
-      </div>
-    </ModuleFrame>
+    />
   );
 }
