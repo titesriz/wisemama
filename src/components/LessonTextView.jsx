@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import AvatarRenderer from './AvatarRenderer.jsx';
 import CharacterGlossChar from './CharacterGlossChar.jsx';
-import PersistentFooterNav from './PersistentFooterNav.jsx';
 import '../styles/radical-discovery.css';
 import { formatPinyinDisplay, extractToneAccent } from '../lib/pinyinDisplay.js';
 import { segmentLessonText } from '../lib/lessonTextSegmentation.js';
@@ -424,15 +423,6 @@ export default function LessonTextView({
           </div>
         </article>
       </div>
-      {shellHeader ? null : (
-        <PersistentFooterNav
-          active="lessons"
-          onOpenLessonsHub={onOpenLessonsHub}
-          onOpenVocabularyHub={onOpenVocabularyHub}
-          onOpenWritingHub={() => onOpenWritingSetup?.()}
-          onOpenTestHub={onOpenTestHub}
-        />
-      )}
     </section>
   );
 }
