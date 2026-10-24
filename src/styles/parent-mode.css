@@ -808,3 +808,26 @@
   font-family: var(--wm-font-hanzi);
   font-size: 20px;
 }
+
+.script-mode-switch {
+  display: flex;
+  gap: 8px;
+}
+
+.script-mode-btn {
+  flex: 1;
+  height: 44px;
+  border-radius: var(--wm-radius-sm);
+  border: 1px solid var(--parent-border);
+  background: var(--wm-color-surface);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--parent-text-soft);
+  cursor: pointer;
+}
+
+.script-mode-btn.active {
+  border-color: var(--wm-color-accent);
+  background: var(--wm-color-accent);
+  color: #fff;
+}

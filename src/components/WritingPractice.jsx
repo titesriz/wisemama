@@ -8,6 +8,7 @@ import { speakHanzi } from '../lib/ttsFallback.js';
 import { findCharacterStructure } from '../lib/characterStructure.js';
 import { getTopLevelComponents } from '../lib/characterDecomposition.js';
 import { isDevMode } from '../config.js';
+import { useScriptMode } from '../context/ScriptModeContext.jsx';
 
 const CELEBRATION_EMOJIS = ['🎉', '👏', '🤩', '🙌', '🎊', '🥳', '✨', '🌟', '⭐️', '🏆', '🎆', '💫'];
 
@@ -163,6 +164,7 @@ export default function WritingPractice({
   const strokeStepRefs = useRef([]);
   const celebrationStepRef = useRef(null);
   const sounds = useUiSounds();
+  const { convert } = useScriptMode();
   const isRadicalMode = variant === 'radical';
   const targetChar = useMemo(() => {
     const first = Array.from(hanzi || '')[0];
@@ -652,7 +654,7 @@ export default function WritingPractice({
             </span>
             {showCharInfo ? (
               <>
-                <span className="writing-char-reveal-hanzi">{targetChar}</span>
+                <span className="writing-char-reveal-hanzi">{convert(targetChar)}</span>
               </>
             ) : (
               <>

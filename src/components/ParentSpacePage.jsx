@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import UnifiedLessonEditor from './UnifiedLessonEditor.jsx';
 import { HANZI_FONT_OPTIONS, getHanziFontPreference, applyHanziFontPreference } from '../lib/hanziFont.js';
+import { useScriptMode } from '../context/ScriptModeContext.jsx';
 import '../styles/choice-hub.css';
 import '../styles/parent-mode.css';
 
@@ -23,6 +24,7 @@ export default function ParentSpacePage({
   onExportPack,
 }) {
   const [fontChoice, setFontChoice] = useState(getHanziFontPreference());
+  const { mode: scriptMode, setMode: setScriptModeValue } = useScriptMode();
   const childProfile = profiles.find((profile) => profile.role === 'child') || profiles[0] || null;
 
   const lessonProgress = useMemo(
@@ -151,6 +153,29 @@ export default function ParentSpacePage({
             </select>
           </div>
           <p className="parent-font-preview">我们一起学中文。欢迎！</p>
+        </section>
+
+        <section className="parent-settings-font">
+          <h4>Caractères simplifiés / traditionnels</h4>
+          <div className="script-mode-switch">
+            <button
+              type="button"
+              className={`script-mode-btn ui-pressable ${scriptMode === 'simplified' ? 'active' : ''}`}
+              onClick={() => setScriptModeValue('simplified')}
+            >
+              简体 Simplifié
+            </button>
+            <button
+              type="button"
+              className={`script-mode-btn ui-pressable ${scriptMode === 'traditional' ? 'active' : ''}`}
+              onClick={() => setScriptModeValue('traditional')}
+            >
+              繁體 Traditionnel
+            </button>
+          </div>
+          <p className="parent-font-preview">
+            {scriptMode === 'traditional' ? '我們一起學中文。歡迎！' : '我们一起学中文。欢迎！'}
+          </p>
         </section>
       </section>
     </section>

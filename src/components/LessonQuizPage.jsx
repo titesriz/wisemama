@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
 import { useUiSounds } from '../hooks/useUiSounds.js';
 import { speakHanzi } from '../lib/ttsFallback.js';
+import { useScriptMode } from '../context/ScriptModeContext.jsx';
 import {
   createSessionId,
   filterBySession,
@@ -104,6 +105,7 @@ export default function LessonQuizPage({
   shellHeader = false,
 }) {
   const sounds = useUiSounds();
+  const { convert } = useScriptMode();
   const [session, setSession] = useState(() => buildSession(words, allowedTypes));
   const [roundIndex, setRoundIndex] = useState(0);
   const [selectedId, setSelectedId] = useState(null);
@@ -277,7 +279,7 @@ export default function LessonQuizPage({
         ) : null}
 
         {round.questionType === 'char-to-translation' ? (
-          <div className="lesson-quiz-hanzi-prompt">{round.correctWord.hanzi}</div>
+          <div className="lesson-quiz-hanzi-prompt">{convert(round.correctWord.hanzi)}</div>
         ) : null}
 
         {isSoundPrompt ? (
@@ -294,7 +296,7 @@ export default function LessonQuizPage({
         {(round.questionType === 'char-to-translation' || round.questionType === 'translation-to-char' || isSoundPrompt) && hintActive ? (
           <>
             {round.questionType === 'sound-to-translation' ? (
-              <div className="lesson-quiz-hint-hanzi">{round.correctWord.hanzi}</div>
+              <div className="lesson-quiz-hint-hanzi">{convert(round.correctWord.hanzi)}</div>
             ) : null}
             <p className="lesson-quiz-option-pinyin lesson-quiz-prompt-pinyin">
               {formatPinyinDisplay(round.correctWord.pinyin)}
@@ -318,7 +320,7 @@ export default function LessonQuizPage({
                   onClick={() => handleSelect(option.id)}
                   disabled={answered}
                 >
-                  {option.hanzi}
+                  {convert(option.hanzi)}
                 </button>
               );
             }
@@ -359,7 +361,7 @@ export default function LessonQuizPage({
               {isCorrectSelection ? 'Bravo !' : 'Pas tout a fait.'}
             </p>
             <p className="lesson-quiz-feedback-detail">
-              {round.correctWord.hanzi} · {formatPinyinDisplay(round.correctWord.pinyin)} · {round.correctWord.french} / {round.correctWord.english}
+              {convert(round.correctWord.hanzi)} · {formatPinyinDisplay(round.correctWord.pinyin)} · {round.correctWord.french} / {round.correctWord.english}
             </p>
             <button type="button" className="button" onClick={nextRound}>
               {roundIndex + 1 >= totalRounds ? 'Voir mon score' : 'Suivant ►'}

@@ -5,6 +5,8 @@ import PersistentFooterNav from './PersistentFooterNav.jsx';
 import '../styles/radical-discovery.css';
 import { formatPinyinDisplay, extractToneAccent } from '../lib/pinyinDisplay.js';
 import { segmentLessonText } from '../lib/lessonTextSegmentation.js';
+import { getTraditionalChar } from '../lib/traditionalForm.js';
+import { useScriptMode } from '../context/ScriptModeContext.jsx';
 import { getAllSeenCharsBefore, getLessonsByOrder } from '../utils/lessons/lessonOrder.js';
 
 function isChineseChar(char) {
@@ -85,6 +87,7 @@ export default function LessonTextView({
   onOpenTestHub,
   shellHeader = false,
 }) {
+  const { convert } = useScriptMode();
   const [pinyinMode, setPinyinMode] = useState('all');
   const [manuallyToggledIds, setManuallyToggledIds] = useState(() => new Set());
   const [playingSentenceIndex, setPlayingSentenceIndex] = useState(-1);
@@ -351,7 +354,7 @@ export default function LessonTextView({
                           </span>
                           <CharacterGlossChar
                             char={char}
-                            entry={{ pinyin: card.pinyin, french: card.french, english: card.english, traditional: card.traditional }}
+                            entry={{ pinyin: card.pinyin, french: card.french, english: card.english, traditional: getTraditionalChar(char) }}
                             trigger="hover"
                             className="char-hanzi"
                           />
@@ -382,7 +385,7 @@ export default function LessonTextView({
                     title={`${word.hanzi} (${formatPinyinDisplay(word.pinyin)}) - ${word.french || word.english || ''}`}
                     onClick={() => onPracticeVocabulary?.(word.id)}
                   >
-                    <div className="vocab-hanzi">{word.hanzi}</div>
+                    <div className="vocab-hanzi">{convert(word.hanzi)}</div>
                     <div className="vocab-pinyin-hint">{formatPinyinDisplay(word.pinyin)}</div>
                   </button>
                 ))}
