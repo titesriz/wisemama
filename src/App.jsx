@@ -266,6 +266,10 @@ export default function App() {
   // to 1 by every non-Dictee path into these screens so it never leaks.
   const [deckWritingDifficulty, setDeckWritingDifficulty] = useState(1);
   const [vocabWordIndex, setVocabWordIndex] = useState(0);
+  // Set only when a vocab word is opened by tapping it in the lesson text -
+  // a narrow [word, ...its component characters] deck instead of browsing
+  // the full lesson. Null everywhere else (normal full-lesson browsing).
+  const [vocabWordSubset, setVocabWordSubset] = useState(null);
   const [activeModule, setActiveModule] = useState(MODULES.LESSONS);
   const [showAvatarEditorModal, setShowAvatarEditorModal] = useState(false);
   const [showProfilePicker, setShowProfilePicker] = useState(false);
@@ -577,6 +581,11 @@ export default function App() {
   // (vocabularyRefs), woven together via buildLessonWordSet - vocabulary is
   // additive, not a subset of characters, so both must be shown.
   const lessonAllWords = activeLesson ? buildLessonWordSet(activeLesson) : [];
+  // What the vocab flashcard/writing flow actually browses right now -
+  // the subset from tapping a word in the lesson text, or the full lesson
+  // set otherwise. vocabWordIndex is always an index into this, never into
+  // lessonAllWords directly, once a subset is active.
+  const vocabWordsActive = vocabWordSubset || lessonAllWords;
   const currentAllWordsCard = lessonAllWords[vocabWordIndex] || null;
   const currentAllWordsCardKey = currentAllWordsCard && activeLesson
     ? getCardKey(activeLesson.id, currentAllWordsCard.id)
@@ -584,7 +593,7 @@ export default function App() {
   const earnedAllWordsStars = currentAllWordsCardKey ? currentStarsMap[currentAllWordsCardKey] ?? 0 : 0;
 
   const handleLessonVocabWritingSuccess = (mistakes) => {
-    const vocabWord = lessonAllWords[vocabWordIndex];
+    const vocabWord = vocabWordsActive[vocabWordIndex];
     if (!vocabWord || !activeLesson || !currentProfileKey) return;
 
     const cardKey = getCardKey(activeLesson.id, vocabWord.id);
@@ -604,12 +613,12 @@ export default function App() {
   };
 
   const goToNextVocabWord = () => {
-    const total = lessonAllWords.length;
+    const total = vocabWordsActive.length;
     if (!total) return;
     setVocabWordIndex((prev) => (prev + 1) % total);
   };
   const goToPrevVocabWord = () => {
-    const total = lessonAllWords.length;
+    const total = vocabWordsActive.length;
     if (!total) return;
     setVocabWordIndex((prev) => (prev - 1 + total) % total);
   };
@@ -778,6 +787,7 @@ export default function App() {
           setActiveLesson(lessonId);
           setLessonTextLessonId(lessonId);
         }
+        setVocabWordSubset(null);
         setVocabWordIndex(0);
         setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS);
         setShowDailyRituel(false);
@@ -973,14 +983,41 @@ export default function App() {
     setActiveModule(MODULES.WRITING);
   };
 
+  // Tapping a vocab word in the lesson text opens a narrow sub-selection -
+  // just that word plus the individual characters it's made of - rather
+  // than dropping into the full lesson's combined browse-through deck.
   const openVocabPracticeFromLessonText = (wordId) => {
     const targetLesson = lessonOptions.find((lesson) => lesson.id === lessonTextLessonId);
     if (!targetLesson || !wordId) return;
     const combined = buildLessonWordSet(targetLesson);
-    const targetIndex = combined.findIndex((word) => word.id === wordId);
-    if (targetIndex < 0) return;
+    const word = combined.find((item) => item.id === wordId);
+    if (!word) return;
+
+    const cardByHanzi = new Map();
+    (targetLesson.cards || []).forEach((card) => {
+      if (!card?.hanzi) return;
+      if (!cardByHanzi.has(card.hanzi)) cardByHanzi.set(card.hanzi, card);
+      Array.from(card.hanzi).forEach((char) => {
+        if (!cardByHanzi.has(char)) cardByHanzi.set(char, card);
+      });
+    });
+
+    const characters = Array.from(word.hanzi || '');
+    const isCompound = characters.length > 1;
+    const seenHanzi = new Set([word.hanzi]);
+    const componentCards = isCompound
+      ? characters
+          .map((char) => cardByHanzi.get(char))
+          .filter((card) => {
+            if (!card || seenHanzi.has(card.hanzi)) return false;
+            seenHanzi.add(card.hanzi);
+            return true;
+          })
+      : [];
+
     setActiveLesson(targetLesson.id);
-    setVocabWordIndex(targetIndex);
+    setVocabWordSubset([word, ...componentCards]);
+    setVocabWordIndex(0);
     setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS);
     setShowDailyRituel(false);
     setEnteredApp(false);
@@ -992,6 +1029,7 @@ export default function App() {
     const combined = buildLessonWordSet(targetLesson);
     if (!combined.length) return;
     setActiveLesson(targetLesson.id);
+    setVocabWordSubset(null);
     setVocabWordIndex(0);
     setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS);
     setShowDailyRituel(false);
@@ -1726,7 +1764,7 @@ export default function App() {
   }
 
   if (standaloneView === STANDALONE_VIEW.LESSON_VOCAB_WORDS) {
-    const vocabWords = lessonAllWords;
+    const vocabWords = vocabWordsActive;
     return withShell(
       <LessonVocabWordPage
         shellHeader
@@ -1771,8 +1809,8 @@ export default function App() {
     return withShell(
       <HskWordSelectionPage
         shellHeader
-        words={lessonAllWords}
-        activeWordId={lessonAllWords[vocabWordIndex]?.id || ''}
+        words={vocabWordsActive}
+        activeWordId={vocabWordsActive[vocabWordIndex]?.id || ''}
         onSelectWord={(index) => {
           setVocabWordIndex(index);
           setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS);
@@ -1793,7 +1831,7 @@ export default function App() {
   }
 
   if (standaloneView === STANDALONE_VIEW.LESSON_VOCAB_WRITING) {
-    const vocabWords = lessonAllWords;
+    const vocabWords = vocabWordsActive;
     const isDictee = deckWritingDifficulty === 3;
     return withShell(
       <LessonVocabWritingPage
@@ -2157,6 +2195,7 @@ export default function App() {
       const pickedTitle = lessonOptions.find((lesson) => lesson.id === id)?.title || 'Leçon';
       if (lessonPickerIntent === 'vocab') {
         setActiveLesson(id);
+        setVocabWordSubset(null);
         setVocabWordIndex(0);
         setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS);
         setLastActivity({
@@ -2164,6 +2203,7 @@ export default function App() {
           modeLabel: 'Fiche',
           resume: () => {
             setActiveLesson(id);
+            setVocabWordSubset(null);
             setVocabWordIndex(0);
             setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS);
             setEnteredApp(false);
