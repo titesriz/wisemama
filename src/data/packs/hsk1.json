@@ -1,0 +1,2282 @@
+[
+  {
+    "id": "lesson-hsk1-pronoms-personnels",
+    "order": 100,
+    "title": "HSK1 - Pronoms personnels",
+    "description": "",
+    "sourceText": "",
+    "notes": "",
+    "cards": [
+      {
+        "id": "card-hsk1-001",
+        "lessonId": "lesson-hsk1-pronoms-personnels",
+        "hanzi": "我",
+        "pinyin": "wǒ",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "I, me",
+          "fr": "je, moi"
+        },
+        "french": "je, moi",
+        "english": "I, me",
+        "partOfSpeech": "pronom personnel"
+      },
+      {
+        "id": "card-hsk1-002",
+        "lessonId": "lesson-hsk1-pronoms-personnels",
+        "hanzi": "我们",
+        "pinyin": "wǒmen",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "we, us (pl.)",
+          "fr": "nous"
+        },
+        "french": "nous",
+        "english": "we, us (pl.)",
+        "partOfSpeech": "pronom personnel"
+      },
+      {
+        "id": "card-hsk1-003",
+        "lessonId": "lesson-hsk1-pronoms-personnels",
+        "hanzi": "你",
+        "pinyin": "nǐ",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "you",
+          "fr": "tu, toi"
+        },
+        "french": "tu, toi",
+        "english": "you",
+        "partOfSpeech": "pronom personnel"
+      },
+      {
+        "id": "card-hsk1-004",
+        "lessonId": "lesson-hsk1-pronoms-personnels",
+        "hanzi": "他",
+        "pinyin": "tā",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "he, him",
+          "fr": "il, lui"
+        },
+        "french": "il, lui",
+        "english": "he, him",
+        "partOfSpeech": "pronom personnel"
+      },
+      {
+        "id": "card-hsk1-005",
+        "lessonId": "lesson-hsk1-pronoms-personnels",
+        "hanzi": "她",
+        "pinyin": "tā",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "she, her",
+          "fr": "elle"
+        },
+        "french": "elle",
+        "english": "she, her",
+        "partOfSpeech": "pronom personnel"
+      }
+    ],
+    "vocabularyRefs": [],
+    "packId": "hsk1"
+  },
+  {
+    "id": "lesson-hsk1-pronoms-demonstratifs",
+    "order": 101,
+    "title": "HSK1 - Pronoms demonstratifs",
+    "description": "",
+    "sourceText": "",
+    "notes": "",
+    "cards": [
+      {
+        "id": "card-hsk1-006",
+        "lessonId": "lesson-hsk1-pronoms-demonstratifs",
+        "hanzi": "这 (这儿)",
+        "pinyin": "zhè (zhèr)",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "this (here)",
+          "fr": "ceci, ce (ici)"
+        },
+        "french": "ceci, ce (ici)",
+        "english": "this (here)",
+        "partOfSpeech": "pronom démonstratif"
+      },
+      {
+        "id": "card-hsk1-007",
+        "lessonId": "lesson-hsk1-pronoms-demonstratifs",
+        "hanzi": "那 (那儿)",
+        "pinyin": "nà (nàr)",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "that (there)",
+          "fr": "cela, ça (là)"
+        },
+        "french": "cela, ça (là)",
+        "english": "that (there)",
+        "partOfSpeech": "pronom démonstratif"
+      }
+    ],
+    "vocabularyRefs": [],
+    "packId": "hsk1"
+  },
+  {
+    "id": "lesson-hsk1-pronoms-interrogatifs",
+    "order": 102,
+    "title": "HSK1 - Pronoms interrogatifs",
+    "description": "",
+    "sourceText": "",
+    "notes": "",
+    "cards": [
+      {
+        "id": "card-hsk1-008",
+        "lessonId": "lesson-hsk1-pronoms-interrogatifs",
+        "hanzi": "哪",
+        "pinyin": "nǎ",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "which",
+          "fr": "quel, lequel"
+        },
+        "french": "quel, lequel",
+        "english": "which",
+        "partOfSpeech": "pronom interrogatif"
+      },
+      {
+        "id": "card-hsk1-009",
+        "lessonId": "lesson-hsk1-pronoms-interrogatifs",
+        "hanzi": "哪儿",
+        "pinyin": "nǎr",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "where",
+          "fr": "où"
+        },
+        "french": "où",
+        "english": "where",
+        "partOfSpeech": "pronom interrogatif"
+      },
+      {
+        "id": "card-hsk1-010",
+        "lessonId": "lesson-hsk1-pronoms-interrogatifs",
+        "hanzi": "谁",
+        "pinyin": "shéi",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "who",
+          "fr": "qui"
+        },
+        "french": "qui",
+        "english": "who",
+        "partOfSpeech": "pronom interrogatif"
+      },
+      {
+        "id": "card-hsk1-011",
+        "lessonId": "lesson-hsk1-pronoms-interrogatifs",
+        "hanzi": "什么",
+        "pinyin": "shénme",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "what, why",
+          "fr": "quoi, quel ; pourquoi"
+        },
+        "french": "quoi, quel ; pourquoi",
+        "english": "what, why",
+        "partOfSpeech": "pronom interrogatif"
+      },
+      {
+        "id": "card-hsk1-012",
+        "lessonId": "lesson-hsk1-pronoms-interrogatifs",
+        "hanzi": "多少",
+        "pinyin": "duōshǎo",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "how many, how much",
+          "fr": "combien"
+        },
+        "french": "combien",
+        "english": "how many, how much",
+        "partOfSpeech": "pronom interrogatif"
+      },
+      {
+        "id": "card-hsk1-013",
+        "lessonId": "lesson-hsk1-pronoms-interrogatifs",
+        "hanzi": "几",
+        "pinyin": "jǐ",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "a few, how many",
+          "fr": "quelques ; combien (petit nombre)"
+        },
+        "french": "quelques ; combien (petit nombre)",
+        "english": "a few, how many",
+        "partOfSpeech": "pronom interrogatif"
+      },
+      {
+        "id": "card-hsk1-014",
+        "lessonId": "lesson-hsk1-pronoms-interrogatifs",
+        "hanzi": "怎么",
+        "pinyin": "zěnme",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "how",
+          "fr": "comment"
+        },
+        "french": "comment",
+        "english": "how",
+        "partOfSpeech": "pronom interrogatif"
+      },
+      {
+        "id": "card-hsk1-015",
+        "lessonId": "lesson-hsk1-pronoms-interrogatifs",
+        "hanzi": "怎么样",
+        "pinyin": "zěnmeyàng",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "how about",
+          "fr": "comment ça va ? ; qu'en est-il ?"
+        },
+        "french": "comment ça va ? ; qu'en est-il ?",
+        "english": "how about",
+        "partOfSpeech": "pronom interrogatif"
+      }
+    ],
+    "vocabularyRefs": [],
+    "packId": "hsk1"
+  },
+  {
+    "id": "lesson-hsk1-nombres",
+    "order": 103,
+    "title": "HSK1 - Les nombres",
+    "description": "",
+    "sourceText": "",
+    "notes": "",
+    "cards": [
+      {
+        "id": "card-hsk1-016",
+        "lessonId": "lesson-hsk1-nombres",
+        "hanzi": "一",
+        "pinyin": "yī",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "one",
+          "fr": "un"
+        },
+        "french": "un",
+        "english": "one",
+        "partOfSpeech": "nombre"
+      },
+      {
+        "id": "card-hsk1-017",
+        "lessonId": "lesson-hsk1-nombres",
+        "hanzi": "二",
+        "pinyin": "èr",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "two",
+          "fr": "deux"
+        },
+        "french": "deux",
+        "english": "two",
+        "partOfSpeech": "nombre"
+      },
+      {
+        "id": "card-hsk1-018",
+        "lessonId": "lesson-hsk1-nombres",
+        "hanzi": "三",
+        "pinyin": "sān",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "three",
+          "fr": "trois"
+        },
+        "french": "trois",
+        "english": "three",
+        "partOfSpeech": "nombre"
+      },
+      {
+        "id": "card-hsk1-019",
+        "lessonId": "lesson-hsk1-nombres",
+        "hanzi": "四",
+        "pinyin": "sì",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "four",
+          "fr": "quatre"
+        },
+        "french": "quatre",
+        "english": "four",
+        "partOfSpeech": "nombre"
+      },
+      {
+        "id": "card-hsk1-020",
+        "lessonId": "lesson-hsk1-nombres",
+        "hanzi": "五",
+        "pinyin": "wǔ",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "five",
+          "fr": "cinq"
+        },
+        "french": "cinq",
+        "english": "five",
+        "partOfSpeech": "nombre"
+      },
+      {
+        "id": "card-hsk1-021",
+        "lessonId": "lesson-hsk1-nombres",
+        "hanzi": "六",
+        "pinyin": "liù",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "six",
+          "fr": "six"
+        },
+        "french": "six",
+        "english": "six",
+        "partOfSpeech": "nombre"
+      },
+      {
+        "id": "card-hsk1-022",
+        "lessonId": "lesson-hsk1-nombres",
+        "hanzi": "七",
+        "pinyin": "qī",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "seven",
+          "fr": "sept"
+        },
+        "french": "sept",
+        "english": "seven",
+        "partOfSpeech": "nombre"
+      },
+      {
+        "id": "card-hsk1-023",
+        "lessonId": "lesson-hsk1-nombres",
+        "hanzi": "八",
+        "pinyin": "bā",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "eight",
+          "fr": "huit"
+        },
+        "french": "huit",
+        "english": "eight",
+        "partOfSpeech": "nombre"
+      },
+      {
+        "id": "card-hsk1-024",
+        "lessonId": "lesson-hsk1-nombres",
+        "hanzi": "九",
+        "pinyin": "jiǔ",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "nine",
+          "fr": "neuf"
+        },
+        "french": "neuf",
+        "english": "nine",
+        "partOfSpeech": "nombre"
+      },
+      {
+        "id": "card-hsk1-025",
+        "lessonId": "lesson-hsk1-nombres",
+        "hanzi": "十",
+        "pinyin": "shí",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "ten",
+          "fr": "dix"
+        },
+        "french": "dix",
+        "english": "ten",
+        "partOfSpeech": "nombre"
+      }
+    ],
+    "vocabularyRefs": [],
+    "packId": "hsk1"
+  },
+  {
+    "id": "lesson-hsk1-classificateurs",
+    "order": 104,
+    "title": "HSK1 - Classificateurs",
+    "description": "",
+    "sourceText": "",
+    "notes": "",
+    "cards": [
+      {
+        "id": "card-hsk1-026",
+        "lessonId": "lesson-hsk1-classificateurs",
+        "hanzi": "个",
+        "pinyin": "gè",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "(for normal objects)",
+          "fr": "(pour les objets courants)"
+        },
+        "french": "(pour les objets courants)",
+        "english": "(for normal objects)",
+        "partOfSpeech": "classificateur"
+      },
+      {
+        "id": "card-hsk1-027",
+        "lessonId": "lesson-hsk1-classificateurs",
+        "hanzi": "岁",
+        "pinyin": "suì",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "(for age)",
+          "fr": "(pour l'âge)"
+        },
+        "french": "(pour l'âge)",
+        "english": "(for age)",
+        "partOfSpeech": "classificateur"
+      },
+      {
+        "id": "card-hsk1-028",
+        "lessonId": "lesson-hsk1-classificateurs",
+        "hanzi": "本",
+        "pinyin": "běn",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "(for books)",
+          "fr": "(pour les livres)"
+        },
+        "french": "(pour les livres)",
+        "english": "(for books)",
+        "partOfSpeech": "classificateur"
+      },
+      {
+        "id": "card-hsk1-029",
+        "lessonId": "lesson-hsk1-classificateurs",
+        "hanzi": "些",
+        "pinyin": "xiē",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "some",
+          "fr": "quelques, certains"
+        },
+        "french": "quelques, certains",
+        "english": "some",
+        "partOfSpeech": "classificateur"
+      },
+      {
+        "id": "card-hsk1-030",
+        "lessonId": "lesson-hsk1-classificateurs",
+        "hanzi": "块",
+        "pinyin": "kuài",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "piece, chunk",
+          "fr": "morceau, pièce"
+        },
+        "french": "morceau, pièce",
+        "english": "piece, chunk",
+        "partOfSpeech": "classificateur"
+      }
+    ],
+    "vocabularyRefs": [],
+    "packId": "hsk1"
+  },
+  {
+    "id": "lesson-hsk1-adverbes",
+    "order": 105,
+    "title": "HSK1 - Adverbes",
+    "description": "",
+    "sourceText": "",
+    "notes": "",
+    "cards": [
+      {
+        "id": "card-hsk1-031",
+        "lessonId": "lesson-hsk1-adverbes",
+        "hanzi": "不",
+        "pinyin": "bù",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "no",
+          "fr": "non, ne… pas"
+        },
+        "french": "non, ne… pas",
+        "english": "no",
+        "partOfSpeech": "adverbe"
+      },
+      {
+        "id": "card-hsk1-032",
+        "lessonId": "lesson-hsk1-adverbes",
+        "hanzi": "没",
+        "pinyin": "méi",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "no",
+          "fr": "non, ne… pas (avoir)"
+        },
+        "french": "non, ne… pas (avoir)",
+        "english": "no",
+        "partOfSpeech": "adverbe"
+      },
+      {
+        "id": "card-hsk1-033",
+        "lessonId": "lesson-hsk1-adverbes",
+        "hanzi": "很",
+        "pinyin": "hěn",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "quite, very",
+          "fr": "très, assez"
+        },
+        "french": "très, assez",
+        "english": "quite, very",
+        "partOfSpeech": "adverbe"
+      },
+      {
+        "id": "card-hsk1-034",
+        "lessonId": "lesson-hsk1-adverbes",
+        "hanzi": "太",
+        "pinyin": "tài",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "too",
+          "fr": "trop"
+        },
+        "french": "trop",
+        "english": "too",
+        "partOfSpeech": "adverbe"
+      },
+      {
+        "id": "card-hsk1-035",
+        "lessonId": "lesson-hsk1-adverbes",
+        "hanzi": "都",
+        "pinyin": "dōu",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "all",
+          "fr": "tous, tout"
+        },
+        "french": "tous, tout",
+        "english": "all",
+        "partOfSpeech": "adverbe"
+      },
+      {
+        "id": "card-hsk1-036",
+        "lessonId": "lesson-hsk1-adverbes",
+        "hanzi": "一点儿",
+        "pinyin": "yīdiǎnr",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "a little bit",
+          "fr": "un peu"
+        },
+        "french": "un peu",
+        "english": "a little bit",
+        "partOfSpeech": "adverbe"
+      }
+    ],
+    "vocabularyRefs": [],
+    "packId": "hsk1"
+  },
+  {
+    "id": "lesson-hsk1-mots-invariables",
+    "order": 106,
+    "title": "HSK1 - Mots invariables",
+    "description": "",
+    "sourceText": "",
+    "notes": "",
+    "cards": [
+      {
+        "id": "card-hsk1-037",
+        "lessonId": "lesson-hsk1-mots-invariables",
+        "hanzi": "和",
+        "pinyin": "hé",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "and",
+          "fr": "et"
+        },
+        "french": "et",
+        "english": "and",
+        "partOfSpeech": "conjonction"
+      },
+      {
+        "id": "card-hsk1-038",
+        "lessonId": "lesson-hsk1-mots-invariables",
+        "hanzi": "在",
+        "pinyin": "zài",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "in, at",
+          "fr": "dans, à, en"
+        },
+        "french": "dans, à, en",
+        "english": "in, at",
+        "partOfSpeech": "préposition"
+      },
+      {
+        "id": "card-hsk1-043",
+        "lessonId": "lesson-hsk1-mots-invariables",
+        "hanzi": "喂",
+        "pinyin": "wèi",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "hello",
+          "fr": "allô, salut"
+        },
+        "french": "allô, salut",
+        "english": "hello",
+        "partOfSpeech": "interjection"
+      }
+    ],
+    "vocabularyRefs": [],
+    "packId": "hsk1"
+  },
+  {
+    "id": "lesson-hsk1-particules",
+    "order": 107,
+    "title": "HSK1 - Particules",
+    "description": "",
+    "sourceText": "",
+    "notes": "",
+    "cards": [
+      {
+        "id": "card-hsk1-039",
+        "lessonId": "lesson-hsk1-particules",
+        "hanzi": "的",
+        "pinyin": "de",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "",
+          "fr": "particule de détermination / possession"
+        },
+        "french": "particule de détermination / possession",
+        "english": "",
+        "partOfSpeech": "particule"
+      },
+      {
+        "id": "card-hsk1-040",
+        "lessonId": "lesson-hsk1-particules",
+        "hanzi": "了",
+        "pinyin": "le",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "",
+          "fr": "particule d'accompli / changement d'état"
+        },
+        "french": "particule d'accompli / changement d'état",
+        "english": "",
+        "partOfSpeech": "particule"
+      },
+      {
+        "id": "card-hsk1-041",
+        "lessonId": "lesson-hsk1-particules",
+        "hanzi": "吗",
+        "pinyin": "ma",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "",
+          "fr": "particule interrogative (oui/non)"
+        },
+        "french": "particule interrogative (oui/non)",
+        "english": "",
+        "partOfSpeech": "particule"
+      },
+      {
+        "id": "card-hsk1-042",
+        "lessonId": "lesson-hsk1-particules",
+        "hanzi": "呢",
+        "pinyin": "ne",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "",
+          "fr": "particule interrogative (« et toi ? »)"
+        },
+        "french": "particule interrogative (« et toi ? »)",
+        "english": "",
+        "partOfSpeech": "particule"
+      }
+    ],
+    "vocabularyRefs": [],
+    "packId": "hsk1"
+  },
+  {
+    "id": "lesson-hsk1-noms-lieux",
+    "order": 108,
+    "title": "HSK1 - Noms : lieux",
+    "description": "",
+    "sourceText": "",
+    "notes": "",
+    "cards": [
+      {
+        "id": "card-hsk1-044",
+        "lessonId": "lesson-hsk1-noms-lieux",
+        "hanzi": "家",
+        "pinyin": "jiā",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "home",
+          "fr": "maison, foyer"
+        },
+        "french": "maison, foyer",
+        "english": "home",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-045",
+        "lessonId": "lesson-hsk1-noms-lieux",
+        "hanzi": "学校",
+        "pinyin": "xuéxiào",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "school",
+          "fr": "école"
+        },
+        "french": "école",
+        "english": "school",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-046",
+        "lessonId": "lesson-hsk1-noms-lieux",
+        "hanzi": "饭店",
+        "pinyin": "fàndiàn",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "restaurant",
+          "fr": "restaurant"
+        },
+        "french": "restaurant",
+        "english": "restaurant",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-047",
+        "lessonId": "lesson-hsk1-noms-lieux",
+        "hanzi": "商店",
+        "pinyin": "shāngdiàn",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "store",
+          "fr": "magasin"
+        },
+        "french": "magasin",
+        "english": "store",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-048",
+        "lessonId": "lesson-hsk1-noms-lieux",
+        "hanzi": "医院",
+        "pinyin": "yīyuàn",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "hospital",
+          "fr": "hôpital"
+        },
+        "french": "hôpital",
+        "english": "hospital",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-049",
+        "lessonId": "lesson-hsk1-noms-lieux",
+        "hanzi": "中国",
+        "pinyin": "Zhōngguó",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "China",
+          "fr": "Chine"
+        },
+        "french": "Chine",
+        "english": "China",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-050",
+        "lessonId": "lesson-hsk1-noms-lieux",
+        "hanzi": "北京",
+        "pinyin": "Běijīng",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "Beijing",
+          "fr": "Pékin"
+        },
+        "french": "Pékin",
+        "english": "Beijing",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-051",
+        "lessonId": "lesson-hsk1-noms-lieux",
+        "hanzi": "上",
+        "pinyin": "shàng",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "up",
+          "fr": "haut, dessus"
+        },
+        "french": "haut, dessus",
+        "english": "up",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-052",
+        "lessonId": "lesson-hsk1-noms-lieux",
+        "hanzi": "下",
+        "pinyin": "xià",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "down",
+          "fr": "bas, dessous"
+        },
+        "french": "bas, dessous",
+        "english": "down",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-053",
+        "lessonId": "lesson-hsk1-noms-lieux",
+        "hanzi": "前面",
+        "pinyin": "qiánmiàn",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "front",
+          "fr": "devant, avant"
+        },
+        "french": "devant, avant",
+        "english": "front",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-054",
+        "lessonId": "lesson-hsk1-noms-lieux",
+        "hanzi": "后面",
+        "pinyin": "hòumiàn",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "behind",
+          "fr": "derrière, arrière"
+        },
+        "french": "derrière, arrière",
+        "english": "behind",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-055",
+        "lessonId": "lesson-hsk1-noms-lieux",
+        "hanzi": "里",
+        "pinyin": "lǐmiàn",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "inside",
+          "fr": "intérieur, dedans"
+        },
+        "french": "intérieur, dedans",
+        "english": "inside",
+        "partOfSpeech": "nom"
+      }
+    ],
+    "vocabularyRefs": [],
+    "packId": "hsk1"
+  },
+  {
+    "id": "lesson-hsk1-noms-temps",
+    "order": 109,
+    "title": "HSK1 - Noms : le temps",
+    "description": "",
+    "sourceText": "",
+    "notes": "",
+    "cards": [
+      {
+        "id": "card-hsk1-056",
+        "lessonId": "lesson-hsk1-noms-temps",
+        "hanzi": "今天",
+        "pinyin": "jīntiān",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "today",
+          "fr": "aujourd'hui"
+        },
+        "french": "aujourd'hui",
+        "english": "today",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-057",
+        "lessonId": "lesson-hsk1-noms-temps",
+        "hanzi": "明天",
+        "pinyin": "míngtiān",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "tomorrow",
+          "fr": "demain"
+        },
+        "french": "demain",
+        "english": "tomorrow",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-058",
+        "lessonId": "lesson-hsk1-noms-temps",
+        "hanzi": "昨天",
+        "pinyin": "zuótiān",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "yesterday",
+          "fr": "hier"
+        },
+        "french": "hier",
+        "english": "yesterday",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-059",
+        "lessonId": "lesson-hsk1-noms-temps",
+        "hanzi": "上午",
+        "pinyin": "shàngwǔ",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "morning",
+          "fr": "matin"
+        },
+        "french": "matin",
+        "english": "morning",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-060",
+        "lessonId": "lesson-hsk1-noms-temps",
+        "hanzi": "中午",
+        "pinyin": "zhōngwǔ",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "noon",
+          "fr": "midi"
+        },
+        "french": "midi",
+        "english": "noon",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-061",
+        "lessonId": "lesson-hsk1-noms-temps",
+        "hanzi": "下午",
+        "pinyin": "xiàwǔ",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "afternoon",
+          "fr": "après-midi"
+        },
+        "french": "après-midi",
+        "english": "afternoon",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-062",
+        "lessonId": "lesson-hsk1-noms-temps",
+        "hanzi": "年",
+        "pinyin": "nián",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "year",
+          "fr": "année, an"
+        },
+        "french": "année, an",
+        "english": "year",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-063",
+        "lessonId": "lesson-hsk1-noms-temps",
+        "hanzi": "月",
+        "pinyin": "yuè",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "month",
+          "fr": "mois"
+        },
+        "french": "mois",
+        "english": "month",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-064",
+        "lessonId": "lesson-hsk1-noms-temps",
+        "hanzi": "号",
+        "pinyin": "hào",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "number/date",
+          "fr": "numéro ; jour du mois"
+        },
+        "french": "numéro ; jour du mois",
+        "english": "number/date",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-065",
+        "lessonId": "lesson-hsk1-noms-temps",
+        "hanzi": "星期",
+        "pinyin": "xīngqī",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "week",
+          "fr": "semaine"
+        },
+        "french": "semaine",
+        "english": "week",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-066",
+        "lessonId": "lesson-hsk1-noms-temps",
+        "hanzi": "点",
+        "pinyin": "diǎn",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "o'clock",
+          "fr": "heure (horaire)"
+        },
+        "french": "heure (horaire)",
+        "english": "o'clock",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-067",
+        "lessonId": "lesson-hsk1-noms-temps",
+        "hanzi": "分钟",
+        "pinyin": "fēnzhōng",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "minute",
+          "fr": "minute"
+        },
+        "french": "minute",
+        "english": "minute",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-068",
+        "lessonId": "lesson-hsk1-noms-temps",
+        "hanzi": "现在",
+        "pinyin": "xiànzài",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "now",
+          "fr": "maintenant"
+        },
+        "french": "maintenant",
+        "english": "now",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-069",
+        "lessonId": "lesson-hsk1-noms-temps",
+        "hanzi": "时候",
+        "pinyin": "shíhou",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "time",
+          "fr": "moment, temps"
+        },
+        "french": "moment, temps",
+        "english": "time",
+        "partOfSpeech": "nom"
+      }
+    ],
+    "vocabularyRefs": [],
+    "packId": "hsk1"
+  },
+  {
+    "id": "lesson-hsk1-noms-gens",
+    "order": 110,
+    "title": "HSK1 - Noms : les gens",
+    "description": "",
+    "sourceText": "",
+    "notes": "",
+    "cards": [
+      {
+        "id": "card-hsk1-070",
+        "lessonId": "lesson-hsk1-noms-gens",
+        "hanzi": "爸爸",
+        "pinyin": "bàba",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "father",
+          "fr": "papa, père"
+        },
+        "french": "papa, père",
+        "english": "father",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-071",
+        "lessonId": "lesson-hsk1-noms-gens",
+        "hanzi": "妈妈",
+        "pinyin": "māma",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "mother",
+          "fr": "maman, mère"
+        },
+        "french": "maman, mère",
+        "english": "mother",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-072",
+        "lessonId": "lesson-hsk1-noms-gens",
+        "hanzi": "儿子",
+        "pinyin": "érzi",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "son",
+          "fr": "fils"
+        },
+        "french": "fils",
+        "english": "son",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-073",
+        "lessonId": "lesson-hsk1-noms-gens",
+        "hanzi": "女儿",
+        "pinyin": "nǚér",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "daughter",
+          "fr": "fille"
+        },
+        "french": "fille",
+        "english": "daughter",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-074",
+        "lessonId": "lesson-hsk1-noms-gens",
+        "hanzi": "老师",
+        "pinyin": "lǎoshī",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "teacher",
+          "fr": "professeur, maître/maîtresse"
+        },
+        "french": "professeur, maître/maîtresse",
+        "english": "teacher",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-075",
+        "lessonId": "lesson-hsk1-noms-gens",
+        "hanzi": "学生",
+        "pinyin": "xuéshēng",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "student",
+          "fr": "élève, étudiant"
+        },
+        "french": "élève, étudiant",
+        "english": "student",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-076",
+        "lessonId": "lesson-hsk1-noms-gens",
+        "hanzi": "同学",
+        "pinyin": "tóngxué",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "classmate",
+          "fr": "camarade de classe"
+        },
+        "french": "camarade de classe",
+        "english": "classmate",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-077",
+        "lessonId": "lesson-hsk1-noms-gens",
+        "hanzi": "朋友",
+        "pinyin": "péngyǒu",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "friend",
+          "fr": "ami(e)"
+        },
+        "french": "ami(e)",
+        "english": "friend",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-078",
+        "lessonId": "lesson-hsk1-noms-gens",
+        "hanzi": "医生",
+        "pinyin": "yīshēng",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "doctor",
+          "fr": "médecin"
+        },
+        "french": "médecin",
+        "english": "doctor",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-079",
+        "lessonId": "lesson-hsk1-noms-gens",
+        "hanzi": "先生",
+        "pinyin": "xiānsheng",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "sir",
+          "fr": "monsieur"
+        },
+        "french": "monsieur",
+        "english": "sir",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-080",
+        "lessonId": "lesson-hsk1-noms-gens",
+        "hanzi": "小姐",
+        "pinyin": "xiǎojiě",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "Miss",
+          "fr": "mademoiselle"
+        },
+        "french": "mademoiselle",
+        "english": "Miss",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-099",
+        "lessonId": "lesson-hsk1-noms-gens",
+        "hanzi": "人",
+        "pinyin": "rén",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "person",
+          "fr": "personne"
+        },
+        "french": "personne",
+        "english": "person",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-100",
+        "lessonId": "lesson-hsk1-noms-gens",
+        "hanzi": "名字",
+        "pinyin": "míngzi",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "name",
+          "fr": "nom, prénom"
+        },
+        "french": "nom, prénom",
+        "english": "name",
+        "partOfSpeech": "nom"
+      }
+    ],
+    "vocabularyRefs": [],
+    "packId": "hsk1"
+  },
+  {
+    "id": "lesson-hsk1-noms-objets",
+    "order": 111,
+    "title": "HSK1 - Noms : objets du quotidien",
+    "description": "",
+    "sourceText": "",
+    "notes": "",
+    "cards": [
+      {
+        "id": "card-hsk1-081",
+        "lessonId": "lesson-hsk1-noms-objets",
+        "hanzi": "衣服",
+        "pinyin": "yīfu",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "cloth",
+          "fr": "vêtement"
+        },
+        "french": "vêtement",
+        "english": "cloth",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-088",
+        "lessonId": "lesson-hsk1-noms-objets",
+        "hanzi": "杯子",
+        "pinyin": "bēizi",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "cup",
+          "fr": "tasse, verre"
+        },
+        "french": "tasse, verre",
+        "english": "cup",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-089",
+        "lessonId": "lesson-hsk1-noms-objets",
+        "hanzi": "钱",
+        "pinyin": "qián",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "money",
+          "fr": "argent"
+        },
+        "french": "argent",
+        "english": "money",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-101",
+        "lessonId": "lesson-hsk1-noms-objets",
+        "hanzi": "书",
+        "pinyin": "shū",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "book",
+          "fr": "livre"
+        },
+        "french": "livre",
+        "english": "book",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-102",
+        "lessonId": "lesson-hsk1-noms-objets",
+        "hanzi": "汉语",
+        "pinyin": "hànyǔ",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "mandarin Chinese",
+          "fr": "chinois (mandarin)"
+        },
+        "french": "chinois (mandarin)",
+        "english": "mandarin Chinese",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-103",
+        "lessonId": "lesson-hsk1-noms-objets",
+        "hanzi": "字",
+        "pinyin": "zì",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "character",
+          "fr": "caractère, mot écrit"
+        },
+        "french": "caractère, mot écrit",
+        "english": "character",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-104",
+        "lessonId": "lesson-hsk1-noms-objets",
+        "hanzi": "桌子",
+        "pinyin": "zhuōzi",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "desk",
+          "fr": "bureau, table"
+        },
+        "french": "bureau, table",
+        "english": "desk",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-105",
+        "lessonId": "lesson-hsk1-noms-objets",
+        "hanzi": "椅子",
+        "pinyin": "yǐzi",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "chair",
+          "fr": "chaise"
+        },
+        "french": "chaise",
+        "english": "chair",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-098",
+        "lessonId": "lesson-hsk1-noms-objets",
+        "hanzi": "东西",
+        "pinyin": "dōngxi",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "thing",
+          "fr": "chose, objet"
+        },
+        "french": "chose, objet",
+        "english": "thing",
+        "partOfSpeech": "nom"
+      }
+    ],
+    "vocabularyRefs": [],
+    "packId": "hsk1"
+  },
+  {
+    "id": "lesson-hsk1-noms-nourriture-tech",
+    "order": 112,
+    "title": "HSK1 - Noms : nourriture et technologie",
+    "description": "",
+    "sourceText": "",
+    "notes": "",
+    "cards": [
+      {
+        "id": "card-hsk1-082",
+        "lessonId": "lesson-hsk1-noms-nourriture-tech",
+        "hanzi": "水",
+        "pinyin": "shuǐ",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "water",
+          "fr": "eau"
+        },
+        "french": "eau",
+        "english": "water",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-083",
+        "lessonId": "lesson-hsk1-noms-nourriture-tech",
+        "hanzi": "菜",
+        "pinyin": "cài",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "dish",
+          "fr": "plat, légume"
+        },
+        "french": "plat, légume",
+        "english": "dish",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-084",
+        "lessonId": "lesson-hsk1-noms-nourriture-tech",
+        "hanzi": "米饭",
+        "pinyin": "mǐfàn",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "rice",
+          "fr": "riz (cuit)"
+        },
+        "french": "riz (cuit)",
+        "english": "rice",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-085",
+        "lessonId": "lesson-hsk1-noms-nourriture-tech",
+        "hanzi": "水果",
+        "pinyin": "shuǐguǒ",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "fruit",
+          "fr": "fruit"
+        },
+        "french": "fruit",
+        "english": "fruit",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-086",
+        "lessonId": "lesson-hsk1-noms-nourriture-tech",
+        "hanzi": "苹果",
+        "pinyin": "píngguǒ",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "apple",
+          "fr": "pomme"
+        },
+        "french": "pomme",
+        "english": "apple",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-087",
+        "lessonId": "lesson-hsk1-noms-nourriture-tech",
+        "hanzi": "茶",
+        "pinyin": "chá",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "tea",
+          "fr": "thé"
+        },
+        "french": "thé",
+        "english": "tea",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-090",
+        "lessonId": "lesson-hsk1-noms-nourriture-tech",
+        "hanzi": "飞机",
+        "pinyin": "fēijī",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "airplane",
+          "fr": "avion"
+        },
+        "french": "avion",
+        "english": "airplane",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-091",
+        "lessonId": "lesson-hsk1-noms-nourriture-tech",
+        "hanzi": "出租车",
+        "pinyin": "chūzūchē",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "taxi",
+          "fr": "taxi"
+        },
+        "french": "taxi",
+        "english": "taxi",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-092",
+        "lessonId": "lesson-hsk1-noms-nourriture-tech",
+        "hanzi": "电视",
+        "pinyin": "diànshì",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "television",
+          "fr": "télévision"
+        },
+        "french": "télévision",
+        "english": "television",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-093",
+        "lessonId": "lesson-hsk1-noms-nourriture-tech",
+        "hanzi": "电脑",
+        "pinyin": "diànnǎo",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "computer",
+          "fr": "ordinateur"
+        },
+        "french": "ordinateur",
+        "english": "computer",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-094",
+        "lessonId": "lesson-hsk1-noms-nourriture-tech",
+        "hanzi": "电影",
+        "pinyin": "diànyǐng",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "movie",
+          "fr": "film"
+        },
+        "french": "film",
+        "english": "movie",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-095",
+        "lessonId": "lesson-hsk1-noms-nourriture-tech",
+        "hanzi": "天气",
+        "pinyin": "tiānqì",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "weather",
+          "fr": "météo, temps"
+        },
+        "french": "météo, temps",
+        "english": "weather",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-096",
+        "lessonId": "lesson-hsk1-noms-nourriture-tech",
+        "hanzi": "猫",
+        "pinyin": "māo",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "cat",
+          "fr": "chat"
+        },
+        "french": "chat",
+        "english": "cat",
+        "partOfSpeech": "nom"
+      },
+      {
+        "id": "card-hsk1-097",
+        "lessonId": "lesson-hsk1-noms-nourriture-tech",
+        "hanzi": "狗",
+        "pinyin": "gǒu",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "dog",
+          "fr": "chien"
+        },
+        "french": "chien",
+        "english": "dog",
+        "partOfSpeech": "nom"
+      }
+    ],
+    "vocabularyRefs": [],
+    "packId": "hsk1"
+  },
+  {
+    "id": "lesson-hsk1-verbes",
+    "order": 113,
+    "title": "HSK1 - Verbes",
+    "description": "",
+    "sourceText": "",
+    "notes": "",
+    "cards": [
+      {
+        "id": "card-hsk1-106",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "谢谢",
+        "pinyin": "xièxie",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "thank",
+          "fr": "merci"
+        },
+        "french": "merci",
+        "english": "thank",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-107",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "不客气",
+        "pinyin": "búkèqì",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "you are welcome",
+          "fr": "de rien"
+        },
+        "french": "de rien",
+        "english": "you are welcome",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-108",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "再见",
+        "pinyin": "zàijiàn",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "good-bye",
+          "fr": "au revoir"
+        },
+        "french": "au revoir",
+        "english": "good-bye",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-109",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "请",
+        "pinyin": "qǐng",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "please",
+          "fr": "s'il vous plaît ; inviter"
+        },
+        "french": "s'il vous plaît ; inviter",
+        "english": "please",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-110",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "对不起",
+        "pinyin": "duìbùqǐ",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "sorry",
+          "fr": "désolé, pardon"
+        },
+        "french": "désolé, pardon",
+        "english": "sorry",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-111",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "没关系",
+        "pinyin": "méiguānxì",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "It doesn't matter",
+          "fr": "ce n'est pas grave"
+        },
+        "french": "ce n'est pas grave",
+        "english": "It doesn't matter",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-112",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "是",
+        "pinyin": "shì",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "be (am, is, are)",
+          "fr": "être"
+        },
+        "french": "être",
+        "english": "be (am, is, are)",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-113",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "有",
+        "pinyin": "yǒu",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "have",
+          "fr": "avoir, il y a"
+        },
+        "french": "avoir, il y a",
+        "english": "have",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-114",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "看",
+        "pinyin": "kàn",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "look",
+          "fr": "regarder, voir"
+        },
+        "french": "regarder, voir",
+        "english": "look",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-115",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "听",
+        "pinyin": "tīng",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "listen",
+          "fr": "écouter"
+        },
+        "french": "écouter",
+        "english": "listen",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-116",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "说",
+        "pinyin": "shuō",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "speak",
+          "fr": "parler, dire"
+        },
+        "french": "parler, dire",
+        "english": "speak",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-117",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "读",
+        "pinyin": "dú",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "read",
+          "fr": "lire"
+        },
+        "french": "lire",
+        "english": "read",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-118",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "写",
+        "pinyin": "xiě",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "write",
+          "fr": "écrire"
+        },
+        "french": "écrire",
+        "english": "write",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-119",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "看见",
+        "pinyin": "kànjiàn",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "see",
+          "fr": "apercevoir, voir"
+        },
+        "french": "apercevoir, voir",
+        "english": "see",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-120",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "叫",
+        "pinyin": "jiào",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "call",
+          "fr": "s'appeler ; appeler"
+        },
+        "french": "s'appeler ; appeler",
+        "english": "call",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-121",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "来",
+        "pinyin": "lái",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "come",
+          "fr": "venir"
+        },
+        "french": "venir",
+        "english": "come",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-122",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "回",
+        "pinyin": "huí",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "return",
+          "fr": "rentrer, retourner"
+        },
+        "french": "rentrer, retourner",
+        "english": "return",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-123",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "去",
+        "pinyin": "qù",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "go",
+          "fr": "aller"
+        },
+        "french": "aller",
+        "english": "go",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-124",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "吃",
+        "pinyin": "chī",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "eat",
+          "fr": "manger"
+        },
+        "french": "manger",
+        "english": "eat",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-125",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "喝",
+        "pinyin": "hē",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "drink",
+          "fr": "boire"
+        },
+        "french": "boire",
+        "english": "drink",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-126",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "睡觉",
+        "pinyin": "shuìjiào",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "sleep",
+          "fr": "dormir"
+        },
+        "french": "dormir",
+        "english": "sleep",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-127",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "打电话",
+        "pinyin": "dǎdiànhuà",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "make phone call",
+          "fr": "téléphoner"
+        },
+        "french": "téléphoner",
+        "english": "make phone call",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-128",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "做",
+        "pinyin": "zuò",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "do",
+          "fr": "faire"
+        },
+        "french": "faire",
+        "english": "do",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-129",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "买",
+        "pinyin": "mǎi",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "buy",
+          "fr": "acheter"
+        },
+        "french": "acheter",
+        "english": "buy",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-130",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "开",
+        "pinyin": "kāi",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "open",
+          "fr": "ouvrir ; conduire"
+        },
+        "french": "ouvrir ; conduire",
+        "english": "open",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-131",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "坐",
+        "pinyin": "zuò",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "sit",
+          "fr": "s'asseoir"
+        },
+        "french": "s'asseoir",
+        "english": "sit",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-132",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "住",
+        "pinyin": "zhù",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "live",
+          "fr": "habiter, loger"
+        },
+        "french": "habiter, loger",
+        "english": "live",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-133",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "学习",
+        "pinyin": "xuéxí",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "study",
+          "fr": "étudier, apprendre"
+        },
+        "french": "étudier, apprendre",
+        "english": "study",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-134",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "工作",
+        "pinyin": "gōngzuò",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "work",
+          "fr": "travailler ; travail"
+        },
+        "french": "travailler ; travail",
+        "english": "work",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-135",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "下雨",
+        "pinyin": "xiàyǔ",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "rain",
+          "fr": "pleuvoir"
+        },
+        "french": "pleuvoir",
+        "english": "rain",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-136",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "爱",
+        "pinyin": "ài",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "love",
+          "fr": "aimer (amour)"
+        },
+        "french": "aimer (amour)",
+        "english": "love",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-137",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "喜欢",
+        "pinyin": "xǐhuān",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "love, like",
+          "fr": "aimer, apprécier"
+        },
+        "french": "aimer, apprécier",
+        "english": "love, like",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-138",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "想",
+        "pinyin": "xiǎng",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "want",
+          "fr": "vouloir ; penser"
+        },
+        "french": "vouloir ; penser",
+        "english": "want",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-139",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "认识",
+        "pinyin": "rènshi",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "know",
+          "fr": "connaître, reconnaître"
+        },
+        "french": "connaître, reconnaître",
+        "english": "know",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-140",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "会",
+        "pinyin": "huì",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "can",
+          "fr": "savoir (faire), pouvoir (acquis)"
+        },
+        "french": "savoir (faire), pouvoir (acquis)",
+        "english": "can",
+        "partOfSpeech": "verbe"
+      },
+      {
+        "id": "card-hsk1-141",
+        "lessonId": "lesson-hsk1-verbes",
+        "hanzi": "能",
+        "pinyin": "néng",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "can, be able to",
+          "fr": "pouvoir, être capable de"
+        },
+        "french": "pouvoir, être capable de",
+        "english": "can, be able to",
+        "partOfSpeech": "verbe"
+      }
+    ],
+    "vocabularyRefs": [],
+    "packId": "hsk1"
+  },
+  {
+    "id": "lesson-hsk1-adjectifs",
+    "order": 114,
+    "title": "HSK1 - Adjectifs",
+    "description": "",
+    "sourceText": "",
+    "notes": "",
+    "cards": [
+      {
+        "id": "card-hsk1-142",
+        "lessonId": "lesson-hsk1-adjectifs",
+        "hanzi": "好",
+        "pinyin": "hǎo",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "good",
+          "fr": "bon, bien"
+        },
+        "french": "bon, bien",
+        "english": "good",
+        "partOfSpeech": "adjectif"
+      },
+      {
+        "id": "card-hsk1-143",
+        "lessonId": "lesson-hsk1-adjectifs",
+        "hanzi": "大",
+        "pinyin": "dà",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "big",
+          "fr": "grand"
+        },
+        "french": "grand",
+        "english": "big",
+        "partOfSpeech": "adjectif"
+      },
+      {
+        "id": "card-hsk1-144",
+        "lessonId": "lesson-hsk1-adjectifs",
+        "hanzi": "小",
+        "pinyin": "xiǎo",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "small",
+          "fr": "petit"
+        },
+        "french": "petit",
+        "english": "small",
+        "partOfSpeech": "adjectif"
+      },
+      {
+        "id": "card-hsk1-145",
+        "lessonId": "lesson-hsk1-adjectifs",
+        "hanzi": "多",
+        "pinyin": "duō",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "many, much",
+          "fr": "beaucoup, nombreux"
+        },
+        "french": "beaucoup, nombreux",
+        "english": "many, much",
+        "partOfSpeech": "adjectif"
+      },
+      {
+        "id": "card-hsk1-146",
+        "lessonId": "lesson-hsk1-adjectifs",
+        "hanzi": "少",
+        "pinyin": "shǎo",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "few, little",
+          "fr": "peu"
+        },
+        "french": "peu",
+        "english": "few, little",
+        "partOfSpeech": "adjectif"
+      },
+      {
+        "id": "card-hsk1-147",
+        "lessonId": "lesson-hsk1-adjectifs",
+        "hanzi": "冷",
+        "pinyin": "lěng",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "cold",
+          "fr": "froid"
+        },
+        "french": "froid",
+        "english": "cold",
+        "partOfSpeech": "adjectif"
+      },
+      {
+        "id": "card-hsk1-148",
+        "lessonId": "lesson-hsk1-adjectifs",
+        "hanzi": "热",
+        "pinyin": "rè",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "hot",
+          "fr": "chaud"
+        },
+        "french": "chaud",
+        "english": "hot",
+        "partOfSpeech": "adjectif"
+      },
+      {
+        "id": "card-hsk1-149",
+        "lessonId": "lesson-hsk1-adjectifs",
+        "hanzi": "高兴",
+        "pinyin": "gāoxìng",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "happy",
+          "fr": "content, heureux"
+        },
+        "french": "content, heureux",
+        "english": "happy",
+        "partOfSpeech": "adjectif"
+      },
+      {
+        "id": "card-hsk1-150",
+        "lessonId": "lesson-hsk1-adjectifs",
+        "hanzi": "漂亮",
+        "pinyin": "piàoliang",
+        "pinyinEnabled": true,
+        "translation": {
+          "en": "beautiful",
+          "fr": "joli, beau"
+        },
+        "french": "joli, beau",
+        "english": "beautiful",
+        "partOfSpeech": "adjectif"
+      }
+    ],
+    "vocabularyRefs": [],
+    "packId": "hsk1"
+  }
+]

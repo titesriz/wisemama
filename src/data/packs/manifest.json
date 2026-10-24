@@ -8,5 +8,10 @@
     "id": "legacy-test",
     "name": "Legacy / Test",
     "description": "Ancien contenu de test, hors programme numéroté."
+  },
+  {
+    "id": "hsk1",
+    "name": "HSK 1 (vocabulaire)",
+    "description": "Les 150 mots du HSK niveau 1, classes par categorie grammaticale."
   }
 ]

@@ -3,6 +3,7 @@ import defaultLessons from '../data/lessons.json';
 import packManifest from '../data/packs/manifest.json';
 import packCore from '../data/packs/core.json';
 import packLegacyTest from '../data/packs/legacy-test.json';
+import packHsk1 from '../data/packs/hsk1.json';
 import bundledCharacterDb from '../data/character-database.json';
 import bundledVocabularyDb from '../data/vocabulary-database.json';
 import { enrichCharacterDatabase, enrichCharacterRecord } from '../lib/characterStructure.js';
@@ -29,7 +30,7 @@ const LessonsContext = createContext(null);
 // pack can be toggled off (hidden everywhere) or exported on its own without
 // touching the rest of the content. Each pack file is a flat lesson array
 // already tagged with its own packId - just concatenate them.
-const PACK_FILES = { core: packCore, 'legacy-test': packLegacyTest };
+const PACK_FILES = { core: packCore, 'legacy-test': packLegacyTest, hsk1: packHsk1 };
 const enabledPacksStorageKey = 'wisemama-enabled-packs';
 
 function buildBundledPackedLessons() {
