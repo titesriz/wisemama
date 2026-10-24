@@ -52,11 +52,8 @@ export default function CharacterGlossChar({ char, entry, trigger = 'click', cla
   // Most characters were never touched by simplification (是, 我, 你...), so
   // this is only ever meaningful when a traditional form is both known AND
   // actually differs from the simplified one. Which of the two is shown as
-  // the main glyph follows the parent-set script preference; the other one
-  // (whichever it is) becomes the secondary hint in the popover, labelled by
-  // which script it belongs to - a differing form with no data available
-  // (a genuine gap) correctly shows nothing extra, same as any other missing
-  // field on `entry`.
+  // the main glyph follows the parent-set script preference - the popover
+  // itself stays text-only (pinyin + translation), no hanzi, by design.
   const hasTraditional = entry.traditional && entry.traditional !== char;
   const showTraditionalPrimary = scriptMode === 'traditional' && hasTraditional;
   const primaryChar = showTraditionalPrimary ? entry.traditional : char;
@@ -65,11 +62,6 @@ export default function CharacterGlossChar({ char, entry, trigger = 'click', cla
     <span className="char-gloss-popover" role="tooltip">
       <strong>{formatPinyinDisplay(entry.pinyin || '')}</strong>
       <span>{entry.french || entry.english || 'Traduction non disponible'}</span>
-      {hasTraditional ? (
-        <span className="char-gloss-traditional">
-          {showTraditionalPrimary ? `简 ${char}` : `繁 ${entry.traditional}`}
-        </span>
-      ) : null}
     </span>
   );
 
