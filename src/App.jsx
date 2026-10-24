@@ -1553,8 +1553,9 @@ export default function App() {
   }
 
   if (standaloneView === STANDALONE_VIEW.HSK_WORDS) {
-    return (
+    return withShell(
       <HskWordPage
+        shellHeader
         profile={activeProfile}
         word={hskWords[hskWordIndex] || null}
         wordIndex={hskWordIndex}
@@ -1574,7 +1575,15 @@ export default function App() {
           }
         }}
         onOpenPicker={() => setStandaloneView(STANDALONE_VIEW.HSK_SELECT)}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'HSK1' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 
@@ -1616,8 +1625,9 @@ export default function App() {
   }
 
   if (standaloneView === STANDALONE_VIEW.HSK_QUIZ) {
-    return (
+    return withShell(
       <HskQuizPage
+        shellHeader
         profile={activeProfile}
         words={hskWords}
         onBack={() => {
@@ -1629,7 +1639,16 @@ export default function App() {
             setStandaloneView(STANDALONE_VIEW.HSK_WORDS);
           }
         }}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'HSK1', onClick: () => setStandaloneView(STANDALONE_VIEW.HSK_WORDS) },
+          { label: 'Évaluation' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 
@@ -2153,8 +2172,9 @@ export default function App() {
   }
 
   if (standaloneView === STANDALONE_VIEW.THEME_SELECT) {
-    return (
+    return withShell(
       <ChoiceHubPage
+        shellHeader
         title="Par thème"
         subtitle="Chaque carte propose Lire, Écrire et Quiz"
         choices={[
@@ -2169,7 +2189,15 @@ export default function App() {
           { key: 'radicals', label: 'Radicaux', onSelect: openRadicalDeckFromLanding },
         ]}
         onBack={() => setStandaloneView(STANDALONE_VIEW.VOCAB_HUB)}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Vocabulaire', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Par thème' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 

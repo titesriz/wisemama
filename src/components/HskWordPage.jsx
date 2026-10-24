@@ -26,8 +26,10 @@ export default function HskWordPage({
   onPrev,
   onNext,
   onBack,
+  onGoHome,
   onSwitchModule,
   onOpenPicker,
+  shellHeader = false,
 }) {
   const characters = useMemo(() => Array.from(word?.hanzi || ''), [word?.hanzi]);
   const isCompound = characters.length > 1;
@@ -46,10 +48,12 @@ export default function HskWordPage({
       activeModule="flashcards"
       modes={['flashcards', 'writing', 'quiz']}
       onBack={onBack}
+      onGoHome={onGoHome}
       onPrev={onPrev}
       onNext={onNext}
       onSwitchModule={onSwitchModule}
       onOpenPicker={onOpenPicker}
+      shellHeader={shellHeader}
     >
       <div className="module-card-center wm-enter-fade">
         <div className="module-hanzi-large">
