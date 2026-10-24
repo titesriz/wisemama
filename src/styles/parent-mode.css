@@ -218,6 +218,27 @@
   font-size: 14px;
 }
 
+.pack-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: var(--wm-radius-sm);
+  border: 1px solid var(--parent-border);
+  background: var(--wm-color-surface);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--parent-text-soft);
+  cursor: pointer;
+}
+
+.pack-toggle:has(input:checked) {
+  border-color: var(--wm-color-accent);
+  color: var(--parent-text-strong);
+  background: var(--wm-color-surface-soft);
+}
+
 .parent-grid {
   display: grid;
   gap: 10px;

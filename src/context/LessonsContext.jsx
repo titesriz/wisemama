@@ -1,6 +1,8 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import defaultLessons from '../data/lessons.json';
-import bundledLessonsV2 from '../data/lessons-v2.json';
+import packManifest from '../data/packs/manifest.json';
+import packCore from '../data/packs/core.json';
+import packLegacyTest from '../data/packs/legacy-test.json';
 import bundledCharacterDb from '../data/character-database.json';
 import bundledVocabularyDb from '../data/vocabulary-database.json';
 import { enrichCharacterDatabase, enrichCharacterRecord } from '../lib/characterStructure.js';
@@ -22,6 +24,39 @@ import { migrateFromLocalStorageV1, migrateLessonsV1ToV2 } from '../utils/databa
 const lessonsStorageKey = 'wisemama-lessons-ui-v2';
 const lessonsStorageVersion = '2026-03-11-v2-ui';
 const LessonsContext = createContext(null);
+
+// Lesson packs: separate bundled files instead of one lessons-v2.json, so a
+// pack can be toggled off (hidden everywhere) or exported on its own without
+// touching the rest of the content. Each pack file is a flat lesson array
+// already tagged with its own packId - just concatenate them.
+const PACK_FILES = { core: packCore, 'legacy-test': packLegacyTest };
+const enabledPacksStorageKey = 'wisemama-enabled-packs';
+
+function buildBundledPackedLessons() {
+  return packManifest.flatMap((pack) => {
+    const lessons = PACK_FILES[pack.id];
+    return Array.isArray(lessons) ? lessons : [];
+  });
+}
+
+function loadEnabledPackIds() {
+  try {
+    const raw = localStorage.getItem(enabledPacksStorageKey);
+    if (!raw) return packManifest.map((pack) => pack.id);
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : packManifest.map((pack) => pack.id);
+  } catch {
+    return packManifest.map((pack) => pack.id);
+  }
+}
+
+function saveEnabledPackIds(ids) {
+  try {
+    localStorage.setItem(enabledPacksStorageKey, JSON.stringify(ids));
+  } catch {
+    // no-op
+  }
+}
 
 function safeString(value, fallback = '') {
   if (typeof value !== 'string') return fallback;
@@ -137,6 +172,7 @@ function normalizeLesson(lesson, index = 0) {
     cards,
     vocabulary,
     vocabularyRefs: Array.isArray(lesson?.vocabularyRefs) ? lesson.vocabularyRefs : [],
+    packId: safeString(lesson?.packId, ''),
   };
 }
 
@@ -375,7 +411,12 @@ function getNextLessonOrder(lessons = []) {
 }
 
 export function LessonsProvider({ children }) {
-  const [lessons, setLessons] = useState(() => []);
+  const [allLessons, setAllLessons] = useState(() => []);
+  const [enabledPackIds, setEnabledPackIds] = useState(() => loadEnabledPackIds());
+  const lessons = useMemo(
+    () => allLessons.filter((lesson) => !lesson.packId || enabledPackIds.includes(lesson.packId)),
+    [allLessons, enabledPackIds],
+  );
   const [activeLessonId, setActiveLessonId] = useState(null);
 
   useEffect(() => {
@@ -395,8 +436,9 @@ export function LessonsProvider({ children }) {
       if (!v2Lessons.length) {
         const migrated = migrateFromLocalStorageV1({ reset: true });
         if (!migrated?.ok) {
-          if (Array.isArray(bundledLessonsV2) && bundledLessonsV2.length) {
-            localStorage.setItem('lessons-v2', JSON.stringify(bundledLessonsV2));
+          const bundledPackedLessons = buildBundledPackedLessons();
+          if (bundledPackedLessons.length) {
+            localStorage.setItem('lessons-v2', JSON.stringify(bundledPackedLessons));
             if (bundledCharacterDb && typeof bundledCharacterDb === 'object') {
               localStorage.setItem('character-database', JSON.stringify(enrichCharacterDatabase(bundledCharacterDb)));
             }
@@ -411,7 +453,7 @@ export function LessonsProvider({ children }) {
       }
       hydrateStoredCharacters();
       const refreshed = v2Lessons.map((lesson) => expandLessonFromV2(lesson));
-      setLessons(getLessonsByOrder(refreshed));
+      setAllLessons(getLessonsByOrder(refreshed));
     };
 
     try {
@@ -428,7 +470,7 @@ export function LessonsProvider({ children }) {
     } catch {
       migrateLessonsV1ToV2(defaultLessons, { reset: true });
       const refreshed = getAllLessonsV2().map((lesson) => expandLessonFromV2(lesson));
-      setLessons(getLessonsByOrder(refreshed));
+      setAllLessons(getLessonsByOrder(refreshed));
       setActiveLessonId(refreshed[0]?.id || null);
     }
   }, []);
@@ -467,7 +509,7 @@ export function LessonsProvider({ children }) {
       notes: '',
     });
     const expanded = expandLessonFromV2(lesson);
-    setLessons((prev) => getLessonsByOrder([...prev, expanded]));
+    setAllLessons((prev) => getLessonsByOrder([...prev, expanded]));
     setActiveLessonId(lesson.id);
     return lesson.id;
   };
@@ -475,17 +517,17 @@ export function LessonsProvider({ children }) {
   const removeLesson = (lessonId) => {
     deleteLessonV2(lessonId);
     const refreshed = getAllLessonsV2().map((lesson) => expandLessonFromV2(lesson));
-    setLessons(getLessonsByOrder(refreshed));
+    setAllLessons(getLessonsByOrder(refreshed));
   };
 
   const updateLessonTitle = (lessonId, title) => {
     updateLessonV2(lessonId, { title, lastUpdated: stampNow() });
     const refreshed = getAllLessonsV2().map((lesson) => expandLessonFromV2(lesson));
-    setLessons(getLessonsByOrder(refreshed));
+    setAllLessons(getLessonsByOrder(refreshed));
   };
 
   const addCard = (lessonId) => {
-    setLessons((prev) =>
+    setAllLessons((prev) =>
       prev.map((lesson) =>
         lesson.id === lessonId
           ? {
@@ -499,7 +541,7 @@ export function LessonsProvider({ children }) {
   };
 
   const removeCard = (lessonId, cardId) => {
-    setLessons((prev) =>
+    setAllLessons((prev) =>
       prev.map((lesson) => {
         if (lesson.id !== lessonId) return lesson;
         return { ...lesson, cards: lesson.cards.filter((card) => card.id !== cardId), updatedAt: stampNow() };
@@ -508,7 +550,7 @@ export function LessonsProvider({ children }) {
   };
 
   const moveCard = (lessonId, cardId, direction) => {
-    setLessons((prev) =>
+    setAllLessons((prev) =>
       prev.map((lesson) => {
         if (lesson.id !== lessonId) return lesson;
         const idx = lesson.cards.findIndex((card) => card.id === cardId);
@@ -524,7 +566,7 @@ export function LessonsProvider({ children }) {
   };
 
   const updateCard = (lessonId, cardId, patch) => {
-    setLessons((prev) =>
+    setAllLessons((prev) =>
       prev.map((lesson) => {
         if (lesson.id !== lessonId) return lesson;
         return {
@@ -563,7 +605,7 @@ export function LessonsProvider({ children }) {
     cards.forEach((card) => upsertCharacterFromCard(card, lesson.id));
     extractUniqueChars(sourceText).forEach((char) => upsertCharacterFromSource(char, lesson.id));
     const refreshed = getAllLessonsV2().map((item) => expandLessonFromV2(item));
-    setLessons(getLessonsByOrder(refreshed));
+    setAllLessons(getLessonsByOrder(refreshed));
     setActiveLessonId(lesson.id);
     return expandLessonFromV2(lesson);
   };
@@ -592,14 +634,14 @@ export function LessonsProvider({ children }) {
       extractUniqueChars(patch.sourceText).forEach((char) => upsertCharacterFromSource(char, lessonId));
     }
     const refreshed = getAllLessonsV2().map((lesson) => expandLessonFromV2(lesson));
-    setLessons(getLessonsByOrder(refreshed));
+    setAllLessons(getLessonsByOrder(refreshed));
   };
 
   const duplicateLesson = (lessonId) => {
     const duplicated = duplicateLessonV2(lessonId);
     if (!duplicated) return null;
     const refreshed = getAllLessonsV2().map((lesson) => expandLessonFromV2(lesson));
-    setLessons(getLessonsByOrder(refreshed));
+    setAllLessons(getLessonsByOrder(refreshed));
     setActiveLessonId(duplicated.id);
     return expandLessonFromV2(duplicated);
   };
@@ -610,28 +652,29 @@ export function LessonsProvider({ children }) {
     }
     migrateLessonsV1ToV2(payload, { reset: true });
     const refreshed = getAllLessonsV2().map((lesson) => expandLessonFromV2(lesson));
-    setLessons(getLessonsByOrder(refreshed));
+    setAllLessons(getLessonsByOrder(refreshed));
     setActiveLessonId((prev) => (refreshed.some((lesson) => lesson.id === prev) ? prev : refreshed[0]?.id || null));
   };
 
   const resetLessonsToDefault = () => {
     migrateLessonsV1ToV2(defaultLessons, { reset: true });
     const refreshed = getAllLessonsV2().map((lesson) => expandLessonFromV2(lesson));
-    setLessons(getLessonsByOrder(refreshed));
+    setAllLessons(getLessonsByOrder(refreshed));
     setActiveLessonId(refreshed[0]?.id || null);
   };
 
   const refreshBundledLessons = () => {
-    if (Array.isArray(bundledLessonsV2) && bundledLessonsV2.length) {
-      localStorage.setItem('lessons-v2', JSON.stringify(bundledLessonsV2));
+    const bundledPackedLessons = buildBundledPackedLessons();
+    if (bundledPackedLessons.length) {
+      localStorage.setItem('lessons-v2', JSON.stringify(bundledPackedLessons));
       if (bundledCharacterDb && typeof bundledCharacterDb === 'object') {
         localStorage.setItem('character-database', JSON.stringify(enrichCharacterDatabase(bundledCharacterDb)));
       }
       if (Array.isArray(bundledVocabularyDb)) {
         localStorage.setItem('vocabulary-database', JSON.stringify(bundledVocabularyDb));
       }
-      const refreshed = bundledLessonsV2.map((lesson) => expandLessonFromV2(lesson));
-      setLessons(getLessonsByOrder(refreshed));
+      const refreshed = bundledPackedLessons.map((lesson) => expandLessonFromV2(lesson));
+      setAllLessons(getLessonsByOrder(refreshed));
       setActiveLessonId((prev) => (refreshed.some((lesson) => lesson.id === prev) ? prev : refreshed[0]?.id || null));
       return true;
     }
@@ -655,6 +698,23 @@ export function LessonsProvider({ children }) {
     return firstId;
   };
 
+  const getPacks = () =>
+    packManifest.map((pack) => ({
+      ...pack,
+      enabled: enabledPackIds.includes(pack.id),
+      lessonCount: allLessons.filter((lesson) => lesson.packId === pack.id).length,
+    }));
+
+  const setPackEnabled = (packId, enabled) => {
+    setEnabledPackIds((prev) => {
+      const next = enabled ? [...new Set([...prev, packId])] : prev.filter((id) => id !== packId);
+      saveEnabledPackIds(next);
+      return next;
+    });
+  };
+
+  const getPackLessons = (packId) => allLessons.filter((lesson) => lesson.packId === packId);
+
   const value = useMemo(
     () => ({
       lessons,
@@ -675,8 +735,11 @@ export function LessonsProvider({ children }) {
       setActiveLesson,
       getActiveLesson,
       ensureActiveLesson,
+      getPacks,
+      setPackEnabled,
+      getPackLessons,
     }),
-    [activeLessonId, lessons],
+    [activeLessonId, lessons, allLessons, enabledPackIds],
   );
 
   return <LessonsContext.Provider value={value}>{children}</LessonsContext.Provider>;

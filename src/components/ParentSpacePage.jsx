@@ -18,6 +18,9 @@ export default function ParentSpacePage({
   onDeleteLesson,
   onDuplicateLesson,
   onSelectLesson,
+  packs = [],
+  onSetPackEnabled,
+  onExportPack,
 }) {
   const [fontChoice, setFontChoice] = useState(getHanziFontPreference());
   const childProfile = profiles.find((profile) => profile.role === 'child') || profiles[0] || null;
@@ -66,6 +69,49 @@ export default function ParentSpacePage({
         onDuplicateLesson={onDuplicateLesson}
         onSelectLesson={onSelectLesson}
       />
+
+      <section className="parent-panel" aria-label="Packs de lecons">
+        <div className="parent-panel-head">
+          <h3>Packs de leçons</h3>
+        </div>
+        <p className="parent-panel-subtitle">
+          Active ou désactive un pack pour le cacher partout dans l'app, ou exporte-le à part.
+        </p>
+        {packs.length ? (
+          <div className="parent-list">
+            {packs.map((pack) => (
+              <article key={pack.id} className="parent-list-item">
+                <div>
+                  <strong>{pack.name}</strong>
+                  <p>
+                    {pack.lessonCount} leçon{pack.lessonCount !== 1 ? 's' : ''}
+                    {pack.description ? ` · ${pack.description}` : ''}
+                  </p>
+                </div>
+                <div className="parent-list-actions">
+                  <button
+                    type="button"
+                    className="vocab-select-btn ui-pressable"
+                    onClick={() => onExportPack?.(pack.id)}
+                  >
+                    Exporter
+                  </button>
+                  <label className="pack-toggle">
+                    <input
+                      type="checkbox"
+                      checked={pack.enabled}
+                      onChange={(event) => onSetPackEnabled?.(pack.id, event.target.checked)}
+                    />
+                    <span>{pack.enabled ? 'Actif' : 'Désactivé'}</span>
+                  </label>
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <p className="parent-empty">Aucun pack disponible.</p>
+        )}
+      </section>
 
       <section className="parent-panel" aria-label="Progres par lecon">
         <div className="parent-panel-head">

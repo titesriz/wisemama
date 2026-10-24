@@ -208,6 +208,9 @@ export default function App() {
     updateLesson,
     removeLesson,
     duplicateLesson,
+    getPacks,
+    setPackEnabled,
+    getPackLessons,
   } = useLessons();
   const activeLesson = lessonOptions.find((lesson) => lesson.id === activeLessonId) || null;
   const [cardIndex, setCardIndex] = useState(0);
@@ -1318,6 +1321,24 @@ export default function App() {
     setTutorialStep((prev) => prev + 1);
   };
 
+  const exportPack = (packId) => {
+    const pack = getPacks().find((item) => item.id === packId);
+    if (!pack) return;
+    const payload = {
+      packId: pack.id,
+      name: pack.name,
+      description: pack.description,
+      lessons: getPackLessons(packId),
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = `wisemama-pack-${pack.id}.json`;
+    anchor.click();
+    URL.revokeObjectURL(url);
+  };
+
   if (showParentSpace) {
     return (
       <ParentSpacePage
@@ -1334,6 +1355,9 @@ export default function App() {
           setActiveLesson(id);
           setCardIndex(0);
         }}
+        packs={getPacks()}
+        onSetPackEnabled={setPackEnabled}
+        onExportPack={exportPack}
       />
     );
   }

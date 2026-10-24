@@ -1,0 +1,12 @@
+[
+  {
+    "id": "core",
+    "name": "Leçons principales",
+    "description": "Le programme numéroté en cours (Leçon 1 à 14)."
+  },
+  {
+    "id": "legacy-test",
+    "name": "Legacy / Test",
+    "description": "Ancien contenu de test, hors programme numéroté."
+  }
+]
