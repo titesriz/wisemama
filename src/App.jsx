@@ -918,6 +918,8 @@ export default function App() {
     }
   };
 
+  // DEPRECATED - unreachable (not wired to any tap handler in
+  // LessonTextView). See openWritingFromLanding's comment above.
   const openCharacterPracticeFromLessonText = (char) => {
     const targetLesson = lessonOptions.find((lesson) => lesson.id === lessonTextLessonId);
     if (!targetLesson || !char) return;
@@ -1043,6 +1045,11 @@ export default function App() {
     setEnteredApp(false);
   };
 
+  // DEPRECATED - confirmed unreachable (header-consistency audit, 2026):
+  // not called from any button/handler anywhere in this file. FLASHCARDS,
+  // AUDIO and LEARNING_FLOW only cross-link to each other and back to these
+  // three, so the whole loop is dead. Safe to delete along with the
+  // FLASHCARDS/AUDIO/LEARNING_FLOW render branches and their components.
   const openFlashcardsFromLanding = () => {
     const childProfile = profiles.find((profile) => profile.role === 'child') || profiles[0];
     if (!childProfile) return;
@@ -1051,6 +1058,7 @@ export default function App() {
     openStandaloneModule(STANDALONE_VIEW.FLASHCARDS, MODULES.FLASHCARDS);
   };
 
+  // DEPRECATED - unreachable, same as openFlashcardsFromLanding above.
   const openAudioFromLanding = () => {
     const childProfile = profiles.find((profile) => profile.role === 'child') || profiles[0];
     if (!childProfile) return;
@@ -1059,6 +1067,12 @@ export default function App() {
     openStandaloneModule(STANDALONE_VIEW.AUDIO, MODULES.AUDIO);
   };
 
+  // DEPRECATED - unreachable. Unlike the two above, STANDALONE_VIEW.WRITING
+  // itself is very much alive via startJourneyFromLessonText (the real
+  // "Ecriture" entry point) - only this specific unused function, and the
+  // non-journey render sub-case it would have led to, are dead.
+  // openCharacterPracticeFromLessonText (character-tap-to-practice) is
+  // also unreferenced - same situation.
   const openWritingFromLanding = () => {
     const childProfile = profiles.find((profile) => profile.role === 'child') || profiles[0];
     if (!childProfile) return;
@@ -1246,6 +1260,8 @@ export default function App() {
     setEnteredApp(false);
   };
 
+  // DEPRECATED - confirmed unreachable (header-consistency audit, 2026):
+  // not called from any button/handler anywhere in this file.
   const openFontTestFromLanding = () => {
     setShowDailyRituel(false);
     setStandaloneView(STANDALONE_VIEW.FONT_TEST);
@@ -1423,6 +1439,9 @@ export default function App() {
     }
   }
 
+  // DEPRECATED - confirmed unreachable (header-consistency audit, 2026):
+  // no setter for this view anywhere in the file besides this render guard.
+  // Safe to delete along with RadicalDiscoveryPage.jsx.
   if (standaloneView === STANDALONE_VIEW.RADICAL_DISCOVERY) {
     const lessonForDiscovery = lessonOptions.find((l) => l.id === (lessonTextLessonId || activeLessonId)) || activeLesson;
     return (
@@ -2542,6 +2561,9 @@ export default function App() {
     );
   }
 
+  // DEPRECATED - confirmed unreachable (header-consistency audit, 2026):
+  // see openFlashcardsFromLanding's comment above. Safe to delete along
+  // with FlashcardOnlyPage.jsx.
   if (standaloneView === STANDALONE_VIEW.FLASHCARDS) {
     return (
       <FlashcardOnlyPage
@@ -2584,6 +2606,9 @@ export default function App() {
     );
   }
 
+  // DEPRECATED - confirmed unreachable (header-consistency audit, 2026):
+  // see openAudioFromLanding's comment above. Safe to delete along with
+  // AudioOnlyPage.jsx.
   if (standaloneView === STANDALONE_VIEW.AUDIO) {
     return (
       <AudioOnlyPage
@@ -2627,6 +2652,10 @@ export default function App() {
     );
   }
 
+  // DEPRECATED - confirmed unreachable (header-consistency audit, 2026):
+  // only reached from FLASHCARDS'/AUDIO's own onSwitchModule cross-links,
+  // which are themselves unreachable. Safe to delete along with
+  // UnifiedLearningFlow.jsx.
   if (standaloneView === STANDALONE_VIEW.LEARNING_FLOW) {
     if (!activeLesson || !currentCard) {
       return (
@@ -2696,6 +2725,8 @@ export default function App() {
     );
   }
 
+  // DEPRECATED - confirmed unreachable (header-consistency audit, 2026):
+  // no setter for this view anywhere in the file besides this render guard.
   if (standaloneView === STANDALONE_VIEW.LESSON_BETA) {
     if (!isDevMode) {
       setStandaloneView(STANDALONE_VIEW.NONE);
@@ -2729,6 +2760,9 @@ export default function App() {
     );
   }
 
+  // DEPRECATED - confirmed unreachable (header-consistency audit, 2026):
+  // see openFontTestFromLanding's comment above. Safe to delete along with
+  // ChineseFontTestPage.jsx.
   if (standaloneView === STANDALONE_VIEW.FONT_TEST) {
     return (
       <ChineseFontTestPage
