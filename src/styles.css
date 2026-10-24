@@ -3998,6 +3998,44 @@ body {
   align-items: flex-start;
 }
 
+.writing-setup-step-title {
+  margin: 0 0 10px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #2d3436;
+}
+
+.writing-setup-presets {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  overflow-x: auto;
+}
+
+.writing-setup-preset {
+  flex: 1 1 0;
+  min-width: 84px;
+  height: 38px;
+  border-radius: 12px;
+  border: 2px solid #d8deea;
+  background: #fff;
+  color: #636e72;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.writing-setup-preset.active {
+  border-color: #9b8cf0;
+  background: #9b8cf0;
+  color: #fff;
+}
+
+.writing-setup-preset:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
 .vocab-select-btns {
   display: flex;
   flex-direction: column;

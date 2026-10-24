@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import AvatarRenderer from './AvatarRenderer.jsx';
 import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
 import { getAllSeenCharsBefore, getLessonsByOrder } from '../utils/lessons/lessonOrder.js';
+import { getSavedWritingSelection, saveWritingSelection } from '../lib/writingSelection.js';
 
 function shuffle(list) {
   const next = [...list];
@@ -42,10 +43,12 @@ export default function LessonWritingSetupPage({
 }) {
   const [selectedCardIds, setSelectedCardIds] = useState(() => new Set((lesson?.cards || []).map((card) => card.id)));
   const [showLessonPicker, setShowLessonPicker] = useState(false);
+  const [savedSelectionIds, setSavedSelectionIds] = useState(() => getSavedWritingSelection(lesson?.id));
   const lessonPickerRef = useRef(null);
 
   useEffect(() => {
     setSelectedCardIds(new Set((lesson?.cards || []).map((card) => card.id)));
+    setSavedSelectionIds(getSavedWritingSelection(lesson?.id));
   }, [lesson?.id, lesson?.cards]);
 
   useEffect(() => {
@@ -100,18 +103,41 @@ export default function LessonWritingSetupPage({
 
   const journeyStartCard = lesson?.cards?.[journeyStartIndex] || null;
 
+  // Characters never met in an earlier lesson, regardless of practice progress.
+  const newCardIds = useMemo(
+    () => (lesson?.cards || [])
+      .filter((card) => card?.hanzi && !Array.from(String(card.hanzi)).some((char) => seenCharsBeforeSet.has(char)))
+      .map((card) => card.id),
+    [lesson?.cards, seenCharsBeforeSet],
+  );
+
+  // Only manual taps update the remembered selection; the presets never overwrite it.
   const toggleVocabularySelection = (cardId) => {
-    setSelectedCardIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(cardId)) next.delete(cardId);
-      else next.add(cardId);
-      return next;
-    });
+    const next = new Set(selectedCardIds);
+    if (next.has(cardId)) next.delete(cardId);
+    else next.add(cardId);
+    setSelectedCardIds(next);
+    const ids = [...next];
+    setSavedSelectionIds(ids);
+    saveWritingSelection(lesson?.id, ids);
   };
 
-  const setAllVocabularySelection = (shouldSelect) => {
-    setSelectedCardIds(shouldSelect ? new Set(vocabulary.map((item) => item.id)) : new Set());
-  };
+  const selectionPresets = useMemo(() => {
+    const validIds = new Set(vocabulary.map((item) => item.id));
+    return [
+      { id: 'all', label: 'Tous', ids: vocabulary.map((item) => item.id) },
+      { id: 'new', label: 'Nouveaux', ids: newCardIds.filter((id) => validIds.has(id)) },
+      { id: 'saved', label: 'Sélection', ids: savedSelectionIds.filter((id) => validIds.has(id)) },
+      { id: 'none', label: 'Aucun', ids: [] },
+    ];
+  }, [vocabulary, newCardIds, savedSelectionIds]);
+
+  const activePresetId = useMemo(() => {
+    const match = selectionPresets.find((preset) => (
+      preset.ids.length === selectedCardIds.size && preset.ids.every((id) => selectedCardIds.has(id))
+    ));
+    return match?.id || null;
+  }, [selectionPresets, selectedCardIds]);
 
   const startWriting = () => {
     onChangeWritingDifficulty?.(1);
@@ -209,6 +235,21 @@ export default function LessonWritingSetupPage({
           )}
 
       <div className="vocabulary-section lesson-text-vocab writing-setup-section">
+        <h2 className="writing-setup-step-title">1) Choisis les caractères</h2>
+        <div className="writing-setup-presets" role="group" aria-label="Choix des caractères">
+          {selectionPresets.map((preset) => (
+            <button
+              key={preset.id}
+              type="button"
+              className={`writing-setup-preset ui-pressable ${activePresetId === preset.id ? 'active' : ''}`}
+              aria-pressed={activePresetId === preset.id}
+              disabled={preset.id !== 'none' && preset.ids.length === 0}
+              onClick={() => setSelectedCardIds(new Set(preset.ids))}
+            >
+              {preset.label}
+            </button>
+          ))}
+        </div>
         <div className="vocab-section-header">
           <span className="vocab-count">
             {selectedVocabulary.length === 0
@@ -254,14 +295,6 @@ export default function LessonWritingSetupPage({
           </div>
         </div>
         <div className="vocab-grid-with-controls">
-          <div className="vocab-select-btns">
-            <button type="button" className="vocab-select-btn ui-pressable" onClick={() => setAllVocabularySelection(true)}>
-              Tous
-            </button>
-            <button type="button" className="vocab-select-btn ui-pressable" onClick={() => setAllVocabularySelection(false)}>
-              Aucun
-            </button>
-          </div>
           <div className="vocabulary-grid">
             {vocabulary.map((item) => (
               <button
