@@ -315,6 +315,9 @@ export default function ModuleFrame({
 
       <div className="module-top-row">
         {resolvedTypeLabel ? <div className="module-card-type-badge">{resolvedTypeLabel}</div> : <span />}
+        {!isComplete && queue.length ? (
+          <div className="module-progress-counter">{position + 1}/{queue.length}</div>
+        ) : null}
         <div className="writing-sound-controls">
           <button
             type="button"
