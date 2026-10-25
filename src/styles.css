@@ -5631,11 +5631,19 @@ body {
   border-bottom: 1px solid #e7ebf2;
 }
 
+.writing-char-block {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
 .writing-char-reveal-full {
   position: relative;
-  flex: 0 0 auto;
-  width: 128px;
-  min-height: 92px;
+  width: 77px;
+  height: 92px;
+  box-sizing: border-box;
 }
 
 .writing-char-reveal-toggle {
@@ -5648,15 +5656,15 @@ body {
   position: absolute;
   top: 4px;
   right: 4px;
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
   min-width: 0;
   padding: 0;
   border: none;
   border-radius: 999px;
   background: rgba(255, 107, 107, 0.14);
   color: #ff6b6b;
-  font-size: 13px;
+  font-size: 12px;
   line-height: 1;
   display: inline-flex;
   align-items: center;
@@ -5676,27 +5684,16 @@ body {
   line-height: 1.1;
 }
 
-.writing-stroke-count {
-  flex: 0 0 auto;
-  width: 92px;
-  min-height: 92px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 14px;
-  border: 2px solid #ff6b6b;
-  background: #fff;
-  color: #2d3436;
-  font-size: 18px;
+.writing-stroke-count-label {
+  font-size: 13px;
   font-weight: 800;
+  color: #ff6b6b;
   text-align: center;
 }
 
 .writing-top-row .stroke-preview-band {
   flex: 1 1 0;
   min-width: 0;
-  align-self: center;
-  height: 92px;
   padding: 0 8px;
   min-height: 0;
   background: transparent;
@@ -5710,21 +5707,11 @@ body {
 
 
 
-/* Same row height and card size in every lesson mode so the canvas never shifts. */
+/* Same row height in every lesson mode so the canvas never shifts; the guide
+   stretches (align-items: stretch, inherited from .writing-top-row) to match
+   the left char-block's natural height instead of a hardcoded value. */
 .writing-top-row {
-  min-height: 112px;
-}
-
-.writing-char-reveal-full {
-  height: 92px;
-  min-height: 0;
-  box-sizing: border-box;
-}
-
-.writing-stroke-count {
-  height: 92px;
-  min-height: 0;
-  box-sizing: border-box;
+  min-height: 120px;
 }
 
 .writing-top-row .writing-analysis {

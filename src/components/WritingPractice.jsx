@@ -708,41 +708,43 @@ export default function WritingPractice({
 
       {isRowLayout ? (
         <div className={`writing-top-row`}>
-          <div className="writing-char-reveal-full">
-            <button
-              type="button"
-              className="writing-char-reveal writing-char-reveal-toggle ui-pressable"
-              onClick={() => {
-                if (isDicteeMode) return;
-                sounds.playTap();
-                setShowCharInfo((prev) => !prev);
-              }}
-            >
-              <span className="writing-char-reveal-pinyin">
-                {card?.pinyinEnabled === false ? '' : formatPinyinDisplay(card?.pinyin || '')}
-              </span>
-              {isDicteeMode ? null : showCharInfo ? (
-                <span className="writing-char-reveal-hanzi">{convert(targetChar)}</span>
-              ) : (
-                <span className="writing-char-reveal-label">Voir le caractere</span>
-              )}
-              <span className="writing-char-reveal-french">{card?.french || ''}</span>
-            </button>
-            <button
-              type="button"
-              className="writing-char-reveal-sound ui-pressable"
-              onClick={playCardAudio}
-              disabled={!audioSrc && !targetChar}
-              aria-label="Ecouter le son"
-            >
-              🔊
-            </button>
-          </div>
-          {showStrokeCount ? (
-            <div className="writing-stroke-count" aria-label="Nombre de traits">
-              {totalStrokes ? `${totalStrokes} ${totalStrokes > 1 ? 'traits' : 'trait'}` : '…'}
+          <div className="writing-char-block">
+            <div className="writing-char-reveal-full">
+              <button
+                type="button"
+                className="writing-char-reveal writing-char-reveal-toggle ui-pressable"
+                onClick={() => {
+                  if (isDicteeMode) return;
+                  sounds.playTap();
+                  setShowCharInfo((prev) => !prev);
+                }}
+              >
+                <span className="writing-char-reveal-pinyin">
+                  {card?.pinyinEnabled === false ? '' : formatPinyinDisplay(card?.pinyin || '')}
+                </span>
+                {isDicteeMode ? null : showCharInfo ? (
+                  <span className="writing-char-reveal-hanzi">{convert(targetChar)}</span>
+                ) : (
+                  <span className="writing-char-reveal-label">Voir le caractere</span>
+                )}
+                <span className="writing-char-reveal-french">{card?.french || ''}</span>
+              </button>
+              <button
+                type="button"
+                className="writing-char-reveal-sound ui-pressable"
+                onClick={playCardAudio}
+                disabled={!audioSrc && !targetChar}
+                aria-label="Ecouter le son"
+              >
+                🔊
+              </button>
             </div>
-          ) : null}
+            {showStrokeCount ? (
+              <div className="writing-stroke-count-label" aria-label="Nombre de traits">
+                {totalStrokes ? `${totalStrokes} ${totalStrokes > 1 ? 'traits' : 'trait'}` : '…'}
+              </div>
+            ) : null}
+          </div>
           {writingMode === 'moyen' ? analysisPanel : strokeBand}
           {audioSrc ? <audio ref={audioRef} src={audioSrc} preload="auto" /> : null}
         </div>
