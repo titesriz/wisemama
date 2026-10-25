@@ -594,6 +594,7 @@ export default function WritingPractice({
           <div className="radical-stroke-step-canvas writing-celebration-step-canvas" aria-label="Bravo">
             <span className="writing-celebration-emoji">{celebrationEmoji}</span>
           </div>
+          <div className="writing-celebration-label">Bravo !</div>
         </div>
       ) : null}
     </div>

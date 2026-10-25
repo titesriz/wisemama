@@ -3064,10 +3064,11 @@ body {
   touch-action: none;
 }
 
-.writing-celebration-step-count {
-  background: #ff6b6b;
-  color: #fff;
-  animation: celebration-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+.writing-celebration-label {
+  font-size: 13px;
+  font-weight: 800;
+  color: #ff6b6b;
+  animation: celebration-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
 }
 
 .writing-celebration-step-canvas {
@@ -3093,7 +3094,7 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .writing-celebration-step-count,
+  .writing-celebration-label,
   .writing-celebration-emoji {
     animation-duration: 0.01ms !important;
   }
