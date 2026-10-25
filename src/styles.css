@@ -2133,6 +2133,44 @@ body {
   background: #ecfffb;
 }
 
+.ftue-script-choices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.ftue-script-choice {
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+  padding: 18px 10px;
+  border-radius: var(--wm-radius-md);
+  border: 2px solid var(--wm-color-border);
+  background: #fff;
+  color: var(--wm-color-text-main);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform var(--wm-motion-fast) var(--wm-ease-standard),
+    border-color var(--wm-motion-fast) var(--wm-ease-standard),
+    background var(--wm-motion-fast) var(--wm-ease-standard);
+}
+
+.ftue-script-choice:hover {
+  transform: translateY(-1px);
+}
+
+.ftue-script-choice.active {
+  border-color: var(--wm-color-accent);
+  background: #ecfffb;
+}
+
+.ftue-script-sample {
+  font-size: 40px;
+  font-family: var(--wm-font-hanzi);
+  line-height: 1;
+}
+
 .ftue-avatar-editor {
   display: grid;
   gap: 12px;
