@@ -4803,12 +4803,14 @@ body {
   }
 
   .writing-action-buttons {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    display: flex;
+    justify-content: center;
     gap: 10px;
   }
 
   .writing-action-btn {
-    width: 100%;
+    flex: 0 0 auto;
+    width: 64px;
     height: 64px;
     border-radius: 12px;
   }
@@ -5694,9 +5696,7 @@ body {
 .writing-top-row .stroke-preview-band {
   flex: 1 1 0;
   min-width: 0;
-  align-self: flex-start;
-  height: 74px;
-  align-items: center;
+  align-items: flex-start;
   padding: 0 8px;
   min-height: 0;
   background: transparent;
@@ -5708,6 +5708,30 @@ body {
 .writing-top-row .stroke-preview-band .radical-stroke-step-canvas {
   width: 69px;
   height: 69px;
+}
+
+/* First grid row is fixed at the card's own height (74px, canvas centered
+   inside it) so the stroke number (and the celebration tile, which has no
+   second row) sit at the same y as the other stroke tiles. */
+.writing-top-row .stroke-preview-band .radical-stroke-step {
+  display: grid;
+  grid-template-rows: 74px auto;
+  justify-items: center;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Plain number, no pill, matching the "X traits" label's look under the card. */
+.writing-top-row .stroke-preview-band .radical-stroke-step-count {
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #ff6b6b;
+  font-size: 13px;
+  font-weight: 800;
+  transform: none;
 }
 
 

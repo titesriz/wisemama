@@ -586,11 +586,11 @@ export default function WritingPractice({
               </g>
             </g>
           </svg>
+          <div className="radical-stroke-step-count">{step.index + 1}</div>
         </div>
       )) : null}
       {showCelebration ? (
         <div ref={celebrationStepRef} className="radical-stroke-step writing-celebration-step">
-          <div className="radical-stroke-step-count writing-celebration-step-count">✓</div>
           <div className="radical-stroke-step-canvas writing-celebration-step-canvas" aria-label="Bravo">
             <span className="writing-celebration-emoji">{celebrationEmoji}</span>
           </div>
@@ -604,7 +604,6 @@ export default function WritingPractice({
   const showStrokeCount = !writingMode || writingMode === 'facile' || writingMode === 'moyen';
   // Facile keeps every aid; the other lesson modes strip them progressively.
   const showGuideAndAnimate = !writingMode || writingMode === 'facile';
-  const showModelToggle = !writingMode || writingMode === 'facile' || writingMode === 'moyen';
   const isDicteeMode = writingMode === 'dictee';
   // Moyen: a single comment in the guide's slot, shown once the character is written.
   // It names the stroke that gave the most trouble.
@@ -971,30 +970,6 @@ export default function WritingPractice({
         </div>
 
         <div className="writing-action-buttons">
-          {showGuideAndAnimate ? (
-          <button
-            type="button"
-            className={`writing-action-btn ui-pressable ${showStrokeArrows ? 'active' : ''}`}
-            onClick={() => {
-              sounds.playTap();
-              setShowStrokeArrows((prev) => !prev);
-            }}
-            disabled={!strokePreviewSteps.length}
-          >
-            <span>✏️</span>
-            <small>Guide</small>
-          </button>
-          ) : null}
-          {showModelToggle ? (
-          <button
-            type="button"
-            className={`writing-action-btn ui-pressable ${showModel ? 'model-on' : ''}`}
-            onClick={() => setShowModel((prev) => !prev)}
-          >
-            <span>👁️</span>
-            <small>Modèle</small>
-          </button>
-          ) : null}
           {showGuideAndAnimate ? (
           <button type="button" className="writing-action-btn ui-pressable" onClick={showStrokeOrder}>
             <span>▶️</span>
