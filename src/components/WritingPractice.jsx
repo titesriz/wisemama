@@ -618,6 +618,13 @@ export default function WritingPractice({
       ) : null}
     </div>
   ) : null;
+  const isMoyenMode = writingMode === 'moyen';
+  const hintButton = writingDifficulty === 2 ? (
+    <button type="button" className="writing-action-btn ui-pressable" onClick={showHint}>
+      <span>💡</span>
+      <small>Hint</small>
+    </button>
+  ) : null;
 
   return (
     <section
@@ -977,16 +984,12 @@ export default function WritingPractice({
             <small>Animer</small>
           </button>
           ) : null}
+          {isMoyenMode ? hintButton : null}
           <button type="button" className="writing-action-btn ui-pressable" onClick={clearCanvas}>
             <span>🔄</span>
             <small>Effacer</small>
           </button>
-          {writingDifficulty === 2 ? (
-            <button type="button" className="writing-action-btn ui-pressable" onClick={showHint}>
-              <span>💡</span>
-              <small>Hint</small>
-            </button>
-          ) : null}
+          {isMoyenMode ? null : hintButton}
         </div>
       </div>
 
