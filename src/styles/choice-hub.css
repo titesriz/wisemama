@@ -1,0 +1,113 @@
+.hub-page {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(circle at top, var(--bg-top) 0%, var(--bg-mid) 40%, var(--bg-bottom) 100%);
+  padding: 20px 16px 40px;
+}
+
+.hub-header {
+  width: min(600px, 100%);
+  margin: 0 auto 24px;
+  display: grid;
+  gap: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  padding-top: 20px;
+  margin-top: -20px;
+  background: rgba(255, 246, 230, 0.92);
+  backdrop-filter: blur(6px);
+}
+
+.hub-header-top-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hub-logo-btn {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+  color: #fff;
+  font-size: 20px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.hub-back-btn {
+  justify-self: start;
+  border: none;
+  background: transparent;
+  color: var(--text-soft);
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 6px 0;
+}
+
+.hub-header-text h1 {
+  margin: 0;
+  font-size: 28px;
+  color: var(--text-main);
+}
+
+.hub-header-text p {
+  margin: 4px 0 0;
+  color: var(--text-soft);
+}
+
+.hub-choice-list {
+  width: min(600px, 100%);
+  margin: 0 auto;
+  display: grid;
+  gap: 16px;
+}
+
+.hub-choice-btn {
+  text-align: left;
+  background: #ffffff;
+  border: 2px solid var(--soft-border);
+  border-radius: var(--wm-radius-md);
+  padding: 18px 20px;
+  display: grid;
+  gap: 6px;
+  cursor: pointer;
+  box-shadow: var(--wm-shadow-card);
+  position: relative;
+}
+
+.hub-choice-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.hub-choice-desc {
+  font-size: 14px;
+  color: var(--text-soft);
+}
+
+.hub-choice-btn:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.hub-choice-soon {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: var(--pill-bg);
+  border: 1px solid var(--pill-border);
+  color: var(--chip-text);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--wm-radius-pill);
+}

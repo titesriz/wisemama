@@ -42,8 +42,28 @@ const COMPETENCY_LABELS = {
   signification: 'Signification',
 };
 
+// What text an option actually shows for a given question type - used to
+// keep distractors from duplicating the correct answer's displayed text.
+// With 506 words, many share a short French gloss, so filtering by id
+// alone isn't enough - two different words can still render identically.
+function getOptionDisplayKey(word, questionType) {
+  return CHAR_OPTION_TYPES.includes(questionType)
+    ? word.hanzi
+    : String(word.french || '').trim().toLowerCase();
+}
+
 function buildRound(word, questionType, words) {
-  const distractors = shuffle(words.filter((w) => w.id !== word.id)).slice(0, 3);
+  const correctKey = getOptionDisplayKey(word, questionType);
+  const pool = shuffle(words.filter((w) => w.id !== word.id));
+  const seenKeys = new Set([correctKey]);
+  const distractors = [];
+  for (const candidate of pool) {
+    if (distractors.length >= 3) break;
+    const key = getOptionDisplayKey(candidate, questionType);
+    if (!key || seenKeys.has(key)) continue;
+    seenKeys.add(key);
+    distractors.push(candidate);
+  }
   const options = shuffle([...distractors, word]);
   return { correctWord: word, questionType, options };
 }
@@ -94,7 +114,7 @@ function buildSession(words) {
   return { id: createSessionId(), rounds: buildSessionRounds(words) };
 }
 
-export default function HskQuizPage({ profile, words = [], onBack, onSwitchModule }) {
+export default function HskQuizPage({ profile, words = [], onBack, onGoHome, onSwitchModule, shellHeader = false }) {
   const sounds = useUiSounds();
   const [session, setSession] = useState(() => buildSession(words));
   const [roundIndex, setRoundIndex] = useState(0);
@@ -177,13 +197,18 @@ export default function HskQuizPage({ profile, words = [], onBack, onSwitchModul
 
     return (
       <section className="writing-screen module-screen hsk-quiz-screen" aria-label="Resultat quiz HSK1">
+        {shellHeader ? null : (
         <div className="writing-top-banner">
           <button
             type="button"
             className="writing-logo ui-pressable"
             onClick={() => {
               sounds.playTap();
-              onBack?.();
+              if (onGoHome) {
+                onGoHome();
+              } else {
+                onBack?.();
+              }
             }}
           >
             文
@@ -200,6 +225,7 @@ export default function HskQuizPage({ profile, words = [], onBack, onSwitchModul
             Lire
           </button>
         </div>
+        )}
 
         <div className="hsk-quiz-results">
           <p className="hsk-quiz-results-score">{score.correct}/{score.total}</p>
@@ -234,13 +260,18 @@ export default function HskQuizPage({ profile, words = [], onBack, onSwitchModul
 
   return (
     <section className="writing-screen module-screen hsk-quiz-screen" aria-label="Quiz HSK1">
+      {shellHeader ? null : (
       <div className="writing-top-banner">
         <button
           type="button"
           className="writing-logo ui-pressable"
           onClick={() => {
             sounds.playTap();
-            onBack?.();
+            if (onGoHome) {
+              onGoHome();
+            } else {
+              onBack?.();
+            }
           }}
         >
           文
@@ -257,6 +288,7 @@ export default function HskQuizPage({ profile, words = [], onBack, onSwitchModul
           Lire
         </button>
       </div>
+      )}
 
       <div className="hsk-quiz-body">
         <p className="hsk-quiz-prompt-label">{promptLabel}</p>

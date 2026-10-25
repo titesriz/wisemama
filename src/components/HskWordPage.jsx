@@ -1,9 +1,7 @@
-import { useMemo } from 'react';
 import ModuleFrame from './ModuleFrame.jsx';
 import CharacterGlossChar from './CharacterGlossChar.jsx';
-import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
-import { getCharacter } from '../utils/database/characterDB.js';
 import hskWords from '../data/hsk1-words.json';
+import { getCharacter } from '../utils/database/characterDB.js';
 import '../styles/hsk-deck.css';
 
 const hskWordByHanzi = new Map(hskWords.map((entry) => [entry.hanzi, entry]));
@@ -18,19 +16,31 @@ function lookupCharacterGloss(char) {
   return getCharacter(char) || hskWordByHanzi.get(char) || null;
 }
 
+function renderCompoundHanzi(currentWord) {
+  const characters = Array.from(currentWord?.hanzi || '');
+  if (characters.length < 2) return null;
+  return characters.map((char, index) => (
+    <CharacterGlossChar key={`${char}-${index}`} char={char} entry={lookupCharacterGloss(char)} trigger="click" />
+  ));
+}
+
+function renderCompoundHint(currentWord) {
+  return Array.from(currentWord?.hanzi || '').length > 1
+    ? <p className="hsk-gloss-hint">Touche un caractere pour voir son sens</p>
+    : null;
+}
+
 export default function HskWordPage({
   profile,
+  words,
   word,
-  wordIndex,
-  totalWords,
-  onPrev,
-  onNext,
   onBack,
+  onGoHome,
   onSwitchModule,
   onOpenPicker,
+  shellHeader = false,
 }) {
-  const characters = useMemo(() => Array.from(word?.hanzi || ''), [word?.hanzi]);
-  const isCompound = characters.length > 1;
+  const deck = words || hskWords;
 
   if (!word) {
     return <p className="empty">Aucun mot disponible.</p>;
@@ -40,44 +50,18 @@ export default function HskWordPage({
     <ModuleFrame
       profile={profile}
       lessonTitle="HSK1"
-      card={word}
-      cardIndex={wordIndex}
-      totalCards={totalWords}
-      activeModule="flashcards"
+      words={deck}
+      selectedId={word.id}
+      singleLabel="Caractère"
+      compoundLabel="Mot"
+      hanziContent={renderCompoundHanzi}
+      hanziHint={renderCompoundHint}
       modes={['flashcards', 'writing', 'quiz']}
       onBack={onBack}
-      onPrev={onPrev}
-      onNext={onNext}
+      onGoHome={onGoHome}
       onSwitchModule={onSwitchModule}
       onOpenPicker={onOpenPicker}
-    >
-      <div className="module-card-center wm-enter-fade">
-        <div className="module-hanzi-large">
-          {isCompound
-            ? characters.map((char, index) => (
-                <CharacterGlossChar
-                  key={`${char}-${index}`}
-                  char={char}
-                  entry={lookupCharacterGloss(char)}
-                  trigger="click"
-                />
-              ))
-            : word.hanzi}
-        </div>
-        {isCompound ? <p className="hsk-gloss-hint">Touche un caractere pour voir son sens</p> : null}
-        <div className="module-pinyin-large">{formatPinyinDisplay(word.pinyin || '')}</div>
-
-        <div className="module-translation-panels">
-          <article>
-            <strong>Francais</strong>
-            <span>{word.french || 'Traduction a venir'}</span>
-          </article>
-          <article>
-            <strong>Anglais</strong>
-            <span>{word.english}</span>
-          </article>
-        </div>
-      </div>
-    </ModuleFrame>
+      shellHeader={shellHeader}
+    />
   );
 }

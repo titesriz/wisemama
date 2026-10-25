@@ -3,6 +3,7 @@ import App from './App.jsx';
 import { AvatarProvider } from './context/AvatarContext.jsx';
 import { LessonsProvider } from './context/LessonsContext.jsx';
 import { ModeProvider } from './context/ModeContext.jsx';
+import { ScriptModeProvider } from './context/ScriptModeContext.jsx';
 import './styles/variables-css.css';
 import './styles/micro-interactions.css';
 import './styles.css';
@@ -12,7 +13,9 @@ root.render(
   <ModeProvider>
     <AvatarProvider>
       <LessonsProvider>
-        <App />
+        <ScriptModeProvider>
+          <App />
+        </ScriptModeProvider>
       </LessonsProvider>
     </AvatarProvider>
   </ModeProvider>,

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
+import { useScriptMode } from '../context/ScriptModeContext.jsx';
 import '../styles/character-gloss.css';
 
 const TAP_REVEAL_MS = 2500;
@@ -18,6 +19,7 @@ const TAP_REVEAL_MS = 2500;
 export default function CharacterGlossChar({ char, entry, trigger = 'click', className = '' }) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef(null);
+  const { mode: scriptMode } = useScriptMode();
 
   // Closes this popover the moment anything outside it is pressed - including
   // another character's gloss span. Without this, each instance only ever
@@ -47,20 +49,19 @@ export default function CharacterGlossChar({ char, entry, trigger = 'click', cla
     return <span className={`char-gloss-inert ${className}`}>{char}</span>;
   }
 
-  // Simplified stays primary (this app teaches simplified) - traditional is
-  // only ever a secondary addition, shown solely when it's known AND
-  // actually differs from the simplified form already on screen. Most
-  // characters were never touched by simplification (是, 我, 你...) and
-  // correctly show nothing extra here; a differing form with no data
-  // available (a genuine gap) also correctly shows nothing, same as any
-  // other missing field on `entry`.
+  // Most characters were never touched by simplification (是, 我, 你...), so
+  // this is only ever meaningful when a traditional form is both known AND
+  // actually differs from the simplified one. Which of the two is shown as
+  // the main glyph follows the parent-set script preference - the popover
+  // itself stays text-only (pinyin + translation), no hanzi, by design.
   const hasTraditional = entry.traditional && entry.traditional !== char;
+  const showTraditionalPrimary = scriptMode === 'traditional' && hasTraditional;
+  const primaryChar = showTraditionalPrimary ? entry.traditional : char;
 
   const popover = (
     <span className="char-gloss-popover" role="tooltip">
       <strong>{formatPinyinDisplay(entry.pinyin || '')}</strong>
       <span>{entry.french || entry.english || 'Traduction non disponible'}</span>
-      {hasTraditional ? <span className="char-gloss-traditional">繁 {entry.traditional}</span> : null}
     </span>
   );
 
@@ -75,7 +76,7 @@ export default function CharacterGlossChar({ char, entry, trigger = 'click', cla
         // the lesson text view) - this just also briefly reveals the gloss.
         onClick={() => setOpen(true)}
       >
-        {char}
+        {primaryChar}
         {popover}
       </span>
     );
@@ -90,7 +91,7 @@ export default function CharacterGlossChar({ char, entry, trigger = 'click', cla
         setOpen((prev) => !prev);
       }}
     >
-      {char}
+      {primaryChar}
       {open ? popover : null}
     </span>
   );

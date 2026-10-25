@@ -4,6 +4,8 @@ import CharacterGlossChar from './CharacterGlossChar.jsx';
 import '../styles/radical-discovery.css';
 import { formatPinyinDisplay, extractToneAccent } from '../lib/pinyinDisplay.js';
 import { segmentLessonText } from '../lib/lessonTextSegmentation.js';
+import { getTraditionalChar } from '../lib/traditionalForm.js';
+import { useScriptMode } from '../context/ScriptModeContext.jsx';
 import { getAllSeenCharsBefore, getLessonsByOrder } from '../utils/lessons/lessonOrder.js';
 
 function isChineseChar(char) {
@@ -73,24 +75,31 @@ export default function LessonTextView({
   lesson,
   lessons = [],
   profile,
-  parentProfile,
   progressMap = {},
-  writingDifficulty = 1,
-  onChangeWritingDifficulty,
   onSelectLesson,
-  onPracticeCharacter,
-  onBack,
-  onStartPractice,
-  onStartQuiz,
+  onGoHome,
+  onOpenAvatarEditor,
   onPracticeVocabulary,
-  onOpenAllFlashcards,
-  onOpenRadicalDiscovery,
+  shellHeader = false,
+  showLessonPicker: showLessonPickerProp,
+  onToggleLessonPicker,
 }) {
+  const { convert } = useScriptMode();
   const [pinyinMode, setPinyinMode] = useState('all');
   const [manuallyToggledIds, setManuallyToggledIds] = useState(() => new Set());
   const [playingSentenceIndex, setPlayingSentenceIndex] = useState(-1);
-  const [showLessonPicker, setShowLessonPicker] = useState(false);
-  const [selectedCardIds, setSelectedCardIds] = useState(() => new Set((lesson?.cards || []).map((card) => card.id)));
+  // The picker can be opened from the AppShell header (outside this
+  // component's own DOM subtree) when shellHeader is on, so its open state
+  // is controlled by the parent in that case; otherwise this component's
+  // own (now-hidden) header button manages it locally.
+  const [internalShowLessonPicker, setInternalShowLessonPicker] = useState(false);
+  const showLessonPicker = shellHeader ? Boolean(showLessonPickerProp) : internalShowLessonPicker;
+  const closeLessonPicker = () => {
+    if (shellHeader) onToggleLessonPicker?.();
+    else setInternalShowLessonPicker(false);
+  };
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [pinyinCapsuleExpanded, setPinyinCapsuleExpanded] = useState(false);
   const lessonPickerRef = useRef(null);
   const availableLessons = useMemo(() => {
     if (lessons.length) return getLessonsByOrder(lessons);
@@ -108,15 +117,22 @@ export default function LessonTextView({
   }, [pinyinMode]);
 
   useEffect(() => {
-    setSelectedCardIds(new Set((lesson?.cards || []).map((card) => card.id)));
-  }, [lesson?.id, lesson?.cards]);
+    const SCROLL_THRESHOLD = 24;
+    const handleScroll = () => {
+      const scrolled = window.scrollY > SCROLL_THRESHOLD;
+      setIsScrolled(scrolled);
+      if (!scrolled) setPinyinCapsuleExpanded(false);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     if (!showLessonPicker) return undefined;
 
     const handlePointerDown = (event) => {
       if (!lessonPickerRef.current?.contains(event.target)) {
-        setShowLessonPicker(false);
+        closeLessonPicker();
       }
     };
 
@@ -147,49 +163,11 @@ export default function LessonTextView({
     return segmentLessonText(baseText);
   }, [lesson?.cards, lesson?.sourceText]);
 
-  const vocabulary = useMemo(() => {
-    return (lesson?.cards || []).filter((card) => card?.hanzi).map((card, index) => ({
-      id: card.id,
-      index,
-      hanzi: card.hanzi,
-      pinyin: card.pinyin || '',
-      french: card.french || '',
-      english: card.english || '',
-      status: getCharacterStatus(lesson.id, card, progressMap, seenCharsBeforeSet),
-      stars: getCardProgressStars(lesson.id, card.id, progressMap),
-    }));
-  }, [lesson?.cards, lesson?.id, progressMap, seenCharsBeforeSet]);
-
-  const selectedVocabulary = useMemo(
-    () => vocabulary.filter((item) => selectedCardIds.has(item.id)),
-    [selectedCardIds, vocabulary],
-  );
-
   // Optional multi-character vocabulary words (e.g. 礼貌) authored per
-  // lesson - distinct from `vocabulary` above, which is the per-character
-  // grid. Empty for every lesson that hasn't been given word data yet.
+  // lesson - distinct from the per-character writing selection, which now
+  // lives on its own screen (LessonWritingSetupPage). Empty for every
+  // lesson that hasn't been given word data yet.
   const lessonVocabWords = lesson?.vocabulary || [];
-
-  const journeyStartIndex = useMemo(() => {
-    const firstNew = selectedVocabulary.find((item) => item.status !== 'learned');
-    return firstNew ? firstNew.index : 0;
-  }, [selectedVocabulary]);
-
-  const journeyStartCard = lesson?.cards?.[journeyStartIndex] || null;
-  const allSelected = vocabulary.length > 0 && selectedCardIds.size === vocabulary.length;
-
-  const toggleVocabularySelection = (cardId) => {
-    setSelectedCardIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(cardId)) next.delete(cardId);
-      else next.add(cardId);
-      return next;
-    });
-  };
-
-  const setAllVocabularySelection = (shouldSelect) => {
-    setSelectedCardIds(shouldSelect ? new Set(vocabulary.map((item) => item.id)) : new Set());
-  };
 
   const playSentence = async (sentence, sentenceIndex) => {
     if (!sentence || playingSentenceIndex >= 0) return;
@@ -223,6 +201,7 @@ export default function LessonTextView({
     if (!card || card.pinyinEnabled === false) return false;
     if (manuallyToggledIds.has(card.id)) return true;
     if (pinyinMode === 'all') return true;
+    if (pinyinMode === 'new') return status === 'new';
     return false;
   };
 
@@ -230,94 +209,129 @@ export default function LessonTextView({
     <section className="lesson-text-page">
       <div className="landing-new-shell lesson-text-shell">
         <article ref={lessonPickerRef} className="profile-card-kid lesson-text-frame">
-          <div className="current-lesson-card lesson-text-current-card">
+          {shellHeader ? null : (
+          <div className="current-lesson-card lesson-text-current-card lesson-text-sticky-header">
             <div className="lesson-header lesson-header-with-avatar lesson-text-topbar">
-              <button type="button" className="lesson-home-logo app-logo ui-pressable" onClick={onBack} aria-label="Retour landing">
+              <button type="button" className="lesson-home-logo app-logo ui-pressable" onClick={onGoHome} aria-label="Retour landing">
                 文
               </button>
-              <div className="lesson-avatar lesson-avatar-single" aria-label="Profil enfant">
+              <div className="lesson-info lesson-text-title-block">
+                <span className="lesson-text-mode-label">Leçon</span>
+                <h3 className="lesson-title lesson-text-card-title">{lesson?.title || 'Lecon'}</h3>
+              </div>
+              <button
+                type="button"
+                className="change-lesson-btn icon-only ui-pressable"
+                onClick={() => setInternalShowLessonPicker((prev) => !prev)}
+                aria-label="Changer de lecon"
+              >
+                🗂️
+              </button>
+              <button
+                type="button"
+                className="lesson-avatar lesson-avatar-single lesson-avatar-btn ui-pressable"
+                aria-label="Modifier l'avatar de l'enfant"
+                onClick={() => onOpenAvatarEditor?.()}
+              >
                 <AvatarRenderer
                   config={profile?.avatar}
-                  size={56}
+                  size={48}
                   className="landing-avatar-circle"
                   alt={`Avatar ${profile?.name || 'Enfant'}`}
                   loading="eager"
                 />
-              </div>
-              <div className="lesson-avatar lesson-avatar-single lesson-parent-avatar" aria-label="Profil parent">
-                <AvatarRenderer
-                  config={parentProfile?.avatar}
-                  size={56}
-                  className="landing-avatar-circle"
-                  alt={`Avatar ${parentProfile?.name || 'Parent'}`}
-                  loading="eager"
-                />
-              </div>
-              <div className="lesson-info lesson-text-title-block">
-                <h3 className="lesson-title lesson-text-card-title">{lesson?.title || 'Lecon'}</h3>
-                {lesson?.description ? <p className="lesson-description lesson-text-card-description">{lesson.description}</p> : null}
-              </div>
-              <div className="lesson-actions lesson-text-topbar-actions">
-                <button
-                  type="button"
-                  className="change-lesson-btn icon-only ui-pressable"
-                  onClick={() => setShowLessonPicker((prev) => !prev)}
-                  aria-label="Changer de lecon"
-                >
-                  🗂️
-                </button>
-              </div>
+              </button>
             </div>
-            {showLessonPicker ? (
-              <div
-                className="lesson-picker-dropdown"
-                onClick={(event) => event.stopPropagation()}
-                onKeyDown={(event) => event.stopPropagation()}
-              >
-                {availableLessons.map((item) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    className={`lesson-option ui-pressable ${item.id === lesson?.id ? 'active' : ''}`}
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      setShowLessonPicker(false);
-                      onSelectLesson?.(item.id);
-                    }}
-                  >
-                    <div className="option-preview">
-                      {item.coverImage ? <img src={item.coverImage} alt="" /> : <span>📘</span>}
-                    </div>
-                    <div className="option-info">
-                      <strong>{item.order ? `${item.order}. ` : ''}{item.title || 'Lecon'}</strong>
-                      <span className="option-meta">{item.cards?.length || 0} cartes</span>
-                    </div>
-                    {item.id === lesson?.id ? <span className="checkmark">✓</span> : null}
-                  </button>
-                ))}
-              </div>
-            ) : null}
           </div>
+          )}
+
+          {showLessonPicker ? (
+            <div
+              className="lesson-picker-dropdown lesson-picker-dropdown-standalone"
+              onClick={(event) => event.stopPropagation()}
+              onKeyDown={(event) => event.stopPropagation()}
+            >
+              {availableLessons.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={`lesson-option ui-pressable ${item.id === lesson?.id ? 'active' : ''}`}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    closeLessonPicker();
+                    onSelectLesson?.(item.id);
+                  }}
+                >
+                  <div className="option-preview">
+                    {item.coverImage ? <img src={item.coverImage} alt="" /> : <span>📘</span>}
+                  </div>
+                  <div className="option-info">
+                    <strong>{item.order ? `${item.order}. ` : ''}{item.title || 'Lecon'}</strong>
+                    <span className="option-meta">{item.cards?.length || 0} cartes</span>
+                  </div>
+                  {item.id === lesson?.id ? <span className="checkmark">✓</span> : null}
+                </button>
+              ))}
+            </div>
+          ) : null}
 
           <div className="lesson-text-content">
           <section className="text-source-section">
-            <div className="lesson-text-top-row">
-              <span className="lesson-section-marker">① Lis la leçon</span>
-              <div className="pinyin-toggle" role="radiogroup" aria-label="Mode pinyin">
-                <label className="toggle-option">
-                  <input type="radio" name="pinyinMode" value="all" checked={pinyinMode === 'all'} onChange={() => setPinyinMode('all')} />
-                  <span className="radio-label"><span className="radio-icon">🟢</span>Tous les pinyin</span>
-                </label>
-                <label className="toggle-option">
-                  <input type="radio" name="pinyinMode" value="tone" checked={pinyinMode === 'tone'} onChange={() => setPinyinMode('tone')} />
-                  <span className="radio-label"><span className="radio-icon">🎵</span>Aide tonalité</span>
-                </label>
-                <label className="toggle-option">
-                  <input type="radio" name="pinyinMode" value="none" checked={pinyinMode === 'none'} onChange={() => setPinyinMode('none')} />
-                  <span className="radio-label"><span className="radio-icon">⚪</span>Aucun pinyin</span>
-                </label>
+            <span className="lesson-section-marker">① Lis la leçon</span>
+            {isScrolled ? (
+              <div className="lesson-text-top-row lesson-text-sticky-instructions lesson-text-pinyin-floating">
+                <button
+                  type="button"
+                  className="pinyin-float-btn ui-pressable"
+                  onClick={() => setPinyinCapsuleExpanded((prev) => !prev)}
+                  aria-label="Options pinyin"
+                  aria-expanded={pinyinCapsuleExpanded}
+                >
+                  <span aria-hidden="true">🔤</span> Pinyin
+                </button>
+                {pinyinCapsuleExpanded ? (
+                  <div className="pinyin-toggle" role="radiogroup" aria-label="Mode pinyin">
+                    <label className="toggle-option">
+                      <input type="radio" name="pinyinMode" value="all" checked={pinyinMode === 'all'} onChange={() => setPinyinMode('all')} />
+                      <span className="radio-label"><span className="radio-icon">🟢</span>Tous</span>
+                    </label>
+                    <label className="toggle-option">
+                      <input type="radio" name="pinyinMode" value="new" checked={pinyinMode === 'new'} onChange={() => setPinyinMode('new')} />
+                      <span className="radio-label"><span className="radio-icon">🆕</span>Nouveaux</span>
+                    </label>
+                    <label className="toggle-option">
+                      <input type="radio" name="pinyinMode" value="tone" checked={pinyinMode === 'tone'} onChange={() => setPinyinMode('tone')} />
+                      <span className="radio-label"><span className="radio-icon">🎵</span>Tonalités</span>
+                    </label>
+                    <label className="toggle-option">
+                      <input type="radio" name="pinyinMode" value="none" checked={pinyinMode === 'none'} onChange={() => setPinyinMode('none')} />
+                      <span className="radio-label"><span className="radio-icon">⚪</span>Aucun</span>
+                    </label>
+                  </div>
+                ) : null}
               </div>
-            </div>
+            ) : (
+              <div className="lesson-text-top-row lesson-text-sticky-instructions">
+                <div className="pinyin-toggle" role="radiogroup" aria-label="Mode pinyin">
+                  <label className="toggle-option">
+                    <input type="radio" name="pinyinMode" value="all" checked={pinyinMode === 'all'} onChange={() => setPinyinMode('all')} />
+                    <span className="radio-label"><span className="radio-icon">🟢</span>Tous les pinyin</span>
+                  </label>
+                  <label className="toggle-option">
+                    <input type="radio" name="pinyinMode" value="new" checked={pinyinMode === 'new'} onChange={() => setPinyinMode('new')} />
+                    <span className="radio-label"><span className="radio-icon">🆕</span>Nouveaux</span>
+                  </label>
+                  <label className="toggle-option">
+                    <input type="radio" name="pinyinMode" value="tone" checked={pinyinMode === 'tone'} onChange={() => setPinyinMode('tone')} />
+                    <span className="radio-label"><span className="radio-icon">🎵</span>Aide tonalité</span>
+                  </label>
+                  <label className="toggle-option">
+                    <input type="radio" name="pinyinMode" value="none" checked={pinyinMode === 'none'} onChange={() => setPinyinMode('none')} />
+                    <span className="radio-label"><span className="radio-icon">⚪</span>Aucun pinyin</span>
+                  </label>
+                </div>
+              </div>
+            )}
             <div className="text-display">
               {sentences.map((sentence, sentenceIndex) => (
                 <div key={`${sentence}-${sentenceIndex}`} className="sentence-line">
@@ -364,7 +378,7 @@ export default function LessonTextView({
                           </span>
                           <CharacterGlossChar
                             char={char}
-                            entry={{ pinyin: card.pinyin, french: card.french, english: card.english, traditional: card.traditional }}
+                            entry={{ pinyin: card.pinyin, french: card.french, english: card.english, traditional: getTraditionalChar(char) }}
                             trigger="hover"
                             className="char-hanzi"
                           />
@@ -377,117 +391,58 @@ export default function LessonTextView({
             </div>
           </section>
 
-          <section className="vocabulary-section lesson-text-vocab">
-            <div className="vocab-section-header">
-              <span className="lesson-section-marker">② Entraîne-toi à écrire</span>
-              <span className="vocab-count">
-                {selectedVocabulary.length === 0
-                  ? 'Sélectionne au moins 1 caractère'
-                  : `${selectedVocabulary.length} caractère${selectedVocabulary.length !== 1 ? 's' : ''} sélectionné${selectedVocabulary.length !== 1 ? 's' : ''}`}
-              </span>
-              <div className="vocab-difficulty-btns">
-                <button
-                  type="button"
-                  className={`lesson-difficulty-star ui-pressable ${writingDifficulty === 1 ? 'active' : ''}`}
-                  onClick={() => {
-                    onChangeWritingDifficulty?.(1);
-                    onStartPractice?.(selectedVocabulary.map((item) => item.id));
-                  }}
-                  aria-label="Difficulte 1"
-                  disabled={!journeyStartCard || selectedVocabulary.length === 0}
-                >
-                  Facile
-                </button>
-                <button
-                  type="button"
-                  className={`lesson-difficulty-star ui-pressable ${writingDifficulty === 3 ? 'active' : ''}`}
-                  onClick={() => {
-                    onChangeWritingDifficulty?.(3);
-                    onStartPractice?.(selectedVocabulary.map((item) => item.id));
-                  }}
-                  aria-label="Difficulte 3"
-                  disabled={!journeyStartCard || selectedVocabulary.length === 0}
-                >
-                  Difficile
-                </button>
-                {onOpenAllFlashcards ? (
-                  <button
-                    type="button"
-                    className="lesson-difficulty-star ui-pressable"
-                    onClick={() => onOpenAllFlashcards()}
-                    aria-label="Flashcards"
-                  >
-                    Flashcards
-                  </button>
-                ) : null}
-                {lessonVocabWords.length > 0 ? (
-                  <button
-                    type="button"
-                    className="lesson-difficulty-star ui-pressable"
-                    onClick={() => onStartQuiz?.()}
-                    aria-label="Quiz"
-                  >
-                    Quiz
-                  </button>
-                ) : null}
-              </div>
-            </div>
-            <div className="vocab-grid-with-controls">
-              <div className="vocab-select-btns">
-                <button
-                  type="button"
-                  className="vocab-select-btn ui-pressable"
-                  onClick={() => setAllVocabularySelection(true)}
-                >
-                  Tous
-                </button>
-                <button
-                  type="button"
-                  className="vocab-select-btn ui-pressable"
-                  onClick={() => setAllVocabularySelection(false)}
-                >
-                  Aucun
-                </button>
-              </div>
-              <div className="vocabulary-grid">
-                {vocabulary.map((item) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    className={`vocab-card ${item.status} ${selectedCardIds.has(item.id) ? 'selected' : 'unselected'}`}
-                    title={`${item.hanzi} (${formatPinyinDisplay(item.pinyin)}) - ${item.french || item.english || ''}`}
-                    onClick={() => toggleVocabularySelection(item.id)}
-                  >
-                    <div className="vocab-hanzi">{item.hanzi}</div>
-                    <div className="vocab-status">{selectedCardIds.has(item.id) ? '✓' : '○'}</div>
-                    <div className="vocab-pinyin-hint">{formatPinyinDisplay(item.pinyin)}</div>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </section>
 
           {lessonVocabWords.length > 0 ? (
             <section className="vocabulary-section lesson-text-vocab">
               <div className="vocab-section-header">
-                <span className="lesson-section-marker">③ Vocabulaire</span>
+                <span className="lesson-section-marker">② Nouveau vocabulaire</span>
                 <span className="vocab-count">
                   {lessonVocabWords.length} mot{lessonVocabWords.length !== 1 ? 's' : ''}
                 </span>
               </div>
-              <div className="vocabulary-grid">
-                {lessonVocabWords.map((word) => (
-                  <button
-                    key={word.id}
-                    type="button"
-                    className="vocab-card vocab-card-word learning unselected"
-                    title={`${word.hanzi} (${formatPinyinDisplay(word.pinyin)}) - ${word.french || word.english || ''}`}
-                    onClick={() => onPracticeVocabulary?.(word.id)}
-                  >
-                    <div className="vocab-hanzi">{word.hanzi}</div>
-                    <div className="vocab-pinyin-hint">{formatPinyinDisplay(word.pinyin)}</div>
-                  </button>
-                ))}
+              <div className="vocabulary-list">
+                {lessonVocabWords.map((word) => {
+                  const characters = Array.from(word.hanzi || '');
+                  const seenChars = new Set();
+                  const breakdown = characters.length > 1
+                    ? characters
+                        .filter((char) => {
+                          if (seenChars.has(char)) return false;
+                          seenChars.add(char);
+                          return true;
+                        })
+                        .map((char) => {
+                          const meaning = cardByHanzi.get(char)?.card?.french || cardByHanzi.get(char)?.card?.english || '';
+                          return meaning ? { char, meaning } : null;
+                        })
+                        .filter(Boolean)
+                    : [];
+                  return (
+                    <button
+                      key={word.id}
+                      type="button"
+                      className="vocab-row ui-pressable"
+                      title={`${word.hanzi} (${formatPinyinDisplay(word.pinyin)}) - ${word.french || word.english || ''}`}
+                      onClick={() => onPracticeVocabulary?.(word.id)}
+                    >
+                      <div className="vocab-row-main">
+                        <span className="vocab-row-hanzi">{convert(word.hanzi)}</span>
+                        <span className="vocab-row-pinyin">{formatPinyinDisplay(word.pinyin)}</span>
+                        <span className="vocab-row-meaning">{word.french || word.english || ''}</span>
+                      </div>
+                      {breakdown.length > 0 ? (
+                        <div className="vocab-row-breakdown">
+                          {breakdown.map((item, index) => (
+                            <span key={item.char} className="vocab-row-breakdown-item">
+                              {index > 0 ? <span className="vocab-row-breakdown-sep" aria-hidden="true">；</span> : null}
+                              {convert(item.char)} {item.meaning}
+                            </span>
+                          ))}
+                        </div>
+                      ) : null}
+                    </button>
+                  );
+                })}
               </div>
             </section>
           ) : null}

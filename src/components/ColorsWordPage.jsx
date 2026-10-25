@@ -1,17 +1,23 @@
 import ModuleFrame from './ModuleFrame.jsx';
-import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
+import colorsWords from '../data/colors-words.json';
 import '../styles/colors-deck.css';
+
+function renderSwatch(currentWord) {
+  if (!currentWord?.colorHex) return null;
+  return <div className="color-swatch" style={{ background: currentWord.colorHex }} aria-hidden="true" />;
+}
 
 export default function ColorsWordPage({
   profile,
+  words,
   word,
-  wordIndex,
-  totalWords,
-  onPrev,
-  onNext,
   onBack,
+  onGoHome,
   onSwitchModule,
+  shellHeader = false,
 }) {
+  const deck = words || colorsWords;
+
   if (!word) {
     return <p className="empty">Aucune couleur disponible.</p>;
   }
@@ -20,32 +26,15 @@ export default function ColorsWordPage({
     <ModuleFrame
       profile={profile}
       lessonTitle="Couleurs"
-      card={word}
-      cardIndex={wordIndex}
-      totalCards={totalWords}
-      activeModule="flashcards"
+      words={deck}
+      selectedId={word.id}
+      singleLabel="Couleur"
+      beforeHanzi={renderSwatch}
       modes={['flashcards', 'writing', 'dictée', 'quiz']}
       onBack={onBack}
-      onPrev={onPrev}
-      onNext={onNext}
+      onGoHome={onGoHome}
       onSwitchModule={onSwitchModule}
-    >
-      <div className="module-card-center wm-enter-fade">
-        <div className="color-swatch" style={{ background: word.colorHex }} aria-hidden="true" />
-        <div className="module-hanzi-large">{word.hanzi}</div>
-        <div className="module-pinyin-large">{formatPinyinDisplay(word.pinyin || '')}</div>
-
-        <div className="module-translation-panels">
-          <article>
-            <strong>Francais</strong>
-            <span>{word.french}</span>
-          </article>
-          <article>
-            <strong>Anglais</strong>
-            <span>{word.english}</span>
-          </article>
-        </div>
-      </div>
-    </ModuleFrame>
+      shellHeader={shellHeader}
+    />
   );
 }

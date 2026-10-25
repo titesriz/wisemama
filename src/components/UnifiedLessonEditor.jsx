@@ -80,11 +80,18 @@ export default function UnifiedLessonEditor({
           <div className="lesson-editor-list-body">
             {orderedLessons.length ? (
               orderedLessons.map((lesson) => (
-                <button
+                <div
                   key={lesson.id}
-                  type="button"
+                  role="button"
+                  tabIndex={0}
                   className={`lesson-editor-item ui-pressable ${lesson.id === activeLessonId ? 'active' : ''}`}
                   onClick={() => selectLesson(lesson.id)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      selectLesson(lesson.id);
+                    }
+                  }}
                 >
                   <div>
                     <strong>{lesson.order}. {lesson.title}</strong>
@@ -111,7 +118,7 @@ export default function UnifiedLessonEditor({
                       Supprimer
                     </TokenButton>
                   </div>
-                </button>
+                </div>
               ))
             ) : (
               <p className="parent-empty">Aucune lecon disponible.</p>

@@ -8,6 +8,13 @@ import { speakHanzi } from '../lib/ttsFallback.js';
 import { findCharacterStructure } from '../lib/characterStructure.js';
 import { getTopLevelComponents } from '../lib/characterDecomposition.js';
 import { isDevMode } from '../config.js';
+import { useScriptMode } from '../context/ScriptModeContext.jsx';
+
+const CELEBRATION_EMOJIS = ['🎉', '👏', '🤩', '🙌', '🎊', '🥳', '✨', '🌟', '⭐️', '🏆', '🎆', '💫'];
+
+function pickRandomCelebrationEmoji() {
+  return CELEBRATION_EMOJIS[Math.floor(Math.random() * CELEBRATION_EMOJIS.length)];
+}
 
 function createStaticCharDataLoader(data) {
   return (_char, onLoad) => {
@@ -109,6 +116,8 @@ export default function WritingPractice({
   profile,
   parentProfile,
   writingDifficulty = 1,
+  // 'facile' | 'moyen' | 'difficile' | 'dictee' from the lesson writing setup; null keeps the legacy per-difficulty behavior.
+  writingMode = null,
   cardIndex = 0,
   totalCards = 0,
   onPrev,
@@ -119,6 +128,9 @@ export default function WritingPractice({
   onOpenRadical,
   onOpenWriting,
   onBack,
+  onGoHome,
+  onOpenAvatarEditor,
+  shellHeader = false,
   standalone = false,
   embedded = false,
   onSuccess,
@@ -145,12 +157,18 @@ export default function WritingPractice({
   const [showStrokeArrows, setShowStrokeArrows] = useState(writingDifficulty === 1);
   const [showWorksheet, setShowWorksheet] = useState(false);
   const [worksheetSize, setWorksheetSize] = useState('medium');
+  const [showCelebration, setShowCelebration] = useState(false);
+  const [celebrationEmoji, setCelebrationEmoji] = useState('');
   // Index of the *next* stroke to draw (highlighted in the preview band), not
   // the one just completed - starts at 0 (first stroke) so there's always a
   // clear "draw this one next" indicator.
   const [currentStrokeIndex, setCurrentStrokeIndex] = useState(0);
+  const [mistakesByStroke, setMistakesByStroke] = useState({});
+  const [isCharacterDone, setIsCharacterDone] = useState(false);
   const strokeStepRefs = useRef([]);
+  const celebrationStepRef = useRef(null);
   const sounds = useUiSounds();
+  const { convert } = useScriptMode();
   const isRadicalMode = variant === 'radical';
   const targetChar = useMemo(() => {
     const first = Array.from(hanzi || '')[0];
@@ -178,6 +196,15 @@ export default function WritingPractice({
   );
 
   const handleQuizCompleteRef = useRef(null);
+
+  const triggerCelebration = () => {
+    setCelebrationEmoji(pickRandomCelebrationEmoji());
+    setShowCelebration(true);
+    window.setTimeout(() => {
+      celebrationStepRef.current?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }, 50);
+  };
+
   // TODO: manual tablet test needed before sharing — hanzi-writer leniency on last stroke behaves
   // differently with stylus vs finger, especially in difficulty-3 (no hint) mode. Verify onComplete
   // fires correctly and does not misfire on lift-off events on iPad/Android tablet.
@@ -189,6 +216,7 @@ export default function WritingPractice({
         if (isLastComponent) {
           setFeedback('Bravo ! Structure terminee.');
           sounds.playSuccess();
+          triggerCelebration();
           onSuccess?.(totalMistakes);
         } else {
           const nextComponent = componentExercises[componentStepIndex + 1];
@@ -203,9 +231,11 @@ export default function WritingPractice({
       return;
     }
 
+    setIsCharacterDone(true);
     if (totalMistakes <= 2) {
       setFeedback('Bravo ! Etoile gagnee.');
       sounds.playSuccess();
+      triggerCelebration();
       onSuccess?.(totalMistakes);
     } else {
       setFeedback('Bon effort. Reessaie pour gagner une etoile.');
@@ -265,6 +295,7 @@ export default function WritingPractice({
 
   useEffect(() => {
     setComponentStepIndex(0);
+    setShowCelebration(false);
   }, [lessonId, card?.id, hanzi]);
 
   useEffect(() => {
@@ -352,6 +383,9 @@ export default function WritingPractice({
     ghostWriterRef.current = ghostWriter;
     writerRef.current = writer;
     setCurrentStrokeIndex(0);
+    setMistakesByStroke({});
+    setIsCharacterDone(false);
+    setShowCelebration(false);
     setFeedback(
       isRadicalMode
         ? `Trace le composant ${activeComponentExercise?.label || ''}.`
@@ -361,7 +395,9 @@ export default function WritingPractice({
     writer.quiz({
       leniency: 1,
       showHintAfterMisses: writingDifficulty === 1 ? 1 : writingDifficulty === 2 ? 3 : false,
-      onMistake: () => {
+      onMistake: (strokeData) => {
+        const strokeNum = strokeData?.strokeNum ?? 0;
+        setMistakesByStroke((prev) => ({ ...prev, [strokeNum]: (prev[strokeNum] || 0) + 1 }));
         setFeedback(isRadicalMode ? 'Continue, tu es presque sur ce composant.' : 'Continue, tu es presque.');
       },
       onCorrectStroke: (strokeData) => {
@@ -385,7 +421,7 @@ export default function WritingPractice({
         containerRef.current.innerHTML = '';
       }
     };
-  }, [targetChar, renderKey, canvasSize, isRadicalMode, activeComponentExercise, fullCharData]);
+  }, [targetChar, renderKey, canvasSize, isRadicalMode, activeComponentExercise, fullCharData, writingDifficulty]);
 
   const showStrokeOrder = async () => {
     sounds.playTap();
@@ -442,6 +478,7 @@ export default function WritingPractice({
 
     setQuizActive(true);
     setCurrentStrokeIndex(0);
+    setShowCelebration(false);
     setFeedback(isRadicalMode ? `A toi de tracer ${activeComponentExercise?.label || 'ce composant'}.` : 'A toi de tracer dans le bon ordre.');
 
     writerRef.current.quiz({
@@ -500,8 +537,8 @@ export default function WritingPractice({
   }, [lessonId, card?.id, card?.audioUrl]);
 
   useEffect(() => {
-    setShowCharInfo(writingDifficulty === 1);
-  }, [lessonId, card?.id, hanzi, writingDifficulty]);
+    setShowCharInfo(writingMode ? writingMode !== 'dictee' : writingDifficulty === 1);
+  }, [lessonId, card?.id, hanzi, writingDifficulty, writingMode]);
 
   const profileLabel = profile?.role === 'parent' ? 'Parent' : 'Kid';
   const availableLessons = lessons.length ? lessons : [{ id: lessonId || 'current', title: lessonTitle || 'Lecon', cards: [] }];
@@ -524,12 +561,77 @@ export default function WritingPractice({
     };
   }, [showLessonPicker]);
 
+  const strokeBand = !isRadicalMode ? (
+    <div className="stroke-preview-band">
+      {showStrokeArrows && strokePreviewSteps.length ? strokePreviewSteps.map((step) => (
+        <div
+          key={step.index}
+          ref={(el) => { strokeStepRefs.current[step.index] = el; }}
+          className={`radical-stroke-step ${step.index === currentStrokeIndex && !showCelebration ? 'radical-stroke-step-current' : ''}`}
+        >
+          <svg viewBox="0 0 92 92" className="radical-stroke-step-canvas" aria-label={`Trait ${step.index + 1}`}>
+            <rect x="1" y="1" width="90" height="90" rx="14" fill="#fff" stroke="#e7ebf2" />
+            <line x1="46" y1="8" x2="46" y2="84" stroke="#e7ebf2" strokeDasharray="4 4" />
+            <line x1="8" y1="46" x2="84" y2="46" stroke="#e7ebf2" strokeDasharray="4 4" />
+            <g transform={strokePreviewTransform.transform}>
+              <g transform="translate(512 388) scale(0.7) translate(-512 -388)">
+                {step.strokes.map((strokePath, strokeIndex) => (
+                  <path
+                    key={`${step.index}-${strokeIndex}`}
+                    d={strokePath}
+                    fill={strokeIndex === step.index ? '#ff6b6b' : '#111111'}
+                    stroke="none"
+                  />
+                ))}
+              </g>
+            </g>
+          </svg>
+          <div className="radical-stroke-step-count">{step.index + 1}</div>
+        </div>
+      )) : null}
+      {showCelebration ? (
+        <div ref={celebrationStepRef} className="radical-stroke-step writing-celebration-step">
+          <div className="radical-stroke-step-canvas writing-celebration-step-canvas" aria-label="Bravo">
+            <span className="writing-celebration-emoji">{celebrationEmoji}</span>
+          </div>
+          <div className="writing-celebration-label">Bravo !</div>
+        </div>
+      ) : null}
+    </div>
+  ) : null;
+
+  // Facile's top row (card, stroke count, side panel) is shared by every lesson mode.
+  const isRowLayout = (writingMode ? true : writingDifficulty === 1) && !embedded && !isRadicalMode;
+  const showStrokeCount = !writingMode || writingMode === 'facile' || writingMode === 'moyen';
+  // Facile keeps every aid; the other lesson modes strip them progressively.
+  const showGuideAndAnimate = !writingMode || writingMode === 'facile';
+  const isDicteeMode = writingMode === 'dictee';
+  // Moyen: a single comment in the guide's slot, shown once the character is written.
+  // It names the stroke that gave the most trouble.
+  const worstStrokeEntry = Object.entries(mistakesByStroke).sort((a, b) => b[1] - a[1])[0];
+  const analysisPanel = writingMode === 'moyen' && !isRadicalMode && !embedded ? (
+    <div className="writing-analysis" aria-live="polite">
+      {isCharacterDone ? (
+        <span className="writing-analysis-line">
+          {worstStrokeEntry ? `Attention au trait ${Number(worstStrokeEntry[0]) + 1}` : 'Parfait, aucune erreur !'}
+        </span>
+      ) : null}
+    </div>
+  ) : null;
+  const isMoyenMode = writingMode === 'moyen';
+  const hintButton = writingDifficulty === 2 ? (
+    <button type="button" className="writing-action-btn ui-pressable" onClick={showHint}>
+      <span>💡</span>
+      <small>Hint</small>
+    </button>
+  ) : null;
+
   return (
     <section
       className={`writing-screen ${embedded ? 'writing-screen-embedded' : ''}`}
       aria-label={isRadicalMode ? 'Atelier radical tablette' : 'Atelier d ecriture tablette'}
     >
-      {!embedded ? (
+      {!embedded && !shellHeader ? (
         <section ref={lessonPickerRef} className="writing-header-shell">
           <div className="current-lesson-card writing-header-card">
             <div className="lesson-header lesson-header-with-avatar lesson-text-topbar">
@@ -537,52 +639,47 @@ export default function WritingPractice({
                 type="button"
                 className="lesson-home-logo app-logo ui-pressable"
                 onClick={() => {
-                  if (onBack) onBack();
+                  sounds.playTap();
+                  if (onGoHome) onGoHome();
+                  else if (onBack) onBack();
                   else onSwitchModule?.('flashcards');
                 }}
                 aria-label="Retour landing"
               >
                 文
               </button>
-              <div className="lesson-avatar lesson-avatar-single" aria-label="Profil enfant">
+              <div className="lesson-info lesson-text-title-block">
+                <span className="lesson-text-mode-label">{isRadicalMode ? 'Radical' : 'Écriture'}</span>
+                <h3 className="lesson-title lesson-text-card-title">{lessonTitle || 'Lecon'}</h3>
+              </div>
+              <button
+                type="button"
+                className="change-lesson-btn icon-only ui-pressable"
+                onClick={() => {
+                  sounds.playTap();
+                  setShowLessonPicker((prev) => !prev);
+                }}
+                aria-label="Changer de lecon"
+              >
+                🗂️
+              </button>
+              <button
+                type="button"
+                className="lesson-avatar lesson-avatar-single lesson-avatar-btn ui-pressable"
+                aria-label="Modifier l'avatar de l'enfant"
+                onClick={() => {
+                  sounds.playTap();
+                  onOpenAvatarEditor?.();
+                }}
+              >
                 <AvatarRenderer
                   config={profile?.avatar}
-                  size={56}
+                  size={48}
                   className="landing-avatar-circle"
                   alt={`Avatar ${profile?.name || profileLabel}`}
                   loading="eager"
                 />
-              </div>
-              <div className="lesson-avatar lesson-avatar-single lesson-parent-avatar" aria-label="Profil parent">
-                <AvatarRenderer
-                  config={parentProfile?.avatar}
-                  size={56}
-                  className="landing-avatar-circle"
-                  alt={`Avatar ${parentProfile?.name || 'Parent'}`}
-                  loading="eager"
-                />
-              </div>
-              <div className="lesson-info lesson-text-title-block">
-                <h3 className="lesson-title lesson-text-card-title">{lessonTitle || 'Lecon'}</h3>
-                {onOpenLessonText ? (
-                  <p className="lesson-description lesson-text-card-description">
-                    {isRadicalMode ? 'Atelier radical' : 'Atelier d ecriture'}
-                  </p>
-                ) : null}
-              </div>
-              <div className="lesson-actions lesson-text-topbar-actions">
-                <button
-                  type="button"
-                  className="change-lesson-btn icon-only ui-pressable"
-                  onClick={() => {
-                    sounds.playTap();
-                    setShowLessonPicker((prev) => !prev);
-                  }}
-                  aria-label="Changer de lecon"
-                >
-                  🗂️
-                </button>
-              </div>
+              </button>
             </div>
             {showLessonPicker ? (
               <div
@@ -616,12 +713,57 @@ export default function WritingPractice({
         </section>
       ) : null}
 
-      {!embedded ? (
+      {isRowLayout ? (
+        <div className={`writing-top-row`}>
+          <div className="writing-char-block">
+            <div className="writing-char-reveal-full">
+              <button
+                type="button"
+                className="writing-char-reveal writing-char-reveal-toggle ui-pressable"
+                onClick={() => {
+                  if (isDicteeMode) return;
+                  sounds.playTap();
+                  setShowCharInfo((prev) => !prev);
+                }}
+              >
+                <span className="writing-char-reveal-pinyin">
+                  {card?.pinyinEnabled === false ? '' : formatPinyinDisplay(card?.pinyin || '')}
+                </span>
+                {isDicteeMode ? null : showCharInfo ? (
+                  <span className="writing-char-reveal-hanzi">{convert(targetChar)}</span>
+                ) : (
+                  <span className="writing-char-reveal-label">Voir le caractere</span>
+                )}
+                <span className="writing-char-reveal-french">{card?.french || ''}</span>
+              </button>
+              <button
+                type="button"
+                className="writing-char-reveal-sound ui-pressable"
+                onClick={playCardAudio}
+                disabled={!audioSrc && !targetChar}
+                aria-label="Ecouter le son"
+              >
+                🔊
+              </button>
+            </div>
+            {showStrokeCount ? (
+              <div className="writing-stroke-count-label" aria-label="Nombre de traits">
+                {totalStrokes ? `${totalStrokes} ${totalStrokes > 1 ? 'traits' : 'trait'}` : '…'}
+              </div>
+            ) : null}
+          </div>
+          {writingMode === 'moyen' ? analysisPanel : strokeBand}
+          {audioSrc ? <audio ref={audioRef} src={audioSrc} preload="auto" /> : null}
+        </div>
+      ) : null}
+
+      {!embedded && !isRowLayout ? (
         <div className="writing-card-info">
           <button
             type="button"
             className="writing-char-reveal ui-pressable"
             onClick={() => {
+              if (isDicteeMode) return;
               sounds.playTap();
               setShowCharInfo((prev) => !prev);
             }}
@@ -629,9 +771,9 @@ export default function WritingPractice({
             <span className="writing-char-reveal-pinyin">
               {card?.pinyinEnabled === false ? '' : formatPinyinDisplay(card?.pinyin || '')}
             </span>
-            {showCharInfo ? (
+            {isDicteeMode ? null : showCharInfo ? (
               <>
-                <span className="writing-char-reveal-hanzi">{targetChar}</span>
+                <span className="writing-char-reveal-hanzi">{convert(targetChar)}</span>
               </>
             ) : (
               <>
@@ -811,36 +953,7 @@ export default function WritingPractice({
         </section>
       ) : null}
 
-      {!isRadicalMode ? (
-        <div className="stroke-preview-band">
-          {showStrokeArrows && strokePreviewSteps.length ? strokePreviewSteps.map((step) => (
-            <div
-              key={step.index}
-              ref={(el) => { strokeStepRefs.current[step.index] = el; }}
-              className={`radical-stroke-step ${step.index === currentStrokeIndex ? 'radical-stroke-step-current' : ''}`}
-            >
-              <div className="radical-stroke-step-count">{step.index + 1}</div>
-              <svg viewBox="0 0 92 92" className="radical-stroke-step-canvas" aria-label={`Trait ${step.index + 1}`}>
-                <rect x="1" y="1" width="90" height="90" rx="14" fill="#fff" stroke="#e7ebf2" />
-                <line x1="46" y1="8" x2="46" y2="84" stroke="#e7ebf2" strokeDasharray="4 4" />
-                <line x1="8" y1="46" x2="84" y2="46" stroke="#e7ebf2" strokeDasharray="4 4" />
-                <g transform={strokePreviewTransform.transform}>
-                  <g transform="translate(512 388) scale(0.7) translate(-512 -388)">
-                    {step.strokes.map((strokePath, strokeIndex) => (
-                      <path
-                        key={`${step.index}-${strokeIndex}`}
-                        d={strokePath}
-                        fill={strokeIndex === step.index ? '#ff6b6b' : '#111111'}
-                        stroke="none"
-                      />
-                    ))}
-                  </g>
-                </g>
-              </svg>
-            </div>
-          )) : null}
-        </div>
-      ) : null}
+      {isRowLayout ? null : analysisPanel || strokeBand}
 
       <div className="writing-area">
         <div className="writing-canvas-container" ref={canvasWrapRef}>
@@ -865,40 +978,18 @@ export default function WritingPractice({
         </div>
 
         <div className="writing-action-buttons">
-          <button
-            type="button"
-            className={`writing-action-btn ui-pressable ${showStrokeArrows ? 'active' : ''}`}
-            onClick={() => {
-              sounds.playTap();
-              setShowStrokeArrows((prev) => !prev);
-            }}
-            disabled={!strokePreviewSteps.length}
-          >
-            <span>✏️</span>
-            <small>Guide</small>
-          </button>
-          <button
-            type="button"
-            className={`writing-action-btn ui-pressable ${showModel ? 'model-on' : ''}`}
-            onClick={() => setShowModel((prev) => !prev)}
-          >
-            <span>👁️</span>
-            <small>Modèle</small>
-          </button>
+          {showGuideAndAnimate ? (
           <button type="button" className="writing-action-btn ui-pressable" onClick={showStrokeOrder}>
             <span>▶️</span>
             <small>Animer</small>
           </button>
+          ) : null}
+          {isMoyenMode ? hintButton : null}
           <button type="button" className="writing-action-btn ui-pressable" onClick={clearCanvas}>
             <span>🔄</span>
             <small>Effacer</small>
           </button>
-          {writingDifficulty === 2 ? (
-            <button type="button" className="writing-action-btn ui-pressable" onClick={showHint}>
-              <span>💡</span>
-              <small>Hint</small>
-            </button>
-          ) : null}
+          {isMoyenMode ? null : hintButton}
         </div>
       </div>
 

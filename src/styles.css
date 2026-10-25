@@ -11,14 +11,41 @@ body {
   transition: background 280ms ease, color 280ms ease;
 }
 
+:root {
+  /* iOS Safari's 100dvh can settle on the wrong value at first paint
+     (particularly once scrolling - and the recompute it normally
+     triggers - is blocked by overflow: hidden), leaving a dead gap
+     between the landing page and the browser chrome. LandingPage.jsx
+     measures the real visible height in JS and overwrites this via
+     inline style on <html>; the dvh value here is only the fallback for
+     the instant before that effect runs. --vh1 is 1% of it, so every
+     "Ndvh" below can be written as calc(var(--vh1) * N) instead. */
+  --landing-vh: 100dvh;
+  --vh1: calc(var(--landing-vh) / 100);
+}
+
 .landing {
-  min-height: 100dvh;
-  overflow-y: auto;
+  height: var(--landing-vh);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 0;
   background: #ffffff;
+}
+
+/* Below ~500px of height (phones in landscape - portrait phones and every
+   iPad orientation stay comfortably above this), even the tightest clamp
+   floors below can't fit all 4 landing sections. Falling back to a normal
+   scrollable page keeps every button reachable; the alternative
+   (overflow: hidden with nothing fitting) silently clips Lecons/
+   Vocabulaire/Ecriture/Evaluation and Reprendre off-screen entirely. */
+@media (max-height: 500px) {
+  .landing {
+    height: auto;
+    min-height: var(--landing-vh);
+    overflow: visible;
+  }
 }
 
 .landing-new-shell {
@@ -31,13 +58,17 @@ body {
 }
 
 .logo-area {
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 30;
   width: min(640px, 100%);
   margin: 0 auto;
   display: flex;
   align-items: center;
   gap: 14px;
   justify-content: flex-start;
+  background: #ffffff;
+  padding: 16px 0 10px;
 }
 
 .app-logo {
@@ -479,7 +510,7 @@ body {
   background: none;
   border: none;
   color: #999;
-  font-size: 12px;
+  font-size: clamp(12px, calc(var(--vh1) * 1.5), 14px);
   cursor: pointer;
   text-decoration: underline;
   text-underline-offset: 2px;
@@ -491,7 +522,7 @@ body {
 }
 
 .landing-refresh-status {
-  font-size: 12px;
+  font-size: clamp(12px, calc(var(--vh1) * 1.5), 14px);
   color: #00b894;
 }
 
@@ -2279,7 +2310,6 @@ body {
   background: #fff;
   border: 1px solid #e0e0e0;
   border-radius: 18px;
-  overflow: hidden;
   display: grid;
   font-family: Inter, 'Segoe UI', sans-serif;
 }
@@ -2311,6 +2341,10 @@ body {
   align-items: center;
   gap: 10px;
   padding: 0 18px;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  border-radius: 18px 18px 0 0;
 }
 
 .lesson-top-left {
@@ -2335,82 +2369,67 @@ body {
 }
 
 .writing-logo {
-  width: 80px;
-  height: 80px;
+  width: 58px;
+  height: 58px;
+  flex: 0 0 58px;
   border: none;
-  border-radius: 12px;
+  border-radius: 16px;
   background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
   color: #fff;
-  font-size: 30px;
+  font-size: 26px;
   font-weight: 800;
   cursor: pointer;
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.25);
 }
 
-.writing-profile-section {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-width: 0;
-}
-
-.writing-avatar-tile {
-  width: 80px;
-  height: 80px;
-  border-radius: 20px;
-  background: linear-gradient(135deg, #4ecdc4 0%, #44a3a0 100%);
-  display: grid;
-  place-items: center;
-}
-
-.writing-avatar-tile img {
-  border-radius: 12px;
-}
-
-.writing-profile-name {
+.writing-title-block {
   display: grid;
   gap: 2px;
+  min-width: 0;
+  flex: 1 1 auto;
 }
 
-.writing-profile-name strong {
-  font-size: 18px;
-  color: #2d3436;
-}
-
-.writing-profile-name span {
-  font-size: 13px;
-  color: #636e72;
+.writing-mode-label {
+  display: block;
+  font-size: 11px;
   font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #a0aab8;
 }
 
-.writing-lesson-selector {
-  height: 56px;
-  padding: 0 12px 0 18px;
-  border-radius: 12px;
-  border: 2px solid #4ecdc4;
-  background: #fff;
+.writing-title-text {
+  font-size: 17px;
   color: #2d3436;
-  font-size: 16px;
-  font-weight: 800;
-  cursor: pointer;
-  min-width: 0;
-  max-width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-
-.writing-lesson-selector-label {
-  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.writing-lesson-selector-icon {
-  flex-shrink: 0;
-  font-size: 18px;
-  line-height: 1;
+.writing-folder-btn {
+  min-height: 40px;
+  min-width: 40px;
+  flex: 0 0 auto;
+  border-radius: 12px;
+  border: 2px solid #4ecdc4;
+  background: #ecfffb;
+  color: #22665f;
+  font-weight: 900;
+  padding: 0 10px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.writing-avatar-btn {
+  width: 58px;
+  height: 58px;
+  flex: 0 0 58px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  overflow: hidden;
 }
 
 .writing-read-lesson-btn {
@@ -3045,6 +3064,42 @@ body {
   touch-action: none;
 }
 
+.writing-celebration-label {
+  font-size: 13px;
+  font-weight: 800;
+  color: #ff6b6b;
+  animation: celebration-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+}
+
+.writing-celebration-step-canvas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #fff7e6 0%, #ffe9d6 100%);
+  box-shadow: 0 0 0 3px #ff6b6b;
+}
+
+.writing-celebration-emoji {
+  font-size: 44px;
+  line-height: 1;
+  display: inline-block;
+  animation: celebration-pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
+}
+
+@keyframes celebration-pop {
+  0% { transform: scale(0) rotate(-15deg); opacity: 0; }
+  60% { transform: scale(1.3) rotate(8deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .writing-celebration-label,
+  .writing-celebration-emoji {
+    animation-duration: 0.01ms !important;
+  }
+}
+
 .writer-ghost-layer {
   position: absolute;
   inset: 0;
@@ -3214,7 +3269,6 @@ body {
 
 .lesson-text-page {
   min-height: 100dvh;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
   padding-top: max(0px, env(safe-area-inset-top));
@@ -3276,6 +3330,22 @@ body {
   flex: 0 0 58px;
 }
 
+.lesson-avatar-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 999px;
+}
+
+.lesson-text-mode-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #a0aab8;
+}
+
 .lesson-parent-avatar {
   background: linear-gradient(135deg, #4ecdc4 0%, #44a3a0 100%);
 }
@@ -3318,12 +3388,91 @@ body {
   width: 100%;
 }
 
+.current-lesson-card.lesson-text-sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: #fff;
+  padding-top: 8px;
+  padding-bottom: 4px;
+  box-shadow: 0 6px 12px -8px rgba(45, 52, 54, 0.18);
+}
+
+.lesson-text-top-row.lesson-text-sticky-instructions {
+  position: sticky;
+  top: 74px;
+  z-index: 20;
+  background: #fff;
+  padding-top: 8px;
+  padding-bottom: 6px;
+}
+
+.pinyin-capsule-edge-tab {
+  position: fixed;
+  top: 84px;
+  right: 0;
+  z-index: 25;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 40px;
+  border-radius: 10px 0 0 10px;
+  border: 2px solid #e0e0e0;
+  border-right: none;
+  background: #fff;
+  color: #4ecdc4;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: -2px 2px 8px rgba(45, 52, 54, 0.12);
+}
+
 .lesson-section-marker {
   font-size: 13px;
   font-weight: 700;
   color: #a0aab8;
   letter-spacing: 0.03em;
   white-space: nowrap;
+  /* .profile-card-kid (the lesson card's own wrapper) sets text-align:
+     center for its own layout - this marker is standalone text, not a
+     centered card title, so it needs to opt back out explicitly. */
+  text-align: left;
+}
+
+.pinyin-capsule-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 2px solid #e0e0e0;
+  background: #fff;
+  color: #4ecdc4;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.lesson-text-pinyin-floating {
+  flex-wrap: nowrap;
+}
+
+.pinyin-float-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 2px solid #4ecdc4;
+  background: #ecfffb;
+  color: #22665f;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1;
 }
 
 .lesson-text-top-row {
@@ -3479,6 +3628,13 @@ body {
 
 .pinyin-toggle {
   display: flex;
+  /* Shrink-wraps to its own content by default (a flex row with no grow),
+     which only happened to match .text-display's width at narrow phone
+     widths where the 4 options wrap to 2 rows anyway - on anything wider
+     (iPad, landscape) it stayed noticeably narrower than the lesson text
+     box below it. flex: 1 makes it fill its row (alone in the normal
+     layout, or next to .pinyin-float-btn in the floating one) instead. */
+  flex: 1;
   flex-wrap: wrap;
   gap: 6px;
   justify-content: flex-start;
@@ -3517,6 +3673,9 @@ body {
   color: #fff;
 }
 
+/* Used by LessonWritingSetupPage's character-selection grid, not the
+   lesson text view's vocabulary list below (.vocabulary-list/.vocab-row) -
+   kept as-is, a different screen's different UI. */
 .vocabulary-grid {
   display: flex;
   flex-direction: row;
@@ -3530,6 +3689,66 @@ body {
   padding-bottom: 2px;
   flex: 1;
   min-width: 0;
+}
+
+.vocabulary-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.vocab-row {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  background: #fff;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+.vocab-row-main {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+}
+
+.vocab-row-hanzi {
+  font-size: 24px;
+  font-weight: 700;
+  font-family: var(--wm-font-hanzi);
+  color: #2d3436;
+}
+
+.vocab-row-pinyin {
+  font-size: 14px;
+  font-weight: 600;
+  color: #636e72;
+}
+
+.vocab-row-meaning {
+  font-size: 15px;
+  font-weight: 700;
+  color: #22665f;
+}
+
+.vocab-row-breakdown {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 4px;
+  font-size: 13px;
+  color: #a0aab8;
+  font-family: var(--wm-font-hanzi);
+}
+
+.vocab-row-breakdown-sep {
+  margin-right: 4px;
+  color: #c7cdd6;
+  font-family: var(--wm-font-base);
 }
 
 .vocab-card {
@@ -3747,10 +3966,137 @@ body {
   flex-shrink: 0;
 }
 
+.vocab-dictee-section {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px dashed #ff6b6b;
+  border-radius: 10px;
+  background: #fff5f5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.vocab-dictee-head {
+  display: grid;
+  gap: 2px;
+}
+
+.vocab-dictee-head strong {
+  font-size: 13px;
+  color: #2d3436;
+}
+
+.vocab-dictee-head .parent-empty {
+  font-size: 11px;
+}
+
 .vocab-grid-with-controls {
   display: flex;
   gap: 8px;
   align-items: flex-start;
+}
+
+.writing-setup-step-title {
+  margin: 0 0 10px;
+  text-align: left;
+  font-size: 20px;
+  font-weight: 700;
+  color: #2d3436;
+}
+
+.writing-setup-count {
+  margin: 12px 0 20px;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 600;
+  color: #636e72;
+}
+
+.writing-setup-modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.writing-setup-mode-group {
+  flex: 1 1 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 10px;
+  border-radius: 18px;
+  background: #eef1f6;
+}
+
+.writing-setup-mode-label {
+  flex-basis: 100%;
+  text-align: left;
+  padding: 0 4px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #636e72;
+}
+
+.writing-setup-mode-btn {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 38px;
+  padding: 0 12px;
+  border-radius: 12px;
+  border: 2px solid #d8deea;
+  background: #fff;
+  color: #2d3436;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.writing-setup-mode-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.writing-setup-dictee-btn {
+  flex: 0 0 auto;
+  min-width: 110px;
+  border-color: #f3b0b0;
+}
+
+.writing-setup-presets {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  overflow-x: auto;
+}
+
+.writing-setup-preset {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 0 6px;
+  height: 38px;
+  border-radius: 12px;
+  border: 2px solid #d8deea;
+  background: #fff;
+  color: #636e72;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.writing-setup-preset.active {
+  border-color: #9b8cf0;
+  background: #9b8cf0;
+  color: #fff;
+}
+
+.writing-setup-preset:disabled {
+  opacity: 0.45;
+  cursor: default;
 }
 
 .vocab-select-btns {
@@ -3821,7 +4167,7 @@ body {
 }
 
 .module-hanzi-large {
-  font-size: 220px;
+  font-size: 440px;
   line-height: 0.95;
   color: #2d3436;
   font-weight: 800;
@@ -3829,8 +4175,8 @@ body {
 }
 
 .module-pinyin-large {
-  font-size: 24px;
-  line-height: 28px;
+  font-size: 48px;
+  line-height: 56px;
   color: #ff6b6b;
   font-weight: 800;
 }
@@ -3861,6 +4207,118 @@ body {
   font-size: 18px;
   color: #2d3436;
   font-weight: 700;
+}
+
+.module-top-row {
+  width: min(540px, 100%);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 10px;
+  padding: 10px 16px 0;
+}
+
+.module-progress-counter {
+  flex: 0 0 auto;
+  font-size: 14px;
+  font-weight: 800;
+  color: #636e72;
+  background: #f1f3f6;
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.module-translation-flags {
+  width: 100%;
+  display: grid;
+  gap: 10px;
+}
+
+.module-translation-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.module-translation-flag {
+  flex: 0 0 auto;
+  font-size: 26px;
+  line-height: 1;
+}
+
+.module-translation-box {
+  flex: 1;
+  min-width: 0;
+  border: 2px solid #2d3436;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #2d3436;
+  background: #fff;
+  text-align: center;
+}
+
+.module-study-actions {
+  width: min(540px, 100%);
+  margin: 18px auto 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 0 16px;
+}
+
+.module-study-btn {
+  min-height: 56px;
+  border: none;
+  border-radius: 16px;
+  font-size: 17px;
+  font-weight: 800;
+  color: #2d3436;
+  background: #d7dee6;
+  cursor: pointer;
+}
+
+.module-study-btn-known:active,
+.module-study-btn-unsure:active {
+  transform: scale(0.97);
+}
+
+.module-complete-screen {
+  width: min(540px, 100%);
+  margin: 40px auto 0;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  text-align: center;
+  padding: 0 16px;
+}
+
+.module-complete-emoji {
+  font-size: 64px;
+  line-height: 1;
+}
+
+.module-complete-screen h2 {
+  margin: 4px 0 0;
+  font-size: 26px;
+  color: #2d3436;
+}
+
+.module-complete-screen p {
+  margin: 0 0 10px;
+  color: #636e72;
+  font-weight: 600;
+}
+
+.module-complete-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .module-stars {
@@ -4111,9 +4569,6 @@ body {
   }
 
   .logo-area {
-    top: 18px;
-    left: 50%;
-    transform: translateX(-50%);
     width: min(640px, calc(100% - 32px));
     gap: 10px;
   }
@@ -4193,11 +4648,11 @@ body {
   }
 
   .module-hanzi-large {
-    font-size: 160px;
+    font-size: 320px;
   }
 
   .module-pinyin-large {
-    font-size: 20px;
+    font-size: 40px;
   }
 
   .module-translation-panels {
@@ -4290,18 +4745,13 @@ body {
   .writing-top-banner {
     height: auto;
     padding: 10px;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 10px;
-  }
-
-  .writing-lesson-selector {
-    grid-column: 1 / span 2;
-    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
   .writing-read-lesson-btn {
-    grid-column: 3;
+    flex: 1 1 100%;
     height: 48px;
     font-size: 13px;
     padding: 0 10px;
@@ -4354,12 +4804,14 @@ body {
   }
 
   .writing-action-buttons {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    display: flex;
+    justify-content: center;
     gap: 10px;
   }
 
   .writing-action-btn {
-    width: 100%;
+    flex: 0 0 auto;
+    width: 64px;
     height: 64px;
     border-radius: 12px;
   }
@@ -4415,35 +4867,25 @@ body {
   .writing-top-banner {
     padding: 8px;
     gap: 8px;
-    grid-template-columns: 1fr 1fr;
+  }
+
+  .writing-logo,
+  .writing-avatar-btn {
+    width: 52px;
+    height: 52px;
+    flex-basis: 52px;
   }
 
   .writing-logo {
-    width: 58px;
-    height: 58px;
-    font-size: 24px;
+    font-size: 22px;
   }
 
-  .writing-avatar-tile {
-    width: 58px;
-    height: 58px;
-    border-radius: 14px;
-  }
-
-  .writing-profile-name strong {
+  .writing-title-text {
     font-size: 15px;
   }
 
-  .writing-profile-name span {
-    font-size: 11px;
-  }
-
-  .writing-lesson-selector {
-    grid-column: 1 / -1;
-  }
-
   .writing-read-lesson-btn {
-    grid-column: 1 / -1;
+    flex: 1 1 100%;
     width: 100%;
     height: 44px;
   }
@@ -4629,6 +5071,83 @@ body {
 .lesson-text-vocab-chip.active {
   border-color: #ff6b6b;
   background: #fff2ee;
+}
+
+.vocab-chip-removable {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid #e0e0e0;
+  border-radius: 999px;
+  padding: 4px 10px;
+  background: #fff;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.vocab-chip-removable span {
+  color: #ff6b6b;
+  font-weight: 800;
+}
+
+.lesson-vocab-add {
+  margin-top: 10px;
+  display: grid;
+  gap: 6px;
+}
+
+.lesson-vocab-add input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.lesson-vocab-suggestions {
+  display: grid;
+  gap: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.lesson-vocab-create {
+  display: grid;
+  gap: 6px;
+  padding: 10px;
+  border: 1px dashed #4ecdc4;
+  border-radius: 8px;
+  background: #f0fdfb;
+}
+
+.lesson-vocab-create input {
+  width: 100%;
+  padding: 7px 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.lesson-vocab-suggestion {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 6px 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #fff;
+  text-align: left;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.lesson-vocab-suggestion strong {
+  font-family: var(--wm-font-hanzi);
+  font-size: 16px;
+}
+
+.lesson-vocab-suggestion span {
+  color: #636e72;
 }
 
 .preview-note {
@@ -4886,6 +5405,53 @@ body {
   animation: lesson-picker-in 180ms ease-out;
 }
 
+/* Opened via the AppShell header's folder icon (shellHeader mode) - that
+   icon lives outside this dropdown's own header div, which may not even
+   render, so top: 100% (anchored to that div) no longer places it
+   correctly. Anchor to the top of the lesson card instead, which sits
+   right under the AppShell header. */
+.lesson-picker-dropdown-standalone {
+  top: 0;
+}
+
+/* Opened from the breadcrumb icon next to the current writing mode label
+   (e.g. "Facile") - fixed to the viewport rather than anchored to a
+   specific ancestor, since it's rendered as a sibling of whichever writing
+   page component happens to be mounted. */
+.writing-mode-switcher-dropdown {
+  position: fixed;
+  top: calc(var(--shell-header-h) + 8px);
+  right: 16px;
+  z-index: 100;
+  display: grid;
+  gap: 4px;
+  min-width: 160px;
+  border: 1px solid #e6d7ad;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  padding: 8px;
+  animation: lesson-picker-in 180ms ease-out;
+}
+
+.writing-mode-switcher-item {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid #eceff5;
+  border-radius: 10px;
+  background: #fff;
+  color: #2d3436;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.writing-mode-switcher-item.active {
+  border-color: #4ecdc4;
+  background: #ecfffb;
+  color: #22665f;
+}
+
 .lesson-option {
   width: 100%;
   min-height: 52px;
@@ -4969,7 +5535,12 @@ body {
   align-content: start;
   gap: 18px;
   min-height: auto;
-  padding: 30px 16px 120px;
+  /* Not reserving space for a fixed bottom nav here - the landing page has
+     none, and the two other users of this class (LessonTextView,
+     LessonWritingSetupPage) already get that clearance from
+     .app-shell-main's own padding-bottom. A bare 24px is just breathing
+     room, not reserved space. */
+  padding: 30px 16px 24px;
 }
 
 .landing-new-shell .profile-card-kid,
@@ -4996,10 +5567,6 @@ body {
 }
 
 @media (max-width: 720px) {
-  .landing-new-shell {
-    padding: 20px 12px 112px;
-  }
-
   .logo-area {
     width: min(640px, 100%);
   }
@@ -5008,4 +5575,192 @@ body {
   .landing-new-shell .profile-card-parent {
     width: 100%;
   }
+}
+
+/* Landing page only: the whole page is locked to one screen (.landing has
+   height: var(--landing-vh); overflow: hidden - see above), so every size
+   here scales continuously with available viewport HEIGHT, not width. A
+   width breakpoint would miss a wide-but-short case like an iPad in
+   landscape; clamp() against --vh1 (1% of the JS-measured real height)
+   fits phone and iPad, portrait or landscape, without needing separate
+   tiers - and without iOS Safari's raw `dvh` unit going stale the way
+   .landing's own height did (see --landing-vh above). Scoped under
+   .landing so the other three users of .landing-new-shell/.profile-card-kid
+   (LessonTextView, LessonWritingSetupPage) - which scroll normally and get
+   their own footer clearance from .app-shell-main - are untouched. */
+.landing .landing-new-shell {
+  flex: 1 1 auto;
+  min-height: 0;
+  align-content: space-evenly;
+  gap: clamp(6px, calc(var(--vh1) * 1.8), 18px);
+  padding: clamp(8px, calc(var(--vh1) * 2.5), 30px) 16px clamp(8px, calc(var(--vh1) * 2), 24px);
+  overflow: hidden;
+}
+
+.landing .app-logo {
+  width: clamp(56px, calc(var(--vh1) * 10), 120px);
+  height: clamp(56px, calc(var(--vh1) * 10), 120px);
+  border-radius: clamp(16px, calc(var(--vh1) * 2.5), 30px);
+  font-size: clamp(32px, calc(var(--vh1) * 6), 72px);
+}
+
+.landing .logo-area {
+  padding: clamp(4px, calc(var(--vh1) * 1.2), 16px) 0 clamp(2px, calc(var(--vh1) * 0.8), 10px);
+  gap: clamp(8px, calc(var(--vh1) * 1.5), 14px);
+}
+
+.landing .app-subtitle {
+  font-size: clamp(16px, calc(var(--vh1) * 2.6), 26px);
+}
+
+.landing .profile-card-parent {
+  padding: clamp(10px, calc(var(--vh1) * 1.8), 16px) clamp(12px, 3vw, 20px);
+}
+
+.landing .landing-footer {
+  padding: clamp(6px, calc(var(--vh1) * 1.2), 16px) 0 clamp(10px, calc(var(--vh1) * 2), 24px);
+}
+
+/* Facile layout: character card, stroke count and scrolling stroke guide share one row. */
+.writing-top-row {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  padding: 10px 18px;
+  background: #fff;
+  border-bottom: 1px solid #e7ebf2;
+}
+
+.writing-char-block {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.writing-char-reveal-full {
+  position: relative;
+  width: 74px;
+  height: 74px;
+  box-sizing: border-box;
+}
+
+.writing-char-reveal-toggle {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+}
+
+.writing-char-reveal-sound {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 20px;
+  height: 20px;
+  min-width: 0;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255, 107, 107, 0.14);
+  color: #ff6b6b;
+  font-size: 10px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.writing-char-reveal-sound:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.writing-char-reveal-french {
+  font-size: 14px;
+  font-weight: 700;
+  color: #2d3436;
+  line-height: 1.1;
+}
+
+.writing-stroke-count-label {
+  font-size: 13px;
+  font-weight: 800;
+  color: #ff6b6b;
+  text-align: center;
+}
+
+.writing-top-row .stroke-preview-band {
+  flex: 1 1 0;
+  min-width: 0;
+  align-items: flex-start;
+  padding: 0 8px;
+  min-height: 0;
+  background: transparent;
+  border: 0;
+}
+
+/* Shrunk more than the pinyin card (-25% vs -20%) so a stroke square is
+   fully visible in the row instead of getting cropped at the edge. */
+.writing-top-row .stroke-preview-band .radical-stroke-step-canvas {
+  width: 69px;
+  height: 69px;
+}
+
+/* First grid row is fixed at the card's own height (74px, canvas centered
+   inside it) so the stroke number (and the celebration tile, which has no
+   second row) sit at the same y as the other stroke tiles. */
+.writing-top-row .stroke-preview-band .radical-stroke-step {
+  display: grid;
+  grid-template-rows: 74px auto;
+  justify-items: center;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Plain number, no pill, matching the "X traits" label's look under the card. */
+.writing-top-row .stroke-preview-band .radical-stroke-step-count {
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #ff6b6b;
+  font-size: 13px;
+  font-weight: 800;
+  transform: none;
+}
+
+
+.stroke-preview-band:empty {
+  display: none;
+}
+
+
+
+/* Same row height in every lesson mode so the canvas never shifts; the guide
+   stretches (align-items: stretch, inherited from .writing-top-row) to match
+   the left char-block's natural height instead of a hardcoded value. */
+.writing-top-row {
+  min-height: 100px;
+}
+
+.writing-top-row .writing-analysis {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 92px;
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+}
+
+.writing-analysis-line {
+  font-size: 16px;
+  font-weight: 700;
+  color: #2d3436;
 }

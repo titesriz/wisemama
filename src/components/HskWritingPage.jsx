@@ -4,11 +4,14 @@ import WritingPractice from './WritingPractice.jsx';
 export default function HskWritingPage({
   profile,
   word,
+  writingDifficulty = 1,
   onBack,
+  onGoHome,
   onSwitchModule,
   onSuccess,
   onPrevWord,
   onNextWord,
+  shellHeader = false,
 }) {
   const [charPosition, setCharPosition] = useState(0);
 
@@ -54,7 +57,7 @@ export default function HskWritingPage({
         card={word}
         lessonId="hsk1-deck"
         lessonTitle="HSK1"
-        writingDifficulty={1}
+        writingDifficulty={writingDifficulty}
         profile={profile}
         cardIndex={charPosition}
         totalCards={charQueue.length}
@@ -62,6 +65,8 @@ export default function HskWritingPage({
         onNext={handleNext}
         onSwitchModule={onSwitchModule}
         onBack={onBack}
+        onGoHome={onGoHome}
+        shellHeader={shellHeader}
         standalone
         onSuccess={onSuccess}
       />

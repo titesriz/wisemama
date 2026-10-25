@@ -1,6 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import AudioStandaloneUI from './components/AudioStandaloneUI.jsx';
-import AvatarEditor from './components/AvatarEditor.jsx';
 import BigSmileTester from './components/BigSmileTester.jsx';
 import CoachMark from './components/CoachMark.jsx';
 import ChineseFontTestPage from './components/ChineseFontTestPage.jsx';
@@ -39,6 +38,8 @@ import HskQuizPage from './components/HskQuizPage.jsx';
 import LessonQuizPage from './components/LessonQuizPage.jsx';
 import LessonVocabWordPage from './components/LessonVocabWordPage.jsx';
 import LessonVocabWritingPage from './components/LessonVocabWritingPage.jsx';
+import ChoiceHubPage from './components/ChoiceHubPage.jsx';
+import LessonWritingSetupPage from './components/LessonWritingSetupPage.jsx';
 import hskWords from './data/hsk1-words.json';
 import colorsWords from './data/colors-words.json';
 import clothingWords from './data/clothing-words.json';
@@ -53,6 +54,9 @@ import {
 } from './lib/ftueStorage.js';
 import { applyHanziFontPreference, getHanziFontPreference } from './lib/hanziFont.js';
 import { isDevMode } from './config.js';
+import { SCREEN } from './lib/screens.js';
+import AppShell, { AvatarEditorModal } from './components/AppShell.jsx';
+import ParentSpacePage from './components/ParentSpacePage.jsx';
 
 const appTitle = 'WiseMama - Apprendre le chinois';
 const progressStorageKey = 'wisemama-progress-v1';
@@ -101,6 +105,15 @@ const STANDALONE_VIEW = {
   RADICAL_WORDS: 'radical-words',
   RADICAL_WRITING: 'radical-writing',
   RADICAL_QUIZ: 'radical-quiz',
+  LESSON_PICKER: 'lesson-picker',
+  VOCAB_HUB: 'vocab-hub',
+  THEME_SELECT: 'theme-select',
+  WRITING_HUB: 'writing-hub',
+  WRITING_THEME_SELECT: 'writing-theme-select',
+  DICTEE_HUB: 'dictee-hub',
+  DICTEE_THEME_SELECT: 'dictee-theme-select',
+  LESSON_WRITING_SETUP: 'lesson-writing-setup',
+  TEST_HUB: 'test-hub',
   LESSON_EDITOR: 'lesson-editor',
 };
 
@@ -173,6 +186,10 @@ function getDefaultModuleByRole(role) {
   return role === 'parent' ? MODULES.PARENT_HOME : MODULES.FLASHCARDS;
 }
 
+const WRITING_MODE_DIFFICULTY = { facile: 1, moyen: 2, difficile: 3, dictee: 3 };
+const WRITING_MODE_LABEL = { facile: 'Facile', moyen: 'Moyen', difficile: 'Difficile', dictee: 'Dictée' };
+const WRITING_MODES = ['facile', 'moyen', 'difficile', 'dictee'];
+
 export default function App() {
   const { mode, isParentMode, switchToChild, switchToParent } = useMode();
   const {
@@ -195,23 +212,75 @@ export default function App() {
     updateLesson,
     removeLesson,
     duplicateLesson,
+    getPacks,
+    setPackEnabled,
+    getPackLessons,
   } = useLessons();
   const activeLesson = lessonOptions.find((lesson) => lesson.id === activeLessonId) || null;
   const [cardIndex, setCardIndex] = useState(0);
   const [starsByProfile, setStarsByProfile] = useState({});
   const [enteredApp, setEnteredApp] = useState(false);
+  // What "Reprendre" on the landing page resumes - { contentLabel,
+  // modeLabel, resume } where resume() replays the exact navigation that
+  // was used to reach that screen. Set at each landing-rooted entry point
+  // right before the navigation itself happens.
+  const [lastActivity, setLastActivity] = useState(null);
+  // Every screen reached from the landing page (enteredApp === false) is
+  // child-facing - parent mode only exists behind enteredApp === true and
+  // isDevMode. Several landing/hub entry points added this session don't
+  // explicitly switch the active profile to the child (unlike the older
+  // ones), which let a stale "parent" active profile leak into shared
+  // chrome like the sticky header avatar. Enforcing it here, once, covers
+  // every current and future landing-rooted screen instead of patching
+  // each entry function individually.
+  useEffect(() => {
+    if (enteredApp) return;
+    const childProfile = profiles.find((profile) => profile.role === 'child') || profiles[0];
+    if (childProfile && activeProfileId !== childProfile.id) {
+      setActiveProfileId(childProfile.id);
+    }
+  }, [enteredApp, profiles, activeProfileId, setActiveProfileId]);
   const [standaloneView, setStandaloneView] = useState(STANDALONE_VIEW.NONE);
+  const [showParentSpace, setShowParentSpace] = useState(false);
   const [lessonTextLessonId, setLessonTextLessonId] = useState(() => getLessonTextRouteId(window.location.pathname));
+  // Lifted out of LessonTextView so the AppShell header's folder icon
+  // (outside LessonTextView's own DOM subtree) can toggle the same picker.
+  const [showLessonTextPicker, setShowLessonTextPicker] = useState(false);
   const [returnToLessonText, setReturnToLessonText] = useState(false);
   const [lessonJourneyQueue, setLessonJourneyQueue] = useState([]);
   const [lessonJourneyPosition, setLessonJourneyPosition] = useState(0);
   const [unifiedFlowStepIndex, setUnifiedFlowStepIndex] = useState(0);
   const [writingDifficulty, setWritingDifficulty] = useState(1);
+  // Mode picked on the writing setup screen; drives the breadcrumb label.
+  // Dictée and difficile both run at writingDifficulty 3.
+  const [lessonWritingMode, setLessonWritingMode] = useState('facile');
+  // Inline mode switcher opened from the breadcrumb's icon next to the
+  // current mode label (e.g. "Facile") - lets you change mode without
+  // leaving the writing screen or losing the current character/position.
+  const [showWritingModeSwitcher, setShowWritingModeSwitcher] = useState(false);
   const [hskWordIndex, setHskWordIndex] = useState(() => readHskProgress());
   const [colorsWordIndex, setColorsWordIndex] = useState(0);
   const [clothingWordIndex, setClothingWordIndex] = useState(0);
   const [radicalWordIndex, setRadicalWordIndex] = useState(0);
+  // What the shared lesson picker (reached from the Lecons/Vocabulaire/
+  // Test hub buttons) does once a lesson is chosen, and which hub screen
+  // "Retour" should land back on.
+  const [lessonPickerIntent, setLessonPickerIntent] = useState('text');
+  const [lessonPickerReturnTo, setLessonPickerReturnTo] = useState(STANDALONE_VIEW.NONE);
+  // null = the full question-type mix (every other quiz entry point); set
+  // only by the Test hub's Comprehension/Ecouter picks, and reset to null
+  // by every other path into LESSON_QUIZ so it never leaks across sessions.
+  const [quizAllowedTypes, setQuizAllowedTypes] = useState(null);
+  // Difficulty passed to the deck writing screens (Colors/Clothing/
+  // Radicals/HSK1/lesson-vocab) - 1 (easy, character shown) for normal
+  // Ecriture entries, 3 (hard, character hidden) for Dictee entries. Reset
+  // to 1 by every non-Dictee path into these screens so it never leaks.
+  const [deckWritingDifficulty, setDeckWritingDifficulty] = useState(1);
   const [vocabWordIndex, setVocabWordIndex] = useState(0);
+  // Set only when a vocab word is opened by tapping it in the lesson text -
+  // a narrow [word, ...its component characters] deck instead of browsing
+  // the full lesson. Null everywhere else (normal full-lesson browsing).
+  const [vocabWordSubset, setVocabWordSubset] = useState(null);
   const [activeModule, setActiveModule] = useState(MODULES.LESSONS);
   const [showAvatarEditorModal, setShowAvatarEditorModal] = useState(false);
   const [showProfilePicker, setShowProfilePicker] = useState(false);
@@ -342,7 +411,7 @@ export default function App() {
   }, [activeModule, isParentMode]);
 
   useEffect(() => {
-    if (writingDifficulty !== 1 && writingDifficulty !== 3) {
+    if (![1, 2, 3].includes(writingDifficulty)) {
       setWritingDifficulty(1);
     }
   }, [writingDifficulty]);
@@ -523,6 +592,11 @@ export default function App() {
   // (vocabularyRefs), woven together via buildLessonWordSet - vocabulary is
   // additive, not a subset of characters, so both must be shown.
   const lessonAllWords = activeLesson ? buildLessonWordSet(activeLesson) : [];
+  // What the vocab flashcard/writing flow actually browses right now -
+  // the subset from tapping a word in the lesson text, or the full lesson
+  // set otherwise. vocabWordIndex is always an index into this, never into
+  // lessonAllWords directly, once a subset is active.
+  const vocabWordsActive = vocabWordSubset || lessonAllWords;
   const currentAllWordsCard = lessonAllWords[vocabWordIndex] || null;
   const currentAllWordsCardKey = currentAllWordsCard && activeLesson
     ? getCardKey(activeLesson.id, currentAllWordsCard.id)
@@ -530,7 +604,7 @@ export default function App() {
   const earnedAllWordsStars = currentAllWordsCardKey ? currentStarsMap[currentAllWordsCardKey] ?? 0 : 0;
 
   const handleLessonVocabWritingSuccess = (mistakes) => {
-    const vocabWord = lessonAllWords[vocabWordIndex];
+    const vocabWord = vocabWordsActive[vocabWordIndex];
     if (!vocabWord || !activeLesson || !currentProfileKey) return;
 
     const cardKey = getCardKey(activeLesson.id, vocabWord.id);
@@ -550,12 +624,12 @@ export default function App() {
   };
 
   const goToNextVocabWord = () => {
-    const total = lessonAllWords.length;
+    const total = vocabWordsActive.length;
     if (!total) return;
     setVocabWordIndex((prev) => (prev + 1) % total);
   };
   const goToPrevVocabWord = () => {
-    const total = lessonAllWords.length;
+    const total = vocabWordsActive.length;
     if (!total) return;
     setVocabWordIndex((prev) => (prev - 1 + total) % total);
   };
@@ -608,6 +682,15 @@ export default function App() {
     setShowDailyRituel(false);
     setStandaloneView(STANDALONE_VIEW.NONE);
     setEnteredApp(false);
+    // Without clearing these, STANDALONE_VIEW.NONE + enteredApp=false can
+    // still resolve to the lesson text view (its own render guard checks
+    // exactly this), not the true landing page - e.g. after opening a
+    // lesson's vocabulary/writing/test and tapping the header logo.
+    setLessonTextLessonId('');
+    setReturnToLessonText(false);
+    setLessonJourneyQueue([]);
+    setLessonJourneyPosition(0);
+    pushScreen(SCREEN.LANDING);
   };
 
   const startWithProfile = (profileId) => {
@@ -654,17 +737,181 @@ export default function App() {
     setActiveModule(moduleId);
   };
 
-  useEffect(() => {
-    const onPopState = () => {
-      const routeLessonId = getLessonTextRouteId(window.location.pathname);
-      setLessonTextLessonId(routeLessonId);
-      if (routeLessonId) {
-        setActiveLesson(routeLessonId);
+  // Pushes a history entry carrying a `screen` discriminator in
+  // history.state while reusing one of only two URL shapes ("/" for
+  // landing/hubs, "/lesson/:id/text" for a lesson and everything reached
+  // from it) - the address bar never grows new paths, but back/forward
+  // still gets a real per-screen stack via state.screen instead of guessing
+  // from the URL (which can't tell a hub apart from landing, or a lesson's
+  // quiz apart from its writing setup - they all share one of the two URLs).
+  const pushScreen = (screen, lessonId = '') => {
+    const url = lessonId ? `/lesson/${encodeURIComponent(lessonId)}/text` : '/';
+    window.history.pushState({ screen, lessonId }, '', url);
+  };
+
+  // Mirrors what each navigation action already sets, so popstate (browser
+  // back/forward) can restore the same screen without re-deriving it from
+  // the URL alone. Deliberately separate from the action handlers below
+  // (openLessonsHubFromLanding, openVocabPracticeFromLessonText, etc.) rather than
+  // sharing one implementation - those also handle things restoration
+  // shouldn't redo (setLastActivity, etc.), and keeping them independent
+  // means a browser back press can never accidentally push a new history
+  // entry of its own.
+  const applyScreenState = (screen, lessonId = '') => {
+    switch (screen) {
+      case SCREEN.HUB_LESSONS:
+        setLessonPickerIntent('text');
+        setLessonPickerReturnTo(STANDALONE_VIEW.NONE);
+        setShowDailyRituel(false);
+        setStandaloneView(STANDALONE_VIEW.LESSON_PICKER);
+        setEnteredApp(false);
+        break;
+      case SCREEN.HUB_VOCAB:
+        setShowDailyRituel(false);
+        setStandaloneView(STANDALONE_VIEW.VOCAB_HUB);
+        setEnteredApp(false);
+        break;
+      case SCREEN.HUB_WRITING:
+        setShowDailyRituel(false);
+        setStandaloneView(STANDALONE_VIEW.WRITING_HUB);
+        setEnteredApp(false);
+        break;
+      case SCREEN.HUB_TEST:
+        setShowDailyRituel(false);
+        setStandaloneView(STANDALONE_VIEW.TEST_HUB);
+        setEnteredApp(false);
+        break;
+      case SCREEN.LESSON_TEXT:
+        if (lessonId) {
+          setActiveLesson(lessonId);
+          setLessonTextLessonId(lessonId);
+        }
+        setReturnToLessonText(false);
+        setLessonJourneyQueue([]);
+        setLessonJourneyPosition(0);
+        setStandaloneView(STANDALONE_VIEW.NONE);
+        setShowDailyRituel(false);
+        setEnteredApp(false);
+        break;
+      case SCREEN.LESSON_VOCAB:
+        if (lessonId) {
+          setActiveLesson(lessonId);
+          setLessonTextLessonId(lessonId);
+        }
+        setVocabWordSubset(null);
+        setVocabWordIndex(0);
+        setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS);
+        setShowDailyRituel(false);
+        setEnteredApp(false);
+        break;
+      case SCREEN.LESSON_WRITING_SETUP:
+        if (lessonId) {
+          setActiveLesson(lessonId);
+          setLessonTextLessonId(lessonId);
+        }
+        setStandaloneView(STANDALONE_VIEW.LESSON_WRITING_SETUP);
+        setShowDailyRituel(false);
+        setEnteredApp(false);
+        break;
+      case SCREEN.LESSON_WRITING_PRACTICE: {
+        const targetLesson = lessonOptions.find((lesson) => lesson.id === lessonId);
+        if (targetLesson) {
+          const queue = targetLesson.cards.map((_, index) => index);
+          setActiveLesson(targetLesson.id);
+          setLessonTextLessonId(targetLesson.id);
+          setLessonJourneyQueue(queue);
+          setLessonJourneyPosition(0);
+          setCardIndex(queue[0] ?? 0);
+          setReturnToLessonText(true);
+          setActiveModule(MODULES.WRITING);
+        }
+        setStandaloneView(STANDALONE_VIEW.WRITING);
+        setShowDailyRituel(false);
+        setEnteredApp(false);
+        break;
       }
+      case SCREEN.LESSON_QUIZ:
+        if (lessonId) {
+          setActiveLesson(lessonId);
+          setLessonTextLessonId(lessonId);
+        }
+        setQuizAllowedTypes(null);
+        setStandaloneView(STANDALONE_VIEW.LESSON_QUIZ);
+        setShowDailyRituel(false);
+        setEnteredApp(false);
+        break;
+      case SCREEN.LANDING:
+      default:
+        setShowDailyRituel(false);
+        setStandaloneView(STANDALONE_VIEW.NONE);
+        setEnteredApp(false);
+        setLessonTextLessonId('');
+        setReturnToLessonText(false);
+        setLessonJourneyQueue([]);
+        setLessonJourneyPosition(0);
+        break;
+    }
+  };
+
+  const applyScreenStateRef = useRef(null);
+  applyScreenStateRef.current = applyScreenState;
+
+  useEffect(() => {
+    // Tag the very first history entry so a direct load (fresh "/" or a
+    // shared "/lesson/:id/text" link) has a well-defined base for the stack
+    // - without this, history.state is null until the first navigation.
+    if (!window.history.state) {
+      const initialLessonId = getLessonTextRouteId(window.location.pathname);
+      window.history.replaceState(
+        { screen: initialLessonId ? SCREEN.LESSON_TEXT : SCREEN.LANDING, lessonId: initialLessonId },
+        '',
+        window.location.pathname,
+      );
+    }
+
+    const onPopState = (event) => {
+      const state = event.state;
+      if (state?.screen) {
+        applyScreenStateRef.current(state.screen, state.lessonId || '');
+        return;
+      }
+      // No state (history predating this tagging scheme) - fall back to
+      // the URL, the only signal available.
+      const routeLessonId = getLessonTextRouteId(window.location.pathname);
+      applyScreenStateRef.current(routeLessonId ? SCREEN.LESSON_TEXT : SCREEN.LANDING, routeLessonId);
     };
     window.addEventListener('popstate', onPopState);
     return () => window.removeEventListener('popstate', onPopState);
-  }, [setActiveLesson]);
+  }, []);
+
+  // Every screen change should open at the top, not wherever the previous
+  // screen had been scrolled to - this app is a single window-scrolling
+  // document (no inner scroll container per screen), so a plain
+  // window.scrollTo covers every page the if-chain below can render.
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [standaloneView, lessonTextLessonId, showParentSpace, showFtue, enteredApp, showDailyRituel, isParentMode]);
+
+  const navigateTo = (screen, lessonId = '') => {
+    pushScreen(screen, lessonId);
+    applyScreenState(screen, lessonId);
+  };
+
+  const shellProfile = profiles.find((profile) => profile.role === 'child') || profiles[0] || null;
+
+  const withShell = (children, shell) => (
+    <AppShell
+      {...shell}
+      onNavigate={navigateTo}
+      onGoHome={goToLanding}
+      profile={shellProfile}
+      onOpenAvatarEditor={openAvatarEditorForChildFromLanding}
+      avatarOpen={showAvatarEditorModal}
+      onCloseAvatarEditor={() => setShowAvatarEditorModal(false)}
+    >
+      {children}
+    </AppShell>
+  );
 
   const openLessonTextView = (targetLessonId) => {
     if (!targetLessonId) return;
@@ -676,10 +923,13 @@ export default function App() {
     setEnteredApp(false);
     setActiveLesson(targetLessonId);
     setLessonTextLessonId(targetLessonId);
-    const nextPath = `/lesson/${encodeURIComponent(targetLessonId)}/text`;
-    if (window.location.pathname !== nextPath) {
-      window.history.pushState({}, '', nextPath);
-    }
+    pushScreen(SCREEN.LESSON_TEXT, targetLessonId);
+    const targetLesson = lessonOptions.find((lesson) => lesson.id === targetLessonId);
+    setLastActivity({
+      contentLabel: targetLesson?.title || 'Leçon',
+      modeLabel: 'Leçon',
+      resume: () => openLessonTextView(targetLessonId),
+    });
   };
 
   const closeLessonTextView = () => {
@@ -692,6 +942,8 @@ export default function App() {
     }
   };
 
+  // DEPRECATED - unreachable (not wired to any tap handler in
+  // LessonTextView). See openWritingFromLanding's comment above.
   const openCharacterPracticeFromLessonText = (char) => {
     const targetLesson = lessonOptions.find((lesson) => lesson.id === lessonTextLessonId);
     if (!targetLesson || !char) return;
@@ -717,17 +969,22 @@ export default function App() {
     }
   };
 
-  const startJourneyFromLessonText = (selection = []) => {
+  const startJourneyFromLessonText = (selection = [], mode = 'facile') => {
     const targetLesson = lessonOptions.find((lesson) => lesson.id === lessonTextLessonId);
     if (!targetLesson) return;
     const selectedIds = Array.isArray(selection) ? selection.filter(Boolean) : [];
+    // Walk `selectedIds` in the order it was given (not targetLesson.cards'
+    // own order) so a shuffled selection - dictée's "random" mode - actually
+    // plays back shuffled, instead of silently snapping back to card order.
     const queue = selectedIds.length
-      ? targetLesson.cards
-          .map((card, index) => ({ id: card?.id, index }))
-          .filter((item) => selectedIds.includes(item.id))
-          .map((item) => item.index)
+      ? selectedIds
+          .map((id) => targetLesson.cards.findIndex((card) => card?.id === id))
+          .filter((index) => index !== -1)
       : targetLesson.cards.map((_, index) => index);
     const startIndex = queue[0] ?? 0;
+    setLessonWritingMode(mode);
+    setWritingDifficulty(WRITING_MODE_DIFFICULTY[mode] || 1);
+    pushScreen(SCREEN.LESSON_WRITING_PRACTICE, targetLesson.id);
     setActiveLesson(targetLesson.id);
     setLessonJourneyQueue(queue);
     setLessonJourneyPosition(0);
@@ -739,23 +996,50 @@ export default function App() {
     setActiveModule(MODULES.WRITING);
   };
 
-  const startQuizFromLessonText = () => {
-    const targetLesson = lessonOptions.find((lesson) => lesson.id === lessonTextLessonId);
-    if (!targetLesson) return;
-    setActiveLesson(targetLesson.id);
-    setStandaloneView(STANDALONE_VIEW.LESSON_QUIZ);
-    setShowDailyRituel(false);
-    setEnteredApp(false);
+  // Switches mode in place - same character/position, just a different
+  // difficulty - unlike startJourneyFromLessonText above, which also resets
+  // the queue/position for a fresh run from the setup screen.
+  const switchLessonWritingMode = (mode) => {
+    setLessonWritingMode(mode);
+    setWritingDifficulty(WRITING_MODE_DIFFICULTY[mode] || 1);
+    setShowWritingModeSwitcher(false);
   };
 
+  // Tapping a vocab word in the lesson text opens a narrow sub-selection -
+  // just that word plus the individual characters it's made of - rather
+  // than dropping into the full lesson's combined browse-through deck.
   const openVocabPracticeFromLessonText = (wordId) => {
     const targetLesson = lessonOptions.find((lesson) => lesson.id === lessonTextLessonId);
     if (!targetLesson || !wordId) return;
     const combined = buildLessonWordSet(targetLesson);
-    const targetIndex = combined.findIndex((word) => word.id === wordId);
-    if (targetIndex < 0) return;
+    const word = combined.find((item) => item.id === wordId);
+    if (!word) return;
+
+    const cardByHanzi = new Map();
+    (targetLesson.cards || []).forEach((card) => {
+      if (!card?.hanzi) return;
+      if (!cardByHanzi.has(card.hanzi)) cardByHanzi.set(card.hanzi, card);
+      Array.from(card.hanzi).forEach((char) => {
+        if (!cardByHanzi.has(char)) cardByHanzi.set(char, card);
+      });
+    });
+
+    const characters = Array.from(word.hanzi || '');
+    const isCompound = characters.length > 1;
+    const seenHanzi = new Set([word.hanzi]);
+    const componentCards = isCompound
+      ? characters
+          .map((char) => cardByHanzi.get(char))
+          .filter((card) => {
+            if (!card || seenHanzi.has(card.hanzi)) return false;
+            seenHanzi.add(card.hanzi);
+            return true;
+          })
+      : [];
+
     setActiveLesson(targetLesson.id);
-    setVocabWordIndex(targetIndex);
+    setVocabWordSubset([word, ...componentCards]);
+    setVocabWordIndex(0);
     setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS);
     setShowDailyRituel(false);
     setEnteredApp(false);
@@ -767,6 +1051,7 @@ export default function App() {
     const combined = buildLessonWordSet(targetLesson);
     if (!combined.length) return;
     setActiveLesson(targetLesson.id);
+    setVocabWordSubset(null);
     setVocabWordIndex(0);
     setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS);
     setShowDailyRituel(false);
@@ -807,6 +1092,11 @@ export default function App() {
     setEnteredApp(false);
   };
 
+  // DEPRECATED - confirmed unreachable (header-consistency audit, 2026):
+  // not called from any button/handler anywhere in this file. FLASHCARDS,
+  // AUDIO and LEARNING_FLOW only cross-link to each other and back to these
+  // three, so the whole loop is dead. Safe to delete along with the
+  // FLASHCARDS/AUDIO/LEARNING_FLOW render branches and their components.
   const openFlashcardsFromLanding = () => {
     const childProfile = profiles.find((profile) => profile.role === 'child') || profiles[0];
     if (!childProfile) return;
@@ -815,6 +1105,7 @@ export default function App() {
     openStandaloneModule(STANDALONE_VIEW.FLASHCARDS, MODULES.FLASHCARDS);
   };
 
+  // DEPRECATED - unreachable, same as openFlashcardsFromLanding above.
   const openAudioFromLanding = () => {
     const childProfile = profiles.find((profile) => profile.role === 'child') || profiles[0];
     if (!childProfile) return;
@@ -823,6 +1114,12 @@ export default function App() {
     openStandaloneModule(STANDALONE_VIEW.AUDIO, MODULES.AUDIO);
   };
 
+  // DEPRECATED - unreachable. Unlike the two above, STANDALONE_VIEW.WRITING
+  // itself is very much alive via startJourneyFromLessonText (the real
+  // "Ecriture" entry point) - only this specific unused function, and the
+  // non-journey render sub-case it would have led to, are dead.
+  // openCharacterPracticeFromLessonText (character-tap-to-practice) is
+  // also unreferenced - same situation.
   const openWritingFromLanding = () => {
     const childProfile = profiles.find((profile) => profile.role === 'child') || profiles[0];
     if (!childProfile) return;
@@ -841,6 +1138,7 @@ export default function App() {
     setShowDailyRituel(false);
     setStandaloneView(STANDALONE_VIEW.HSK_WORDS);
     setEnteredApp(false);
+    setLastActivity({ contentLabel: 'HSK1', modeLabel: 'Fiche', resume: openHskDeckFromLanding });
   };
 
   const openHskWordSelectFromLanding = () => {
@@ -853,20 +1151,164 @@ export default function App() {
     setShowDailyRituel(false);
     setStandaloneView(STANDALONE_VIEW.COLORS_WORDS);
     setEnteredApp(false);
+    setLastActivity({ contentLabel: 'Couleurs', modeLabel: 'Fiche', resume: openColorsDeckFromLanding });
   };
 
   const openClothingDeckFromLanding = () => {
     setShowDailyRituel(false);
     setStandaloneView(STANDALONE_VIEW.CLOTHING_WORDS);
     setEnteredApp(false);
+    setLastActivity({ contentLabel: 'Vêtements', modeLabel: 'Fiche', resume: openClothingDeckFromLanding });
   };
 
   const openRadicalDeckFromLanding = () => {
     setShowDailyRituel(false);
     setStandaloneView(STANDALONE_VIEW.RADICAL_WORDS);
     setEnteredApp(false);
+    setLastActivity({ contentLabel: 'Radicaux', modeLabel: 'Fiche', resume: openRadicalDeckFromLanding });
   };
 
+  // Shared lesson picker used by the Lecons/Ecriture, Vocabulaire ("Par
+  // lecon") and Test ("Comprehension"/"Ecouter") hub buttons - `intent`
+  // decides what happens once a lesson is picked, `returnTo` decides what
+  // "Retour" on the picker itself goes back to.
+  const openLessonPicker = (intent, returnTo = STANDALONE_VIEW.NONE) => {
+    setLessonPickerIntent(intent);
+    setLessonPickerReturnTo(returnTo);
+    setShowDailyRituel(false);
+    setStandaloneView(STANDALONE_VIEW.LESSON_PICKER);
+    setEnteredApp(false);
+  };
+
+  const openLessonsHubFromLanding = () => {
+    pushScreen(SCREEN.HUB_LESSONS);
+    openLessonPicker('text', STANDALONE_VIEW.NONE);
+  };
+
+  const openAvatarEditorForChildFromLanding = () => {
+    const childProfile = profiles.find((profile) => profile.role === 'child') || profiles[0];
+    if (!childProfile) return;
+    setActiveProfileId(childProfile.id);
+    setShowAvatarEditorModal(true);
+  };
+
+  const openVocabularyHubFromLanding = () => {
+    pushScreen(SCREEN.HUB_VOCAB);
+    setShowDailyRituel(false);
+    setStandaloneView(STANDALONE_VIEW.VOCAB_HUB);
+    setEnteredApp(false);
+  };
+
+  const openThemeSelectFromHub = () => {
+    setStandaloneView(STANDALONE_VIEW.THEME_SELECT);
+  };
+
+  const openWritingHubFromLanding = () => {
+    pushScreen(SCREEN.HUB_WRITING);
+    setShowDailyRituel(false);
+    setStandaloneView(STANDALONE_VIEW.WRITING_HUB);
+    setEnteredApp(false);
+  };
+
+  const openWritingThemeSelectFromHub = () => {
+    setStandaloneView(STANDALONE_VIEW.WRITING_THEME_SELECT);
+  };
+
+  const openColorsWritingFromLanding = () => {
+    setColorsWordIndex(0);
+    setDeckWritingDifficulty(1);
+    setShowDailyRituel(false);
+    setStandaloneView(STANDALONE_VIEW.COLORS_WRITING);
+    setEnteredApp(false);
+    setLastActivity({ contentLabel: 'Couleurs', modeLabel: 'Écriture', resume: openColorsWritingFromLanding });
+  };
+
+  const openClothingWritingFromLanding = () => {
+    setClothingWordIndex(0);
+    setDeckWritingDifficulty(1);
+    setShowDailyRituel(false);
+    setStandaloneView(STANDALONE_VIEW.CLOTHING_WRITING);
+    setEnteredApp(false);
+    setLastActivity({ contentLabel: 'Vêtements', modeLabel: 'Écriture', resume: openClothingWritingFromLanding });
+  };
+
+  const openRadicalWritingFromLanding = () => {
+    setRadicalWordIndex(0);
+    setDeckWritingDifficulty(1);
+    setShowDailyRituel(false);
+    setStandaloneView(STANDALONE_VIEW.RADICAL_WRITING);
+    setEnteredApp(false);
+    setLastActivity({ contentLabel: 'Radicaux', modeLabel: 'Écriture', resume: openRadicalWritingFromLanding });
+  };
+
+  const openHskWritingFromLanding = () => {
+    setDeckWritingDifficulty(1);
+    setShowDailyRituel(false);
+    setStandaloneView(STANDALONE_VIEW.HSK_WRITING);
+    setEnteredApp(false);
+    setLastActivity({ contentLabel: 'HSK1', modeLabel: 'Écriture', resume: openHskWritingFromLanding });
+  };
+
+  // Dictee: same writing screens as Ecriture, but with the character
+  // hidden by default (writingDifficulty 3) instead of shown (1).
+  const openColorsDicteeFromLanding = () => {
+    setColorsWordIndex(0);
+    setDeckWritingDifficulty(3);
+    setShowDailyRituel(false);
+    setStandaloneView(STANDALONE_VIEW.COLORS_WRITING);
+    setEnteredApp(false);
+    setLastActivity({ contentLabel: 'Couleurs', modeLabel: 'Évaluation · Dictée', resume: openColorsDicteeFromLanding });
+  };
+
+  const openClothingDicteeFromLanding = () => {
+    setClothingWordIndex(0);
+    setDeckWritingDifficulty(3);
+    setShowDailyRituel(false);
+    setStandaloneView(STANDALONE_VIEW.CLOTHING_WRITING);
+    setEnteredApp(false);
+    setLastActivity({ contentLabel: 'Vêtements', modeLabel: 'Évaluation · Dictée', resume: openClothingDicteeFromLanding });
+  };
+
+  const openRadicalDicteeFromLanding = () => {
+    setRadicalWordIndex(0);
+    setDeckWritingDifficulty(3);
+    setShowDailyRituel(false);
+    setStandaloneView(STANDALONE_VIEW.RADICAL_WRITING);
+    setEnteredApp(false);
+    setLastActivity({ contentLabel: 'Radicaux', modeLabel: 'Évaluation · Dictée', resume: openRadicalDicteeFromLanding });
+  };
+
+  const openHskDicteeFromLanding = () => {
+    setDeckWritingDifficulty(3);
+    setShowDailyRituel(false);
+    setStandaloneView(STANDALONE_VIEW.HSK_WRITING);
+    setEnteredApp(false);
+    setLastActivity({ contentLabel: 'HSK1', modeLabel: 'Évaluation · Dictée', resume: openHskDicteeFromLanding });
+  };
+
+  const openLessonDicteeFromLanding = () => {
+    openLessonPicker('dictee', STANDALONE_VIEW.DICTEE_HUB);
+  };
+
+  const openDicteeHubFromLanding = () => {
+    setShowDailyRituel(false);
+    setStandaloneView(STANDALONE_VIEW.DICTEE_HUB);
+    setEnteredApp(false);
+  };
+
+  const openDicteeThemeSelectFromHub = () => {
+    setStandaloneView(STANDALONE_VIEW.DICTEE_THEME_SELECT);
+  };
+
+  const openTestHubFromLanding = () => {
+    pushScreen(SCREEN.HUB_TEST);
+    setShowDailyRituel(false);
+    setStandaloneView(STANDALONE_VIEW.TEST_HUB);
+    setEnteredApp(false);
+  };
+
+  // DEPRECATED - confirmed unreachable (header-consistency audit, 2026):
+  // not called from any button/handler anywhere in this file.
   const openFontTestFromLanding = () => {
     setShowDailyRituel(false);
     setStandaloneView(STANDALONE_VIEW.FONT_TEST);
@@ -950,37 +1392,87 @@ export default function App() {
     setTutorialStep((prev) => prev + 1);
   };
 
+  const exportPack = (packId) => {
+    const pack = getPacks().find((item) => item.id === packId);
+    if (!pack) return;
+    const payload = {
+      packId: pack.id,
+      name: pack.name,
+      description: pack.description,
+      lessons: getPackLessons(packId),
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = `wisemama-pack-${pack.id}.json`;
+    anchor.click();
+    URL.revokeObjectURL(url);
+  };
+
+  if (showParentSpace) {
+    return (
+      <ParentSpacePage
+        profiles={profiles}
+        lessons={lessonOptions}
+        progressMap={childMap}
+        onClose={() => setShowParentSpace(false)}
+        onCreateLesson={createLesson}
+        onUpdateLesson={updateLesson}
+        onDeleteLesson={removeLesson}
+        onDuplicateLesson={duplicateLesson}
+        onSelectLesson={(id) => {
+          if (!id) return;
+          setActiveLesson(id);
+          setCardIndex(0);
+        }}
+        packs={getPacks()}
+        onSetPackEnabled={setPackEnabled}
+        onExportPack={exportPack}
+      />
+    );
+  }
+
   if (!showFtue && lessonTextLessonId && standaloneView === STANDALONE_VIEW.NONE) {
     const lessonForText = lessonOptions.find((lesson) => lesson.id === lessonTextLessonId);
-    const parentProfile = profiles.find((profile) => profile.role === 'parent') || null;
     if (lessonForText) {
-      return (
+      return withShell(
         <LessonTextView
+          shellHeader
           lesson={lessonForText}
           lessons={lessonOptions}
           profile={activeProfile}
-          parentProfile={parentProfile}
           progressMap={currentStarsMap}
-          writingDifficulty={writingDifficulty}
-          onChangeWritingDifficulty={setWritingDifficulty}
+          showLessonPicker={showLessonTextPicker}
+          onToggleLessonPicker={() => setShowLessonTextPicker((prev) => !prev)}
           onSelectLesson={(lessonId) => {
             if (!lessonId) return;
+            setShowLessonTextPicker(false);
             setActiveLesson(lessonId);
             setCardIndex(0);
             openLessonTextView(lessonId);
           }}
-          onPracticeCharacter={openCharacterPracticeFromLessonText}
           onPracticeVocabulary={openVocabPracticeFromLessonText}
-          onOpenAllFlashcards={openAllFlashcardsFromLessonText}
-          onBack={closeLessonTextView}
-          onStartPractice={startJourneyFromLessonText}
-          onStartQuiz={startQuizFromLessonText}
-          onOpenRadicalDiscovery={() => setStandaloneView(STANDALONE_VIEW.RADICAL_DISCOVERY)}
-        />
+          onGoHome={goToLanding}
+          onOpenAvatarEditor={openAvatarEditorForChildFromLanding}
+        />,
+        {
+          crumbs: [{ label: 'Leçons', onClick: () => navigateTo(SCREEN.HUB_LESSONS) }, { label: lessonForText.title || 'Leçon' }],
+          scope: { type: 'lesson', lessonId: lessonForText.id },
+          activeHub: 'lessons',
+          headerAction: {
+            icon: '🗂️',
+            label: 'Changer de leçon',
+            onClick: () => setShowLessonTextPicker((prev) => !prev),
+          },
+        },
       );
     }
   }
 
+  // DEPRECATED - confirmed unreachable (header-consistency audit, 2026):
+  // no setter for this view anywhere in the file besides this render guard.
+  // Safe to delete along with RadicalDiscoveryPage.jsx.
   if (standaloneView === STANDALONE_VIEW.RADICAL_DISCOVERY) {
     const lessonForDiscovery = lessonOptions.find((l) => l.id === (lessonTextLessonId || activeLessonId)) || activeLesson;
     return (
@@ -993,14 +1485,16 @@ export default function App() {
 
   if (standaloneView === STANDALONE_VIEW.WRITING) {
     const parentProfile = profiles.find((profile) => profile.role === 'parent') || null;
-    return (
+    const writingPage = (
       <WritingOnlyPage
+        shellHeader={returnToLessonText}
         profile={activeProfile}
         parentProfile={parentProfile}
         activeLesson={activeLesson}
         lessons={lessonOptions}
         cardIndex={cardIndex}
         writingDifficulty={writingDifficulty}
+        writingMode={returnToLessonText ? lessonWritingMode : null}
         journeyMode={returnToLessonText}
         journeyQueue={lessonJourneyQueue}
         journeyPosition={lessonJourneyPosition}
@@ -1012,6 +1506,8 @@ export default function App() {
           setStandaloneView(STANDALONE_VIEW.NONE);
           setEnteredApp(false);
         }}
+        onGoHome={goToLanding}
+        onOpenAvatarEditor={openAvatarEditorForChildFromLanding}
         onOpenLessonText={(lessonId) => {
           const targetId = lessonId || activeLesson?.id;
           if (targetId) openLessonTextView(targetId);
@@ -1053,6 +1549,51 @@ export default function App() {
         }}
       />
     );
+    if (returnToLessonText) {
+      const writingLabel = WRITING_MODE_LABEL[lessonWritingMode] || 'Écriture';
+      const writingPageWithModeSwitcher = (
+        <>
+          {writingPage}
+          {showWritingModeSwitcher ? (
+            <div className="writing-mode-switcher-dropdown" role="menu" aria-label="Changer de mode">
+              {WRITING_MODES.map((mode) => (
+                <button
+                  key={mode}
+                  type="button"
+                  role="menuitemradio"
+                  aria-checked={mode === lessonWritingMode}
+                  className={`writing-mode-switcher-item ui-pressable ${mode === lessonWritingMode ? 'active' : ''}`}
+                  onClick={() => switchLessonWritingMode(mode)}
+                >
+                  {WRITING_MODE_LABEL[mode]}
+                </button>
+              ))}
+            </div>
+          ) : null}
+        </>
+      );
+      return withShell(writingPageWithModeSwitcher, {
+        crumbs: [
+          { label: 'Leçons', onClick: () => navigateTo(SCREEN.HUB_LESSONS) },
+          { label: activeLesson?.title || 'Leçon', onClick: () => navigateTo(SCREEN.LESSON_TEXT, activeLesson?.id) },
+          { label: 'Écriture', onClick: () => navigateTo(SCREEN.LESSON_WRITING_SETUP, activeLesson?.id) },
+          {
+            label: writingLabel,
+            icon: '🔀',
+            iconLabel: 'Changer de mode',
+            onIconClick: () => setShowWritingModeSwitcher((prev) => !prev),
+          },
+        ],
+        scope: { type: 'lesson', lessonId: activeLesson?.id || '' },
+        activeHub: 'writing',
+      });
+    }
+    return (
+      <>
+        {writingPage}
+        {showAvatarEditorModal ? <AvatarEditorModal onClose={() => setShowAvatarEditorModal(false)} /> : null}
+      </>
+    );
   }
 
   if (standaloneView === STANDALONE_VIEW.RADICAL) {
@@ -1089,33 +1630,41 @@ export default function App() {
   }
 
   if (standaloneView === STANDALONE_VIEW.HSK_WORDS) {
-    return (
+    return withShell(
       <HskWordPage
+        shellHeader
         profile={activeProfile}
+        words={hskWords}
         word={hskWords[hskWordIndex] || null}
-        wordIndex={hskWordIndex}
-        totalWords={hskWords.length}
-        onPrev={goToPrevHskWord}
-        onNext={goToNextHskWord}
         onBack={() => {
           setStandaloneView(STANDALONE_VIEW.NONE);
           setEnteredApp(false);
         }}
         onSwitchModule={(module) => {
           if (module === 'writing') {
+            setDeckWritingDifficulty(1);
             setStandaloneView(STANDALONE_VIEW.HSK_WRITING);
           } else if (module === 'quiz') {
             setStandaloneView(STANDALONE_VIEW.HSK_QUIZ);
           }
         }}
         onOpenPicker={() => setStandaloneView(STANDALONE_VIEW.HSK_SELECT)}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'HSK1' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.HSK_SELECT) {
-    return (
+    return withShell(
       <HskWordSelectionPage
+        shellHeader
         words={hskWords}
         activeWordId={hskWords[hskWordIndex]?.id || ''}
         onSelectWord={(index) => {
@@ -1123,34 +1672,56 @@ export default function App() {
           setStandaloneView(STANDALONE_VIEW.HSK_WORDS);
         }}
         onBack={() => setStandaloneView(STANDALONE_VIEW.HSK_WORDS)}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'HSK1', onClick: () => setStandaloneView(STANDALONE_VIEW.HSK_WORDS) },
+          { label: 'Choisir' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.HSK_WRITING) {
-    return (
+    return withShell(
       <HskWritingPage
+        shellHeader
         profile={activeProfile}
         word={hskWords[hskWordIndex] || null}
+        writingDifficulty={deckWritingDifficulty}
         onBack={() => {
           setStandaloneView(STANDALONE_VIEW.NONE);
           setEnteredApp(false);
         }}
         onSwitchModule={(module) => {
           if (module === 'flashcards') {
+            setDeckWritingDifficulty(1);
             setStandaloneView(STANDALONE_VIEW.HSK_WORDS);
           }
         }}
         onSuccess={handleHskWritingSuccess}
         onPrevWord={goToPrevHskWord}
         onNextWord={goToNextHskWord}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'HSK1', onClick: () => setStandaloneView(STANDALONE_VIEW.HSK_WORDS) },
+          { label: deckWritingDifficulty === 3 ? 'Dictée' : 'Écriture' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.HSK_QUIZ) {
-    return (
+    return withShell(
       <HskQuizPage
+        shellHeader
         profile={activeProfile}
         words={hskWords}
         onBack={() => {
@@ -1162,7 +1733,16 @@ export default function App() {
             setStandaloneView(STANDALONE_VIEW.HSK_WORDS);
           }
         }}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'HSK1', onClick: () => setStandaloneView(STANDALONE_VIEW.HSK_WORDS) },
+          { label: 'Évaluation' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 
@@ -1185,14 +1765,16 @@ export default function App() {
   }
 
   if (standaloneView === STANDALONE_VIEW.LESSON_QUIZ) {
-    return (
+    const quizPage = (
       <LessonQuizPage
+        shellHeader
         profile={activeProfile}
         lessonId={activeLesson?.id}
         lessonTitle={activeLesson?.title}
         words={lessonAllWords}
+        allowedTypes={quizAllowedTypes || undefined}
         onBack={() => {
-          setStandaloneView(STANDALONE_VIEW.NONE);
+          setStandaloneView(quizAllowedTypes ? lessonPickerReturnTo : STANDALONE_VIEW.NONE);
           setEnteredApp(false);
         }}
         onSwitchModule={(module) => {
@@ -1202,62 +1784,112 @@ export default function App() {
         }}
       />
     );
+    if (!quizAllowedTypes && lessonTextLessonId) {
+      return withShell(quizPage, {
+        crumbs: [
+          { label: 'Leçons', onClick: () => navigateTo(SCREEN.HUB_LESSONS) },
+          { label: activeLesson?.title || 'Leçon', onClick: () => navigateTo(SCREEN.LESSON_TEXT, activeLesson?.id) },
+          { label: 'Évaluation' },
+        ],
+        scope: { type: 'lesson', lessonId: activeLesson?.id || '' },
+        activeHub: 'test',
+      });
+    }
+    if (quizAllowedTypes) {
+      const isListening = quizAllowedTypes.includes('sound-to-char');
+      return withShell(quizPage, {
+        crumbs: [
+          { label: 'Évaluation', onClick: () => navigateTo(SCREEN.HUB_TEST) },
+          { label: isListening ? 'Écouter' : 'Compréhension' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'test',
+      });
+    }
+    return withShell(quizPage, { crumbs: [{ label: 'Évaluation' }], scope: { type: 'global' }, activeHub: 'test' });
   }
 
   if (standaloneView === STANDALONE_VIEW.LESSON_VOCAB_WORDS) {
-    const vocabWords = lessonAllWords;
-    return (
+    const vocabWords = vocabWordsActive;
+    return withShell(
       <LessonVocabWordPage
+        shellHeader
         profile={activeProfile}
         lessonId={activeLesson?.id}
         lessonTitle={activeLesson?.title}
+        words={vocabWords}
         word={vocabWords[vocabWordIndex] || null}
-        wordIndex={vocabWordIndex}
-        totalWords={vocabWords.length}
-        onPrev={goToPrevVocabWord}
-        onNext={goToNextVocabWord}
         onBack={() => {
           setStandaloneView(STANDALONE_VIEW.NONE);
           setEnteredApp(false);
         }}
+        onGoHome={goToLanding}
+        onOpenAvatarEditor={openAvatarEditorForChildFromLanding}
         onSwitchModule={(module) => {
           if (module === 'writing') {
+            setDeckWritingDifficulty(1);
             setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WRITING);
           } else if (module === 'quiz') {
+            setQuizAllowedTypes(null);
             setStandaloneView(STANDALONE_VIEW.LESSON_QUIZ);
           }
         }}
         onOpenPicker={() => setStandaloneView(STANDALONE_VIEW.LESSON_WORD_SELECT)}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Leçons', onClick: () => navigateTo(SCREEN.HUB_LESSONS) },
+          { label: activeLesson?.title || 'Leçon', onClick: () => navigateTo(SCREEN.LESSON_TEXT, activeLesson?.id) },
+          { label: 'Fiche' },
+        ],
+        scope: { type: 'lesson', lessonId: activeLesson?.id || '' },
+        activeHub: 'vocab',
+      },
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.LESSON_WORD_SELECT) {
-    return (
+    return withShell(
       <HskWordSelectionPage
-        words={lessonAllWords}
-        activeWordId={lessonAllWords[vocabWordIndex]?.id || ''}
+        shellHeader
+        words={vocabWordsActive}
+        activeWordId={vocabWordsActive[vocabWordIndex]?.id || ''}
         onSelectWord={(index) => {
           setVocabWordIndex(index);
           setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS);
         }}
         onBack={() => setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS)}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Leçons', onClick: () => navigateTo(SCREEN.HUB_LESSONS) },
+          { label: activeLesson?.title || 'Leçon', onClick: () => navigateTo(SCREEN.LESSON_TEXT, activeLesson?.id) },
+          { label: 'Fiche', onClick: () => setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS) },
+          { label: 'Choisir' },
+        ],
+        scope: { type: 'lesson', lessonId: activeLesson?.id || '' },
+        activeHub: 'vocab',
+      },
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.LESSON_VOCAB_WRITING) {
-    const vocabWords = lessonAllWords;
-    return (
+    const vocabWords = vocabWordsActive;
+    const isDictee = deckWritingDifficulty === 3;
+    return withShell(
       <LessonVocabWritingPage
+        shellHeader
         profile={activeProfile}
         lessonId={activeLesson?.id}
         lessonTitle={activeLesson?.title}
         word={vocabWords[vocabWordIndex] || null}
+        writingDifficulty={deckWritingDifficulty}
         onBack={() => {
           setStandaloneView(STANDALONE_VIEW.NONE);
           setEnteredApp(false);
         }}
+        onGoHome={goToLanding}
+        onOpenAvatarEditor={openAvatarEditorForChildFromLanding}
         onSwitchModule={(module) => {
           if (module === 'flashcards') {
             setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS);
@@ -1266,25 +1898,44 @@ export default function App() {
         onSuccess={handleLessonVocabWritingSuccess}
         onPrevWord={goToPrevVocabWord}
         onNextWord={goToNextVocabWord}
-      />
+      />,
+      isDictee
+        ? {
+            crumbs: [
+              { label: 'Évaluation', onClick: () => navigateTo(SCREEN.HUB_TEST) },
+              { label: 'Dictée', onClick: () => setStandaloneView(STANDALONE_VIEW.DICTEE_HUB) },
+              { label: activeLesson?.title || 'Leçon' },
+            ],
+            scope: { type: 'global' },
+            activeHub: 'test',
+          }
+        : {
+            crumbs: [
+              { label: 'Leçons', onClick: () => navigateTo(SCREEN.HUB_LESSONS) },
+              { label: activeLesson?.title || 'Leçon', onClick: () => navigateTo(SCREEN.LESSON_TEXT, activeLesson?.id) },
+              { label: 'Fiche', onClick: () => setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS) },
+              { label: 'Écriture' },
+            ],
+            scope: { type: 'lesson', lessonId: activeLesson?.id || '' },
+            activeHub: 'vocab',
+          },
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.COLORS_WORDS) {
-    return (
+    return withShell(
       <ColorsWordPage
+        shellHeader
         profile={activeProfile}
+        words={colorsWords}
         word={colorsWords[colorsWordIndex] || null}
-        wordIndex={colorsWordIndex}
-        totalWords={colorsWords.length}
-        onPrev={goToPrevColorsWord}
-        onNext={goToNextColorsWord}
         onBack={() => {
           setStandaloneView(STANDALONE_VIEW.NONE);
           setEnteredApp(false);
         }}
         onSwitchModule={(module) => {
           if (module === 'writing') {
+            setDeckWritingDifficulty(1);
             setStandaloneView(STANDALONE_VIEW.COLORS_WRITING);
           } else if (module === 'dictée') {
             setStandaloneView(STANDALONE_VIEW.COLORS_WRITING_TEST);
@@ -1292,13 +1943,22 @@ export default function App() {
             setStandaloneView(STANDALONE_VIEW.COLORS_QUIZ);
           }
         }}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Couleurs' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.COLORS_WRITING_TEST) {
-    return (
+    return withShell(
       <ColorsWritingTest
+        shellHeader
         profile={activeProfile}
         onBack={() => {
           setStandaloneView(STANDALONE_VIEW.NONE);
@@ -1308,15 +1968,26 @@ export default function App() {
           setStandaloneView(STANDALONE_VIEW.NONE);
           setEnteredApp(false);
         }}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Couleurs', onClick: () => setStandaloneView(STANDALONE_VIEW.COLORS_WORDS) },
+          { label: 'Dictée' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.COLORS_WRITING) {
-    return (
+    return withShell(
       <ColorsWritingPage
+        shellHeader
         profile={activeProfile}
         word={colorsWords[colorsWordIndex] || null}
+        writingDifficulty={deckWritingDifficulty}
         onBack={() => {
           setStandaloneView(STANDALONE_VIEW.NONE);
           setEnteredApp(false);
@@ -1329,13 +2000,23 @@ export default function App() {
         onSuccess={handleColorsWritingSuccess}
         onPrevWord={goToPrevColorsWord}
         onNextWord={goToNextColorsWord}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Couleurs', onClick: () => setStandaloneView(STANDALONE_VIEW.COLORS_WORDS) },
+          { label: deckWritingDifficulty === 3 ? 'Dictée' : 'Écriture' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.COLORS_QUIZ) {
-    return (
+    return withShell(
       <ColorsQuizPage
+        shellHeader
         profile={activeProfile}
         words={colorsWords}
         onBack={() => {
@@ -1347,39 +2028,57 @@ export default function App() {
             setStandaloneView(STANDALONE_VIEW.COLORS_WORDS);
           }
         }}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Couleurs', onClick: () => setStandaloneView(STANDALONE_VIEW.COLORS_WORDS) },
+          { label: 'Évaluation' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.CLOTHING_WORDS) {
-    return (
+    return withShell(
       <ClothingWordPage
+        shellHeader
         profile={activeProfile}
+        words={clothingWords}
         word={clothingWords[clothingWordIndex] || null}
-        wordIndex={clothingWordIndex}
-        totalWords={clothingWords.length}
-        onPrev={goToPrevClothingWord}
-        onNext={goToNextClothingWord}
         onBack={() => {
           setStandaloneView(STANDALONE_VIEW.NONE);
           setEnteredApp(false);
         }}
         onSwitchModule={(module) => {
           if (module === 'writing') {
+            setDeckWritingDifficulty(1);
             setStandaloneView(STANDALONE_VIEW.CLOTHING_WRITING);
           } else if (module === 'quiz') {
             setStandaloneView(STANDALONE_VIEW.CLOTHING_QUIZ);
           }
         }}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Vêtements' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.CLOTHING_WRITING) {
-    return (
+    return withShell(
       <ClothingWritingPage
+        shellHeader
         profile={activeProfile}
         word={clothingWords[clothingWordIndex] || null}
+        writingDifficulty={deckWritingDifficulty}
         onBack={() => {
           setStandaloneView(STANDALONE_VIEW.NONE);
           setEnteredApp(false);
@@ -1392,13 +2091,23 @@ export default function App() {
         onSuccess={handleClothingWritingSuccess}
         onPrevWord={goToPrevClothingWord}
         onNextWord={goToNextClothingWord}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Vêtements', onClick: () => setStandaloneView(STANDALONE_VIEW.CLOTHING_WORDS) },
+          { label: deckWritingDifficulty === 3 ? 'Dictée' : 'Écriture' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.CLOTHING_QUIZ) {
-    return (
+    return withShell(
       <ClothingQuizPage
+        shellHeader
         profile={activeProfile}
         words={clothingWords}
         onBack={() => {
@@ -1410,39 +2119,57 @@ export default function App() {
             setStandaloneView(STANDALONE_VIEW.CLOTHING_WORDS);
           }
         }}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Vêtements', onClick: () => setStandaloneView(STANDALONE_VIEW.CLOTHING_WORDS) },
+          { label: 'Évaluation' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.RADICAL_WORDS) {
-    return (
+    return withShell(
       <RadicalWordPage
+        shellHeader
         profile={activeProfile}
+        words={radicalsWords}
         word={radicalsWords[radicalWordIndex] || null}
-        wordIndex={radicalWordIndex}
-        totalWords={radicalsWords.length}
-        onPrev={goToPrevRadicalWord}
-        onNext={goToNextRadicalWord}
         onBack={() => {
           setStandaloneView(STANDALONE_VIEW.NONE);
           setEnteredApp(false);
         }}
         onSwitchModule={(module) => {
           if (module === 'writing') {
+            setDeckWritingDifficulty(1);
             setStandaloneView(STANDALONE_VIEW.RADICAL_WRITING);
           } else if (module === 'quiz') {
             setStandaloneView(STANDALONE_VIEW.RADICAL_QUIZ);
           }
         }}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Radicaux' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.RADICAL_WRITING) {
-    return (
+    return withShell(
       <RadicalWritingPage
+        shellHeader
         profile={activeProfile}
         word={radicalsWords[radicalWordIndex] || null}
+        writingDifficulty={deckWritingDifficulty}
         onBack={() => {
           setStandaloneView(STANDALONE_VIEW.NONE);
           setEnteredApp(false);
@@ -1455,13 +2182,23 @@ export default function App() {
         onSuccess={handleRadicalWritingSuccess}
         onPrevWord={goToPrevRadicalWord}
         onNextWord={goToNextRadicalWord}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Radicaux', onClick: () => setStandaloneView(STANDALONE_VIEW.RADICAL_WORDS) },
+          { label: deckWritingDifficulty === 3 ? 'Dictée' : 'Écriture' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 
   if (standaloneView === STANDALONE_VIEW.RADICAL_QUIZ) {
-    return (
+    return withShell(
       <RadicalQuizPage
+        shellHeader
         profile={activeProfile}
         words={radicalsWords}
         onBack={() => {
@@ -1473,10 +2210,403 @@ export default function App() {
             setStandaloneView(STANDALONE_VIEW.RADICAL_WORDS);
           }
         }}
-      />
+      />,
+      {
+        crumbs: [
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Radicaux', onClick: () => setStandaloneView(STANDALONE_VIEW.RADICAL_WORDS) },
+          { label: 'Évaluation' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
     );
   }
 
+  if (standaloneView === STANDALONE_VIEW.LESSON_PICKER) {
+    const handlePickLesson = (id) => {
+      if (!id) return;
+      const pickedTitle = lessonOptions.find((lesson) => lesson.id === id)?.title || 'Leçon';
+      if (lessonPickerIntent === 'vocab') {
+        setActiveLesson(id);
+        setVocabWordSubset(null);
+        setVocabWordIndex(0);
+        setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS);
+        setLastActivity({
+          contentLabel: pickedTitle,
+          modeLabel: 'Fiche',
+          resume: () => {
+            setActiveLesson(id);
+            setVocabWordSubset(null);
+            setVocabWordIndex(0);
+            setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WORDS);
+            setEnteredApp(false);
+          },
+        });
+        return;
+      }
+      if (lessonPickerIntent === 'quiz-comprehension') {
+        setActiveLesson(id);
+        setQuizAllowedTypes(['char-to-translation', 'translation-to-char']);
+        setStandaloneView(STANDALONE_VIEW.LESSON_QUIZ);
+        setLastActivity({
+          contentLabel: pickedTitle,
+          modeLabel: 'Évaluation · Compréhension',
+          resume: () => {
+            setActiveLesson(id);
+            setQuizAllowedTypes(['char-to-translation', 'translation-to-char']);
+            setStandaloneView(STANDALONE_VIEW.LESSON_QUIZ);
+            setEnteredApp(false);
+          },
+        });
+        return;
+      }
+      if (lessonPickerIntent === 'quiz-listening') {
+        setActiveLesson(id);
+        setQuizAllowedTypes(['sound-to-char', 'sound-to-translation']);
+        setStandaloneView(STANDALONE_VIEW.LESSON_QUIZ);
+        setLastActivity({
+          contentLabel: pickedTitle,
+          modeLabel: 'Évaluation · Écouter',
+          resume: () => {
+            setActiveLesson(id);
+            setQuizAllowedTypes(['sound-to-char', 'sound-to-translation']);
+            setStandaloneView(STANDALONE_VIEW.LESSON_QUIZ);
+            setEnteredApp(false);
+          },
+        });
+        return;
+      }
+      if (lessonPickerIntent === 'dictee') {
+        setActiveLesson(id);
+        setVocabWordIndex(0);
+        setDeckWritingDifficulty(3);
+        setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WRITING);
+        setLastActivity({
+          contentLabel: pickedTitle,
+          modeLabel: 'Évaluation · Dictée',
+          resume: () => {
+            setActiveLesson(id);
+            setVocabWordIndex(0);
+            setDeckWritingDifficulty(3);
+            setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WRITING);
+            setEnteredApp(false);
+          },
+        });
+        return;
+      }
+      if (lessonPickerIntent === 'writing-setup') {
+        setActiveLesson(id);
+        setLessonTextLessonId(id);
+        setStandaloneView(STANDALONE_VIEW.LESSON_WRITING_SETUP);
+        setLastActivity({
+          contentLabel: pickedTitle,
+          modeLabel: 'Écriture',
+          resume: () => {
+            setActiveLesson(id);
+            setLessonTextLessonId(id);
+            setStandaloneView(STANDALONE_VIEW.LESSON_WRITING_SETUP);
+            setEnteredApp(false);
+          },
+        });
+        return;
+      }
+      openLessonTextView(id);
+    };
+    const pickerPage = (
+      <LessonSelectionPage
+        shellHeader
+        lessons={lessonOptions}
+        packs={getPacks()}
+        activeLessonId={activeLessonId || ''}
+        onSelectLesson={handlePickLesson}
+        onBack={() => setStandaloneView(lessonPickerReturnTo)}
+      />
+    );
+    const pickerShellByIntent = {
+      text: { crumbs: [{ label: 'Leçons' }], activeHub: 'lessons' },
+      vocab: {
+        crumbs: [
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Par leçon' },
+        ],
+        activeHub: 'vocab',
+      },
+      'quiz-comprehension': {
+        crumbs: [
+          { label: 'Évaluation', onClick: () => navigateTo(SCREEN.HUB_TEST) },
+          { label: 'Compréhension' },
+        ],
+        activeHub: 'test',
+      },
+      'quiz-listening': {
+        crumbs: [
+          { label: 'Évaluation', onClick: () => navigateTo(SCREEN.HUB_TEST) },
+          { label: 'Écouter' },
+        ],
+        activeHub: 'test',
+      },
+      dictee: {
+        crumbs: [
+          { label: 'Évaluation', onClick: () => navigateTo(SCREEN.HUB_TEST) },
+          { label: 'Dictée', onClick: () => setStandaloneView(STANDALONE_VIEW.DICTEE_HUB) },
+          { label: 'Par leçon' },
+        ],
+        activeHub: 'test',
+      },
+      'writing-setup': {
+        crumbs: [
+          { label: 'Écriture', onClick: () => navigateTo(SCREEN.HUB_WRITING) },
+          { label: 'Par leçon' },
+        ],
+        activeHub: 'writing',
+      },
+    };
+    const pickerShell = pickerShellByIntent[lessonPickerIntent] || pickerShellByIntent.text;
+    return withShell(pickerPage, { ...pickerShell, scope: { type: 'global' } });
+  }
+
+  if (standaloneView === STANDALONE_VIEW.LESSON_WRITING_SETUP) {
+    const targetLesson = lessonOptions.find((l) => l.id === lessonTextLessonId) || activeLesson;
+    return withShell(
+      <LessonWritingSetupPage
+        shellHeader
+        profile={activeProfile}
+        lesson={targetLesson}
+        lessons={lessonOptions}
+        progressMap={childMap}
+        onStartPractice={startJourneyFromLessonText}
+        onBack={() => {
+          setStandaloneView(STANDALONE_VIEW.NONE);
+          setEnteredApp(false);
+        }}
+        onGoHome={goToLanding}
+        onOpenAvatarEditor={openAvatarEditorForChildFromLanding}
+        onSelectLesson={(id) => {
+          if (!id) return;
+          setActiveLesson(id);
+          setLessonTextLessonId(id);
+        }}
+      />,
+      {
+        crumbs: [
+          { label: 'Leçons', onClick: () => navigateTo(SCREEN.HUB_LESSONS) },
+          { label: targetLesson?.title || 'Leçon', onClick: () => navigateTo(SCREEN.LESSON_TEXT, targetLesson?.id) },
+          { label: 'Écriture' },
+        ],
+        scope: { type: 'lesson', lessonId: targetLesson?.id || '' },
+        activeHub: 'writing',
+      },
+    );
+  }
+
+  if (standaloneView === STANDALONE_VIEW.VOCAB_HUB) {
+    return withShell(
+      <ChoiceHubPage
+        shellHeader
+        title="Fiche"
+        choices={[
+          {
+            key: 'by-lesson',
+            label: 'Par leçon',
+            description: 'Ordre guidé : caractères et vocabulaire de la leçon',
+            onSelect: () => openLessonPicker('vocab', STANDALONE_VIEW.VOCAB_HUB),
+          },
+          {
+            key: 'by-theme',
+            label: 'Par thème',
+            description: 'Révision libre : HSK1, Couleurs, Vêtements, Radicaux',
+            onSelect: openThemeSelectFromHub,
+          },
+        ]}
+        onBack={() => {
+          setStandaloneView(STANDALONE_VIEW.NONE);
+          setEnteredApp(false);
+        }}
+      />,
+      { crumbs: [{ label: 'Fiche' }], scope: { type: 'global' }, activeHub: 'vocab' },
+    );
+  }
+
+  if (standaloneView === STANDALONE_VIEW.THEME_SELECT) {
+    return withShell(
+      <ChoiceHubPage
+        shellHeader
+        title="Par thème"
+        subtitle="Chaque carte propose Lire, Écrire et Quiz"
+        choices={[
+          {
+            key: 'hsk',
+            label: 'HSK1',
+            description: '500 mots du référentiel HSK 3.0',
+            onSelect: openHskDeckFromLanding,
+          },
+          { key: 'colors', label: 'Couleurs', onSelect: openColorsDeckFromLanding },
+          { key: 'clothing', label: 'Vêtements', onSelect: openClothingDeckFromLanding },
+          { key: 'radicals', label: 'Radicaux', onSelect: openRadicalDeckFromLanding },
+        ]}
+        onBack={() => setStandaloneView(STANDALONE_VIEW.VOCAB_HUB)}
+      />,
+      {
+        crumbs: [
+          { label: 'Fiche', onClick: () => navigateTo(SCREEN.HUB_VOCAB) },
+          { label: 'Par thème' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'vocab',
+      },
+    );
+  }
+
+  if (standaloneView === STANDALONE_VIEW.WRITING_HUB) {
+    return withShell(
+      <ChoiceHubPage
+        shellHeader
+        title="Écriture"
+        choices={[
+          {
+            key: 'by-lesson',
+            label: 'Par leçon',
+            description: 'Sélection des caractères, mode facile / difficile',
+            onSelect: () => openLessonPicker('writing-setup', STANDALONE_VIEW.WRITING_HUB),
+          },
+          {
+            key: 'by-theme',
+            label: 'Par thème',
+            description: 'HSK1, Couleurs, Vêtements, Radicaux',
+            onSelect: openWritingThemeSelectFromHub,
+          },
+        ]}
+        onBack={() => {
+          setStandaloneView(STANDALONE_VIEW.NONE);
+          setEnteredApp(false);
+        }}
+      />,
+      { crumbs: [{ label: 'Écriture' }], scope: { type: 'global' }, activeHub: 'writing' },
+    );
+  }
+
+  if (standaloneView === STANDALONE_VIEW.WRITING_THEME_SELECT) {
+    return withShell(
+      <ChoiceHubPage
+        shellHeader
+        title="Écriture par thème"
+        choices={[
+          { key: 'hsk', label: 'HSK1', onSelect: openHskWritingFromLanding },
+          { key: 'colors', label: 'Couleurs', onSelect: openColorsWritingFromLanding },
+          { key: 'clothing', label: 'Vêtements', onSelect: openClothingWritingFromLanding },
+          { key: 'radicals', label: 'Radicaux', onSelect: openRadicalWritingFromLanding },
+        ]}
+        onBack={() => setStandaloneView(STANDALONE_VIEW.WRITING_HUB)}
+      />,
+      {
+        crumbs: [
+          { label: 'Écriture', onClick: () => navigateTo(SCREEN.HUB_WRITING) },
+          { label: 'Par thème' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'writing',
+      },
+    );
+  }
+
+  if (standaloneView === STANDALONE_VIEW.TEST_HUB) {
+    return withShell(
+      <ChoiceHubPage
+        shellHeader
+        title="Évaluation"
+        choices={[
+          {
+            key: 'comprehension',
+            label: 'Compréhension',
+            description: 'Français ↔ chinois, par leçon',
+            onSelect: () => openLessonPicker('quiz-comprehension', STANDALONE_VIEW.TEST_HUB),
+          },
+          {
+            key: 'listening',
+            label: 'Écouter',
+            description: 'Son → caractère ou traduction, par leçon',
+            onSelect: () => openLessonPicker('quiz-listening', STANDALONE_VIEW.TEST_HUB),
+          },
+          {
+            key: 'dictee',
+            label: 'Dictée',
+            description: 'Écris le mot de mémoire - caractère caché, par leçon ou par thème',
+            onSelect: openDicteeHubFromLanding,
+          },
+        ]}
+        onBack={() => {
+          setStandaloneView(STANDALONE_VIEW.NONE);
+          setEnteredApp(false);
+        }}
+      />,
+      { crumbs: [{ label: 'Évaluation' }], scope: { type: 'global' }, activeHub: 'test' },
+    );
+  }
+
+  if (standaloneView === STANDALONE_VIEW.DICTEE_HUB) {
+    return withShell(
+      <ChoiceHubPage
+        shellHeader
+        title="Dictée"
+        subtitle="Le caractère reste caché - seuls le pinyin et la traduction sont affichés"
+        choices={[
+          {
+            key: 'by-lesson',
+            label: 'Par leçon',
+            description: 'Caractères et vocabulaire de la leçon',
+            onSelect: openLessonDicteeFromLanding,
+          },
+          {
+            key: 'by-theme',
+            label: 'Par thème',
+            description: 'HSK1, Couleurs, Vêtements, Radicaux',
+            onSelect: openDicteeThemeSelectFromHub,
+          },
+        ]}
+        onBack={() => {
+          setStandaloneView(STANDALONE_VIEW.TEST_HUB);
+        }}
+      />,
+      {
+        crumbs: [
+          { label: 'Évaluation', onClick: () => navigateTo(SCREEN.HUB_TEST) },
+          { label: 'Dictée' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'test',
+      },
+    );
+  }
+
+  if (standaloneView === STANDALONE_VIEW.DICTEE_THEME_SELECT) {
+    return withShell(
+      <ChoiceHubPage
+        shellHeader
+        title="Dictée par thème"
+        choices={[
+          { key: 'hsk', label: 'HSK1', onSelect: openHskDicteeFromLanding },
+          { key: 'colors', label: 'Couleurs', onSelect: openColorsDicteeFromLanding },
+          { key: 'clothing', label: 'Vêtements', onSelect: openClothingDicteeFromLanding },
+          { key: 'radicals', label: 'Radicaux', onSelect: openRadicalDicteeFromLanding },
+        ]}
+        onBack={() => setStandaloneView(STANDALONE_VIEW.DICTEE_HUB)}
+      />,
+      {
+        crumbs: [
+          { label: 'Évaluation', onClick: () => navigateTo(SCREEN.HUB_TEST) },
+          { label: 'Dictée', onClick: () => setStandaloneView(STANDALONE_VIEW.DICTEE_HUB) },
+          { label: 'Par thème' },
+        ],
+        scope: { type: 'global' },
+        activeHub: 'test',
+      },
+    );
+  }
+
+  // DEPRECATED - confirmed unreachable (header-consistency audit, 2026):
+  // see openFlashcardsFromLanding's comment above. Safe to delete along
+  // with FlashcardOnlyPage.jsx.
   if (standaloneView === STANDALONE_VIEW.FLASHCARDS) {
     return (
       <FlashcardOnlyPage
@@ -1519,6 +2649,9 @@ export default function App() {
     );
   }
 
+  // DEPRECATED - confirmed unreachable (header-consistency audit, 2026):
+  // see openAudioFromLanding's comment above. Safe to delete along with
+  // AudioOnlyPage.jsx.
   if (standaloneView === STANDALONE_VIEW.AUDIO) {
     return (
       <AudioOnlyPage
@@ -1562,6 +2695,10 @@ export default function App() {
     );
   }
 
+  // DEPRECATED - confirmed unreachable (header-consistency audit, 2026):
+  // only reached from FLASHCARDS'/AUDIO's own onSwitchModule cross-links,
+  // which are themselves unreachable. Safe to delete along with
+  // UnifiedLearningFlow.jsx.
   if (standaloneView === STANDALONE_VIEW.LEARNING_FLOW) {
     if (!activeLesson || !currentCard) {
       return (
@@ -1631,6 +2768,8 @@ export default function App() {
     );
   }
 
+  // DEPRECATED - confirmed unreachable (header-consistency audit, 2026):
+  // no setter for this view anywhere in the file besides this render guard.
   if (standaloneView === STANDALONE_VIEW.LESSON_BETA) {
     if (!isDevMode) {
       setStandaloneView(STANDALONE_VIEW.NONE);
@@ -1652,6 +2791,7 @@ export default function App() {
     return (
       <LessonSelectionPage
         lessons={lessonOptions}
+        packs={getPacks()}
         activeLessonId={activeLessonId || ''}
         onSelectLesson={(id) => {
           setActiveLesson(id);
@@ -1663,6 +2803,9 @@ export default function App() {
     );
   }
 
+  // DEPRECATED - confirmed unreachable (header-consistency audit, 2026):
+  // see openFontTestFromLanding's comment above. Safe to delete along with
+  // ChineseFontTestPage.jsx.
   if (standaloneView === STANDALONE_VIEW.FONT_TEST) {
     return (
       <ChineseFontTestPage
@@ -1685,31 +2828,23 @@ export default function App() {
 
   if (!enteredApp) {
     return (
-      <LandingPage
-        profiles={profiles}
-        lessons={lessonOptions}
-        activeLessonId={activeLessonId || ''}
-        activeLesson={activeLesson}
-        lessonProgressMap={childMap}
-        onOpenDailyRituel={openDailyRituelFromLanding}
-        onSelectLesson={(id) => {
-          setActiveLesson(id);
-          setCardIndex(0);
-        }}
-        onOpenLessonTextUi={openLessonTextFromLanding}
-        onOpenLessonEditorUi={openLessonEditorFromLanding}
-        onOpenFlashcardsUi={openFlashcardsFromLanding}
-        onOpenAudioUi={openAudioFromLanding}
-        onOpenWritingUi={openWritingFromLanding}
-        onOpenHskDeckUi={openHskDeckFromLanding}
-        onOpenHskWordSelectUi={openHskWordSelectFromLanding}
-        onOpenColorsDeckUi={openColorsDeckFromLanding}
-        onOpenClothingDeckUi={openClothingDeckFromLanding}
-        onOpenRadicalDeckUi={openRadicalDeckFromLanding}
-        onOpenAvatarEditor={() => setShowAvatarEditorModal(true)}
-        onStartProfile={startWithProfile}
-        onRefreshLessons={refreshBundledLessons}
-      />
+      <>
+        <LandingPage
+          profiles={profiles}
+          onOpenLessonEditorUi={openLessonEditorFromLanding}
+          onOpenLessonsHubUi={openLessonsHubFromLanding}
+          onOpenVocabularyHubUi={openVocabularyHubFromLanding}
+          onOpenWritingHubUi={openWritingHubFromLanding}
+          onOpenTestHubUi={openTestHubFromLanding}
+          onResumeLastLesson={lastActivity?.resume || openLessonTextFromLanding}
+          lastActivity={lastActivity}
+          onOpenAvatarEditor={openAvatarEditorForChildFromLanding}
+          onOpenParentSpace={() => setShowParentSpace(true)}
+          onStartProfile={startWithProfile}
+          onRefreshLessons={refreshBundledLessons}
+        />
+        {showAvatarEditorModal ? <AvatarEditorModal onClose={() => setShowAvatarEditorModal(false)} /> : null}
+      </>
     );
   }
 
@@ -1756,29 +2891,7 @@ export default function App() {
 
   return (
     <div className="app">
-      {showAvatarEditorModal ? (
-        <div
-          className="modal-overlay"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Editeur avatar"
-          onClick={() => setShowAvatarEditorModal(false)}
-        >
-          <div className="modal-card" onClick={(event) => event.stopPropagation()}>
-            <div className="modal-head">
-              <strong>Editeur Avatar</strong>
-              <button
-                type="button"
-                className="button secondary button-sm"
-                onClick={() => setShowAvatarEditorModal(false)}
-              >
-                Fermer
-              </button>
-            </div>
-            <AvatarEditor />
-          </div>
-        </div>
-      ) : null}
+      {showAvatarEditorModal ? <AvatarEditorModal onClose={() => setShowAvatarEditorModal(false)} /> : null}
 
       <header className="app-header">
         <div className="header-brand">
@@ -2001,8 +3114,10 @@ export default function App() {
                 }}
                 onSwitchModule={(module) => {
                   if (module === 'writing') {
+                    setDeckWritingDifficulty(1);
                     setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WRITING);
                   } else if (module === 'quiz') {
+                    setQuizAllowedTypes(null);
                     setStandaloneView(STANDALONE_VIEW.LESSON_QUIZ);
                   } else {
                     setActiveModule(module);
@@ -2039,8 +3154,10 @@ export default function App() {
                 }}
                 onSwitchModule={(module) => {
                   if (module === 'writing') {
+                    setDeckWritingDifficulty(1);
                     setStandaloneView(STANDALONE_VIEW.LESSON_VOCAB_WRITING);
                   } else if (module === 'quiz') {
+                    setQuizAllowedTypes(null);
                     setStandaloneView(STANDALONE_VIEW.LESSON_QUIZ);
                   } else {
                     setActiveModule(module);

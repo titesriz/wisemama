@@ -10,7 +10,7 @@ function matchesSearch(word, needle) {
   return haystack.includes(needle);
 }
 
-export default function HskWordSelectionPage({ words = [], activeWordId = '', onSelectWord, onBack }) {
+export default function HskWordSelectionPage({ words = [], activeWordId = '', onSelectWord, onBack, shellHeader = false }) {
   const [search, setSearch] = useState('');
 
   const filteredWords = useMemo(() => {
@@ -24,9 +24,11 @@ export default function HskWordSelectionPage({ words = [], activeWordId = '', on
     <section className="hsk-select-page">
       <div className="hsk-select-shell">
         <header className="hsk-select-head">
-          <button type="button" className="hsk-select-back ui-pressable" onClick={onBack}>
-            ← Retour
-          </button>
+          {shellHeader ? null : (
+            <button type="button" className="hsk-select-back ui-pressable" onClick={onBack}>
+              ← Retour
+            </button>
+          )}
           <h1>Choisir un mot</h1>
           <span className="hsk-select-count">{words.length} mots</span>
         </header>

@@ -4,11 +4,14 @@ import WritingPractice from './WritingPractice.jsx';
 export default function ColorsWritingPage({
   profile,
   word,
+  writingDifficulty = 1,
   onBack,
+  onGoHome,
   onSwitchModule,
   onSuccess,
   onPrevWord,
   onNextWord,
+  shellHeader = false,
 }) {
   const [charPosition, setCharPosition] = useState(0);
 
@@ -54,7 +57,7 @@ export default function ColorsWritingPage({
         card={word}
         lessonId="colors-deck"
         lessonTitle="Couleurs"
-        writingDifficulty={1}
+        writingDifficulty={writingDifficulty}
         profile={profile}
         cardIndex={charPosition}
         totalCards={charQueue.length}
@@ -62,6 +65,8 @@ export default function ColorsWritingPage({
         onNext={handleNext}
         onSwitchModule={onSwitchModule}
         onBack={onBack}
+        onGoHome={onGoHome}
+        shellHeader={shellHeader}
         standalone
         onSuccess={onSuccess}
       />

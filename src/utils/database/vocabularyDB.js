@@ -46,3 +46,70 @@ export function getWordsByHskLevel(level) {
     .filter((word) => word.hskLevel === level && word.hskOrder !== null)
     .sort((a, b) => (a.hskOrder ?? 0) - (b.hskOrder ?? 0));
 }
+
+function saveAllWords(words) {
+  localStorage.setItem('vocabulary-database', JSON.stringify(words));
+}
+
+export function wordExists(hanzi) {
+  return getWord(hanzi) !== null;
+}
+
+export function createWord(hanzi, data = {}) {
+  const words = getAllWords();
+  if (words.some((word) => word.hanzi === hanzi)) {
+    console.warn(`Word ${hanzi} already exists. Use updateWord instead.`);
+    return getWord(hanzi);
+  }
+
+  const newWord = {
+    id: hanzi,
+    hanzi,
+    pinyin: data.pinyin || '',
+    traditional: data.traditional || '',
+    french: data.french || '',
+    english: data.english || '',
+    appearsInLessons: data.appearsInLessons || [],
+    hskLevel: data.hskLevel ?? null,
+    hskOrder: data.hskOrder ?? null,
+    decks: data.decks || [],
+    sources: data.sources || ['manual'],
+  };
+
+  words.push(newWord);
+  saveAllWords(words);
+  return newWord;
+}
+
+export function updateWord(hanzi, updates) {
+  const words = getAllWords();
+  const index = words.findIndex((word) => word.hanzi === hanzi);
+  if (index === -1) {
+    console.error(`Word ${hanzi} does not exist. Use createWord first.`);
+    return null;
+  }
+
+  words[index] = { ...words[index], ...updates, hanzi, id: hanzi };
+  saveAllWords(words);
+  return words[index];
+}
+
+export function upsertWord(hanzi, data) {
+  if (wordExists(hanzi)) return updateWord(hanzi, data);
+  return createWord(hanzi, data);
+}
+
+export function deleteWord(hanzi) {
+  const words = getAllWords();
+  const next = words.filter((word) => word.hanzi !== hanzi);
+  if (next.length === words.length) return false;
+  saveAllWords(next);
+  return true;
+}
+
+export function addWordToLesson(hanzi, lessonId) {
+  const word = getWord(hanzi);
+  if (!word) return null;
+  if ((word.appearsInLessons || []).includes(lessonId)) return word;
+  return updateWord(hanzi, { appearsInLessons: [...(word.appearsInLessons || []), lessonId] });
+}

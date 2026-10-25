@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { formatPinyinDisplay } from '../lib/pinyinDisplay.js';
 import { useUiSounds } from '../hooks/useUiSounds.js';
 import { speakHanzi } from '../lib/ttsFallback.js';
+import { useScriptMode } from '../context/ScriptModeContext.jsx';
 import {
   createSessionId,
   filterBySession,
@@ -36,8 +37,29 @@ const COMPETENCY_LABELS = {
   signification: 'Signification',
 };
 
+// What text an option actually shows for a given question type - used to
+// keep distractors from duplicating the correct answer's displayed text.
+// Several characters share a French gloss with their own compound word
+// (e.g. 爸 and 爸爸 both "papa"), so filtering by id alone isn't enough -
+// two different words can still render as the same visible answer.
+function getOptionDisplayKey(word, questionType) {
+  return CHAR_OPTION_TYPES.includes(questionType)
+    ? word.hanzi
+    : String(word.french || '').trim().toLowerCase();
+}
+
 function buildRound(word, questionType, words) {
-  const distractors = shuffle(words.filter((w) => w.id !== word.id)).slice(0, 3);
+  const correctKey = getOptionDisplayKey(word, questionType);
+  const pool = shuffle(words.filter((w) => w.id !== word.id));
+  const seenKeys = new Set([correctKey]);
+  const distractors = [];
+  for (const candidate of pool) {
+    if (distractors.length >= 3) break;
+    const key = getOptionDisplayKey(candidate, questionType);
+    if (!key || seenKeys.has(key)) continue;
+    seenKeys.add(key);
+    distractors.push(candidate);
+  }
   const options = shuffle([...distractors, word]);
   return { correctWord: word, questionType, options };
 }
@@ -52,25 +74,39 @@ function buildWordSequence(words) {
 // Spreads the question types as evenly as possible across totalRounds
 // (a lesson's card count rarely divides evenly by 4), randomizing which
 // types get the extra round(s).
-function buildTypeSequence(totalRounds) {
-  const typeOrder = shuffle(QUESTION_TYPES);
+function buildTypeSequence(totalRounds, allowedTypes) {
+  const typeOrder = shuffle(allowedTypes);
   const sequence = Array.from({ length: totalRounds }, (_, i) => typeOrder[i % typeOrder.length]);
   return shuffle(sequence);
 }
 
-function buildSessionRounds(words) {
+function buildSessionRounds(words, allowedTypes) {
   const wordSequence = buildWordSequence(words);
-  const typeSequence = buildTypeSequence(wordSequence.length);
+  const typeSequence = buildTypeSequence(wordSequence.length, allowedTypes);
   return wordSequence.map((word, i) => buildRound(word, typeSequence[i], words));
 }
 
-function buildSession(words) {
-  return { id: createSessionId(), rounds: buildSessionRounds(words) };
+function buildSession(words, allowedTypes) {
+  return { id: createSessionId(), rounds: buildSessionRounds(words, allowedTypes) };
 }
 
-export default function LessonQuizPage({ profile, lessonId, lessonTitle, words = [], onBack, onSwitchModule }) {
+// allowedTypes restricts which question types a session draws from - the
+// "Comprehension" (char/translation only) and "Ecouter" (sound only) test
+// modes both reuse this same quiz engine, just with a narrower type set;
+// defaults to every type for the original combined quiz.
+export default function LessonQuizPage({
+  profile,
+  lessonId,
+  lessonTitle,
+  words = [],
+  allowedTypes = QUESTION_TYPES,
+  onBack,
+  onSwitchModule,
+  shellHeader = false,
+}) {
   const sounds = useUiSounds();
-  const [session, setSession] = useState(() => buildSession(words));
+  const { convert } = useScriptMode();
+  const [session, setSession] = useState(() => buildSession(words, allowedTypes));
   const [roundIndex, setRoundIndex] = useState(0);
   const [selectedId, setSelectedId] = useState(null);
   const [score, setScore] = useState({ correct: 0, total: 0 });
@@ -132,7 +168,7 @@ export default function LessonQuizPage({ profile, lessonId, lessonTitle, words =
 
   const restartSession = () => {
     sounds.playTap();
-    setSession(buildSession(words));
+    setSession(buildSession(words, allowedTypes));
     setRoundIndex(0);
     setSelectedId(null);
     setScore({ correct: 0, total: 0 });
@@ -146,7 +182,7 @@ export default function LessonQuizPage({ profile, lessonId, lessonTitle, words =
 
   if (isSessionComplete) {
     const sessionEvents = filterBySession(getDeckEvents(profile?.id, lessonId), session.id);
-    const byType = summarizeByType(sessionEvents, QUESTION_TYPES);
+    const byType = summarizeByType(sessionEvents, allowedTypes);
     const byCompetency = summarizeByCompetency(sessionEvents);
 
     return (
@@ -179,7 +215,7 @@ export default function LessonQuizPage({ profile, lessonId, lessonTitle, words =
           <p className="lesson-quiz-results-score">{score.correct}/{score.total}</p>
 
           <div className="lesson-quiz-results-breakdown">
-            {QUESTION_TYPES.map((type) => (
+            {allowedTypes.map((type) => (
               <div key={type} className="lesson-quiz-results-row">
                 <span>{TYPE_SHORT_LABELS[type]}</span>
                 <span>{byType[type]?.correct ?? 0}/{byType[type]?.total ?? 0}</span>
@@ -207,7 +243,8 @@ export default function LessonQuizPage({ profile, lessonId, lessonTitle, words =
   const promptLabel = PROMPT_LABELS[round.questionType];
 
   return (
-    <section className="writing-screen module-screen lesson-quiz-screen" aria-label={`Quiz ${lessonTitle || 'lecon'}`}>
+    <section className="writing-screen module-screen lesson-quiz-screen" aria-label={`Évaluation ${lessonTitle || 'lecon'}`}>
+      {shellHeader ? null : (
       <div className="writing-top-banner">
         <button
           type="button"
@@ -231,8 +268,10 @@ export default function LessonQuizPage({ profile, lessonId, lessonTitle, words =
           Lire
         </button>
       </div>
+      )}
 
       <div className="lesson-quiz-body">
+        {shellHeader ? <div className="lesson-quiz-score">Q{roundIndex + 1}/{totalRounds} · {score.correct}/{score.total}</div> : null}
         <p className="lesson-quiz-prompt-label">{promptLabel}</p>
 
         {round.questionType === 'translation-to-char' ? (
@@ -240,7 +279,7 @@ export default function LessonQuizPage({ profile, lessonId, lessonTitle, words =
         ) : null}
 
         {round.questionType === 'char-to-translation' ? (
-          <div className="lesson-quiz-hanzi-prompt">{round.correctWord.hanzi}</div>
+          <div className="lesson-quiz-hanzi-prompt">{convert(round.correctWord.hanzi)}</div>
         ) : null}
 
         {isSoundPrompt ? (
@@ -257,7 +296,7 @@ export default function LessonQuizPage({ profile, lessonId, lessonTitle, words =
         {(round.questionType === 'char-to-translation' || round.questionType === 'translation-to-char' || isSoundPrompt) && hintActive ? (
           <>
             {round.questionType === 'sound-to-translation' ? (
-              <div className="lesson-quiz-hint-hanzi">{round.correctWord.hanzi}</div>
+              <div className="lesson-quiz-hint-hanzi">{convert(round.correctWord.hanzi)}</div>
             ) : null}
             <p className="lesson-quiz-option-pinyin lesson-quiz-prompt-pinyin">
               {formatPinyinDisplay(round.correctWord.pinyin)}
@@ -281,7 +320,7 @@ export default function LessonQuizPage({ profile, lessonId, lessonTitle, words =
                   onClick={() => handleSelect(option.id)}
                   disabled={answered}
                 >
-                  {option.hanzi}
+                  {convert(option.hanzi)}
                 </button>
               );
             }
@@ -322,7 +361,7 @@ export default function LessonQuizPage({ profile, lessonId, lessonTitle, words =
               {isCorrectSelection ? 'Bravo !' : 'Pas tout a fait.'}
             </p>
             <p className="lesson-quiz-feedback-detail">
-              {round.correctWord.hanzi} · {formatPinyinDisplay(round.correctWord.pinyin)} · {round.correctWord.french} / {round.correctWord.english}
+              {convert(round.correctWord.hanzi)} · {formatPinyinDisplay(round.correctWord.pinyin)} · {round.correctWord.french} / {round.correctWord.english}
             </p>
             <button type="button" className="button" onClick={nextRound}>
               {roundIndex + 1 >= totalRounds ? 'Voir mon score' : 'Suivant ►'}

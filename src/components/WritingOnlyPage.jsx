@@ -8,12 +8,16 @@ export default function WritingOnlyPage({
   lessons = [],
   cardIndex,
   writingDifficulty = 1,
+  writingMode = null,
   journeyMode = false,
   journeyQueue = [],
   journeyPosition = 0,
   onPrev,
   onNext,
   onBack,
+  onGoHome,
+  onOpenAvatarEditor,
+  shellHeader = false,
   onOpenLessonText,
   onSelectLesson,
   onSwitchModule,
@@ -63,6 +67,7 @@ export default function WritingOnlyPage({
         profile={profile}
         parentProfile={parentProfile}
         writingDifficulty={writingDifficulty}
+        writingMode={writingMode}
         cardIndex={displayIndex}
         totalCards={totalCards}
         onPrev={onPrev}
@@ -72,6 +77,9 @@ export default function WritingOnlyPage({
         onSwitchModule={onSwitchModule}
         onOpenRadical={onOpenRadical}
         onBack={onBack}
+        onGoHome={onGoHome}
+        onOpenAvatarEditor={onOpenAvatarEditor}
+        shellHeader={shellHeader}
         standalone
         onSuccess={onSuccess}
       />
