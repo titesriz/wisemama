@@ -596,7 +596,9 @@ export default function WritingPractice({
     </div>
   ) : null;
 
-  const isFacileLayout = writingDifficulty === 1 && !embedded && !isRadicalMode;
+  // Facile's top row (card, stroke count, side panel) is shared by every lesson mode.
+  const isRowLayout = (writingMode ? true : writingDifficulty === 1) && !embedded && !isRadicalMode;
+  const showStrokeCount = !writingMode || writingMode === 'facile' || writingMode === 'moyen';
   // Facile keeps every aid; the other lesson modes strip them progressively.
   const showGuideAndAnimate = !writingMode || writingMode === 'facile';
   const showModelToggle = !writingMode || writingMode === 'facile' || writingMode === 'moyen';
@@ -705,12 +707,13 @@ export default function WritingPractice({
         </section>
       ) : null}
 
-      {isFacileLayout ? (
-        <div className="writing-top-row">
+      {isRowLayout ? (
+        <div className={`writing-top-row ${writingMode === 'moyen' ? 'writing-top-row-wrap' : ''}`}>
           <button
             type="button"
             className="writing-char-reveal writing-char-reveal-full ui-pressable"
             onClick={() => {
+              if (isDicteeMode) return;
               sounds.playTap();
               setShowCharInfo((prev) => !prev);
             }}
@@ -718,22 +721,24 @@ export default function WritingPractice({
             <span className="writing-char-reveal-pinyin">
               {card?.pinyinEnabled === false ? '' : formatPinyinDisplay(card?.pinyin || '')}
             </span>
-            {showCharInfo ? (
+            {isDicteeMode ? null : showCharInfo ? (
               <span className="writing-char-reveal-hanzi">{convert(targetChar)}</span>
             ) : (
               <span className="writing-char-reveal-label">Voir le caractere</span>
             )}
             <span className="writing-char-reveal-french">{card?.french || ''}</span>
           </button>
-          <div className="writing-stroke-count" aria-label="Nombre de traits">
-            {totalStrokes ? `${totalStrokes} ${totalStrokes > 1 ? 'traits' : 'trait'}` : '…'}
-          </div>
-          {strokeBand}
+          {showStrokeCount ? (
+            <div className="writing-stroke-count" aria-label="Nombre de traits">
+              {totalStrokes ? `${totalStrokes} ${totalStrokes > 1 ? 'traits' : 'trait'}` : '…'}
+            </div>
+          ) : null}
+          {writingMode === 'moyen' ? analysisPanel : strokeBand}
           {audioSrc ? <audio ref={audioRef} src={audioSrc} preload="auto" /> : null}
         </div>
       ) : null}
 
-      {!embedded && !isFacileLayout ? (
+      {!embedded && !isRowLayout ? (
         <div className="writing-card-info">
           <button
             type="button"
@@ -929,7 +934,7 @@ export default function WritingPractice({
         </section>
       ) : null}
 
-      {isFacileLayout ? null : analysisPanel || strokeBand}
+      {isRowLayout ? null : analysisPanel || strokeBand}
 
       <div className="writing-area">
         <div className="writing-canvas-container" ref={canvasWrapRef}>

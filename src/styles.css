@@ -5661,3 +5661,15 @@ body {
 .stroke-preview-band:empty {
   display: none;
 }
+
+.writing-top-row-wrap {
+  flex-wrap: wrap;
+}
+
+.writing-top-row .writing-analysis {
+  flex: 1 1 220px;
+  min-width: 0;
+  padding: 4px 8px;
+  background: transparent;
+  border: 0;
+}
