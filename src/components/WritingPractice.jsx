@@ -164,6 +164,7 @@ export default function WritingPractice({
   // clear "draw this one next" indicator.
   const [currentStrokeIndex, setCurrentStrokeIndex] = useState(0);
   const [mistakeCount, setMistakeCount] = useState(0);
+  const [isCharacterDone, setIsCharacterDone] = useState(false);
   const strokeStepRefs = useRef([]);
   const celebrationStepRef = useRef(null);
   const sounds = useUiSounds();
@@ -230,6 +231,7 @@ export default function WritingPractice({
       return;
     }
 
+    setIsCharacterDone(true);
     if (totalMistakes <= 2) {
       setFeedback('Bravo ! Etoile gagnee.');
       sounds.playSuccess();
@@ -382,6 +384,7 @@ export default function WritingPractice({
     writerRef.current = writer;
     setCurrentStrokeIndex(0);
     setMistakeCount(0);
+    setIsCharacterDone(false);
     setShowCelebration(false);
     setFeedback(
       isRadicalMode
@@ -603,21 +606,18 @@ export default function WritingPractice({
   const showGuideAndAnimate = !writingMode || writingMode === 'facile';
   const showModelToggle = !writingMode || writingMode === 'facile' || writingMode === 'moyen';
   const isDicteeMode = writingMode === 'dictee';
+  // Moyen: one short line in the guide's slot, shown only once the character is written.
+  // Placeholder wording until the mistakes are analysed (order vs position).
   const analysisPanel = writingMode === 'moyen' && !isRadicalMode && !embedded ? (
-    <section className="writing-analysis" aria-label="Pour progresser">
-      <strong className="writing-analysis-title">Pour progresser</strong>
-      <p className="writing-analysis-status">
-        {mistakeCount === 0
-          ? 'Aucune erreur pour l\'instant, continue comme ça.'
-          : `${mistakeCount} erreur${mistakeCount > 1 ? 's' : ''} sur ce caractère.`}
-      </p>
-      {/* Placeholder tips: to be replaced by an analysis of the actual mistakes. */}
-      <ul className="writing-analysis-tips">
-        <li>Attention à l'ordre des traits</li>
-        <li>Attention à la position et à la taille</li>
-        <li>Attention au sens de chaque trait</li>
-      </ul>
-    </section>
+    <div className="writing-analysis" aria-live="polite">
+      {isCharacterDone ? (
+        <span className="writing-analysis-line">
+          {mistakeCount === 0
+            ? 'Parfait, aucune erreur !'
+            : `${mistakeCount} erreur${mistakeCount > 1 ? 's' : ''} · vérifie l'ordre et la position des traits`}
+        </span>
+      ) : null}
+    </div>
   ) : null;
 
   return (
@@ -708,7 +708,7 @@ export default function WritingPractice({
       ) : null}
 
       {isRowLayout ? (
-        <div className={`writing-top-row ${writingMode === 'moyen' ? 'writing-top-row-wrap' : ''}`}>
+        <div className={`writing-top-row`}>
           <button
             type="button"
             className="writing-char-reveal writing-char-reveal-full ui-pressable"

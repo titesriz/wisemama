@@ -5630,46 +5630,42 @@ body {
   border: 0;
 }
 
-/* Moyen: tips panel standing in for the stroke guide. */
-.writing-analysis {
-  padding: 12px 18px;
-  background: #f9fafb;
-  border-top: 1px solid #e7ebf2;
-  border-bottom: 1px solid #e7ebf2;
-  text-align: left;
-}
-
-.writing-analysis-title {
-  font-size: 15px;
-  color: #2d3436;
-}
-
-.writing-analysis-status {
-  margin: 4px 0 6px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #636e72;
-}
-
-.writing-analysis-tips {
-  margin: 0;
-  padding-left: 18px;
-  font-size: 14px;
-  color: #636e72;
-}
 
 .stroke-preview-band:empty {
   display: none;
 }
 
-.writing-top-row-wrap {
-  flex-wrap: wrap;
+
+
+/* Same row height and card size in every lesson mode so the canvas never shifts. */
+.writing-top-row {
+  min-height: 165px;
+}
+
+.writing-char-reveal-full {
+  height: 92px;
+  min-height: 0;
+  box-sizing: border-box;
+}
+
+.writing-stroke-count {
+  height: 92px;
+  min-height: 0;
+  box-sizing: border-box;
 }
 
 .writing-top-row .writing-analysis {
-  flex: 1 1 220px;
+  flex: 1 1 0;
   min-width: 0;
-  padding: 4px 8px;
-  background: transparent;
-  border: 0;
+  min-height: 92px;
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+}
+
+.writing-analysis-line {
+  font-size: 16px;
+  font-weight: 700;
+  color: #2d3436;
 }
