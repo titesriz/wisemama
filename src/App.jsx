@@ -188,6 +188,7 @@ function getDefaultModuleByRole(role) {
 
 const WRITING_MODE_DIFFICULTY = { facile: 1, moyen: 2, difficile: 3, dictee: 3 };
 const WRITING_MODE_LABEL = { facile: 'Facile', moyen: 'Moyen', difficile: 'Difficile', dictee: 'Dictée' };
+const WRITING_MODES = ['facile', 'moyen', 'difficile', 'dictee'];
 
 export default function App() {
   const { mode, isParentMode, switchToChild, switchToParent } = useMode();
@@ -253,6 +254,10 @@ export default function App() {
   // Mode picked on the writing setup screen; drives the breadcrumb label.
   // Dictée and difficile both run at writingDifficulty 3.
   const [lessonWritingMode, setLessonWritingMode] = useState('facile');
+  // Inline mode switcher opened from the breadcrumb's icon next to the
+  // current mode label (e.g. "Facile") - lets you change mode without
+  // leaving the writing screen or losing the current character/position.
+  const [showWritingModeSwitcher, setShowWritingModeSwitcher] = useState(false);
   const [hskWordIndex, setHskWordIndex] = useState(() => readHskProgress());
   const [colorsWordIndex, setColorsWordIndex] = useState(0);
   const [clothingWordIndex, setClothingWordIndex] = useState(0);
@@ -991,6 +996,15 @@ export default function App() {
     setActiveModule(MODULES.WRITING);
   };
 
+  // Switches mode in place - same character/position, just a different
+  // difficulty - unlike startJourneyFromLessonText above, which also resets
+  // the queue/position for a fresh run from the setup screen.
+  const switchLessonWritingMode = (mode) => {
+    setLessonWritingMode(mode);
+    setWritingDifficulty(WRITING_MODE_DIFFICULTY[mode] || 1);
+    setShowWritingModeSwitcher(false);
+  };
+
   // Tapping a vocab word in the lesson text opens a narrow sub-selection -
   // just that word plus the individual characters it's made of - rather
   // than dropping into the full lesson's combined browse-through deck.
@@ -1537,12 +1551,38 @@ export default function App() {
     );
     if (returnToLessonText) {
       const writingLabel = WRITING_MODE_LABEL[lessonWritingMode] || 'Écriture';
-      return withShell(writingPage, {
+      const writingPageWithModeSwitcher = (
+        <>
+          {writingPage}
+          {showWritingModeSwitcher ? (
+            <div className="writing-mode-switcher-dropdown" role="menu" aria-label="Changer de mode">
+              {WRITING_MODES.map((mode) => (
+                <button
+                  key={mode}
+                  type="button"
+                  role="menuitemradio"
+                  aria-checked={mode === lessonWritingMode}
+                  className={`writing-mode-switcher-item ui-pressable ${mode === lessonWritingMode ? 'active' : ''}`}
+                  onClick={() => switchLessonWritingMode(mode)}
+                >
+                  {WRITING_MODE_LABEL[mode]}
+                </button>
+              ))}
+            </div>
+          ) : null}
+        </>
+      );
+      return withShell(writingPageWithModeSwitcher, {
         crumbs: [
           { label: 'Leçons', onClick: () => navigateTo(SCREEN.HUB_LESSONS) },
           { label: activeLesson?.title || 'Leçon', onClick: () => navigateTo(SCREEN.LESSON_TEXT, activeLesson?.id) },
           { label: 'Écriture', onClick: () => navigateTo(SCREEN.LESSON_WRITING_SETUP, activeLesson?.id) },
-          { label: writingLabel },
+          {
+            label: writingLabel,
+            icon: '🔀',
+            iconLabel: 'Changer de mode',
+            onIconClick: () => setShowWritingModeSwitcher((prev) => !prev),
+          },
         ],
         scope: { type: 'lesson', lessonId: activeLesson?.id || '' },
         activeHub: 'writing',

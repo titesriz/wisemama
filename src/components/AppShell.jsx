@@ -81,6 +81,16 @@ export default function AppShell({
                     {crumb.label}
                   </button>
                 )}
+                {crumb.icon ? (
+                  <button
+                    type="button"
+                    className="app-shell-crumb-icon-btn ui-pressable"
+                    onClick={crumb.onIconClick}
+                    aria-label={crumb.iconLabel || 'Options'}
+                  >
+                    {crumb.icon}
+                  </button>
+                ) : null}
               </span>
             );
           })}

@@ -78,6 +78,20 @@
   cursor: pointer;
 }
 
+.app-shell-crumb-icon-btn {
+  flex: 0 0 auto;
+  margin-left: 4px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-grid;
+  place-items: center;
+}
+
 .app-shell-sep {
   color: var(--wm-color-border);
   flex: 0 0 auto;

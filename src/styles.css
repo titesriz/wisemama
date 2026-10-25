@@ -5411,6 +5411,44 @@ body {
   top: 0;
 }
 
+/* Opened from the breadcrumb icon next to the current writing mode label
+   (e.g. "Facile") - fixed to the viewport rather than anchored to a
+   specific ancestor, since it's rendered as a sibling of whichever writing
+   page component happens to be mounted. */
+.writing-mode-switcher-dropdown {
+  position: fixed;
+  top: calc(var(--shell-header-h) + 8px);
+  right: 16px;
+  z-index: 100;
+  display: grid;
+  gap: 4px;
+  min-width: 160px;
+  border: 1px solid #e6d7ad;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  padding: 8px;
+  animation: lesson-picker-in 180ms ease-out;
+}
+
+.writing-mode-switcher-item {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid #eceff5;
+  border-radius: 10px;
+  background: #fff;
+  color: #2d3436;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.writing-mode-switcher-item.active {
+  border-color: #4ecdc4;
+  background: #ecfffb;
+  color: #22665f;
+}
+
 .lesson-option {
   width: 100%;
   min-height: 52px;
@@ -5594,8 +5632,41 @@ body {
 }
 
 .writing-char-reveal-full {
+  position: relative;
   flex: 0 0 auto;
+  width: 128px;
   min-height: 92px;
+}
+
+.writing-char-reveal-toggle {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+}
+
+.writing-char-reveal-sound {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 26px;
+  height: 26px;
+  min-width: 0;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255, 107, 107, 0.14);
+  color: #ff6b6b;
+  font-size: 13px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.writing-char-reveal-sound:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .writing-char-reveal-french {
@@ -5624,7 +5695,9 @@ body {
 .writing-top-row .stroke-preview-band {
   flex: 1 1 0;
   min-width: 0;
-  padding: 12px 8px 6px;
+  align-self: center;
+  height: 92px;
+  padding: 0 8px;
   min-height: 0;
   background: transparent;
   border: 0;
@@ -5639,7 +5712,7 @@ body {
 
 /* Same row height and card size in every lesson mode so the canvas never shifts. */
 .writing-top-row {
-  min-height: 165px;
+  min-height: 112px;
 }
 
 .writing-char-reveal-full {

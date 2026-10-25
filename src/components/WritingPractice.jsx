@@ -569,7 +569,6 @@ export default function WritingPractice({
           ref={(el) => { strokeStepRefs.current[step.index] = el; }}
           className={`radical-stroke-step ${step.index === currentStrokeIndex && !showCelebration ? 'radical-stroke-step-current' : ''}`}
         >
-          <div className="radical-stroke-step-count">{step.index + 1}</div>
           <svg viewBox="0 0 92 92" className="radical-stroke-step-canvas" aria-label={`Trait ${step.index + 1}`}>
             <rect x="1" y="1" width="90" height="90" rx="14" fill="#fff" stroke="#e7ebf2" />
             <line x1="46" y1="8" x2="46" y2="84" stroke="#e7ebf2" strokeDasharray="4 4" />
@@ -709,25 +708,36 @@ export default function WritingPractice({
 
       {isRowLayout ? (
         <div className={`writing-top-row`}>
-          <button
-            type="button"
-            className="writing-char-reveal writing-char-reveal-full ui-pressable"
-            onClick={() => {
-              if (isDicteeMode) return;
-              sounds.playTap();
-              setShowCharInfo((prev) => !prev);
-            }}
-          >
-            <span className="writing-char-reveal-pinyin">
-              {card?.pinyinEnabled === false ? '' : formatPinyinDisplay(card?.pinyin || '')}
-            </span>
-            {isDicteeMode ? null : showCharInfo ? (
-              <span className="writing-char-reveal-hanzi">{convert(targetChar)}</span>
-            ) : (
-              <span className="writing-char-reveal-label">Voir le caractere</span>
-            )}
-            <span className="writing-char-reveal-french">{card?.french || ''}</span>
-          </button>
+          <div className="writing-char-reveal-full">
+            <button
+              type="button"
+              className="writing-char-reveal writing-char-reveal-toggle ui-pressable"
+              onClick={() => {
+                if (isDicteeMode) return;
+                sounds.playTap();
+                setShowCharInfo((prev) => !prev);
+              }}
+            >
+              <span className="writing-char-reveal-pinyin">
+                {card?.pinyinEnabled === false ? '' : formatPinyinDisplay(card?.pinyin || '')}
+              </span>
+              {isDicteeMode ? null : showCharInfo ? (
+                <span className="writing-char-reveal-hanzi">{convert(targetChar)}</span>
+              ) : (
+                <span className="writing-char-reveal-label">Voir le caractere</span>
+              )}
+              <span className="writing-char-reveal-french">{card?.french || ''}</span>
+            </button>
+            <button
+              type="button"
+              className="writing-char-reveal-sound ui-pressable"
+              onClick={playCardAudio}
+              disabled={!audioSrc && !targetChar}
+              aria-label="Ecouter le son"
+            >
+              🔊
+            </button>
+          </div>
           {showStrokeCount ? (
             <div className="writing-stroke-count" aria-label="Nombre de traits">
               {totalStrokes ? `${totalStrokes} ${totalStrokes > 1 ? 'traits' : 'trait'}` : '…'}
