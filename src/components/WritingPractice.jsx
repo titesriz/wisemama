@@ -163,7 +163,7 @@ export default function WritingPractice({
   // the one just completed - starts at 0 (first stroke) so there's always a
   // clear "draw this one next" indicator.
   const [currentStrokeIndex, setCurrentStrokeIndex] = useState(0);
-  const [mistakeCount, setMistakeCount] = useState(0);
+  const [mistakesByStroke, setMistakesByStroke] = useState({});
   const [isCharacterDone, setIsCharacterDone] = useState(false);
   const strokeStepRefs = useRef([]);
   const celebrationStepRef = useRef(null);
@@ -383,7 +383,7 @@ export default function WritingPractice({
     ghostWriterRef.current = ghostWriter;
     writerRef.current = writer;
     setCurrentStrokeIndex(0);
-    setMistakeCount(0);
+    setMistakesByStroke({});
     setIsCharacterDone(false);
     setShowCelebration(false);
     setFeedback(
@@ -395,8 +395,9 @@ export default function WritingPractice({
     writer.quiz({
       leniency: 1,
       showHintAfterMisses: writingDifficulty === 1 ? 1 : writingDifficulty === 2 ? 3 : false,
-      onMistake: () => {
-        setMistakeCount((count) => count + 1);
+      onMistake: (strokeData) => {
+        const strokeNum = strokeData?.strokeNum ?? 0;
+        setMistakesByStroke((prev) => ({ ...prev, [strokeNum]: (prev[strokeNum] || 0) + 1 }));
         setFeedback(isRadicalMode ? 'Continue, tu es presque sur ce composant.' : 'Continue, tu es presque.');
       },
       onCorrectStroke: (strokeData) => {
@@ -606,15 +607,14 @@ export default function WritingPractice({
   const showGuideAndAnimate = !writingMode || writingMode === 'facile';
   const showModelToggle = !writingMode || writingMode === 'facile' || writingMode === 'moyen';
   const isDicteeMode = writingMode === 'dictee';
-  // Moyen: one short line in the guide's slot, shown only once the character is written.
-  // Placeholder wording until the mistakes are analysed (order vs position).
+  // Moyen: a single comment in the guide's slot, shown once the character is written.
+  // It names the stroke that gave the most trouble.
+  const worstStrokeEntry = Object.entries(mistakesByStroke).sort((a, b) => b[1] - a[1])[0];
   const analysisPanel = writingMode === 'moyen' && !isRadicalMode && !embedded ? (
     <div className="writing-analysis" aria-live="polite">
       {isCharacterDone ? (
         <span className="writing-analysis-line">
-          {mistakeCount === 0
-            ? 'Parfait, aucune erreur !'
-            : `${mistakeCount} erreur${mistakeCount > 1 ? 's' : ''} · vérifie l'ordre et la position des traits`}
+          {worstStrokeEntry ? `Attention au trait ${Number(worstStrokeEntry[0]) + 1}` : 'Parfait, aucune erreur !'}
         </span>
       ) : null}
     </div>
