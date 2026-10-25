@@ -47,6 +47,7 @@ import radicalsWords from './data/radicals-words.json';
 import { useAvatar } from './context/AvatarContext.jsx';
 import { useLessons } from './context/LessonsContext.jsx';
 import { useMode } from './context/ModeContext.jsx';
+import { useScriptMode } from './context/ScriptModeContext.jsx';
 import {
   readFtueState,
   resetAllWiseMamaData,
@@ -192,6 +193,7 @@ const WRITING_MODES = ['facile', 'moyen', 'difficile', 'dictee'];
 
 export default function App() {
   const { mode, isParentMode, switchToChild, switchToParent } = useMode();
+  const { setMode: setScriptMode } = useScriptMode();
   const {
     profiles,
     activeProfile,
@@ -1320,7 +1322,7 @@ export default function App() {
     switchProfile(newId);
   };
 
-  const handleFtueComplete = ({ childName, parentName }) => {
+  const handleFtueComplete = ({ childName, parentName, scriptMode }) => {
     const child = profiles.find((profile) => profile.role === 'child');
     const parent = profiles.find((profile) => profile.role === 'parent');
     if (child) {
@@ -1329,6 +1331,9 @@ export default function App() {
     }
     if (parent) {
       setProfileName(parent.id, parentName || 'Maman');
+    }
+    if (scriptMode) {
+      setScriptMode(scriptMode);
     }
     const nextFtue = saveFtueState({ completed: true, childName });
     setFtueState(nextFtue);

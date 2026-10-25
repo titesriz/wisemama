@@ -13,6 +13,7 @@ export default function FTUEFlow({ initialName = '', onComplete }) {
   const [step, setStep] = useState(0);
   const [childName, setChildName] = useState(initialName);
   const [parentName, setParentName] = useState('Maman');
+  const [scriptMode, setScriptMode] = useState('simplified');
 
   const canContinue = useMemo(() => {
     if (step === 0) return childName.trim().length > 0;
@@ -21,8 +22,8 @@ export default function FTUEFlow({ initialName = '', onComplete }) {
 
   const next = () => {
     if (!canContinue) return;
-    if (step === 1) {
-      onComplete?.({ childName: childName.trim(), parentName: parentName.trim() || 'Maman' });
+    if (step === 2) {
+      onComplete?.({ childName: childName.trim(), parentName: parentName.trim() || 'Maman', scriptMode });
       return;
     }
     setStep((prev) => prev + 1);
@@ -34,7 +35,7 @@ export default function FTUEFlow({ initialName = '', onComplete }) {
     <section className="ftue-shell" aria-label="Onboarding WiseMama">
       <div className="ftue-card">
         <div className="ftue-progress">
-          <span>Etape {step + 1}/2</span>
+          <span>Etape {step + 1}/3</span>
         </div>
 
         <div className="ftue-stage">
@@ -70,6 +71,33 @@ export default function FTUEFlow({ initialName = '', onComplete }) {
               />
             </div>
           ) : null}
+
+          {step === 2 ? (
+            <div className="ftue-screen in">
+              <StepTitle
+                title="Quelle écriture ?"
+                subtitle="Tu pourras changer plus tard dans les réglages."
+              />
+              <div className="ftue-script-choices">
+                <button
+                  type="button"
+                  className={`ftue-script-choice ui-pressable ${scriptMode === 'simplified' ? 'active' : ''}`}
+                  onClick={() => setScriptMode('simplified')}
+                >
+                  <span className="ftue-script-sample">汉字</span>
+                  <span>Simplifié</span>
+                </button>
+                <button
+                  type="button"
+                  className={`ftue-script-choice ui-pressable ${scriptMode === 'traditional' ? 'active' : ''}`}
+                  onClick={() => setScriptMode('traditional')}
+                >
+                  <span className="ftue-script-sample">漢字</span>
+                  <span>Traditionnel</span>
+                </button>
+              </div>
+            </div>
+          ) : null}
         </div>
 
         <div className="ftue-actions">
@@ -87,7 +115,7 @@ export default function FTUEFlow({ initialName = '', onComplete }) {
             onClick={next}
             disabled={!canContinue}
           >
-            {step === 1 ? "C'est parti !" : 'Continuer'}
+            {step === 2 ? "C'est parti !" : 'Continuer'}
           </button>
         </div>
       </div>
