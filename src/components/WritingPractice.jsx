@@ -421,7 +421,7 @@ export default function WritingPractice({
         containerRef.current.innerHTML = '';
       }
     };
-  }, [targetChar, renderKey, canvasSize, isRadicalMode, activeComponentExercise, fullCharData]);
+  }, [targetChar, renderKey, canvasSize, isRadicalMode, activeComponentExercise, fullCharData, writingDifficulty]);
 
   const showStrokeOrder = async () => {
     sounds.playTap();
