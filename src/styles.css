@@ -5641,7 +5641,7 @@ body {
 
 .writing-char-reveal-full {
   position: relative;
-  width: 77px;
+  width: 92px;
   height: 92px;
   box-sizing: border-box;
 }
@@ -5694,6 +5694,7 @@ body {
 .writing-top-row .stroke-preview-band {
   flex: 1 1 0;
   min-width: 0;
+  align-items: flex-start;
   padding: 0 8px;
   min-height: 0;
   background: transparent;
