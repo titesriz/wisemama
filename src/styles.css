@@ -4522,6 +4522,23 @@ body {
   gap: 10px;
 }
 
+.parent-gate-card {
+  width: min(360px, 100%);
+}
+
+.parent-gate-copy {
+  margin: 0;
+  font-size: 14px;
+  color: var(--wm-color-text-soft);
+}
+
+.parent-gate-error {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #ff6b6b;
+}
+
 .modal-head {
   display: flex;
   align-items: center;

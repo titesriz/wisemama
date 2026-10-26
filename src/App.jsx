@@ -190,6 +190,7 @@ function getDefaultModuleByRole(role) {
 const WRITING_MODE_DIFFICULTY = { facile: 1, moyen: 2, difficile: 3, dictee: 3 };
 const WRITING_MODE_LABEL = { facile: 'Facile', moyen: 'Moyen', difficile: 'Difficile', dictee: 'Dictée' };
 const WRITING_MODES = ['facile', 'moyen', 'difficile', 'dictee'];
+const PARENT_GATE_CODE = '2027';
 
 export default function App() {
   const { mode, isParentMode, switchToChild, switchToParent } = useMode();
@@ -244,6 +245,9 @@ export default function App() {
   }, [enteredApp, profiles, activeProfileId, setActiveProfileId]);
   const [standaloneView, setStandaloneView] = useState(STANDALONE_VIEW.NONE);
   const [showParentSpace, setShowParentSpace] = useState(false);
+  const [showParentGate, setShowParentGate] = useState(false);
+  const [parentGateInput, setParentGateInput] = useState('');
+  const [parentGateError, setParentGateError] = useState(false);
   const [lessonTextLessonId, setLessonTextLessonId] = useState(() => getLessonTextRouteId(window.location.pathname));
   // Lifted out of LessonTextView so the AppShell header's folder icon
   // (outside LessonTextView's own DOM subtree) can toggle the same picker.
@@ -717,6 +721,21 @@ export default function App() {
     setShowDailyRituel(false);
     setActiveModule(getDefaultModuleByRole(profile.role));
     setShowProfilePicker(false);
+  };
+
+  const closeParentGate = () => {
+    setShowParentGate(false);
+    setParentGateInput('');
+    setParentGateError(false);
+  };
+
+  const submitParentGate = () => {
+    if (parentGateInput === PARENT_GATE_CODE) {
+      closeParentGate();
+      setShowParentSpace(true);
+    } else {
+      setParentGateError(true);
+    }
   };
 
   const openDailyRituelFromLanding = () => {
@@ -2844,11 +2863,43 @@ export default function App() {
           onResumeLastLesson={lastActivity?.resume || openLessonTextFromLanding}
           lastActivity={lastActivity}
           onOpenAvatarEditor={openAvatarEditorForChildFromLanding}
-          onOpenParentSpace={() => setShowParentSpace(true)}
+          onOpenParentSpace={() => setShowParentGate(true)}
           onStartProfile={startWithProfile}
           onRefreshLessons={refreshBundledLessons}
         />
         {showAvatarEditorModal ? <AvatarEditorModal onClose={() => setShowAvatarEditorModal(false)} /> : null}
+        {showParentGate ? (
+          <div className="modal-overlay" role="dialog" aria-modal="true" aria-label="Code parent" onClick={closeParentGate}>
+            <div className="modal-card parent-gate-card" onClick={(event) => event.stopPropagation()}>
+              <div className="modal-head">
+                <strong>Espace parent</strong>
+                <button type="button" className="button secondary button-sm" onClick={closeParentGate}>
+                  Fermer
+                </button>
+              </div>
+              <p className="parent-gate-copy">Entre le code parent pour continuer.</p>
+              <input
+                type="password"
+                inputMode="numeric"
+                className="ftue-input"
+                value={parentGateInput}
+                onChange={(event) => {
+                  setParentGateInput(event.target.value.slice(0, 8));
+                  setParentGateError(false);
+                }}
+                placeholder="Code"
+                autoFocus
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter') submitParentGate();
+                }}
+              />
+              {parentGateError ? <p className="parent-gate-error">Code incorrect.</p> : null}
+              <button type="button" className="wm-btn wm-btn-primary" onClick={submitParentGate}>
+                Valider
+              </button>
+            </div>
+          </div>
+        ) : null}
       </>
     );
   }
