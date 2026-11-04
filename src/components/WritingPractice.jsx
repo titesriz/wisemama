@@ -579,7 +579,11 @@ export default function WritingPractice({
                   <path
                     key={`${step.index}-${strokeIndex}`}
                     d={strokePath}
-                    fill={strokeIndex === step.index ? '#ff6b6b' : '#111111'}
+                    fill={
+                      step.index === currentStrokeIndex && strokeIndex === step.index
+                        ? '#ff6b6b'
+                        : '#111111'
+                    }
                     stroke="none"
                   />
                 ))}
