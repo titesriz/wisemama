@@ -126,9 +126,11 @@ export default function LandingPage({
         <button
           type="button"
           className="profile-card-kid hero-chat-card hero-chat-card-btn ui-pressable"
-          onClick={advanceGreeting}
+          // Not `disabled` - a disabled <button> in Chromium blocks pointer events
+          // for its whole subtree, including the nested parent/child avatar
+          // buttons, which must stay clickable once the greeting reaches 'ask'.
+          onClick={greetingPhase === 'ask' ? undefined : advanceGreeting}
           aria-label="Continuer la conversation"
-          disabled={greetingPhase === 'ask'}
         >
           <div className="hero-chat-row hero-chat-row-parent">
             {parentProfile ? (
