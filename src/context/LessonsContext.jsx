@@ -18,10 +18,15 @@ import {
 import {
   getCharacter,
   upsertCharacter,
+  getAllCharacters,
 } from '../utils/database/characterDB.js';
-import { getWord as getVocabWord, addWordToLesson as addVocabWordToLesson } from '../utils/database/vocabularyDB.js';
+import {
+  getWord as getVocabWord,
+  addWordToLesson as addVocabWordToLesson,
+  getAllWords as getAllVocabWords,
+} from '../utils/database/vocabularyDB.js';
 import { migrateFromLocalStorageV1, migrateLessonsV1ToV2 } from '../utils/database/migration.js';
-import { addLink as addLessonLink } from '../utils/database/lessonLinksDB.js';
+import { addLink as addLessonLink, getAllLinks as getAllLessonLinks } from '../utils/database/lessonLinksDB.js';
 
 const lessonsStorageKey = 'wisemama-lessons-ui-v2';
 const lessonsStorageVersion = '2026-03-11-v2-ui';
@@ -776,6 +781,27 @@ export function LessonsProvider({ children }) {
 
   const getPackLessons = (packId) => allLessons.filter((lesson) => lesson.packId === packId);
 
+  // Bundles every locally-edited store (lessons, characters, vocabulary,
+  // generated links) into one downloadable file, so edits made only in this
+  // browser's localStorage can be handed back and merged into the repo's
+  // src/data/*.json - there is no backend to send them to directly.
+  const exportAllData = () => {
+    const payload = {
+      exportedAt: new Date().toISOString(),
+      lessons: getAllLessonsV2(),
+      characters: getAllCharacters(),
+      vocabulary: getAllVocabWords(),
+      lessonLinks: getAllLessonLinks(),
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = `wisemama-export-${Date.now()}.json`;
+    anchor.click();
+    URL.revokeObjectURL(url);
+  };
+
   const value = useMemo(
     () => ({
       lessons,
@@ -799,6 +825,7 @@ export function LessonsProvider({ children }) {
       getPacks,
       setPackEnabled,
       getPackLessons,
+      exportAllData,
     }),
     [activeLessonId, lessons, allLessons, enabledPackIds],
   );

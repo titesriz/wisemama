@@ -218,6 +218,7 @@ export default function App() {
     getPacks,
     setPackEnabled,
     getPackLessons,
+    exportAllData,
   } = useLessons();
   const activeLesson = lessonOptions.find((lesson) => lesson.id === activeLessonId) || null;
   const [cardIndex, setCardIndex] = useState(0);
@@ -1451,6 +1452,7 @@ export default function App() {
         packs={getPacks()}
         onSetPackEnabled={setPackEnabled}
         onExportPack={exportPack}
+        onExportAllData={exportAllData}
       />
     );
   }

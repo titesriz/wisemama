@@ -17,6 +17,7 @@ export default function ParentSpacePage({
   packs = [],
   onSetPackEnabled,
   onExportPack,
+  onExportAllData,
 }) {
   const [fontChoice, setFontChoice] = useState(getHanziFontPreference());
   const { mode: scriptMode, setMode: setScriptModeValue } = useScriptMode();
@@ -67,6 +68,19 @@ export default function ParentSpacePage({
         </p>
         <button type="button" className="manage-button ui-pressable" onClick={onOpenLessonEditor}>
           Ouvrir l'éditeur de leçons
+        </button>
+      </section>
+
+      <section className="parent-panel" aria-label="Export des donnees">
+        <div className="parent-panel-head">
+          <h3>Export des données</h3>
+        </div>
+        <p className="parent-panel-subtitle">
+          Tout ce qui a été édité ici (leçons, caractères, vocabulaire, liens) ne vit que dans ce
+          navigateur - pas de serveur. Exporte un fichier unique pour le faire suivre et l'intégrer au dépôt.
+        </p>
+        <button type="button" className="manage-button ui-pressable" onClick={onExportAllData}>
+          Exporter toutes mes données
         </button>
       </section>
 
