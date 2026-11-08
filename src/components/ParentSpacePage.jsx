@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react';
-import UnifiedLessonEditor from './UnifiedLessonEditor.jsx';
 import { HANZI_FONT_OPTIONS, getHanziFontPreference, applyHanziFontPreference } from '../lib/hanziFont.js';
 import { useScriptMode } from '../context/ScriptModeContext.jsx';
 import '../styles/choice-hub.css';
@@ -14,11 +13,7 @@ export default function ParentSpacePage({
   lessons = [],
   progressMap = {},
   onClose,
-  onCreateLesson,
-  onUpdateLesson,
-  onDeleteLesson,
-  onDuplicateLesson,
-  onSelectLesson,
+  onOpenLessonEditor,
   packs = [],
   onSetPackEnabled,
   onExportPack,
@@ -63,14 +58,17 @@ export default function ParentSpacePage({
         </div>
       </header>
 
-      <UnifiedLessonEditor
-        lessons={lessons}
-        onCreateLesson={onCreateLesson}
-        onUpdateLesson={onUpdateLesson}
-        onDeleteLesson={onDeleteLesson}
-        onDuplicateLesson={onDuplicateLesson}
-        onSelectLesson={onSelectLesson}
-      />
+      <section className="parent-panel" aria-label="Editeur de lecons">
+        <div className="parent-panel-head">
+          <h3>Éditeur de leçons</h3>
+        </div>
+        <p className="parent-panel-subtitle">
+          Créer, modifier, dupliquer ou supprimer des leçons (leçons de pack comme leçons perso).
+        </p>
+        <button type="button" className="manage-button ui-pressable" onClick={onOpenLessonEditor}>
+          Ouvrir l'éditeur de leçons
+        </button>
+      </section>
 
       <section className="parent-panel" aria-label="Packs de lecons">
         <div className="parent-panel-head">

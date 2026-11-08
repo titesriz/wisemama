@@ -248,6 +248,7 @@ export default function App() {
   const [showParentGate, setShowParentGate] = useState(false);
   const [parentGateInput, setParentGateInput] = useState('');
   const [parentGateError, setParentGateError] = useState(false);
+  const [lessonEditorReturnsToParentSpace, setLessonEditorReturnsToParentSpace] = useState(false);
   const [lessonTextLessonId, setLessonTextLessonId] = useState(() => getLessonTextRouteId(window.location.pathname));
   // Lifted out of LessonTextView so the AppShell header's folder icon
   // (outside LessonTextView's own DOM subtree) can toggle the same picker.
@@ -911,7 +912,7 @@ export default function App() {
   // window.scrollTo covers every page the if-chain below can render.
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
-  }, [standaloneView, lessonTextLessonId, showParentSpace, showFtue, enteredApp, showDailyRituel, isParentMode]);
+  }, [standaloneView, lessonTextLessonId, showParentSpace, showFtue, enteredApp, showDailyRituel, isParentMode, activeLessonId]);
 
   const navigateTo = (screen, lessonId = '') => {
     pushScreen(screen, lessonId);
@@ -1441,14 +1442,11 @@ export default function App() {
         lessons={lessonOptions}
         progressMap={childMap}
         onClose={() => setShowParentSpace(false)}
-        onCreateLesson={createLesson}
-        onUpdateLesson={updateLesson}
-        onDeleteLesson={removeLesson}
-        onDuplicateLesson={duplicateLesson}
-        onSelectLesson={(id) => {
-          if (!id) return;
-          setActiveLesson(id);
-          setCardIndex(0);
+        onOpenLessonEditor={() => {
+          setShowParentSpace(false);
+          setLessonEditorReturnsToParentSpace(true);
+          setStandaloneView(STANDALONE_VIEW.LESSON_EDITOR);
+          setEnteredApp(false);
         }}
         packs={getPacks()}
         onSetPackEnabled={setPackEnabled}
@@ -1776,7 +1774,12 @@ export default function App() {
         <LessonEditorBeta
           onBack={() => {
             setStandaloneView(STANDALONE_VIEW.NONE);
-            setEnteredApp(false);
+            if (lessonEditorReturnsToParentSpace) {
+              setLessonEditorReturnsToParentSpace(false);
+              setShowParentSpace(true);
+            } else {
+              setEnteredApp(false);
+            }
           }}
           onSelectLesson={(id) => {
             if (!id) return;
