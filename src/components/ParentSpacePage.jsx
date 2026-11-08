@@ -14,6 +14,7 @@ export default function ParentSpacePage({
   progressMap = {},
   onClose,
   onOpenLessonEditor,
+  onOpenVocabularyEditor,
   packs = [],
   onSetPackEnabled,
   onExportPack,
@@ -68,6 +69,18 @@ export default function ParentSpacePage({
         </p>
         <button type="button" className="manage-button ui-pressable" onClick={onOpenLessonEditor}>
           Ouvrir l'éditeur de leçons
+        </button>
+      </section>
+
+      <section className="parent-panel" aria-label="Editeur de vocabulaire">
+        <div className="parent-panel-head">
+          <h3>Vocabulaire</h3>
+        </div>
+        <p className="parent-panel-subtitle">
+          Parcourir et éditer tous les caractères et mots de vocabulaire (indépendamment des leçons).
+        </p>
+        <button type="button" className="manage-button ui-pressable" onClick={onOpenVocabularyEditor}>
+          Ouvrir l'éditeur de vocabulaire
         </button>
       </section>
 

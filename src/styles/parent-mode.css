@@ -640,6 +640,46 @@
   flex-wrap: wrap;
 }
 
+.vocab-editor-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.vocab-editor-type-tag {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--parent-text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.vocab-editor-edit-fields {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.vocab-editor-edit-fields input {
+  padding: 6px 8px;
+  border: 1px solid var(--parent-border);
+  border-radius: 8px;
+  font-size: 13px;
+  min-width: 100px;
+}
+
+.vocab-editor-search {
+  width: 100%;
+  margin-top: 8px;
+  padding: 8px 10px;
+  border: 1px solid var(--parent-border);
+  border-radius: 8px;
+  font-size: 13px;
+}
+
 .lesson-editor-main {
   display: grid;
   gap: 12px;

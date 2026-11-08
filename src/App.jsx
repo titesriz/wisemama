@@ -11,6 +11,7 @@ import FlashcardStandaloneUI from './components/FlashcardStandaloneUI.jsx';
 import FTUEFlow from './components/FTUEFlow.jsx';
 import LandingPage from './components/LandingPage.jsx';
 import LessonEditorBeta from './components/LessonEditorBeta.jsx';
+import VocabularyEditorPage from './components/VocabularyEditorPage.jsx';
 import LessonSelectionPage from './components/LessonSelectionPage.jsx';
 import LessonTextView from './components/LessonTextView.jsx';
 import ModeAvatar from './components/ModeAvatar.jsx';
@@ -250,6 +251,7 @@ export default function App() {
   const [parentGateInput, setParentGateInput] = useState('');
   const [parentGateError, setParentGateError] = useState(false);
   const [lessonEditorReturnsToParentSpace, setLessonEditorReturnsToParentSpace] = useState(false);
+  const [showVocabularyEditor, setShowVocabularyEditor] = useState(false);
   const [lessonTextLessonId, setLessonTextLessonId] = useState(() => getLessonTextRouteId(window.location.pathname));
   // Lifted out of LessonTextView so the AppShell header's folder icon
   // (outside LessonTextView's own DOM subtree) can toggle the same picker.
@@ -1437,6 +1439,9 @@ export default function App() {
   };
 
   if (showParentSpace) {
+    if (showVocabularyEditor) {
+      return <VocabularyEditorPage onBack={() => setShowVocabularyEditor(false)} />;
+    }
     return (
       <ParentSpacePage
         profiles={profiles}
@@ -1449,6 +1454,7 @@ export default function App() {
           setStandaloneView(STANDALONE_VIEW.LESSON_EDITOR);
           setEnteredApp(false);
         }}
+        onOpenVocabularyEditor={() => setShowVocabularyEditor(true)}
         packs={getPacks()}
         onSetPackEnabled={setPackEnabled}
         onExportPack={exportPack}
