@@ -80,6 +80,7 @@ export default function LessonTextView({
   onGoHome,
   onOpenAvatarEditor,
   onPracticeVocabulary,
+  onEditLesson,
   shellHeader = false,
   showLessonPicker: showLessonPickerProp,
   onToggleLessonPicker,
@@ -364,7 +365,20 @@ export default function LessonTextView({
 
           <div className="lesson-text-content">
           <section className="text-source-section">
-            <span className="lesson-section-marker">① Lis la leçon</span>
+            <div className="lesson-section-marker-row">
+              <span className="lesson-section-marker">① Lis la leçon</span>
+              {onEditLesson ? (
+                <button
+                  type="button"
+                  className="lesson-edit-btn ui-pressable"
+                  onClick={onEditLesson}
+                  aria-label="Éditer cette leçon"
+                  title="Éditer cette leçon"
+                >
+                  <span aria-hidden="true">✏️</span>
+                </button>
+              ) : null}
+            </div>
             {isScrolled ? (
               <div className="lesson-text-top-row lesson-text-sticky-instructions lesson-text-pinyin-floating">
                 <button

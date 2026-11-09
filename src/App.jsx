@@ -250,7 +250,11 @@ export default function App() {
   const [showParentGate, setShowParentGate] = useState(false);
   const [parentGateInput, setParentGateInput] = useState('');
   const [parentGateError, setParentGateError] = useState(false);
-  const [lessonEditorReturnsToParentSpace, setLessonEditorReturnsToParentSpace] = useState(false);
+  const [parentGateAction, setParentGateAction] = useState(null);
+  // Where Retour from the lesson editor goes: 'landing' (default) |
+  // 'parentSpace' | 'lessonText' (back to the exact lesson being edited).
+  const [lessonEditorReturnTo, setLessonEditorReturnTo] = useState('landing');
+  const [lessonEditorInitialId, setLessonEditorInitialId] = useState('');
   const [showVocabularyEditor, setShowVocabularyEditor] = useState(false);
   const [lessonTextLessonId, setLessonTextLessonId] = useState(() => getLessonTextRouteId(window.location.pathname));
   // Lifted out of LessonTextView so the AppShell header's folder icon
@@ -731,12 +735,23 @@ export default function App() {
     setShowParentGate(false);
     setParentGateInput('');
     setParentGateError(false);
+    setParentGateAction(null);
+  };
+
+  // Default (no action given) opens Espace parent, same as before - callers
+  // that need the code to unlock something else (e.g. jumping straight into
+  // the lesson editor for one lesson) pass their own onSuccess.
+  const openParentGate = (onSuccess) => {
+    setParentGateAction(() => onSuccess || null);
+    setShowParentGate(true);
   };
 
   const submitParentGate = () => {
     if (parentGateInput === PARENT_GATE_CODE) {
+      const action = parentGateAction;
       closeParentGate();
-      setShowParentSpace(true);
+      if (action) action();
+      else setShowParentSpace(true);
     } else {
       setParentGateError(true);
     }
@@ -924,18 +939,60 @@ export default function App() {
 
   const shellProfile = profiles.find((profile) => profile.role === 'child') || profiles[0] || null;
 
+  // Shared so it can render as a sibling from any entry point that needs the
+  // parent code (the landing page's own, and withShell below for an "edit"
+  // button reached from a lesson-scoped screen) - it used to live only
+  // inside the landing page's own return branch, so opening it from
+  // anywhere else silently did nothing (showParentGate flipped true, but
+  // that branch of the render tree was never the one on screen).
+  const parentGateModal = showParentGate ? (
+    <div className="modal-overlay" role="dialog" aria-modal="true" aria-label="Code parent" onClick={closeParentGate}>
+      <div className="modal-card parent-gate-card" onClick={(event) => event.stopPropagation()}>
+        <div className="modal-head">
+          <strong>Espace parent</strong>
+          <button type="button" className="button secondary button-sm" onClick={closeParentGate}>
+            Fermer
+          </button>
+        </div>
+        <p className="parent-gate-copy">Entre le code parent pour continuer.</p>
+        <input
+          type="password"
+          inputMode="numeric"
+          className="ftue-input"
+          value={parentGateInput}
+          onChange={(event) => {
+            setParentGateInput(event.target.value.slice(0, 8));
+            setParentGateError(false);
+          }}
+          placeholder="Code"
+          autoFocus
+          onKeyDown={(event) => {
+            if (event.key === 'Enter') submitParentGate();
+          }}
+        />
+        {parentGateError ? <p className="parent-gate-error">Code incorrect.</p> : null}
+        <button type="button" className="wm-btn wm-btn-primary" onClick={submitParentGate}>
+          Valider
+        </button>
+      </div>
+    </div>
+  ) : null;
+
   const withShell = (children, shell) => (
-    <AppShell
-      {...shell}
-      onNavigate={navigateTo}
-      onGoHome={goToLanding}
-      profile={shellProfile}
-      onOpenAvatarEditor={openAvatarEditorForChildFromLanding}
-      avatarOpen={showAvatarEditorModal}
-      onCloseAvatarEditor={() => setShowAvatarEditorModal(false)}
-    >
-      {children}
-    </AppShell>
+    <>
+      <AppShell
+        {...shell}
+        onNavigate={navigateTo}
+        onGoHome={goToLanding}
+        profile={shellProfile}
+        onOpenAvatarEditor={openAvatarEditorForChildFromLanding}
+        avatarOpen={showAvatarEditorModal}
+        onCloseAvatarEditor={() => setShowAvatarEditorModal(false)}
+      >
+        {children}
+      </AppShell>
+      {parentGateModal}
+    </>
   );
 
   const openLessonTextView = (targetLessonId) => {
@@ -1157,6 +1214,21 @@ export default function App() {
     setShowDailyRituel(false);
     setStandaloneView(STANDALONE_VIEW.LESSON_EDITOR);
     setEnteredApp(false);
+  };
+
+  // Edit button on the lesson text page: gated behind the parent code,
+  // opens the full editor preselected on the exact lesson being read, and
+  // Retour comes straight back to that same lesson instead of Espace
+  // parent or the landing page.
+  const openLessonEditorForCurrentLesson = () => {
+    const targetLessonId = lessonTextLessonId;
+    if (!targetLessonId) return;
+    openParentGate(() => {
+      setLessonEditorInitialId(targetLessonId);
+      setLessonEditorReturnTo('lessonText');
+      setStandaloneView(STANDALONE_VIEW.LESSON_EDITOR);
+      setEnteredApp(false);
+    });
   };
 
   const openHskDeckFromLanding = () => {
@@ -1456,7 +1528,8 @@ export default function App() {
         onClose={() => setShowParentSpace(false)}
         onOpenLessonEditor={() => {
           setShowParentSpace(false);
-          setLessonEditorReturnsToParentSpace(true);
+          setLessonEditorReturnTo('parentSpace');
+          setLessonEditorInitialId('');
           setStandaloneView(STANDALONE_VIEW.LESSON_EDITOR);
           setEnteredApp(false);
         }}
@@ -1491,6 +1564,7 @@ export default function App() {
           onPracticeVocabulary={openVocabPracticeFromLessonText}
           onGoHome={goToLanding}
           onOpenAvatarEditor={openAvatarEditorForChildFromLanding}
+          onEditLesson={openLessonEditorForCurrentLesson}
         />,
         {
           crumbs: [{ label: 'Leçons', onClick: () => navigateTo(SCREEN.HUB_LESSONS) }, { label: lessonForText.title || 'Leçon' }],
@@ -1786,14 +1860,18 @@ export default function App() {
     return (
       <section className="module-pane">
         <LessonEditorBeta
+          initialLessonId={lessonEditorInitialId}
           onBack={() => {
             setStandaloneView(STANDALONE_VIEW.NONE);
-            if (lessonEditorReturnsToParentSpace) {
-              setLessonEditorReturnsToParentSpace(false);
+            if (lessonEditorReturnTo === 'parentSpace') {
               setShowParentSpace(true);
+            } else if (lessonEditorReturnTo === 'lessonText') {
+              setEnteredApp(true);
             } else {
               setEnteredApp(false);
             }
+            setLessonEditorReturnTo('landing');
+            setLessonEditorInitialId('');
           }}
           onSelectLesson={(id) => {
             if (!id) return;
@@ -2885,38 +2963,7 @@ export default function App() {
           onRefreshLessons={refreshBundledLessons}
         />
         {showAvatarEditorModal ? <AvatarEditorModal onClose={() => setShowAvatarEditorModal(false)} /> : null}
-        {showParentGate ? (
-          <div className="modal-overlay" role="dialog" aria-modal="true" aria-label="Code parent" onClick={closeParentGate}>
-            <div className="modal-card parent-gate-card" onClick={(event) => event.stopPropagation()}>
-              <div className="modal-head">
-                <strong>Espace parent</strong>
-                <button type="button" className="button secondary button-sm" onClick={closeParentGate}>
-                  Fermer
-                </button>
-              </div>
-              <p className="parent-gate-copy">Entre le code parent pour continuer.</p>
-              <input
-                type="password"
-                inputMode="numeric"
-                className="ftue-input"
-                value={parentGateInput}
-                onChange={(event) => {
-                  setParentGateInput(event.target.value.slice(0, 8));
-                  setParentGateError(false);
-                }}
-                placeholder="Code"
-                autoFocus
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter') submitParentGate();
-                }}
-              />
-              {parentGateError ? <p className="parent-gate-error">Code incorrect.</p> : null}
-              <button type="button" className="wm-btn wm-btn-primary" onClick={submitParentGate}>
-                Valider
-              </button>
-            </div>
-          </div>
-        ) : null}
+        {parentGateModal}
       </>
     );
   }
