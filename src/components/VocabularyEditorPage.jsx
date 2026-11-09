@@ -82,6 +82,21 @@ export default function VocabularyEditorPage({ onBack, lessons = [], onUpdateLes
       setCreateError('Ajoute au moins le pinyin ou une traduction.');
       return;
     }
+    if (filterLesson && !newWord.supplementary) {
+      // Mirrors resolveVocabWord's own rule (LessonsContext.jsx): a
+      // non-supplementary word whose characters aren't all already taught
+      // in this lesson gets silently dropped when the lesson is displayed -
+      // catch that here instead of creating a word that then seems to
+      // vanish with no explanation.
+      const knownChars = new Set((filterLesson.cards || []).map((card) => card.hanzi));
+      const unknownChar = Array.from(hanzi).find((char) => !knownChars.has(char));
+      if (unknownChar) {
+        setCreateError(
+          `"${unknownChar}" n'est pas encore enseigné dans ${filterLesson.title || 'cette leçon'} - coche "vocabulaire supplémentaire" pour l'ajouter quand même, sinon il n'apparaîtra pas dans la leçon.`,
+        );
+        return;
+      }
+    }
     upsertVocabWord(hanzi, {
       pinyin: newWord.pinyin.trim(),
       french: newWord.french.trim(),
