@@ -106,6 +106,10 @@ export default function LessonTextView({
   // into a recall quiz (hanzi + pinyin only).
   const [vocabTranslationExpanded, setVocabTranslationExpanded] = useState(false);
   const [showVocabTranslation, setShowVocabTranslation] = useState(true);
+  // Per-card override on top of the global show/hide mode, same shape as
+  // manuallyToggledIds for pinyin: tapping a card flips just that card
+  // against whatever the global mode currently says.
+  const [manuallyToggledVocabIds, setManuallyToggledVocabIds] = useState(() => new Set());
   const lessonPickerRef = useRef(null);
   const availableLessons = useMemo(() => {
     if (lessons.length) return getLessonsByOrder(lessons);
@@ -121,6 +125,10 @@ export default function LessonTextView({
       setManuallyToggledIds(new Set());
     }
   }, [pinyinMode]);
+
+  useEffect(() => {
+    setManuallyToggledVocabIds(new Set());
+  }, [showVocabTranslation]);
 
   useEffect(() => {
     const SCROLL_THRESHOLD = 24;
@@ -213,6 +221,15 @@ export default function LessonTextView({
     return false;
   };
 
+  const toggleVocabTranslation = (wordId) => {
+    setManuallyToggledVocabIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(wordId)) next.delete(wordId);
+      else next.add(wordId);
+      return next;
+    });
+  };
+
   const renderVocabWord = (word) => {
     const characters = Array.from(word.hanzi || '');
     const seenChars = new Set();
@@ -229,22 +246,24 @@ export default function LessonTextView({
           })
           .filter(Boolean)
       : [];
+    const isRevealed = manuallyToggledVocabIds.has(word.id) ? !showVocabTranslation : showVocabTranslation;
     return (
       <button
         key={word.id}
         type="button"
         className="vocab-row ui-pressable"
-        title={`${word.hanzi} (${formatPinyinDisplay(word.pinyin)}) - ${word.french || word.english || ''}`}
-        onClick={() => onPracticeVocabulary?.(word.id)}
+        title={`${word.hanzi} (${formatPinyinDisplay(word.pinyin)}) - clique pour ${isRevealed ? 'cacher' : 'voir'} la traduction`}
+        aria-pressed={isRevealed}
+        onClick={() => toggleVocabTranslation(word.id)}
       >
         <div className="vocab-row-main">
           <span className="vocab-row-hanzi">{convert(word.hanzi)}</span>
           <span className="vocab-row-pinyin">{formatPinyinDisplay(word.pinyin)}</span>
-          {showVocabTranslation ? (
+          {isRevealed ? (
             <span className="vocab-row-meaning">{word.french || word.english || ''}</span>
           ) : null}
         </div>
-        {showVocabTranslation && breakdown.length > 0 ? (
+        {isRevealed && breakdown.length > 0 ? (
           <div className="vocab-row-breakdown">
             {breakdown.map((item, index) => (
               <span key={item.char} className="vocab-row-breakdown-item">
