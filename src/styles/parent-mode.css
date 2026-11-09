@@ -700,6 +700,34 @@
   color: var(--parent-text-strong);
 }
 
+.vocab-editor-new-btn {
+  margin-top: 10px;
+}
+
+.vocab-editor-create-form {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 12px;
+  border: 1px solid var(--parent-border);
+  border-radius: 10px;
+  background: var(--wm-color-surface-soft);
+}
+
+.vocab-editor-create-form input {
+  padding: 8px 10px;
+  border: 1px solid var(--parent-border);
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.vocab-editor-create-error {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: #ff6b6b;
+}
+
 .lesson-editor-main {
   display: grid;
   gap: 12px;

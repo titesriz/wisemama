@@ -4,8 +4,12 @@ import {
   getAllWords as getAllVocabWords,
   updateWord as updateVocabWord,
   deleteWord as deleteVocabWord,
+  wordExists as vocabWordExists,
+  upsertWord as upsertVocabWord,
 } from '../utils/database/vocabularyDB.js';
 import { getLessonsByOrder } from '../utils/lessons/lessonOrder.js';
+
+const EMPTY_NEW_WORD = { hanzi: '', pinyin: '', french: '', english: '', supplementary: false };
 
 const FILTERS = [
   { id: 'all', label: 'Tout' },
@@ -44,6 +48,9 @@ export default function VocabularyEditorPage({ onBack, lessons = [], onUpdateLes
   const [lessonFilter, setLessonFilter] = useState('');
   const [editingKey, setEditingKey] = useState('');
   const [draft, setDraft] = useState({ pinyin: '', french: '', english: '' });
+  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [newWord, setNewWord] = useState(EMPTY_NEW_WORD);
+  const [createError, setCreateError] = useState('');
 
   const orderedLessons = useMemo(() => getLessonsByOrder(lessons), [lessons]);
   // "Supplementaire" lives on the lesson's own vocabularyRefs ({hanzi,
@@ -59,6 +66,38 @@ export default function VocabularyEditorPage({ onBack, lessons = [], onUpdateLes
     const nextRefs = (filterLesson.vocabularyRefs || []).map((ref) =>
       ref.hanzi === hanzi ? { ...ref, supplementary: !ref.supplementary } : ref);
     onUpdateLesson?.(filterLesson.id, { vocabularyRefs: nextRefs });
+  };
+
+  const createNewWord = () => {
+    const hanzi = newWord.hanzi.trim();
+    if (!hanzi) {
+      setCreateError('Le hanzi est obligatoire.');
+      return;
+    }
+    if (vocabWordExists(hanzi)) {
+      setCreateError(`${hanzi} existe déjà - cherche-le pour l'éditer au lieu d'en créer un autre.`);
+      return;
+    }
+    if (!newWord.pinyin.trim() && !newWord.french.trim() && !newWord.english.trim()) {
+      setCreateError('Ajoute au moins le pinyin ou une traduction.');
+      return;
+    }
+    upsertVocabWord(hanzi, {
+      pinyin: newWord.pinyin.trim(),
+      french: newWord.french.trim(),
+      english: newWord.english.trim(),
+      appearsInLessons: filterLesson ? [filterLesson.id] : [],
+      sources: ['manual'],
+    });
+    if (filterLesson) {
+      onUpdateLesson?.(filterLesson.id, {
+        vocabularyRefs: [...(filterLesson.vocabularyRefs || []), { hanzi, supplementary: newWord.supplementary }],
+      });
+    }
+    setNewWord(EMPTY_NEW_WORD);
+    setCreateError('');
+    setShowCreateForm(false);
+    refresh();
   };
 
   const filtered = useMemo(() => {
@@ -154,6 +193,55 @@ export default function VocabularyEditorPage({ onBack, lessons = [], onUpdateLes
           placeholder="Chercher (hanzi, pinyin, traduction)..."
           className="vocab-editor-search"
         />
+        <button
+          type="button"
+          className="manage-button ui-pressable vocab-editor-new-btn"
+          onClick={() => {
+            setShowCreateForm((prev) => !prev);
+            setCreateError('');
+          }}
+        >
+          {showCreateForm ? 'Annuler' : '+ Nouveau mot de vocabulaire'}
+        </button>
+        {showCreateForm ? (
+          <div className="vocab-editor-create-form">
+            <input
+              value={newWord.hanzi}
+              onChange={(event) => setNewWord((prev) => ({ ...prev, hanzi: event.target.value }))}
+              placeholder="Hanzi"
+              autoFocus
+            />
+            <input
+              value={newWord.pinyin}
+              onChange={(event) => setNewWord((prev) => ({ ...prev, pinyin: event.target.value }))}
+              placeholder="Pinyin"
+            />
+            <input
+              value={newWord.french}
+              onChange={(event) => setNewWord((prev) => ({ ...prev, french: event.target.value }))}
+              placeholder="Français"
+            />
+            <input
+              value={newWord.english}
+              onChange={(event) => setNewWord((prev) => ({ ...prev, english: event.target.value }))}
+              placeholder="Anglais (optionnel)"
+            />
+            {filterLesson ? (
+              <label className="vocab-editor-supplementary-toggle">
+                <input
+                  type="checkbox"
+                  checked={newWord.supplementary}
+                  onChange={(event) => setNewWord((prev) => ({ ...prev, supplementary: event.target.checked }))}
+                />
+                Vocabulaire supplémentaire (dans {filterLesson.title || 'cette leçon'})
+              </label>
+            ) : null}
+            {createError ? <p className="vocab-editor-create-error">{createError}</p> : null}
+            <button type="button" className="button ui-pressable" onClick={createNewWord}>
+              Créer{filterLesson ? ` et ajouter à ${filterLesson.title || 'la leçon'}` : ''}
+            </button>
+          </div>
+        ) : null}
       </section>
 
       <section className="parent-panel" aria-label="Liste vocabulaire">
