@@ -37,7 +37,7 @@ function buildEntries() {
   return [...characters, ...words].sort((a, b) => a.hanzi.localeCompare(b.hanzi, 'zh-Hans-CN'));
 }
 
-export default function VocabularyEditorPage({ onBack, lessons = [] }) {
+export default function VocabularyEditorPage({ onBack, lessons = [], onUpdateLesson }) {
   const [entries, setEntries] = useState(buildEntries);
   const [query, setQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState('all');
@@ -46,8 +46,20 @@ export default function VocabularyEditorPage({ onBack, lessons = [] }) {
   const [draft, setDraft] = useState({ pinyin: '', french: '', english: '' });
 
   const orderedLessons = useMemo(() => getLessonsByOrder(lessons), [lessons]);
+  // "Supplementaire" lives on the lesson's own vocabularyRefs ({hanzi,
+  // supplementary}), not on the shared character/vocabulary record - it's a
+  // per-(lesson, word) relationship, so editing it only makes sense once a
+  // single lesson is selected.
+  const filterLesson = lessonFilter ? lessons.find((item) => item.id === lessonFilter) : null;
 
   const refresh = () => setEntries(buildEntries());
+
+  const toggleSupplementary = (hanzi) => {
+    if (!filterLesson) return;
+    const nextRefs = (filterLesson.vocabularyRefs || []).map((ref) =>
+      ref.hanzi === hanzi ? { ...ref, supplementary: !ref.supplementary } : ref);
+    onUpdateLesson?.(filterLesson.id, { vocabularyRefs: nextRefs });
+  };
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -177,6 +189,18 @@ export default function VocabularyEditorPage({ onBack, lessons = [] }) {
                       {entry.pinyin} · {entry.french || entry.english || '(sans traduction)'}
                     </small>
                   )}
+                  {filterLesson && entry.type === 'vocabulary' ? (
+                    <label className="vocab-editor-supplementary-toggle">
+                      <input
+                        type="checkbox"
+                        checked={Boolean(
+                          filterLesson.vocabularyRefs?.find((ref) => ref.hanzi === entry.hanzi)?.supplementary,
+                        )}
+                        onChange={() => toggleSupplementary(entry.hanzi)}
+                      />
+                      Vocabulaire supplémentaire (dans {filterLesson.title || 'cette leçon'})
+                    </label>
+                  ) : null}
                 </div>
                 <div className="lesson-editor-item-actions">
                   {isEditing ? (

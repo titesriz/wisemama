@@ -233,6 +233,9 @@ export default function LessonTextView({
   const renderVocabWord = (word) => {
     const characters = Array.from(word.hanzi || '');
     const seenChars = new Set();
+    // Every character here must show up, even one whose card has no
+    // translation yet - dropping it would make the breakdown silently
+    // incomplete instead of just showing a gap.
     const breakdown = characters.length > 1
       ? characters
           .filter((char) => {
@@ -240,11 +243,10 @@ export default function LessonTextView({
             seenChars.add(char);
             return true;
           })
-          .map((char) => {
-            const meaning = cardByHanzi.get(char)?.card?.french || cardByHanzi.get(char)?.card?.english || '';
-            return meaning ? { char, meaning } : null;
-          })
-          .filter(Boolean)
+          .map((char) => ({
+            char,
+            meaning: cardByHanzi.get(char)?.card?.french || cardByHanzi.get(char)?.card?.english || '',
+          }))
       : [];
     const isRevealed = manuallyToggledVocabIds.has(word.id) ? !showVocabTranslation : showVocabTranslation;
     return (

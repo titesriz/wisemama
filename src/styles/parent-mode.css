@@ -680,6 +680,15 @@
   font-size: 13px;
 }
 
+.vocab-editor-supplementary-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--parent-text-soft);
+}
+
 .vocab-editor-lesson-filter {
   width: 100%;
   margin-top: 8px;
