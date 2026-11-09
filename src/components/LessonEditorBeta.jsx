@@ -277,6 +277,14 @@ export default function LessonEditorBeta({ onBack, onSelectLesson, initialLesson
     [cardsDraft],
   );
   const vocabularyRefs = selectedLesson?.vocabularyRefs || [];
+  const vocabRefHanziSet = useMemo(
+    () => new Set(vocabularyRefs.map((entry) => entry.hanzi)),
+    [vocabularyRefs],
+  );
+  // Supplementary = allowed to introduce characters the lesson doesn't
+  // teach yet; they get folded into characterRefs instead of being dropped.
+  const [addAsSupplementary, setAddAsSupplementary] = useState(false);
+
   const vocabCandidates = useMemo(() => {
     // Typed pinyin rarely has tone marks or syllable spaces ("bizi"), while
     // stored pinyin always does ("bí zi") - strip both sides down to plain
@@ -291,8 +299,8 @@ export default function LessonEditorBeta({ onBack, onSelectLesson, initialLesson
     const queryPinyin = normalizePinyin(vocabQuery);
     if (!query) return [];
     return getAllVocabWords()
-      .filter((word) => !vocabularyRefs.includes(word.hanzi))
-      .filter((word) => Array.from(word.hanzi || '').every((char) => lessonKnownChars.has(char)))
+      .filter((word) => !vocabRefHanziSet.has(word.hanzi))
+      .filter((word) => addAsSupplementary || Array.from(word.hanzi || '').every((char) => lessonKnownChars.has(char)))
       .filter((word) =>
         word.hanzi.includes(query) ||
         normalizePinyin(word.pinyin).includes(queryPinyin) ||
@@ -300,18 +308,31 @@ export default function LessonEditorBeta({ onBack, onSelectLesson, initialLesson
         (word.english || '').toLowerCase().includes(query),
       )
       .slice(0, 8);
-  }, [vocabQuery, vocabularyRefs, lessonKnownChars]);
+  }, [vocabQuery, vocabRefHanziSet, lessonKnownChars, addAsSupplementary]);
+
+  // Vocabulary edits save immediately (unlike title/sourceText, which wait
+  // for the Sauvegarder button) and can now change which characters the
+  // lesson teaches (supplementary words), so cardsDraft - and only
+  // cardsDraft, not the unsaved text/title fields - is resynced from the
+  // freshly saved lesson right after.
+  const syncCardsDraftFrom = (expandedLesson) => {
+    if (expandedLesson) setCardsDraft(expandedLesson.cards || []);
+  };
 
   const addVocabWord = (hanzi) => {
-    if (!selectedLessonId || !hanzi || vocabularyRefs.includes(hanzi)) return;
-    updateLesson(selectedLessonId, { vocabularyRefs: [...vocabularyRefs, hanzi] });
+    if (!selectedLessonId || !hanzi || vocabRefHanziSet.has(hanzi)) return;
+    const updated = updateLesson(selectedLessonId, {
+      vocabularyRefs: [...vocabularyRefs, { hanzi, supplementary: addAsSupplementary }],
+    });
+    syncCardsDraftFrom(updated);
     setVocabQuery('');
     applyStatus('Mot de vocabulaire ajoute.');
   };
 
   const removeVocabWord = (hanzi) => {
     if (!selectedLessonId) return;
-    updateLesson(selectedLessonId, { vocabularyRefs: vocabularyRefs.filter((ref) => ref !== hanzi) });
+    const updated = updateLesson(selectedLessonId, { vocabularyRefs: vocabularyRefs.filter((ref) => ref.hanzi !== hanzi) });
+    syncCardsDraftFrom(updated);
     applyStatus('Mot de vocabulaire retire.');
   };
 
@@ -319,9 +340,9 @@ export default function LessonEditorBeta({ onBack, onSelectLesson, initialLesson
   const canOfferNewWord =
     selectedLessonId &&
     isHanziOnly(trimmedVocabQuery) &&
-    !vocabularyRefs.includes(trimmedVocabQuery) &&
+    !vocabRefHanziSet.has(trimmedVocabQuery) &&
     !getAllVocabWords().some((word) => word.hanzi === trimmedVocabQuery) &&
-    Array.from(trimmedVocabQuery).every((char) => lessonKnownChars.has(char)) &&
+    (addAsSupplementary || Array.from(trimmedVocabQuery).every((char) => lessonKnownChars.has(char))) &&
     vocabCandidates.length === 0;
 
   const createAndAddWord = () => {
@@ -338,12 +359,15 @@ export default function LessonEditorBeta({ onBack, onSelectLesson, initialLesson
       appearsInLessons: [selectedLessonId],
       sources: ['manual'],
     });
-    updateLesson(selectedLessonId, { vocabularyRefs: [...vocabularyRefs, hanzi] });
+    const updated = updateLesson(selectedLessonId, {
+      vocabularyRefs: [...vocabularyRefs, { hanzi, supplementary: addAsSupplementary }],
+    });
+    syncCardsDraftFrom(updated);
     setVocabQuery('');
     setNewWordPinyin('');
     setNewWordFrench('');
     setNewWordEnglish('');
-    applyStatus(`${hanzi} cree et ajoute a la lecon.`);
+    applyStatus(`${hanzi} cree et ajoute a la leçon.`);
   };
 
   useEffect(() => {
@@ -961,11 +985,11 @@ export default function LessonEditorBeta({ onBack, onSelectLesson, initialLesson
                 <button
                   key={word.id}
                   type="button"
-                  className="lesson-text-vocab-chip ui-pressable vocab-chip-removable"
-                  title={`${formatPinyinDisplay(word.pinyin || '')} · ${word.french || word.english || ''} - cliquer pour retirer`}
+                  className={`lesson-text-vocab-chip ui-pressable vocab-chip-removable ${word.supplementary ? 'vocab-chip-supplementary' : ''}`}
+                  title={`${formatPinyinDisplay(word.pinyin || '')} · ${word.french || word.english || ''}${word.supplementary ? ' · supplementaire' : ''} - cliquer pour retirer`}
                   onClick={() => removeVocabWord(word.hanzi)}
                 >
-                  {word.hanzi} <span aria-hidden="true">×</span>
+                  {word.hanzi} {word.supplementary ? <span aria-hidden="true">+</span> : null} <span aria-hidden="true">×</span>
                 </button>
               ))}
               {!selectedLesson?.vocabulary?.length ? (
@@ -974,6 +998,14 @@ export default function LessonEditorBeta({ onBack, onSelectLesson, initialLesson
             </div>
             {selectedLessonId ? (
               <div className="lesson-vocab-add">
+                <label className="lesson-vocab-supplementary-toggle">
+                  <input
+                    type="checkbox"
+                    checked={addAsSupplementary}
+                    onChange={(event) => setAddAsSupplementary(event.target.checked)}
+                  />
+                  Vocabulaire supplementaire (peut introduire un caractere pas encore enseigne dans cette leçon)
+                </label>
                 <input
                   type="text"
                   value={vocabQuery}
@@ -1024,7 +1056,9 @@ export default function LessonEditorBeta({ onBack, onSelectLesson, initialLesson
                     </div>
                   ) : (
                     <p className="parent-empty">
-                      Aucun mot ne correspond (seuls les mots dont tous les caracteres sont deja dans cette leçon peuvent etre ajoutes).
+                      {addAsSupplementary
+                        ? 'Aucun mot ne correspond dans la base de vocabulaire.'
+                        : 'Aucun mot ne correspond (seuls les mots dont tous les caracteres sont deja dans cette leçon peuvent etre ajoutes - coche "vocabulaire supplementaire" sinon).'}
                     </p>
                   )
                 ) : null}

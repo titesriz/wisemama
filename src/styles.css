@@ -3478,6 +3478,28 @@ body {
   text-align: left;
 }
 
+.lesson-section-marker-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.lesson-edit-btn {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  opacity: 0.6;
+}
+
 .pinyin-capsule-toggle {
   display: inline-flex;
   align-items: center;
@@ -4522,6 +4544,23 @@ body {
   gap: 10px;
 }
 
+.parent-gate-card {
+  width: min(360px, 100%);
+}
+
+.parent-gate-copy {
+  margin: 0;
+  font-size: 14px;
+  color: var(--wm-color-text-soft);
+}
+
+.parent-gate-error {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #ff6b6b;
+}
+
 .modal-head {
   display: flex;
   align-items: center;
@@ -5128,10 +5167,23 @@ body {
   font-weight: 800;
 }
 
+.vocab-chip-supplementary {
+  border-color: #4ecdc4;
+  background: #eefcfb;
+}
+
 .lesson-vocab-add {
   margin-top: 10px;
   display: grid;
   gap: 6px;
+}
+
+.lesson-vocab-supplementary-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #636e72;
 }
 
 .lesson-vocab-add input {

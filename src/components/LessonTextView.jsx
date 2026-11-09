@@ -80,6 +80,7 @@ export default function LessonTextView({
   onGoHome,
   onOpenAvatarEditor,
   onPracticeVocabulary,
+  onEditLesson,
   shellHeader = false,
   showLessonPicker: showLessonPickerProp,
   onToggleLessonPicker,
@@ -100,6 +101,16 @@ export default function LessonTextView({
   };
   const [isScrolled, setIsScrolled] = useState(false);
   const [pinyinCapsuleExpanded, setPinyinCapsuleExpanded] = useState(false);
+  // Same collapsible-pill pattern as the pinyin cartouche, but this one acts
+  // on the vocabulary sections below (not the lesson text itself): tap to
+  // reveal Afficher/Masquer, hiding the translation turns the vocab list
+  // into a recall quiz (hanzi + pinyin only).
+  const [vocabTranslationExpanded, setVocabTranslationExpanded] = useState(false);
+  const [showVocabTranslation, setShowVocabTranslation] = useState(true);
+  // Per-card override on top of the global show/hide mode, same shape as
+  // manuallyToggledIds for pinyin: tapping a card flips just that card
+  // against whatever the global mode currently says.
+  const [manuallyToggledVocabIds, setManuallyToggledVocabIds] = useState(() => new Set());
   const lessonPickerRef = useRef(null);
   const availableLessons = useMemo(() => {
     if (lessons.length) return getLessonsByOrder(lessons);
@@ -115,6 +126,10 @@ export default function LessonTextView({
       setManuallyToggledIds(new Set());
     }
   }, [pinyinMode]);
+
+  useEffect(() => {
+    setManuallyToggledVocabIds(new Set());
+  }, [showVocabTranslation]);
 
   useEffect(() => {
     const SCROLL_THRESHOLD = 24;
@@ -168,6 +183,21 @@ export default function LessonTextView({
   // lives on its own screen (LessonWritingSetupPage). Empty for every
   // lesson that hasn't been given word data yet.
   const lessonVocabWords = lesson?.vocabulary || [];
+  // Every character the lesson teaches is itself a single-hanzi "word" -
+  // same principle as the Vocabulaire editor, which lists characters and
+  // vocabulary words together. Without this, "Vocabulaire de la leçon"
+  // only ever showed the authored multi-character words, never the
+  // characters the child just read in the text above.
+  const coreCharacterEntries = (lesson?.cards || []).map((card) => ({
+    id: card.id,
+    hanzi: card.hanzi,
+    pinyin: card.pinyin,
+    french: card.french,
+    english: card.english,
+    supplementary: false,
+  }));
+  const coreVocabWords = [...coreCharacterEntries, ...lessonVocabWords.filter((word) => !word.supplementary)];
+  const supplementaryVocabWords = lessonVocabWords.filter((word) => word.supplementary);
 
   const playSentence = async (sentence, sentenceIndex) => {
     if (!sentence || playingSentenceIndex >= 0) return;
@@ -203,6 +233,64 @@ export default function LessonTextView({
     if (pinyinMode === 'all') return true;
     if (pinyinMode === 'new') return status === 'new';
     return false;
+  };
+
+  const toggleVocabTranslation = (wordId) => {
+    setManuallyToggledVocabIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(wordId)) next.delete(wordId);
+      else next.add(wordId);
+      return next;
+    });
+  };
+
+  const renderVocabWord = (word) => {
+    const characters = Array.from(word.hanzi || '');
+    const seenChars = new Set();
+    // Every character here must show up, even one whose card has no
+    // translation yet - dropping it would make the breakdown silently
+    // incomplete instead of just showing a gap.
+    const breakdown = characters.length > 1
+      ? characters
+          .filter((char) => {
+            if (seenChars.has(char)) return false;
+            seenChars.add(char);
+            return true;
+          })
+          .map((char) => ({
+            char,
+            meaning: cardByHanzi.get(char)?.card?.french || cardByHanzi.get(char)?.card?.english || '',
+          }))
+      : [];
+    const isRevealed = manuallyToggledVocabIds.has(word.id) ? !showVocabTranslation : showVocabTranslation;
+    return (
+      <button
+        key={word.id}
+        type="button"
+        className="vocab-row ui-pressable"
+        title={`${word.hanzi} (${formatPinyinDisplay(word.pinyin)}) - clique pour ${isRevealed ? 'cacher' : 'voir'} la traduction`}
+        aria-pressed={isRevealed}
+        onClick={() => toggleVocabTranslation(word.id)}
+      >
+        <div className="vocab-row-main">
+          <span className="vocab-row-hanzi">{convert(word.hanzi)}</span>
+          <span className="vocab-row-pinyin">{formatPinyinDisplay(word.pinyin)}</span>
+          {isRevealed ? (
+            <span className="vocab-row-meaning">{word.french || word.english || ''}</span>
+          ) : null}
+        </div>
+        {isRevealed && breakdown.length > 0 ? (
+          <div className="vocab-row-breakdown">
+            {breakdown.map((item, index) => (
+              <span key={item.char} className="vocab-row-breakdown-item">
+                {index > 0 ? <span className="vocab-row-breakdown-sep" aria-hidden="true">；</span> : null}
+                {convert(item.char)} {item.meaning}
+              </span>
+            ))}
+          </div>
+        ) : null}
+      </button>
+    );
   };
 
   return (
@@ -277,7 +365,20 @@ export default function LessonTextView({
 
           <div className="lesson-text-content">
           <section className="text-source-section">
-            <span className="lesson-section-marker">① Lis la leçon</span>
+            <div className="lesson-section-marker-row">
+              <span className="lesson-section-marker">① Lis la leçon</span>
+              {onEditLesson ? (
+                <button
+                  type="button"
+                  className="lesson-edit-btn ui-pressable"
+                  onClick={onEditLesson}
+                  aria-label="Éditer cette leçon"
+                  title="Éditer cette leçon"
+                >
+                  <span aria-hidden="true">✏️</span>
+                </button>
+              ) : null}
+            </div>
             {isScrolled ? (
               <div className="lesson-text-top-row lesson-text-sticky-instructions lesson-text-pinyin-floating">
                 <button
@@ -392,59 +493,68 @@ export default function LessonTextView({
           </section>
 
 
-          {lessonVocabWords.length > 0 ? (
-            <section className="vocabulary-section lesson-text-vocab">
-              <div className="vocab-section-header">
-                <span className="lesson-section-marker">② Nouveau vocabulaire</span>
-                <span className="vocab-count">
-                  {lessonVocabWords.length} mot{lessonVocabWords.length !== 1 ? 's' : ''}
-                </span>
+          {coreVocabWords.length > 0 || supplementaryVocabWords.length > 0 ? (
+            <>
+              <div className="lesson-text-top-row lesson-text-vocab-toggle-row">
+                <button
+                  type="button"
+                  className="pinyin-float-btn ui-pressable"
+                  onClick={() => setVocabTranslationExpanded((prev) => !prev)}
+                  aria-label="Options traduction"
+                  aria-expanded={vocabTranslationExpanded}
+                >
+                  <span aria-hidden="true">🌐</span> Traduction
+                </button>
+                {vocabTranslationExpanded ? (
+                  <div className="pinyin-toggle" role="radiogroup" aria-label="Mode traduction">
+                    <label className="toggle-option">
+                      <input
+                        type="radio"
+                        name="vocabTranslationMode"
+                        value="shown"
+                        checked={showVocabTranslation}
+                        onChange={() => setShowVocabTranslation(true)}
+                      />
+                      <span className="radio-label"><span className="radio-icon">🟢</span>Afficher</span>
+                    </label>
+                    <label className="toggle-option">
+                      <input
+                        type="radio"
+                        name="vocabTranslationMode"
+                        value="hidden"
+                        checked={!showVocabTranslation}
+                        onChange={() => setShowVocabTranslation(false)}
+                      />
+                      <span className="radio-label"><span className="radio-icon">⚪</span>Masquer</span>
+                    </label>
+                  </div>
+                ) : null}
               </div>
-              <div className="vocabulary-list">
-                {lessonVocabWords.map((word) => {
-                  const characters = Array.from(word.hanzi || '');
-                  const seenChars = new Set();
-                  const breakdown = characters.length > 1
-                    ? characters
-                        .filter((char) => {
-                          if (seenChars.has(char)) return false;
-                          seenChars.add(char);
-                          return true;
-                        })
-                        .map((char) => {
-                          const meaning = cardByHanzi.get(char)?.card?.french || cardByHanzi.get(char)?.card?.english || '';
-                          return meaning ? { char, meaning } : null;
-                        })
-                        .filter(Boolean)
-                    : [];
-                  return (
-                    <button
-                      key={word.id}
-                      type="button"
-                      className="vocab-row ui-pressable"
-                      title={`${word.hanzi} (${formatPinyinDisplay(word.pinyin)}) - ${word.french || word.english || ''}`}
-                      onClick={() => onPracticeVocabulary?.(word.id)}
-                    >
-                      <div className="vocab-row-main">
-                        <span className="vocab-row-hanzi">{convert(word.hanzi)}</span>
-                        <span className="vocab-row-pinyin">{formatPinyinDisplay(word.pinyin)}</span>
-                        <span className="vocab-row-meaning">{word.french || word.english || ''}</span>
-                      </div>
-                      {breakdown.length > 0 ? (
-                        <div className="vocab-row-breakdown">
-                          {breakdown.map((item, index) => (
-                            <span key={item.char} className="vocab-row-breakdown-item">
-                              {index > 0 ? <span className="vocab-row-breakdown-sep" aria-hidden="true">；</span> : null}
-                              {convert(item.char)} {item.meaning}
-                            </span>
-                          ))}
-                        </div>
-                      ) : null}
-                    </button>
-                  );
-                })}
-              </div>
-            </section>
+
+              {coreVocabWords.length > 0 ? (
+                <section className="vocabulary-section lesson-text-vocab">
+                  <div className="vocab-section-header">
+                    <span className="lesson-section-marker">② Vocabulaire de la leçon</span>
+                    <span className="vocab-count">
+                      {coreVocabWords.length} mot{coreVocabWords.length !== 1 ? 's' : ''}
+                    </span>
+                  </div>
+                  <div className="vocabulary-list">{coreVocabWords.map(renderVocabWord)}</div>
+                </section>
+              ) : null}
+
+              {supplementaryVocabWords.length > 0 ? (
+                <section className="vocabulary-section lesson-text-vocab">
+                  <div className="vocab-section-header">
+                    <span className="lesson-section-marker">③ Vocabulaire supplémentaire</span>
+                    <span className="vocab-count">
+                      {supplementaryVocabWords.length} mot{supplementaryVocabWords.length !== 1 ? 's' : ''}
+                    </span>
+                  </div>
+                  <div className="vocabulary-list">{supplementaryVocabWords.map(renderVocabWord)}</div>
+                </section>
+              ) : null}
+            </>
           ) : null}
           </div>
         </article>

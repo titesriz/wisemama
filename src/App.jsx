@@ -11,6 +11,7 @@ import FlashcardStandaloneUI from './components/FlashcardStandaloneUI.jsx';
 import FTUEFlow from './components/FTUEFlow.jsx';
 import LandingPage from './components/LandingPage.jsx';
 import LessonEditorBeta from './components/LessonEditorBeta.jsx';
+import VocabularyEditorPage from './components/VocabularyEditorPage.jsx';
 import LessonSelectionPage from './components/LessonSelectionPage.jsx';
 import LessonTextView from './components/LessonTextView.jsx';
 import ModeAvatar from './components/ModeAvatar.jsx';
@@ -190,6 +191,7 @@ function getDefaultModuleByRole(role) {
 const WRITING_MODE_DIFFICULTY = { facile: 1, moyen: 2, difficile: 3, dictee: 3 };
 const WRITING_MODE_LABEL = { facile: 'Facile', moyen: 'Moyen', difficile: 'Difficile', dictee: 'Dictée' };
 const WRITING_MODES = ['facile', 'moyen', 'difficile', 'dictee'];
+const PARENT_GATE_CODE = '2027';
 
 export default function App() {
   const { mode, isParentMode, switchToChild, switchToParent } = useMode();
@@ -217,6 +219,7 @@ export default function App() {
     getPacks,
     setPackEnabled,
     getPackLessons,
+    exportAllData,
   } = useLessons();
   const activeLesson = lessonOptions.find((lesson) => lesson.id === activeLessonId) || null;
   const [cardIndex, setCardIndex] = useState(0);
@@ -244,6 +247,15 @@ export default function App() {
   }, [enteredApp, profiles, activeProfileId, setActiveProfileId]);
   const [standaloneView, setStandaloneView] = useState(STANDALONE_VIEW.NONE);
   const [showParentSpace, setShowParentSpace] = useState(false);
+  const [showParentGate, setShowParentGate] = useState(false);
+  const [parentGateInput, setParentGateInput] = useState('');
+  const [parentGateError, setParentGateError] = useState(false);
+  const [parentGateAction, setParentGateAction] = useState(null);
+  // Where Retour from the lesson editor goes: 'landing' (default) |
+  // 'parentSpace' | 'lessonText' (back to the exact lesson being edited).
+  const [lessonEditorReturnTo, setLessonEditorReturnTo] = useState('landing');
+  const [lessonEditorInitialId, setLessonEditorInitialId] = useState('');
+  const [showVocabularyEditor, setShowVocabularyEditor] = useState(false);
   const [lessonTextLessonId, setLessonTextLessonId] = useState(() => getLessonTextRouteId(window.location.pathname));
   // Lifted out of LessonTextView so the AppShell header's folder icon
   // (outside LessonTextView's own DOM subtree) can toggle the same picker.
@@ -719,6 +731,32 @@ export default function App() {
     setShowProfilePicker(false);
   };
 
+  const closeParentGate = () => {
+    setShowParentGate(false);
+    setParentGateInput('');
+    setParentGateError(false);
+    setParentGateAction(null);
+  };
+
+  // Default (no action given) opens Espace parent, same as before - callers
+  // that need the code to unlock something else (e.g. jumping straight into
+  // the lesson editor for one lesson) pass their own onSuccess.
+  const openParentGate = (onSuccess) => {
+    setParentGateAction(() => onSuccess || null);
+    setShowParentGate(true);
+  };
+
+  const submitParentGate = () => {
+    if (parentGateInput === PARENT_GATE_CODE) {
+      const action = parentGateAction;
+      closeParentGate();
+      if (action) action();
+      else setShowParentSpace(true);
+    } else {
+      setParentGateError(true);
+    }
+  };
+
   const openDailyRituelFromLanding = () => {
     const childProfile = profiles.find((profile) => profile.role === 'child') || profiles[0];
     if (!childProfile) return;
@@ -892,7 +930,7 @@ export default function App() {
   // window.scrollTo covers every page the if-chain below can render.
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
-  }, [standaloneView, lessonTextLessonId, showParentSpace, showFtue, enteredApp, showDailyRituel, isParentMode]);
+  }, [standaloneView, lessonTextLessonId, showParentSpace, showFtue, enteredApp, showDailyRituel, isParentMode, activeLessonId]);
 
   const navigateTo = (screen, lessonId = '') => {
     pushScreen(screen, lessonId);
@@ -901,18 +939,60 @@ export default function App() {
 
   const shellProfile = profiles.find((profile) => profile.role === 'child') || profiles[0] || null;
 
+  // Shared so it can render as a sibling from any entry point that needs the
+  // parent code (the landing page's own, and withShell below for an "edit"
+  // button reached from a lesson-scoped screen) - it used to live only
+  // inside the landing page's own return branch, so opening it from
+  // anywhere else silently did nothing (showParentGate flipped true, but
+  // that branch of the render tree was never the one on screen).
+  const parentGateModal = showParentGate ? (
+    <div className="modal-overlay" role="dialog" aria-modal="true" aria-label="Code parent" onClick={closeParentGate}>
+      <div className="modal-card parent-gate-card" onClick={(event) => event.stopPropagation()}>
+        <div className="modal-head">
+          <strong>Espace parent</strong>
+          <button type="button" className="button secondary button-sm" onClick={closeParentGate}>
+            Fermer
+          </button>
+        </div>
+        <p className="parent-gate-copy">Entre le code parent pour continuer.</p>
+        <input
+          type="password"
+          inputMode="numeric"
+          className="ftue-input"
+          value={parentGateInput}
+          onChange={(event) => {
+            setParentGateInput(event.target.value.slice(0, 8));
+            setParentGateError(false);
+          }}
+          placeholder="Code"
+          autoFocus
+          onKeyDown={(event) => {
+            if (event.key === 'Enter') submitParentGate();
+          }}
+        />
+        {parentGateError ? <p className="parent-gate-error">Code incorrect.</p> : null}
+        <button type="button" className="wm-btn wm-btn-primary" onClick={submitParentGate}>
+          Valider
+        </button>
+      </div>
+    </div>
+  ) : null;
+
   const withShell = (children, shell) => (
-    <AppShell
-      {...shell}
-      onNavigate={navigateTo}
-      onGoHome={goToLanding}
-      profile={shellProfile}
-      onOpenAvatarEditor={openAvatarEditorForChildFromLanding}
-      avatarOpen={showAvatarEditorModal}
-      onCloseAvatarEditor={() => setShowAvatarEditorModal(false)}
-    >
-      {children}
-    </AppShell>
+    <>
+      <AppShell
+        {...shell}
+        onNavigate={navigateTo}
+        onGoHome={goToLanding}
+        profile={shellProfile}
+        onOpenAvatarEditor={openAvatarEditorForChildFromLanding}
+        avatarOpen={showAvatarEditorModal}
+        onCloseAvatarEditor={() => setShowAvatarEditorModal(false)}
+      >
+        {children}
+      </AppShell>
+      {parentGateModal}
+    </>
   );
 
   const openLessonTextView = (targetLessonId) => {
@@ -1134,6 +1214,21 @@ export default function App() {
     setShowDailyRituel(false);
     setStandaloneView(STANDALONE_VIEW.LESSON_EDITOR);
     setEnteredApp(false);
+  };
+
+  // Edit button on the lesson text page: gated behind the parent code,
+  // opens the full editor preselected on the exact lesson being read, and
+  // Retour comes straight back to that same lesson instead of Espace
+  // parent or the landing page.
+  const openLessonEditorForCurrentLesson = () => {
+    const targetLessonId = lessonTextLessonId;
+    if (!targetLessonId) return;
+    openParentGate(() => {
+      setLessonEditorInitialId(targetLessonId);
+      setLessonEditorReturnTo('lessonText');
+      setStandaloneView(STANDALONE_VIEW.LESSON_EDITOR);
+      setEnteredApp(false);
+    });
   };
 
   const openHskDeckFromLanding = () => {
@@ -1416,24 +1511,33 @@ export default function App() {
   };
 
   if (showParentSpace) {
+    if (showVocabularyEditor) {
+      return (
+        <VocabularyEditorPage
+          onBack={() => setShowVocabularyEditor(false)}
+          lessons={lessonOptions}
+          onUpdateLesson={updateLesson}
+        />
+      );
+    }
     return (
       <ParentSpacePage
         profiles={profiles}
         lessons={lessonOptions}
         progressMap={childMap}
         onClose={() => setShowParentSpace(false)}
-        onCreateLesson={createLesson}
-        onUpdateLesson={updateLesson}
-        onDeleteLesson={removeLesson}
-        onDuplicateLesson={duplicateLesson}
-        onSelectLesson={(id) => {
-          if (!id) return;
-          setActiveLesson(id);
-          setCardIndex(0);
+        onOpenLessonEditor={() => {
+          setShowParentSpace(false);
+          setLessonEditorReturnTo('parentSpace');
+          setLessonEditorInitialId('');
+          setStandaloneView(STANDALONE_VIEW.LESSON_EDITOR);
+          setEnteredApp(false);
         }}
+        onOpenVocabularyEditor={() => setShowVocabularyEditor(true)}
         packs={getPacks()}
         onSetPackEnabled={setPackEnabled}
         onExportPack={exportPack}
+        onExportAllData={exportAllData}
       />
     );
   }
@@ -1460,6 +1564,7 @@ export default function App() {
           onPracticeVocabulary={openVocabPracticeFromLessonText}
           onGoHome={goToLanding}
           onOpenAvatarEditor={openAvatarEditorForChildFromLanding}
+          onEditLesson={openLessonEditorForCurrentLesson}
         />,
         {
           crumbs: [{ label: 'Leçons', onClick: () => navigateTo(SCREEN.HUB_LESSONS) }, { label: lessonForText.title || 'Leçon' }],
@@ -1755,9 +1860,18 @@ export default function App() {
     return (
       <section className="module-pane">
         <LessonEditorBeta
+          initialLessonId={lessonEditorInitialId}
           onBack={() => {
             setStandaloneView(STANDALONE_VIEW.NONE);
-            setEnteredApp(false);
+            if (lessonEditorReturnTo === 'parentSpace') {
+              setShowParentSpace(true);
+            } else if (lessonEditorReturnTo === 'lessonText') {
+              setEnteredApp(true);
+            } else {
+              setEnteredApp(false);
+            }
+            setLessonEditorReturnTo('landing');
+            setLessonEditorInitialId('');
           }}
           onSelectLesson={(id) => {
             if (!id) return;
@@ -2844,11 +2958,12 @@ export default function App() {
           onResumeLastLesson={lastActivity?.resume || openLessonTextFromLanding}
           lastActivity={lastActivity}
           onOpenAvatarEditor={openAvatarEditorForChildFromLanding}
-          onOpenParentSpace={() => setShowParentSpace(true)}
+          onOpenParentSpace={() => setShowParentGate(true)}
           onStartProfile={startWithProfile}
           onRefreshLessons={refreshBundledLessons}
         />
         {showAvatarEditorModal ? <AvatarEditorModal onClose={() => setShowAvatarEditorModal(false)} /> : null}
+        {parentGateModal}
       </>
     );
   }

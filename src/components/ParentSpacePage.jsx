@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react';
-import UnifiedLessonEditor from './UnifiedLessonEditor.jsx';
 import { HANZI_FONT_OPTIONS, getHanziFontPreference, applyHanziFontPreference } from '../lib/hanziFont.js';
 import { useScriptMode } from '../context/ScriptModeContext.jsx';
 import '../styles/choice-hub.css';
@@ -14,14 +13,12 @@ export default function ParentSpacePage({
   lessons = [],
   progressMap = {},
   onClose,
-  onCreateLesson,
-  onUpdateLesson,
-  onDeleteLesson,
-  onDuplicateLesson,
-  onSelectLesson,
+  onOpenLessonEditor,
+  onOpenVocabularyEditor,
   packs = [],
   onSetPackEnabled,
   onExportPack,
+  onExportAllData,
 }) {
   const [fontChoice, setFontChoice] = useState(getHanziFontPreference());
   const { mode: scriptMode, setMode: setScriptModeValue } = useScriptMode();
@@ -63,14 +60,42 @@ export default function ParentSpacePage({
         </div>
       </header>
 
-      <UnifiedLessonEditor
-        lessons={lessons}
-        onCreateLesson={onCreateLesson}
-        onUpdateLesson={onUpdateLesson}
-        onDeleteLesson={onDeleteLesson}
-        onDuplicateLesson={onDuplicateLesson}
-        onSelectLesson={onSelectLesson}
-      />
+      <section className="parent-panel" aria-label="Editeur de lecons">
+        <div className="parent-panel-head">
+          <h3>Éditeur de leçons</h3>
+        </div>
+        <p className="parent-panel-subtitle">
+          Créer, modifier, dupliquer ou supprimer des leçons (leçons de pack comme leçons perso).
+        </p>
+        <button type="button" className="manage-button ui-pressable" onClick={onOpenLessonEditor}>
+          Ouvrir l'éditeur de leçons
+        </button>
+      </section>
+
+      <section className="parent-panel" aria-label="Editeur de vocabulaire">
+        <div className="parent-panel-head">
+          <h3>Vocabulaire</h3>
+        </div>
+        <p className="parent-panel-subtitle">
+          Parcourir et éditer tous les caractères et mots de vocabulaire (indépendamment des leçons).
+        </p>
+        <button type="button" className="manage-button ui-pressable" onClick={onOpenVocabularyEditor}>
+          Ouvrir l'éditeur de vocabulaire
+        </button>
+      </section>
+
+      <section className="parent-panel" aria-label="Export des donnees">
+        <div className="parent-panel-head">
+          <h3>Export des données</h3>
+        </div>
+        <p className="parent-panel-subtitle">
+          Tout ce qui a été édité ici (leçons, caractères, vocabulaire, liens) ne vit que dans ce
+          navigateur - pas de serveur. Exporte un fichier unique pour le faire suivre et l'intégrer au dépôt.
+        </p>
+        <button type="button" className="manage-button ui-pressable" onClick={onExportAllData}>
+          Exporter toutes mes données
+        </button>
+      </section>
 
       <section className="parent-panel" aria-label="Packs de lecons">
         <div className="parent-panel-head">

@@ -18,9 +18,15 @@ import {
 import {
   getCharacter,
   upsertCharacter,
+  getAllCharacters,
 } from '../utils/database/characterDB.js';
-import { getWord as getVocabWord } from '../utils/database/vocabularyDB.js';
+import {
+  getWord as getVocabWord,
+  addWordToLesson as addVocabWordToLesson,
+  getAllWords as getAllVocabWords,
+} from '../utils/database/vocabularyDB.js';
 import { migrateFromLocalStorageV1, migrateLessonsV1ToV2 } from '../utils/database/migration.js';
+import { addLink as addLessonLink, getAllLinks as getAllLessonLinks } from '../utils/database/lessonLinksDB.js';
 
 const lessonsStorageKey = 'wisemama-lessons-ui-v2';
 const lessonsStorageVersion = '2026-03-11-v2-ui';
@@ -121,17 +127,31 @@ function normalizeCard(card, index = 0) {
   };
 }
 
-// A vocabulary word is optional, lesson-authored (Anna decides which words
-// matter per lesson via `vocabularyRefs`, a list of hanzi - same pattern as
-// `characterRefs` - never invented here) and must be built entirely from
-// characters already taught in that lesson; anything else is dropped
-// rather than shown broken. Resolved against the shared vocabulary
-// collection (vocabulary-database.json / vocabularyDB.js), not stored
-// inline on the lesson.
-function resolveVocabWord(hanzi, knownChars) {
+// vocabularyRefs entries used to be plain hanzi strings; normalize to
+// { hanzi, supplementary } so old pack/localStorage data keeps loading.
+function normalizeVocabularyRefs(vocabularyRefs) {
+  if (!Array.isArray(vocabularyRefs)) return [];
+  return vocabularyRefs
+    .map((entry) => (typeof entry === 'string'
+      ? { hanzi: entry, supplementary: false }
+      : { hanzi: safeString(entry?.hanzi), supplementary: Boolean(entry?.supplementary) }))
+    .filter((entry) => entry.hanzi);
+}
+
+// A non-supplementary vocabulary word must be built entirely from characters
+// already taught in that lesson (via sourceText/cards); anything else is
+// dropped rather than shown broken. A supplementary word is exempt from that
+// check - its new characters are folded into characterRefs by
+// normalizeLesson instead, so the word is never "broken". Resolved against
+// the shared vocabulary collection (vocabulary-database.json /
+// vocabularyDB.js), not stored inline on the lesson.
+function resolveVocabWord(entry, baseKnownChars) {
+  const hanzi = entry?.hanzi;
   if (!hanzi) return null;
-  const allCharsKnown = Array.from(hanzi).every((char) => knownChars.has(char));
-  if (!allCharsKnown) return null;
+  if (!entry.supplementary) {
+    const allCharsKnown = Array.from(hanzi).every((char) => baseKnownChars.has(char));
+    if (!allCharsKnown) return null;
+  }
   const word = getVocabWord(hanzi);
   if (!word) return null;
   return {
@@ -141,18 +161,34 @@ function resolveVocabWord(hanzi, knownChars) {
     traditional: safeString(word.traditional),
     french: safeString(word.french),
     english: safeString(word.english),
+    supplementary: Boolean(entry.supplementary),
   };
 }
 
 function normalizeLesson(lesson, index = 0) {
   const lessonId = safeString(lesson?.id, `lesson-${Date.now()}-${index}`);
-  const cards = Array.isArray(lesson?.cards)
+  const baseCards = Array.isArray(lesson?.cards)
     ? lesson.cards.map((c, i) => normalizeCard({ ...c, lessonId: c?.lessonId || lessonId }, i))
     : [];
-  const knownChars = new Set(cards.map((card) => card.hanzi).filter(Boolean));
-  const vocabulary = Array.isArray(lesson?.vocabularyRefs)
-    ? lesson.vocabularyRefs.map((hanzi) => resolveVocabWord(hanzi, knownChars)).filter(Boolean)
-    : [];
+  const baseKnownChars = new Set(baseCards.map((card) => card.hanzi).filter(Boolean));
+  const vocabularyRefs = normalizeVocabularyRefs(lesson?.vocabularyRefs);
+  const vocabulary = vocabularyRefs.map((entry) => resolveVocabWord(entry, baseKnownChars)).filter(Boolean);
+
+  // characterRefs = sourceText/cards characters + every resolved vocabulary
+  // word's characters (supplementary entries are usually the only ones that
+  // add anything new here, since non-supplementary ones are already a
+  // subset of baseKnownChars by construction).
+  const cardMap = Object.fromEntries(baseCards.map((card) => [card.hanzi, card.id]));
+  const extraChars = [];
+  vocabulary.forEach((word) => {
+    Array.from(word.hanzi).forEach((char) => {
+      if (!baseKnownChars.has(char) && !extraChars.includes(char)) extraChars.push(char);
+    });
+  });
+  const extraCards = extraChars.map((char, i) =>
+    buildCardFromCharacter(char, lessonId, cardMap, baseCards.length + i));
+  const cards = [...baseCards, ...extraCards];
+
   const rawPinyinToggles = lesson?.pinyinToggles && typeof lesson.pinyinToggles === 'object'
     ? lesson.pinyinToggles
     : {};
@@ -172,7 +208,7 @@ function normalizeLesson(lesson, index = 0) {
     updatedAt: safeString(lesson?.updatedAt, ''),
     cards,
     vocabulary,
-    vocabularyRefs: Array.isArray(lesson?.vocabularyRefs) ? lesson.vocabularyRefs : [],
+    vocabularyRefs,
     packId: safeString(lesson?.packId, ''),
   };
 }
@@ -193,6 +229,36 @@ function getPrimaryImageUrl(char) {
   return char.images[0]?.url || null;
 }
 
+function buildCardFromCharacter(hanzi, lessonId, cardMap, index) {
+  const char = enrichCharacterRecord(hanzi, getCharacter(hanzi) || {});
+  const id = cardMap[hanzi] || `card-${lessonId}-${index}`;
+  const translationEn = safeString(char?.english, safeString(char?.translation?.en, ''));
+  const translationFr = safeString(char?.french, safeString(char?.translation?.fr, ''));
+  const relatedWords = Array.isArray(char?.relatedWords)
+    ? char.relatedWords.map((item) => ({
+      hanzi: safeString(item?.word),
+      pinyin: safeString(item?.pinyin),
+      en: safeString(item?.definition),
+    }))
+    : [];
+  return normalizeCard(
+    {
+      id,
+      lessonId,
+      hanzi,
+      pinyin: safeString(char?.pinyin, ''),
+      traditional: safeString(char?.traditional, ''),
+      french: translationFr,
+      english: translationEn,
+      translation: { en: translationEn, fr: translationFr },
+      relatedWords,
+      audioUrl: getPrimaryAudioUrl(char),
+      imageUrl: getPrimaryImageUrl(char),
+    },
+    index,
+  );
+}
+
 function expandLessonFromV2(lesson) {
   const cardMap = lesson?.cardMap && typeof lesson.cardMap === 'object' ? lesson.cardMap : {};
   const characterRefs = Array.isArray(lesson?.characterRefs) ? lesson.characterRefs : [];
@@ -200,35 +266,7 @@ function expandLessonFromV2(lesson) {
   if (characterRefs.length === 0 && Array.isArray(lesson?.cards) && lesson.cards.length > 0) {
     return normalizeLesson(lesson, 0);
   }
-  const cards = characterRefs.map((hanzi, index) => {
-    const char = enrichCharacterRecord(hanzi, getCharacter(hanzi) || {});
-    const id = cardMap[hanzi] || `card-${lesson.id}-${index}`;
-    const translationEn = safeString(char?.english, safeString(char?.translation?.en, ''));
-    const translationFr = safeString(char?.french, safeString(char?.translation?.fr, ''));
-    const relatedWords = Array.isArray(char?.relatedWords)
-      ? char.relatedWords.map((item) => ({
-        hanzi: safeString(item?.word),
-        pinyin: safeString(item?.pinyin),
-        en: safeString(item?.definition),
-      }))
-      : [];
-    return normalizeCard(
-      {
-        id,
-        lessonId: lesson.id,
-        hanzi,
-        pinyin: safeString(char?.pinyin, ''),
-        traditional: safeString(char?.traditional, ''),
-        french: translationFr,
-        english: translationEn,
-        translation: { en: translationEn, fr: translationFr },
-        relatedWords,
-        audioUrl: getPrimaryAudioUrl(char),
-        imageUrl: getPrimaryImageUrl(char),
-      },
-      index,
-    );
-  });
+  const cards = characterRefs.map((hanzi, index) => buildCardFromCharacter(hanzi, lesson.id, cardMap, index));
   return normalizeLesson(
     {
       ...lesson,
@@ -346,6 +384,27 @@ function upsertCharacterFromSource(char, lessonId) {
     firstSeenDate: existing?.firstSeenDate || new Date().toISOString(),
   };
   upsertCharacter(char, enrichCharacterRecord(char, updates));
+}
+
+// Runs on every lesson save (pack or user lesson - both go through
+// createLesson/updateLesson once loaded into lessons-v2). Writes the
+// character/vocabulary <-> lesson links to the separate lessonLinksDB
+// instead of character-database.json/vocabulary-database.json, so those
+// stay pure authored content. Takes the fully expanded lesson (cards +
+// resolved vocabulary + packId + order already computed).
+function generateLessonLinks(expandedLesson) {
+  const { id: lessonId, packId, order } = expandedLesson;
+  (expandedLesson.cards || []).forEach((card) => {
+    if (!card?.hanzi) return;
+    addLessonLink({ entityType: 'character', hanzi: card.hanzi, packId, lessonId, lessonOrder: order });
+  });
+  (expandedLesson.vocabulary || []).forEach((word) => {
+    if (!word?.hanzi) return;
+    // resolveVocabWord already checked the word exists in vocabulary-database.json,
+    // so this is always a link to an existing word, never a creation.
+    addVocabWordToLesson(word.hanzi, lessonId);
+    addLessonLink({ entityType: 'vocabulary', hanzi: word.hanzi, packId, lessonId, lessonOrder: order });
+  });
 }
 
 function makeLessonId() {
@@ -605,10 +664,12 @@ export function LessonsProvider({ children }) {
     });
     cards.forEach((card) => upsertCharacterFromCard(card, lesson.id));
     extractUniqueChars(sourceText).forEach((char) => upsertCharacterFromSource(char, lesson.id));
+    const expanded = expandLessonFromV2(lesson);
+    generateLessonLinks(expanded);
     const refreshed = getAllLessonsV2().map((item) => expandLessonFromV2(item));
     setAllLessons(getLessonsByOrder(refreshed));
     setActiveLessonId(lesson.id);
-    return expandLessonFromV2(lesson);
+    return expanded;
   };
 
   const updateLesson = (lessonId, patch = {}) => {
@@ -634,8 +695,12 @@ export function LessonsProvider({ children }) {
     if (patch?.sourceText) {
       extractUniqueChars(patch.sourceText).forEach((char) => upsertCharacterFromSource(char, lessonId));
     }
+    const savedLesson = getAllLessonsV2().find((item) => item.id === lessonId);
+    const expanded = savedLesson ? expandLessonFromV2(savedLesson) : null;
+    if (expanded) generateLessonLinks(expanded);
     const refreshed = getAllLessonsV2().map((lesson) => expandLessonFromV2(lesson));
     setAllLessons(getLessonsByOrder(refreshed));
+    return expanded;
   };
 
   const duplicateLesson = (lessonId) => {
@@ -716,6 +781,27 @@ export function LessonsProvider({ children }) {
 
   const getPackLessons = (packId) => allLessons.filter((lesson) => lesson.packId === packId);
 
+  // Bundles every locally-edited store (lessons, characters, vocabulary,
+  // generated links) into one downloadable file, so edits made only in this
+  // browser's localStorage can be handed back and merged into the repo's
+  // src/data/*.json - there is no backend to send them to directly.
+  const exportAllData = () => {
+    const payload = {
+      exportedAt: new Date().toISOString(),
+      lessons: getAllLessonsV2(),
+      characters: getAllCharacters(),
+      vocabulary: getAllVocabWords(),
+      lessonLinks: getAllLessonLinks(),
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = `wisemama-export-${Date.now()}.json`;
+    anchor.click();
+    URL.revokeObjectURL(url);
+  };
+
   const value = useMemo(
     () => ({
       lessons,
@@ -739,6 +825,7 @@ export function LessonsProvider({ children }) {
       getPacks,
       setPackEnabled,
       getPackLessons,
+      exportAllData,
     }),
     [activeLessonId, lessons, allLessons, enabledPackIds],
   );

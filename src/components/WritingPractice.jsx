@@ -170,6 +170,13 @@ export default function WritingPractice({
   const sounds = useUiSounds();
   const { convert } = useScriptMode();
   const isRadicalMode = variant === 'radical';
+  // Standalone decks (Colors/Clothing/HSK/Radical, and the lesson vocab "Fiche"
+  // writing entry) pass no writingMode, only writingDifficulty (1 = normal,
+  // 3 = their own "Dictee"). Normalize both calling conventions to one mode so
+  // every entry point into this screen behaves the same way instead of
+  // drifting independently.
+  const effectiveMode = writingMode
+    || (writingDifficulty === 3 ? 'dictee' : writingDifficulty === 2 ? 'moyen' : 'facile');
   const targetChar = useMemo(() => {
     const first = Array.from(hanzi || '')[0];
     return first || '';
@@ -537,8 +544,8 @@ export default function WritingPractice({
   }, [lessonId, card?.id, card?.audioUrl]);
 
   useEffect(() => {
-    setShowCharInfo(writingMode ? writingMode !== 'dictee' : writingDifficulty === 1);
-  }, [lessonId, card?.id, hanzi, writingDifficulty, writingMode]);
+    setShowCharInfo(effectiveMode !== 'dictee');
+  }, [lessonId, card?.id, hanzi, effectiveMode]);
 
   const profileLabel = profile?.role === 'parent' ? 'Parent' : 'Kid';
   const availableLessons = lessons.length ? lessons : [{ id: lessonId || 'current', title: lessonTitle || 'Lecon', cards: [] }];
@@ -579,7 +586,11 @@ export default function WritingPractice({
                   <path
                     key={`${step.index}-${strokeIndex}`}
                     d={strokePath}
-                    fill={strokeIndex === step.index ? '#ff6b6b' : '#111111'}
+                    fill={
+                      step.index === currentStrokeIndex && strokeIndex === step.index
+                        ? '#ff6b6b'
+                        : '#111111'
+                    }
                     stroke="none"
                   />
                 ))}
@@ -600,16 +611,17 @@ export default function WritingPractice({
     </div>
   ) : null;
 
-  // Facile's top row (card, stroke count, side panel) is shared by every lesson mode.
-  const isRowLayout = (writingMode ? true : writingDifficulty === 1) && !embedded && !isRadicalMode;
-  const showStrokeCount = !writingMode || writingMode === 'facile' || writingMode === 'moyen';
-  // Facile keeps every aid; the other lesson modes strip them progressively.
-  const showGuideAndAnimate = !writingMode || writingMode === 'facile';
-  const isDicteeMode = writingMode === 'dictee';
+  // Facile's top row (card, stroke count, side panel) is shared by every lesson mode,
+  // and now by the standalone decks too (effectiveMode normalizes both callers).
+  const isRowLayout = !embedded && !isRadicalMode;
+  const showStrokeCount = effectiveMode === 'facile' || effectiveMode === 'moyen';
+  // Facile keeps every aid; the other modes strip them progressively.
+  const showGuideAndAnimate = effectiveMode === 'facile';
+  const isDicteeMode = effectiveMode === 'dictee';
   // Moyen: a single comment in the guide's slot, shown once the character is written.
   // It names the stroke that gave the most trouble.
   const worstStrokeEntry = Object.entries(mistakesByStroke).sort((a, b) => b[1] - a[1])[0];
-  const analysisPanel = writingMode === 'moyen' && !isRadicalMode && !embedded ? (
+  const analysisPanel = effectiveMode === 'moyen' && !isRadicalMode && !embedded ? (
     <div className="writing-analysis" aria-live="polite">
       {isCharacterDone ? (
         <span className="writing-analysis-line">
@@ -618,7 +630,7 @@ export default function WritingPractice({
       ) : null}
     </div>
   ) : null;
-  const isMoyenMode = writingMode === 'moyen';
+  const isMoyenMode = effectiveMode === 'moyen';
   const hintButton = writingDifficulty === 2 ? (
     <button type="button" className="writing-action-btn ui-pressable" onClick={showHint}>
       <span>💡</span>
@@ -752,7 +764,7 @@ export default function WritingPractice({
               </div>
             ) : null}
           </div>
-          {writingMode === 'moyen' ? analysisPanel : strokeBand}
+          {isMoyenMode ? analysisPanel : strokeBand}
           {audioSrc ? <audio ref={audioRef} src={audioSrc} preload="auto" /> : null}
         </div>
       ) : null}

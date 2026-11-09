@@ -45,12 +45,30 @@
     "createdDate": "2026-03-16T15:38:51.262Z",
     "lastUpdated": "2026-02-27T11:27:33.092Z",
     "vocabularyRefs": [
-      "十二",
-      "十九",
-      "二十",
-      "二十二",
-      "二十五",
-      "三十"
+      {
+        "hanzi": "十二",
+        "supplementary": false
+      },
+      {
+        "hanzi": "十九",
+        "supplementary": false
+      },
+      {
+        "hanzi": "二十",
+        "supplementary": false
+      },
+      {
+        "hanzi": "二十二",
+        "supplementary": false
+      },
+      {
+        "hanzi": "二十五",
+        "supplementary": false
+      },
+      {
+        "hanzi": "三十",
+        "supplementary": false
+      }
     ],
     "packId": "core"
   },
@@ -80,7 +98,10 @@
     "createdDate": "2026-03-16T15:38:51.263Z",
     "lastUpdated": "2026-06-10T14:58:56.062Z",
     "vocabularyRefs": [
-      "我爱你"
+      {
+        "hanzi": "我爱你",
+        "supplementary": false
+      }
     ],
     "packId": "core"
   },
@@ -130,13 +151,34 @@
     "createdDate": "2026-03-16T15:38:51.269Z",
     "lastUpdated": "2026-06-10T14:58:56.062Z",
     "vocabularyRefs": [
-      "老师",
-      "您早",
-      "你好",
-      "再见",
-      "学生",
-      "小朋友",
-      "同学们"
+      {
+        "hanzi": "老师",
+        "supplementary": false
+      },
+      {
+        "hanzi": "您早",
+        "supplementary": false
+      },
+      {
+        "hanzi": "你好",
+        "supplementary": false
+      },
+      {
+        "hanzi": "再见",
+        "supplementary": false
+      },
+      {
+        "hanzi": "学生",
+        "supplementary": false
+      },
+      {
+        "hanzi": "小朋友",
+        "supplementary": false
+      },
+      {
+        "hanzi": "同学们",
+        "supplementary": false
+      }
     ],
     "packId": "core"
   },
@@ -204,17 +246,50 @@
     "createdDate": "2026-03-16T15:38:51.277Z",
     "lastUpdated": "2026-06-10T14:58:56.062Z",
     "vocabularyRefs": [
-      "对不起",
-      "关系",
-      "没关系",
-      "不用",
-      "不用谢",
-      "多谢",
-      "谢谢你",
-      "礼貌",
-      "记牢",
-      "时刻",
-      "时时刻刻"
+      {
+        "hanzi": "对不起",
+        "supplementary": false
+      },
+      {
+        "hanzi": "关系",
+        "supplementary": false
+      },
+      {
+        "hanzi": "没关系",
+        "supplementary": false
+      },
+      {
+        "hanzi": "不用",
+        "supplementary": false
+      },
+      {
+        "hanzi": "不用谢",
+        "supplementary": false
+      },
+      {
+        "hanzi": "多谢",
+        "supplementary": false
+      },
+      {
+        "hanzi": "谢谢你",
+        "supplementary": false
+      },
+      {
+        "hanzi": "礼貌",
+        "supplementary": false
+      },
+      {
+        "hanzi": "记牢",
+        "supplementary": false
+      },
+      {
+        "hanzi": "时刻",
+        "supplementary": false
+      },
+      {
+        "hanzi": "时时刻刻",
+        "supplementary": false
+      }
     ],
     "packId": "core"
   },
@@ -266,12 +341,30 @@
     "createdDate": "2026-03-16T15:38:51.283Z",
     "lastUpdated": "2026-03-11T09:53:33.415Z",
     "vocabularyRefs": [
-      "什么",
-      "名字",
-      "我们",
-      "你们",
-      "他们",
-      "她们"
+      {
+        "hanzi": "什么",
+        "supplementary": false
+      },
+      {
+        "hanzi": "名字",
+        "supplementary": false
+      },
+      {
+        "hanzi": "我们",
+        "supplementary": false
+      },
+      {
+        "hanzi": "你们",
+        "supplementary": false
+      },
+      {
+        "hanzi": "他们",
+        "supplementary": false
+      },
+      {
+        "hanzi": "她们",
+        "supplementary": false
+      }
     ],
     "packId": "core"
   },
@@ -962,9 +1055,18 @@
       }
     ],
     "vocabularyRefs": [
-      "妈妈",
-      "爸爸",
-      "妹妹"
+      {
+        "hanzi": "妈妈",
+        "supplementary": false
+      },
+      {
+        "hanzi": "爸爸",
+        "supplementary": false
+      },
+      {
+        "hanzi": "妹妹",
+        "supplementary": false
+      }
     ],
     "packId": "core"
   },
@@ -1741,15 +1843,42 @@
       }
     ],
     "vocabularyRefs": [
-      "口人",
-      "弟弟",
-      "还有",
-      "哥哥",
-      "姐姐",
-      "外婆",
-      "外公",
-      "奶奶",
-      "爷爷"
+      {
+        "hanzi": "口人",
+        "supplementary": false
+      },
+      {
+        "hanzi": "弟弟",
+        "supplementary": false
+      },
+      {
+        "hanzi": "还有",
+        "supplementary": false
+      },
+      {
+        "hanzi": "哥哥",
+        "supplementary": false
+      },
+      {
+        "hanzi": "姐姐",
+        "supplementary": false
+      },
+      {
+        "hanzi": "外婆",
+        "supplementary": false
+      },
+      {
+        "hanzi": "外公",
+        "supplementary": false
+      },
+      {
+        "hanzi": "奶奶",
+        "supplementary": false
+      },
+      {
+        "hanzi": "爷爷",
+        "supplementary": false
+      }
     ],
     "packId": "core"
   },
@@ -2521,8 +2650,14 @@
       }
     ],
     "vocabularyRefs": [
-      "没有",
-      "几岁"
+      {
+        "hanzi": "没有",
+        "supplementary": false
+      },
+      {
+        "hanzi": "几岁",
+        "supplementary": false
+      }
     ],
     "packId": "core"
   },
@@ -2579,8 +2714,14 @@
     },
     "lastUpdated": "2026-06-10T14:58:56.062Z",
     "vocabularyRefs": [
-      "喜欢",
-      "颜色"
+      {
+        "hanzi": "喜欢",
+        "supplementary": false
+      },
+      {
+        "hanzi": "颜色",
+        "supplementary": false
+      }
     ],
     "packId": "core"
   },
@@ -2642,13 +2783,34 @@
     "createdDate": "2026-06-10T09:26:23.183Z",
     "lastUpdated": "2026-06-10T14:58:56.062Z",
     "vocabularyRefs": [
-      "学校",
-      "校服",
-      "女生",
-      "衬衫",
-      "裙子",
-      "男生",
-      "裤子"
+      {
+        "hanzi": "学校",
+        "supplementary": false
+      },
+      {
+        "hanzi": "校服",
+        "supplementary": false
+      },
+      {
+        "hanzi": "女生",
+        "supplementary": false
+      },
+      {
+        "hanzi": "衬衫",
+        "supplementary": false
+      },
+      {
+        "hanzi": "裙子",
+        "supplementary": false
+      },
+      {
+        "hanzi": "男生",
+        "supplementary": false
+      },
+      {
+        "hanzi": "裤子",
+        "supplementary": false
+      }
     ],
     "packId": "core"
   },
@@ -2745,8 +2907,14 @@
     "createdDate": "2026-06-10T14:58:56.062Z",
     "lastUpdated": "2026-06-10T14:58:56.062Z",
     "vocabularyRefs": [
-      "气球",
-      "粉红"
+      {
+        "hanzi": "气球",
+        "supplementary": false
+      },
+      {
+        "hanzi": "粉红",
+        "supplementary": false
+      }
     ],
     "packId": "core"
   },
@@ -2812,12 +2980,30 @@
     "createdDate": "2026-06-10T14:58:56.062Z",
     "lastUpdated": "2026-06-10T14:58:56.062Z",
     "vocabularyRefs": [
-      "汗衫",
-      "毛衣",
-      "牛仔裤",
-      "外套",
-      "大衣",
-      "连衣裙"
+      {
+        "hanzi": "汗衫",
+        "supplementary": false
+      },
+      {
+        "hanzi": "毛衣",
+        "supplementary": false
+      },
+      {
+        "hanzi": "牛仔裤",
+        "supplementary": false
+      },
+      {
+        "hanzi": "外套",
+        "supplementary": false
+      },
+      {
+        "hanzi": "大衣",
+        "supplementary": false
+      },
+      {
+        "hanzi": "连衣裙",
+        "supplementary": false
+      }
     ],
     "packId": "core"
   },
