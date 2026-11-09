@@ -182,7 +182,20 @@ export default function LessonTextView({
   // lives on its own screen (LessonWritingSetupPage). Empty for every
   // lesson that hasn't been given word data yet.
   const lessonVocabWords = lesson?.vocabulary || [];
-  const coreVocabWords = lessonVocabWords.filter((word) => !word.supplementary);
+  // Every character the lesson teaches is itself a single-hanzi "word" -
+  // same principle as the Vocabulaire editor, which lists characters and
+  // vocabulary words together. Without this, "Vocabulaire de la leçon"
+  // only ever showed the authored multi-character words, never the
+  // characters the child just read in the text above.
+  const coreCharacterEntries = (lesson?.cards || []).map((card) => ({
+    id: card.id,
+    hanzi: card.hanzi,
+    pinyin: card.pinyin,
+    french: card.french,
+    english: card.english,
+    supplementary: false,
+  }));
+  const coreVocabWords = [...coreCharacterEntries, ...lessonVocabWords.filter((word) => !word.supplementary)];
   const supplementaryVocabWords = lessonVocabWords.filter((word) => word.supplementary);
 
   const playSentence = async (sentence, sentenceIndex) => {
@@ -466,7 +479,7 @@ export default function LessonTextView({
           </section>
 
 
-          {lessonVocabWords.length > 0 ? (
+          {coreVocabWords.length > 0 || supplementaryVocabWords.length > 0 ? (
             <>
               <div className="lesson-text-top-row lesson-text-vocab-toggle-row">
                 <button
