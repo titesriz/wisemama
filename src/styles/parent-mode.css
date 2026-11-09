@@ -680,6 +680,17 @@
   font-size: 13px;
 }
 
+.vocab-editor-lesson-filter {
+  width: 100%;
+  margin-top: 8px;
+  padding: 8px 10px;
+  border: 1px solid var(--parent-border);
+  border-radius: 8px;
+  font-size: 13px;
+  background: var(--wm-color-surface);
+  color: var(--parent-text-strong);
+}
+
 .lesson-editor-main {
   display: grid;
   gap: 12px;

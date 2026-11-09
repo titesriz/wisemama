@@ -1440,7 +1440,7 @@ export default function App() {
 
   if (showParentSpace) {
     if (showVocabularyEditor) {
-      return <VocabularyEditorPage onBack={() => setShowVocabularyEditor(false)} />;
+      return <VocabularyEditorPage onBack={() => setShowVocabularyEditor(false)} lessons={lessonOptions} />;
     }
     return (
       <ParentSpacePage

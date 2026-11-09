@@ -5,6 +5,7 @@ import {
   updateWord as updateVocabWord,
   deleteWord as deleteVocabWord,
 } from '../utils/database/vocabularyDB.js';
+import { getLessonsByOrder } from '../utils/lessons/lessonOrder.js';
 
 const FILTERS = [
   { id: 'all', label: 'Tout' },
@@ -36,12 +37,15 @@ function buildEntries() {
   return [...characters, ...words].sort((a, b) => a.hanzi.localeCompare(b.hanzi, 'zh-Hans-CN'));
 }
 
-export default function VocabularyEditorPage({ onBack }) {
+export default function VocabularyEditorPage({ onBack, lessons = [] }) {
   const [entries, setEntries] = useState(buildEntries);
   const [query, setQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState('all');
+  const [lessonFilter, setLessonFilter] = useState('');
   const [editingKey, setEditingKey] = useState('');
   const [draft, setDraft] = useState({ pinyin: '', french: '', english: '' });
+
+  const orderedLessons = useMemo(() => getLessonsByOrder(lessons), [lessons]);
 
   const refresh = () => setEntries(buildEntries());
 
@@ -49,6 +53,7 @@ export default function VocabularyEditorPage({ onBack }) {
     const q = query.trim().toLowerCase();
     return entries.filter((entry) => {
       if (typeFilter !== 'all' && entry.type !== typeFilter) return false;
+      if (lessonFilter && !entry.appearsInLessons.includes(lessonFilter)) return false;
       if (!q) return true;
       return (
         entry.hanzi.includes(q) ||
@@ -57,7 +62,7 @@ export default function VocabularyEditorPage({ onBack }) {
         entry.english.toLowerCase().includes(q)
       );
     });
-  }, [entries, query, typeFilter]);
+  }, [entries, query, typeFilter, lessonFilter]);
 
   const startEdit = (entry) => {
     setEditingKey(`${entry.type}:${entry.hanzi}`);
@@ -96,7 +101,9 @@ export default function VocabularyEditorPage({ onBack }) {
         </div>
         <div className="hub-header-text">
           <h1>Vocabulaire</h1>
-          <p>{entries.length} entrées - caractères et mots de vocabulaire.</p>
+          <p>
+            {filtered.length} / {entries.length} entrées - caractères et mots de vocabulaire.
+          </p>
         </div>
       </header>
 
@@ -115,6 +122,19 @@ export default function VocabularyEditorPage({ onBack }) {
             </button>
           ))}
         </div>
+        <select
+          value={lessonFilter}
+          onChange={(event) => setLessonFilter(event.target.value)}
+          className="vocab-editor-lesson-filter"
+          aria-label="Filtrer par leçon"
+        >
+          <option value="">Toutes les leçons</option>
+          {orderedLessons.map((lesson) => (
+            <option key={lesson.id} value={lesson.id}>
+              {lesson.order ? `${lesson.order}. ` : ''}{lesson.title || 'Leçon'}
+            </option>
+          ))}
+        </select>
         <input
           type="text"
           value={query}
